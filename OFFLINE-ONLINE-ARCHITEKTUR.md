@@ -1,93 +1,106 @@
-# mexXsoft X2 Cloud — Offline & Online in einer Anwendung
+# mexXsoft X2 — Büro (Delphi) + Web-Version mit sofortiger Synchronisation
 
-**Ziel erreicht in dieser Ausbaustufe:** X2 als echte Web-Anwendung, die
-**offline genauso funktioniert wie online** — auf jedem Gerät (Windows, Mac,
-Tablet, Smartphone), ohne Installation, mit automatischer Synchronisation
-zwischen allen Geräten eines Mandanten.
+**Das Prinzip:** Die bewährte Delphi-Version von mexXsoft **bleibt unverändert
+im Büro im Einsatz**. Neu hinzu kommt eine **Web-Version**, mit der Kunden von
+überall arbeiten können — Baustelle, Homeoffice, unterwegs, auf jedem Gerät.
+Beide Welten synchronisieren sich **sofort** über einen zentralen Cloud-Server.
 
 ```
-┌────────── Gerät A (Büro-PC) ──────────┐      ┌────────── Gerät B (Tablet) ───────────┐
-│  Browser / installierte PWA           │      │  Browser / installierte PWA           │
-│  ├─ App-Hülle (Service Worker Cache)  │      │  ├─ App-Hülle (Service Worker Cache)  │
-│  ├─ Komplette Daten in IndexedDB      │      │  ├─ Komplette Daten in IndexedDB      │
-│  └─ Outbox (lokale Änderungen)        │      │  └─ Outbox (lokale Änderungen)        │
-└───────────────┬───────────────────────┘      └───────────────┬───────────────────────┘
-                │  HTTPS, Bearer-Token                         │
-                ▼                                              ▼
-        ┌──────────────────────────────────────────────────────────────┐
-        │  Sync-Server (Node.js, ohne Abhängigkeiten)                  │
-        │  ├─ /api/login   Anmeldung (PBKDF2-Hashes, Rate-Limit)       │
-        │  ├─ /api/sync    Push (Outbox) + Pull (Änderungen seit Rev)  │
-        │  └─ Pro Mandant: revisioniertes Änderungsprotokoll           │
-        │     (append-only, "letzte Änderung gewinnt")                 │
-        └──────────────────────────────────────────────────────────────┘
+   BÜRO (bleibt wie bisher)                      UNTERWEGS / ÜBERALL
+┌──────────────────────────────┐        ┌─────────────────────────────────┐
+│  mexXsoft X2 (Delphi, .exe)  │        │  Web-Version (Browser / PWA)    │
+│  Advantage-Datenbank (.adt)  │        │  Handy · Tablet · Mac · PC      │
+│            │                 │        │  arbeitet auch OFFLINE weiter   │
+│            ▼                 │        │  (Baustelle ohne Empfang)       │
+│  ┌────────────────────────┐  │        └───────────────┬─────────────────┘
+│  │ Büro-Connector         │  │                        │ HTTPS + Token
+│  │ (connector/, Python)   │  │                        │
+│  │ liest .adt, sekunden-  │  │                        ▼
+│  │ schneller Abgleich     │◄─┼────────►┌──────────────────────────────┐
+│  │ Web-Änderungen →       │  │  HTTPS  │  Cloud-Sync-Server           │
+│  │ "webeingang/"-Ordner   │  │         │  (server/, Node.js ohne      │
+│  └────────────────────────┘  │         │   Abhängigkeiten)            │
+└──────────────────────────────┘         │  · Login je Mandant/Benutzer │
+                                         │  · revisioniertes Änderungs- │
+                                         │    protokoll pro Mandant     │
+                                         │  · Konflikte: letzte         │
+                                         │    Änderung gewinnt          │
+                                         └──────────────────────────────┘
 ```
 
-## Wie das Offline+Online-Prinzip funktioniert ("Offline-First")
+## Die drei Bausteine (alle in diesem Repository, alle getestet)
 
-1. **Die App arbeitet immer lokal.** Alle 1300+ Datensätze liegen in der
-   Browser-Datenbank (IndexedDB). Lesen, Suchen, Anlegen, Ändern — alles
-   funktioniert sofort und ohne Netz, z. B. auf der Baustelle.
-2. **Die App-Hülle ist installierbar (PWA).** Ein Service Worker speichert
-   HTML, JavaScript und Icons; die App startet auch im Flugmodus. Über
-   "Zum Startbildschirm hinzufügen" wird sie zur App auf Tablet/Handy/Desktop.
-3. **Jede Änderung landet in einer Outbox.** Ist der Server erreichbar, wird
-   automatisch synchronisiert: bei Netzwiederkehr, nach jeder Änderung
-   (2,5 s Entprellung) und alle 60 Sekunden.
-4. **Der Server führt das Änderungsprotokoll.** Jede akzeptierte Änderung
-   erhält eine fortlaufende Revisionsnummer. Geräte holen sich "alles seit
-   meiner letzten Revision" — so bleiben beliebig viele Geräte synchron.
-5. **Konflikte:** "Letzte Änderung gewinnt" (Zeitstempel-Vergleich pro
-   Datensatz). Für die nächste Ausbaustufe ist feldweises Zusammenführen
-   vorgesehen (siehe Roadmap).
+### 1. `webapp/` — die Web-Version für unterwegs
+- Läuft in jedem Browser, installierbar als App (PWA) auf Handy/Tablet/Desktop.
+- **Offline-fähig:** kompletter Datenbestand lokal (IndexedDB); Lesen und
+  Erfassen funktionieren ohne Empfang, Änderungen warten in einer Outbox und
+  gehen bei Netzkontakt automatisch raus.
+- Module: Dashboard, Projekte, Leistungsverzeichnisse mit Positionsbaum,
+  Adressen (anlegen/ändern/löschen), Rapporte (anlegen/ändern), Mitarbeiter,
+  Stammdaten.
 
-## Sicherheit
+### 2. `server/` — der Cloud-Sync-Server (Drehscheibe)
+- Eine Datei Node.js, keine Abhängigkeiten — läuft auf jedem Mietserver
+  (Hetzner/IONOS, Hosting in Deutschland empfohlen, DSGVO/AVV).
+- Anmeldung je Mandant + Benutzer (PBKDF2-Passworthashes, Bearer-Token,
+  Brute-Force-Bremse), strikte Mandantentrennung.
+- Führt pro Mandant ein revisioniertes, nur-anhängendes Änderungsprotokoll;
+  jedes Gerät holt „alles seit meiner letzten Revision“. Konflikte: letzte
+  Änderung gewinnt (Zeitstempel), jede Änderung bleibt nachvollziehbar.
+- Liefert zugleich die Web-App aus. HTTPS über Reverse-Proxy oder direkt.
 
-- **Anmeldung pro Mandant/Benutzer**, Passwörter nur als PBKDF2-Hash
-  (210 000 Iterationen, Zufalls-Salt) gespeichert; Vergleich zeitkonstant.
-- **Bearer-Token** (30 Tage gleitend), Brute-Force-Bremse am Login
-  (max. 30 Versuche / 15 Min pro IP).
-- **Mandantentrennung:** jeder Mandant hat sein eigenes Änderungsprotokoll
-  in einem eigenen Verzeichnis — kein Querzugriff möglich.
-- **HTTPS:** in Produktion hinter Caddy/nginx (Let's-Encrypt) betreiben oder
-  `TLS_CERT`/`TLS_KEY` direkt setzen. Details in `server/README.md`.
-- **DSGVO:** Hosting in Deutschland empfohlen (Hetzner, IONOS, netcup),
-  AVV mit Kunden abschließen; Datenhaltung pro Mandant erleichtert Auskunft
-  und Löschung.
+### 3. `connector/` — die Brücke ins Büro
+- Kleines Python-Programm auf dem Büro-PC neben mexXsoft; **kein Eingriff in
+  die Delphi-Anwendung, nur Lesezugriff auf die .adt-Dateien**.
+- Büro → Web: erkennt Änderungen sekundenschnell (Datei-Überwachung +
+  Datensatz-Hashes) und überträgt sie sofort in die Cloud.
+- Web → Büro: legt Web-Erfassungen als Prüfliste in `webeingang/` ab
+  (JSON je Tabelle + lesbares Protokoll). Automatisches Zurückschreiben in
+  die Produktiv-DB folgt als Ausbaustufe über die ADS-/ODBC-Schnittstelle.
+- Erst-Übernahme der Bestandsdaten = einfach `--einmalig` laufen lassen.
 
-## Was in dieser Ausbaustufe enthalten ist
+## Typischer Ablauf im Alltag
 
-| Bereich | Stand |
-|---|---|
-| Dashboard, Projekte, LVs mit Positionsbaum, Mitarbeiter, Stammdaten | vollständig (lesend), aus echten Demo-Daten |
-| **Adressen** | **anlegen, bearbeiten, löschen — offline & online** |
-| **Rapporte** | **anlegen, bearbeiten — offline & online** (Baustellen-Szenario) |
-| Offline-Betrieb | komplett: App-Start, Lesen, Schreiben ohne Netz |
-| Synchronisation | automatisch, mehrgeräte-fähig, getestet (E2E) |
-| Installierbar (PWA) | ja, mit Icons und Manifest |
-| Mehrmandanten-Server | ja, mit Benutzerverwaltung per Kommandozeile |
+1. Büro legt in mexXsoft (Delphi) ein Projekt an → Connector überträgt es
+   binnen Sekunden → der Bauleiter sieht es sofort auf dem Tablet.
+2. Der Bauleiter erfasst auf der Baustelle **ohne Empfang** einen Rapport und
+   einen neuen Ansprechpartner → die Web-App speichert lokal.
+3. Zurück im Netz überträgt die Web-App automatisch → das Büro findet beides
+   in `webeingang/` mit Protokoll und übernimmt es in mexXsoft.
 
-## Roadmap (nächste Ausbaustufen)
+## Getestet (automatisiert, Chromium + API)
 
-1. **Weitere Module schreibbar machen** — Projekte und LV-Positionen anlegen/
-   bearbeiten (gleiches Outbox-Muster, pro Modul wenige Tage Aufwand).
-2. **Benutzer- und Rechteverwaltung im Web** statt Kommandozeile
-   (Admin-Bereich, Rollen: Büro / Bauleiter / Monteur).
-3. **Feldweises Konflikt-Zusammenführen** statt "letzte Änderung gewinnt",
-   plus Änderungshistorie je Datensatz (aus dem Protokoll bereits ableitbar).
-4. **PDF-Belege** (Angebot/Rechnung) serverseitig erzeugen.
-5. **Server-Datenbank auf PostgreSQL/SQLite umstellen**, sobald Datenmengen
-   oder Mehrbenutzer-Last es erfordern — die Sync-API bleibt unverändert.
-6. **Import aus der Advantage-DB der Bestandskunden** (`tools/adt_read.py`
-   liefert die Grundlage: .adt → JSON → Änderungsprotokoll des Mandanten).
+- Web-App: Offline-Neustart, Offline-Erfassung, automatischer Abgleich bei
+  Netzwiederkehr, zweites Gerät empfängt alles.
+- Connector: Erst-Übernahme (1309 Datensätze), Änderungs-Erkennung,
+  Web-Eingang mit Protokoll, Idempotenz, Löschungs-Abgleich inkl. Schutz
+  reiner Web-Datensätze.
+- Server: Login/Fehlanmeldung, Token-Pflicht, Konfliktregel, Mandanten-Seed,
+  Schutz gegen Pfad-Zugriffe.
 
-## Schnellstart
+## Roadmap
+
+1. **ADS-/ODBC-Schreibanbindung** im Connector: Web-Änderungen automatisch in
+   die Advantage-DB zurückschreiben (auf Windows mit Advantage-ODBC-Treiber),
+   dann ist der Kreislauf voll-automatisch in beide Richtungen.
+2. Weitere Module in der Web-App schreibbar machen (Projekte, LV-Positionen).
+3. Benutzer-/Rechteverwaltung im Web (Rollen: Büro, Bauleiter, Monteur).
+4. Feldweises Konflikt-Zusammenführen + Änderungshistorie je Datensatz.
+5. PDF-Belege (Angebot/Rechnung) serverseitig erzeugen.
+6. Server-Datenhaltung auf PostgreSQL/SQLite heben, wenn die Last es erfordert
+   (Sync-API bleibt gleich).
+
+## Schnellstart (alles lokal ausprobieren)
 
 ```bash
-cd server
-node server.js
-# → http://localhost:8080  (Demo-Zugang: Mandant "demo", Benutzer "demo", Passwort "demo")
-```
+# 1. Cloud-Server starten
+cd server && node server.js          # → http://localhost:8080
 
-In der App links unten **"Mit Cloud verbinden"** wählen — ab dann wird
-automatisch synchronisiert. Ohne Verbindung arbeitet die App rein lokal weiter.
+# 2. Web-App im Browser öffnen, links unten "Mit Cloud verbinden"
+#    (Demo-Zugang: demo / demo / demo)
+
+# 3. Büro-Connector starten (hier im Testmodus mit den Demo-Daten;
+#    im Echtbetrieb: --db <mexXsoft-Datenverzeichnis>)
+cd connector && python3 buero_connector.py \
+    --simulate ../webapp/data/seed.json --server http://localhost:8080
+```
