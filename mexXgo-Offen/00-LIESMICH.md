@@ -38,6 +38,7 @@ Beschreibung. Die steht hier.
 | etwas bauen oder ausprobieren | [06-BAUEN.md](06-BAUEN.md) |
 | am Windows-Rechner an der Zentrale weitermachen | [07-BRIEFING-WINDOWS.md](07-BRIEFING-WINDOWS.md) |
 | wissen wollen, warum die App nicht ankommt | [08-FEHLERSUCHE-VERBINDUNG.md](08-FEHLERSUCHE-VERBINDUNG.md) |
+| wissen wollen, was in der Zentrale-EXE steht | [09-ZENTRALE-BINARY.md](09-ZENTRALE-BINARY.md) |
 
 ---
 
