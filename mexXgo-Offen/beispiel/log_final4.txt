@@ -1,0 +1,792 @@
+Weiterleiter: http://0.0.0.0:8080  →  http://82.165.182.81:8080
+Alles unverändert. Beide Richtungen stehen hier.
+
+
+[1] → POST /mxWebService?ID=NEW
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Login;RE=2;Key:S=7"0000999";StationID:I=1;
+[1] ← HTTP 200  Set-Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[2] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[2] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[3] → POST /mxWebService?ID=NEW
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect2;RE=2;Key:S=7"0000999";StationID:I=1;
+[3] ← HTTP 200  Set-Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     S=32"E251E2DD29794477AC963D42D4164A00";
+
+[4] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=SendMessage;RE=12;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";Content:S=73"DA39A3EE5E6B4B0D3255BFEF95601890AFD80709,9E983C20E7414451A3FBB3349110AD86";Key:S=7"0000999";MessageID:S=32"A8621939C68B4495B61356BB172B165A";MsgState:I=4;Recipient:I=;StationID:I=1;Attachment:BS=;AttachmentType:I=6144 … (+37 Zeichen)
+[4] ← HTTP 200
+     B=T;
+
+[5] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";State:I=5;
+[5] ← HTTP 200
+     B=T;
+
+[6] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[6] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[7] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[7] ← HTTP 200
+     I=2;
+
+[8] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[8] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[9] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[9] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[10] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[10] ← HTTP 200
+     I=2;
+
+[11] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[11] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[12] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[12] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[13] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[13] ← HTTP 200
+     I=2;
+
+[14] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[14] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[15] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[15] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[16] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[16] ← HTTP 200
+     I=2;
+
+[17] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[17] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[18] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[18] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[19] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[19] ← HTTP 200
+     I=2;
+
+[20] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[20] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[21] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[21] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[22] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[22] ← HTTP 200
+     I=2;
+
+[23] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[23] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[24] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[24] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[25] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[25] ← HTTP 200
+     I=2;
+
+[26] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[26] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[27] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[27] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[28] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[28] ← HTTP 200
+     I=2;
+
+[29] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[29] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[30] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[30] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[31] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[31] ← HTTP 200
+     I=2;
+
+[32] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[32] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[33] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[33] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[34] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[34] ← HTTP 200
+     I=2;
+
+[35] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[35] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[36] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[36] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[37] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[37] ← HTTP 200
+     I=2;
+
+[38] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[38] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[39] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[39] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[40] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[40] ← HTTP 200
+     I=2;
+
+[41] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[41] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[42] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[42] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[43] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[43] ← HTTP 200
+     I=2;
+
+[44] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[44] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[45] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[45] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[46] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[46] ← HTTP 200
+     I=2;
+
+[47] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[47] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[48] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[48] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[49] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[49] ← HTTP 200
+     I=2;
+
+[50] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[50] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[51] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[51] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[52] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[52] ← HTTP 200
+     I=2;
+
+[53] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[53] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[54] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[54] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[55] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[55] ← HTTP 200
+     I=2;
+
+[56] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[56] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"FC68BF53CE05453BADFF120BAB00945D";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61441;PartID:S=;PartCount:I=;
+
+[57] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[57] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[58] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[58] ← HTTP 200
+     I=2;
+
+[59] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[59] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[60] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[60] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[61] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[61] ← HTTP 200
+     I=2;
+
+[62] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[62] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[63] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[63] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[64] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[64] ← HTTP 200
+     I=2;
+
+[65] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[65] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[66] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[66] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[67] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[67] ← HTTP 200
+     I=2;
+
+[68] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[68] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[69] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[69] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[70] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[70] ← HTTP 200
+     I=2;
+
+[71] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[71] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[72] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[72] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[73] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[73] ← HTTP 200
+     I=2;
+
+[74] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[74] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[75] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[75] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[76] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[76] ← HTTP 200
+     I=2;
+
+[77] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[77] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[78] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[78] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[79] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[79] ← HTTP 200
+     I=2;
+
+[80] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[80] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[81] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[81] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[82] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[82] ← HTTP 200
+     I=2;
+
+[83] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[83] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[84] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[84] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[85] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[85] ← HTTP 200
+     I=2;
+
+[86] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[86] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[87] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[87] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[88] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[88] ← HTTP 200
+     I=2;
+
+[89] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[89] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[90] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[90] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[91] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[91] ← HTTP 200
+     I=2;
+
+[92] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[92] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[93] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[93] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[94] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[94] ← HTTP 200
+     I=2;
+
+[95] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[95] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[96] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[96] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[97] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[97] ← HTTP 200
+     I=2;
+
+[98] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[98] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[99] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[99] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[100] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[100] ← HTTP 200
+     I=2;
+
+[101] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[101] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[102] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[102] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[103] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[103] ← HTTP 200
+     I=2;
+
+[104] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[104] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[105] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[105] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[106] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[106] ← HTTP 200
+     I=2;
+
+[107] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[107] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[108] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[108] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[109] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[109] ← HTTP 200
+     I=2;
+
+[110] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[110] ← HTTP 200
+     FC=;RE=10;Priority:I=7;Key:S=7"0000999";StationID:I=;MessageID:S=32"0F1D6077CF5249AEBA476E94BC2B440D";Recipient:I=1;MsgState:I=5;Content:S=4"test";AttachmentType:I=65281;PartID:S=;PartCount:I=;
+
+[111] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[111] ← HTTP 200
+     S=32"D51306757C9E4B579646F55A92B0D3D7";
+
+[112] → POST /mxWebService?ID=D51306757C9E4B579646F55A92B0D3D7
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=D51306757C9E4B579646F55A92B0D3D7
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"D51306757C9E4B579646F55A92B0D3D7";MessageID:S=32"A8621939C68B4495B61356BB172B165A";
+[112] ← HTTP 200
+     I=2;
+
+[113] → POST /mxWebService?ID=E251E2DD29794477AC963D42D4164A00
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=E251E2DD29794477AC963D42D4164A00
+     FC=ReceiveMessage;RE=3;SessionID:S=32"E251E2DD29794477AC963D42D4164A00";Key:S=7"0000999";StationID:I=1;
+[113] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"FC68BF53CE05453BADFF120BAB00945D";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61441;PartID:S=;PartCount:I=;

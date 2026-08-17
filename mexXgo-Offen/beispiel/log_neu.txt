@@ -1,0 +1,3033 @@
+Weiterleiter: http://0.0.0.0:8080  →  http://82.165.182.81:8080
+Alles unverändert. Beide Richtungen stehen hier.
+
+
+[1] → POST /mxWebService?ID=NEW
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Login;RE=2;Key:S=7"0000999";StationID:I=1;
+[1] ← HTTP 200  Set-Cookie: ID=984FD306F4F24C98BDF24DACFD2158EB
+     S=32"984FD306F4F24C98BDF24DACFD2158EB";
+
+[2] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[2] ← HTTP 200
+     S=32"984FD306F4F24C98BDF24DACFD2158EB";
+
+[3] → POST /mxWebService?ID=NEW
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect2;RE=2;Key:S=7"0000999";StationID:I=1;
+[3] ← HTTP 200  Set-Cookie: ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     S=32"9B006FD83F19412AA5266B0D6C0DCAFC";
+
+[4] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=SendMessage;RE=12;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";Content:S=73"7C4A8D09CA3762AF61E59520943DC26494F8941B,9E983C20E7414451A3FBB3349110AD86";Key:S=7"0000999";MessageID:S=32"1A54840099834DD68B9C62929CDE564A";MsgState:I=4;Recipient:I=;StationID:I=1;Attachment:BS=;AttachmentType:I=6144 … (+37 Zeichen)
+[4] ← HTTP 200
+     B=T;
+
+[5] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"1A54840099834DD68B9C62929CDE564A";State:I=5;
+[5] ← HTTP 200
+     B=T;
+
+[6] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"1A54840099834DD68B9C62929CDE564A";
+[6] ← HTTP 200
+     I=6;
+
+[7] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"1A54840099834DD68B9C62929CDE564A";
+[7] ← HTTP 200
+     B=T;
+
+[8] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[8] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[9] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[9] ← HTTP 200
+     B=T;
+
+[10] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[10] ← HTTP 200
+     B=T;
+
+[11] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[11] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[12] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[12] ← HTTP 200
+     B=T;
+
+[13] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[13] ← HTTP 200
+     B=T;
+
+[14] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[14] ← HTTP 200
+     X=;
+
+[15] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[15] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[16] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[16] ← HTTP 200
+     B=T;
+
+[17] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[17] ← HTTP 200
+     B=T;
+
+[18] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[18] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[19] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[19] ← HTTP 200
+     B=T;
+
+[20] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[20] ← HTTP 200
+     B=T;
+
+[21] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[21] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[22] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[22] ← HTTP 200
+     B=T;
+
+[23] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[23] ← HTTP 200
+     B=T;
+
+[24] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[24] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[25] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[25] ← HTTP 200
+     B=T;
+
+[26] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[26] ← HTTP 200
+     B=T;
+
+[27] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[27] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[28] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[28] ← HTTP 200
+     B=T;
+
+[29] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[29] ← HTTP 200
+     B=T;
+
+[30] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[30] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[31] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[31] ← HTTP 200
+     B=T;
+
+[32] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[32] ← HTTP 200
+     B=T;
+
+[33] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[33] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[34] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[34] ← HTTP 200
+     B=T;
+
+[35] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[35] ← HTTP 200
+     B=T;
+
+[36] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[36] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[37] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[37] ← HTTP 200
+     B=T;
+
+[38] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[38] ← HTTP 200
+     B=T;
+
+[39] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[39] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[40] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[40] ← HTTP 200
+     B=T;
+
+[41] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[41] ← HTTP 200
+     B=T;
+
+[42] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[42] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[43] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[43] ← HTTP 200
+     B=T;
+
+[44] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[44] ← HTTP 200
+     B=T;
+
+[45] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[45] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[46] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[46] ← HTTP 200
+     B=T;
+
+[47] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[47] ← HTTP 200
+     B=T;
+
+[48] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[48] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[49] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[49] ← HTTP 200
+     B=T;
+
+[50] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[50] ← HTTP 200
+     B=T;
+
+[51] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[51] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[52] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[52] ← HTTP 200
+     B=T;
+
+[53] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[53] ← HTTP 200
+     B=T;
+
+[54] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[54] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[55] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[55] ← HTTP 200
+     B=T;
+
+[56] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[56] ← HTTP 200
+     B=T;
+
+[57] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[57] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[58] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[58] ← HTTP 200
+     B=T;
+
+[59] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[59] ← HTTP 200
+     B=T;
+
+[60] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[60] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[61] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[61] ← HTTP 200
+     B=T;
+
+[62] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[62] ← HTTP 200
+     B=T;
+
+[63] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[63] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[64] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[64] ← HTTP 200
+     B=T;
+
+[65] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[65] ← HTTP 200
+     B=T;
+
+[66] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[66] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[67] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[67] ← HTTP 200
+     B=T;
+
+[68] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[68] ← HTTP 200
+     B=T;
+
+[69] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[69] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[70] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[70] ← HTTP 200
+     B=T;
+
+[71] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[71] ← HTTP 200
+     B=T;
+
+[72] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[72] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[73] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[73] ← HTTP 200
+     B=T;
+
+[74] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[74] ← HTTP 200
+     B=T;
+
+[75] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[75] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[76] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[76] ← HTTP 200
+     B=T;
+
+[77] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[77] ← HTTP 200
+     B=T;
+
+[78] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[78] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[79] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[79] ← HTTP 200
+     B=T;
+
+[80] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[80] ← HTTP 200
+     B=T;
+
+[81] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[81] ← HTTP 200
+     X=;
+
+[82] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[82] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[83] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[83] ← HTTP 200
+     B=T;
+
+[84] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[84] ← HTTP 200
+     B=T;
+
+[85] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[85] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[86] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[86] ← HTTP 200
+     B=T;
+
+[87] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[87] ← HTTP 200
+     B=T;
+
+[88] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[88] ← HTTP 200
+     X=;
+
+[89] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[89] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[90] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[90] ← HTTP 200
+     B=T;
+
+[91] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[91] ← HTTP 200
+     B=T;
+
+[92] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[92] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[93] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[93] ← HTTP 200
+     B=T;
+
+[94] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[94] ← HTTP 200
+     B=T;
+
+[95] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[95] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[96] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[96] ← HTTP 200
+     B=T;
+
+[97] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[97] ← HTTP 200
+     B=T;
+
+[98] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[98] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[99] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[99] ← HTTP 200
+     B=T;
+
+[100] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[100] ← HTTP 200
+     B=T;
+
+[101] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[101] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[102] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[102] ← HTTP 200
+     B=T;
+
+[103] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[103] ← HTTP 200
+     B=T;
+
+[104] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[104] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[105] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[105] ← HTTP 200
+     B=T;
+
+[106] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[106] ← HTTP 200
+     B=T;
+
+[107] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[107] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[108] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[108] ← HTTP 200
+     B=T;
+
+[109] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[109] ← HTTP 200
+     B=T;
+
+[110] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[110] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[111] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[111] ← HTTP 200
+     B=T;
+
+[112] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[112] ← HTTP 200
+     B=T;
+
+[113] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[113] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[114] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[114] ← HTTP 200
+     B=T;
+
+[115] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[115] ← HTTP 200
+     B=T;
+
+[116] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[116] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[117] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[117] ← HTTP 200
+     B=T;
+
+[118] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[118] ← HTTP 200
+     B=T;
+
+[119] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[119] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[120] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[120] ← HTTP 200
+     B=T;
+
+[121] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[121] ← HTTP 200
+     B=T;
+
+[122] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[122] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[123] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[123] ← HTTP 200
+     B=T;
+
+[124] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[124] ← HTTP 200
+     B=T;
+
+[125] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[125] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[126] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[126] ← HTTP 200
+     B=T;
+
+[127] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[127] ← HTTP 200
+     B=T;
+
+[128] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[128] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[129] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[129] ← HTTP 200
+     B=T;
+
+[130] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[130] ← HTTP 200
+     B=T;
+
+[131] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[131] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[132] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[132] ← HTTP 200
+     B=T;
+
+[133] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[133] ← HTTP 200
+     B=T;
+
+[134] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[134] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[135] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[135] ← HTTP 200
+     B=T;
+
+[136] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[136] ← HTTP 200
+     B=T;
+
+[137] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[137] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[138] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[138] ← HTTP 200
+     B=T;
+
+[139] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[139] ← HTTP 200
+     B=T;
+
+[140] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[140] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[141] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[141] ← HTTP 200
+     B=T;
+
+[142] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[142] ← HTTP 200
+     B=T;
+
+[143] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[143] ← HTTP 200
+     X=;
+
+[144] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[144] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[145] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[145] ← HTTP 200
+     B=T;
+
+[146] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[146] ← HTTP 200
+     B=T;
+
+[147] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[147] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[148] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[148] ← HTTP 200
+     B=T;
+
+[149] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[149] ← HTTP 200
+     B=T;
+
+[150] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[150] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[151] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[151] ← HTTP 200
+     B=T;
+
+[152] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[152] ← HTTP 200
+     B=T;
+
+[153] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[153] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[154] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[154] ← HTTP 200
+     B=T;
+
+[155] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[155] ← HTTP 200
+     B=T;
+
+[156] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[156] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[157] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[157] ← HTTP 200
+     B=T;
+
+[158] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[158] ← HTTP 200
+     B=T;
+
+[159] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[159] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[160] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[160] ← HTTP 200
+     B=T;
+
+[161] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[161] ← HTTP 200
+     B=T;
+
+[162] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[162] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[163] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[163] ← HTTP 200
+     B=T;
+
+[164] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[164] ← HTTP 200
+     B=T;
+
+[165] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[165] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[166] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[166] ← HTTP 200
+     B=T;
+
+[167] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[167] ← HTTP 200
+     B=T;
+
+[168] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[168] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[169] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[169] ← HTTP 200
+     B=T;
+
+[170] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[170] ← HTTP 200
+     B=T;
+
+[171] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[171] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[172] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[172] ← HTTP 200
+     B=T;
+
+[173] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[173] ← HTTP 200
+     B=T;
+
+[174] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[174] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[175] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[175] ← HTTP 200
+     B=T;
+
+[176] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[176] ← HTTP 200
+     B=T;
+
+[177] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[177] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[178] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[178] ← HTTP 200
+     B=T;
+
+[179] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[179] ← HTTP 200
+     B=T;
+
+[180] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[180] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[181] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[181] ← HTTP 200
+     B=T;
+
+[182] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[182] ← HTTP 200
+     B=T;
+
+[183] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[183] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[184] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[184] ← HTTP 200
+     B=T;
+
+[185] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[185] ← HTTP 200
+     B=T;
+
+[186] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[186] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[187] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[187] ← HTTP 200
+     B=T;
+
+[188] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[188] ← HTTP 200
+     B=T;
+
+[189] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[189] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[190] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[190] ← HTTP 200
+     B=T;
+
+[191] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[191] ← HTTP 200
+     B=T;
+
+[192] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[192] ← HTTP 200
+     X=;
+
+[193] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[193] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[194] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[194] ← HTTP 200
+     B=T;
+
+[195] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[195] ← HTTP 200
+     B=T;
+
+[196] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[196] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[197] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[197] ← HTTP 200
+     B=T;
+
+[198] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[198] ← HTTP 200
+     B=T;
+
+[199] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[199] ← HTTP 200
+     X=;
+
+[200] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[200] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[201] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[201] ← HTTP 200
+     B=T;
+
+[202] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[202] ← HTTP 200
+     B=T;
+
+[203] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[203] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[204] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[204] ← HTTP 200
+     B=T;
+
+[205] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[205] ← HTTP 200
+     B=T;
+
+[206] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[206] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[207] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[207] ← HTTP 200
+     B=T;
+
+[208] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[208] ← HTTP 200
+     B=T;
+
+[209] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[209] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[210] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[210] ← HTTP 200
+     B=T;
+
+[211] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[211] ← HTTP 200
+     B=T;
+
+[212] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[212] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[213] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[213] ← HTTP 200
+     B=T;
+
+[214] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[214] ← HTTP 200
+     B=T;
+
+[215] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[215] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[216] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[216] ← HTTP 200
+     B=T;
+
+[217] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[217] ← HTTP 200
+     B=T;
+
+[218] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[218] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[219] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[219] ← HTTP 200
+     B=T;
+
+[220] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[220] ← HTTP 200
+     B=T;
+
+[221] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[221] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[222] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[222] ← HTTP 200
+     B=T;
+
+[223] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[223] ← HTTP 200
+     B=T;
+
+[224] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[224] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[225] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[225] ← HTTP 200
+     B=T;
+
+[226] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[226] ← HTTP 200
+     B=T;
+
+[227] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[227] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[228] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[228] ← HTTP 200
+     B=T;
+
+[229] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[229] ← HTTP 200
+     B=T;
+
+[230] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[230] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[231] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[231] ← HTTP 200
+     B=T;
+
+[232] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[232] ← HTTP 200
+     B=T;
+
+[233] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[233] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[234] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[234] ← HTTP 200
+     B=T;
+
+[235] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[235] ← HTTP 200
+     B=T;
+
+[236] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[236] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[237] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[237] ← HTTP 200
+     B=T;
+
+[238] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[238] ← HTTP 200
+     B=T;
+
+[239] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[239] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[240] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[240] ← HTTP 200
+     B=T;
+
+[241] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[241] ← HTTP 200
+     B=T;
+
+[242] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[242] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[243] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[243] ← HTTP 200
+     B=T;
+
+[244] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[244] ← HTTP 200
+     B=T;
+
+[245] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[245] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[246] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[246] ← HTTP 200
+     B=T;
+
+[247] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[247] ← HTTP 200
+     B=T;
+
+[248] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[248] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[249] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[249] ← HTTP 200
+     B=T;
+
+[250] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[250] ← HTTP 200
+     B=T;
+
+[251] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[251] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[252] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[252] ← HTTP 200
+     B=T;
+
+[253] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[253] ← HTTP 200
+     B=T;
+
+[254] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[254] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[255] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[255] ← HTTP 200
+     B=T;
+
+[256] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[256] ← HTTP 200
+     B=T;
+
+[257] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[257] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[258] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[258] ← HTTP 200
+     B=T;
+
+[259] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[259] ← HTTP 200
+     B=T;
+
+[260] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[260] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[261] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[261] ← HTTP 200
+     B=T;
+
+[262] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[262] ← HTTP 200
+     B=T;
+
+[263] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[263] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[264] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[264] ← HTTP 200
+     B=T;
+
+[265] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[265] ← HTTP 200
+     B=T;
+
+[266] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[266] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[267] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[267] ← HTTP 200
+     B=T;
+
+[268] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[268] ← HTTP 200
+     B=T;
+
+[269] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[269] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[270] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[270] ← HTTP 200
+     B=T;
+
+[271] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[271] ← HTTP 200
+     B=T;
+
+[272] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[272] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[273] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[273] ← HTTP 200
+     B=T;
+
+[274] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[274] ← HTTP 200
+     B=T;
+
+[275] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[275] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[276] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[276] ← HTTP 200
+     B=T;
+
+[277] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[277] ← HTTP 200
+     B=T;
+
+[278] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[278] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[279] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[279] ← HTTP 200
+     B=T;
+
+[280] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[280] ← HTTP 200
+     B=T;
+
+[281] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[281] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[282] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[282] ← HTTP 200
+     B=T;
+
+[283] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[283] ← HTTP 200
+     B=T;
+
+[284] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[284] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[285] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[285] ← HTTP 200
+     B=T;
+
+[286] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[286] ← HTTP 200
+     B=T;
+
+[287] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[287] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[288] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[288] ← HTTP 200
+     B=T;
+
+[289] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[289] ← HTTP 200
+     B=T;
+
+[290] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[290] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[291] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[291] ← HTTP 200
+     B=T;
+
+[292] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[292] ← HTTP 200
+     B=T;
+
+[293] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[293] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[294] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[294] ← HTTP 200
+     B=T;
+
+[295] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[295] ← HTTP 200
+     B=T;
+
+[296] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[296] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[297] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[297] ← HTTP 200
+     B=T;
+
+[298] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[298] ← HTTP 200
+     B=T;
+
+[299] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[299] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[300] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[300] ← HTTP 200
+     B=T;
+
+[301] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[301] ← HTTP 200
+     B=T;
+
+[302] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[302] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[303] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[303] ← HTTP 200
+     B=T;
+
+[304] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[304] ← HTTP 200
+     B=T;
+
+[305] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[305] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[306] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[306] ← HTTP 200
+     B=T;
+
+[307] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[307] ← HTTP 200
+     B=T;
+
+[308] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[308] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[309] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[309] ← HTTP 200
+     B=T;
+
+[310] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[310] ← HTTP 200
+     B=T;
+
+[311] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[311] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[312] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[312] ← HTTP 200
+     B=T;
+
+[313] → POST /mxWebService?ID=984FD306F4F24C98BDF24DACFD2158EB
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"984FD306F4F24C98BDF24DACFD2158EB";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[313] ← HTTP 200
+     B=T;
+
+[314] → POST /mxWebService?ID=9B006FD83F19412AA5266B0D6C0DCAFC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"9B006FD83F19412AA5266B0D6C0DCAFC";Key:S=7"0000999";StationID:I=1;
+[314] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[315] → POST /mxWebService?ID=NEW
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Login;RE=2;Key:S=7"0000999";StationID:I=1;
+[315] ← HTTP 200  Set-Cookie: ID=8BBEEA15CA194110BA2A3124308E558E
+     S=32"8BBEEA15CA194110BA2A3124308E558E";
+
+[316] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[316] ← HTTP 200
+     S=32"8BBEEA15CA194110BA2A3124308E558E";
+
+[317] → POST /mxWebService?ID=NEW
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect2;RE=2;Key:S=7"0000999";StationID:I=1;
+[317] ← HTTP 200  Set-Cookie: ID=727BED4F58AC47A0B36D9AB36EDC0603
+     S=32"727BED4F58AC47A0B36D9AB36EDC0603";
+
+[318] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=SendMessage;RE=12;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";Content:S=73"7C4A8D09CA3762AF61E59520943DC26494F8941B,9E983C20E7414451A3FBB3349110AD86";Key:S=7"0000999";MessageID:S=32"28E078148D0E4071A1782C2A80BB2E93";MsgState:I=4;Recipient:I=;StationID:I=1;Attachment:BS=;AttachmentType:I=6144 … (+37 Zeichen)
+[318] ← HTTP 200
+     B=T;
+
+[319] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"28E078148D0E4071A1782C2A80BB2E93";State:I=5;
+[319] ← HTTP 200
+     B=T;
+
+[320] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[320] ← HTTP 200
+     S=32"8BBEEA15CA194110BA2A3124308E558E";
+
+[321] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"28E078148D0E4071A1782C2A80BB2E93";
+[321] ← HTTP 200
+     I=2;
+
+[322] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[322] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[323] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[323] ← HTTP 200
+     B=T;
+
+[324] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[324] ← HTTP 200
+     B=T;
+
+[325] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[325] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[326] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[326] ← HTTP 200
+     B=T;
+
+[327] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[327] ← HTTP 200
+     B=T;
+
+[328] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[328] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[329] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[329] ← HTTP 200
+     B=T;
+
+[330] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[330] ← HTTP 200
+     B=T;
+
+[331] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[331] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[332] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[332] ← HTTP 200
+     B=T;
+
+[333] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[333] ← HTTP 200
+     B=T;
+
+[334] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[334] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[335] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[335] ← HTTP 200
+     B=T;
+
+[336] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[336] ← HTTP 200
+     B=T;
+
+[337] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[337] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[338] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[338] ← HTTP 200
+     B=T;
+
+[339] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[339] ← HTTP 200
+     B=T;
+
+[340] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[340] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[341] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[341] ← HTTP 200
+     B=T;
+
+[342] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[342] ← HTTP 200
+     B=T;
+
+[343] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[343] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[344] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[344] ← HTTP 200
+     B=T;
+
+[345] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[345] ← HTTP 200
+     B=T;
+
+[346] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[346] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[347] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[347] ← HTTP 200
+     B=T;
+
+[348] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[348] ← HTTP 200
+     B=T;
+
+[349] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[349] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[350] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[350] ← HTTP 200
+     B=T;
+
+[351] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[351] ← HTTP 200
+     B=T;
+
+[352] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[352] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[353] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[353] ← HTTP 200
+     B=T;
+
+[354] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[354] ← HTTP 200
+     B=T;
+
+[355] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[355] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[356] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[356] ← HTTP 200
+     B=T;
+
+[357] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[357] ← HTTP 200
+     B=T;
+
+[358] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[358] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[359] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[359] ← HTTP 200
+     B=T;
+
+[360] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[360] ← HTTP 200
+     B=T;
+
+[361] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[361] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[362] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[362] ← HTTP 200
+     B=T;
+
+[363] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[363] ← HTTP 200
+     B=T;
+
+[364] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[364] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[365] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[365] ← HTTP 200
+     B=T;
+
+[366] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[366] ← HTTP 200
+     B=T;
+
+[367] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[367] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[368] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[368] ← HTTP 200
+     B=T;
+
+[369] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[369] ← HTTP 200
+     B=T;
+
+[370] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[370] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[371] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[371] ← HTTP 200
+     B=T;
+
+[372] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[372] ← HTTP 200
+     B=T;
+
+[373] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[373] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[374] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[374] ← HTTP 200
+     B=T;
+
+[375] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[375] ← HTTP 200
+     B=T;
+
+[376] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[376] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[377] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[377] ← HTTP 200
+     B=T;
+
+[378] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[378] ← HTTP 200
+     B=T;
+
+[379] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[379] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[380] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[380] ← HTTP 200
+     B=T;
+
+[381] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[381] ← HTTP 200
+     B=T;
+
+[382] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[382] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[383] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[383] ← HTTP 200
+     B=T;
+
+[384] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[384] ← HTTP 200
+     B=T;
+
+[385] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[385] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[386] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[386] ← HTTP 200
+     B=T;
+
+[387] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[387] ← HTTP 200
+     B=T;
+
+[388] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[388] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[389] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[389] ← HTTP 200
+     B=T;
+
+[390] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[390] ← HTTP 200
+     B=T;
+
+[391] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[391] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[392] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[392] ← HTTP 200
+     B=T;
+
+[393] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[393] ← HTTP 200
+     B=T;
+
+[394] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[394] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[395] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[395] ← HTTP 200
+     B=T;
+
+[396] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[396] ← HTTP 200
+     B=T;
+
+[397] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[397] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[398] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[398] ← HTTP 200
+     B=T;
+
+[399] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[399] ← HTTP 200
+     B=T;
+
+[400] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[400] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[401] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[401] ← HTTP 200
+     B=T;
+
+[402] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[402] ← HTTP 200
+     B=T;
+
+[403] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[403] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[404] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[404] ← HTTP 200
+     B=T;
+
+[405] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[405] ← HTTP 200
+     B=T;
+
+[406] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[406] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[407] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[407] ← HTTP 200
+     B=T;
+
+[408] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[408] ← HTTP 200
+     B=T;
+
+[409] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[409] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[410] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[410] ← HTTP 200
+     B=T;
+
+[411] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[411] ← HTTP 200
+     B=T;
+
+[412] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[412] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[413] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[413] ← HTTP 200
+     B=T;
+
+[414] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[414] ← HTTP 200
+     B=T;
+
+[415] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[415] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[416] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[416] ← HTTP 200
+     B=T;
+
+[417] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[417] ← HTTP 200
+     B=T;
+
+[418] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[418] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[419] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[419] ← HTTP 200
+     B=T;
+
+[420] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[420] ← HTTP 200
+     B=T;
+
+[421] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[421] ← HTTP 200
+     X=;
+
+[422] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[422] ← HTTP 200
+     S=32"8BBEEA15CA194110BA2A3124308E558E";
+
+[423] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"28E078148D0E4071A1782C2A80BB2E93";
+[423] ← HTTP 200
+     I=2;
+
+[424] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[424] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[425] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[425] ← HTTP 200
+     B=T;
+
+[426] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[426] ← HTTP 200
+     B=T;
+
+[427] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[427] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[428] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[428] ← HTTP 200
+     B=T;
+
+[429] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[429] ← HTTP 200
+     B=T;
+
+[430] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[430] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[431] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[431] ← HTTP 200
+     B=T;
+
+[432] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[432] ← HTTP 200
+     B=T;
+
+[433] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[433] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[434] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[434] ← HTTP 200
+     B=T;
+
+[435] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[435] ← HTTP 200
+     B=T;
+
+[436] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[436] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[437] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[437] ← HTTP 200
+     B=T;
+
+[438] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[438] ← HTTP 200
+     B=T;
+
+[439] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[439] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[440] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[440] ← HTTP 200
+     B=T;
+
+[441] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[441] ← HTTP 200
+     B=T;
+
+[442] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[442] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[443] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[443] ← HTTP 200
+     B=T;
+
+[444] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[444] ← HTTP 200
+     B=T;
+
+[445] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[445] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[446] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[446] ← HTTP 200
+     B=T;
+
+[447] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[447] ← HTTP 200
+     B=T;
+
+[448] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[448] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[449] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[449] ← HTTP 200
+     B=T;
+
+[450] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[450] ← HTTP 200
+     B=T;
+
+[451] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[451] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[452] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[452] ← HTTP 200
+     B=T;
+
+[453] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[453] ← HTTP 200
+     B=T;
+
+[454] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[454] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[455] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[455] ← HTTP 200
+     B=T;
+
+[456] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[456] ← HTTP 200
+     B=T;
+
+[457] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[457] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[458] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[458] ← HTTP 200
+     B=T;
+
+[459] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[459] ← HTTP 200
+     B=T;
+
+[460] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[460] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[461] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[461] ← HTTP 200
+     B=T;
+
+[462] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[462] ← HTTP 200
+     B=T;
+
+[463] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[463] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[464] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[464] ← HTTP 200
+     B=T;
+
+[465] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[465] ← HTTP 200
+     B=T;
+
+[466] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[466] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[467] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[467] ← HTTP 200
+     B=T;
+
+[468] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[468] ← HTTP 200
+     B=T;
+
+[469] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[469] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[470] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[470] ← HTTP 200
+     B=T;
+
+[471] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[471] ← HTTP 200
+     B=T;
+
+[472] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[472] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[473] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[473] ← HTTP 200
+     B=T;
+
+[474] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[474] ← HTTP 200
+     B=T;
+
+[475] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[475] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[476] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[476] ← HTTP 200
+     B=T;
+
+[477] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[477] ← HTTP 200
+     B=T;
+
+[478] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[478] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[479] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[479] ← HTTP 200
+     B=T;
+
+[480] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[480] ← HTTP 200
+     B=T;
+
+[481] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[481] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[482] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[482] ← HTTP 200
+     B=T;
+
+[483] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[483] ← HTTP 200
+     B=T;
+
+[484] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[484] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[485] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[485] ← HTTP 200
+     B=T;
+
+[486] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[486] ← HTTP 200
+     B=T;
+
+[487] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[487] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[488] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[488] ← HTTP 200
+     B=T;
+
+[489] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[489] ← HTTP 200
+     B=T;
+
+[490] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[490] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[491] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[491] ← HTTP 200
+     B=T;
+
+[492] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[492] ← HTTP 200
+     B=T;
+
+[493] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[493] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[494] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[494] ← HTTP 200
+     B=T;
+
+[495] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[495] ← HTTP 200
+     B=T;
+
+[496] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[496] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[497] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";State:I=6;
+[497] ← HTTP 200
+     B=T;
+
+[498] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";
+[498] ← HTTP 200
+     B=T;
+
+[499] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[499] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[500] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";State:I=6;
+[500] ← HTTP 200
+     B=T;
+
+[501] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"D3A29C515A364444A1DEEFD36148D88C";
+[501] ← HTTP 200
+     B=T;
+
+[502] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[502] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"43885677EA2544E681FE76839458C2DD";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[503] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";MessageID:S=32"43885677EA2544E681FE76839458C2DD";State:I=6;
+[503] ← HTTP 200
+     B=T;
+
+[504] → POST /mxWebService?ID=8BBEEA15CA194110BA2A3124308E558E
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"8BBEEA15CA194110BA2A3124308E558E";MessageID:S=32"43885677EA2544E681FE76839458C2DD";
+[504] ← HTTP 200
+     B=T;
+
+[505] → POST /mxWebService?ID=727BED4F58AC47A0B36D9AB36EDC0603
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"727BED4F58AC47A0B36D9AB36EDC0603";Key:S=7"0000999";StationID:I=1;
+[505] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"AE8EA16B2F004B2D9374A5BA93A3EC3A";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;

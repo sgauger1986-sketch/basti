@@ -1,0 +1,915 @@
+Weiterleiter: http://0.0.0.0:8080  →  http://82.165.182.81:8080
+Alles unverändert. Beide Richtungen stehen hier.
+
+
+[1] → POST /mxWebService?ID=NEW
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Login;RE=2;Key:S=7"0000999";StationID:I=1;
+[1] ← HTTP 200  Set-Cookie: ID=95ACF513EC8942EDA9D298E86EB932FC
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[2] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[2] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[3] → POST /mxWebService?ID=NEW
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect2;RE=2;Key:S=7"0000999";StationID:I=1;
+[3] ← HTTP 200  Set-Cookie: ID=C0E61E58D1154E2F958DA4FF7D35001F
+     S=32"C0E61E58D1154E2F958DA4FF7D35001F";
+
+[4] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=SendMessage;RE=12;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";Content:S=73"7C4A8D09CA3762AF61E59520943DC26494F8941B,9E983C20E7414451A3FBB3349110AD86";Key:S=7"0000999";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";MsgState:I=4;Recipient:I=;StationID:I=1;Attachment:BS=;AttachmentType:I=6144 … (+37 Zeichen)
+[4] ← HTTP 200
+     B=T;
+
+[5] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";State:I=5;
+[5] ← HTTP 200
+     B=T;
+
+[6] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=SendMessage;RE=12;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";Content:S=73"7C4A8D09CA3762AF61E59520943DC26494F8941B,9E983C20E7414451A3FBB3349110AD86";Key:S=7"0000999";MessageID:S=32"379137F492644356B2C061956B49CCAB";MsgState:I=4;Recipient:I=;StationID:I=1;Attachment:BS=;AttachmentType:I=6144 … (+37 Zeichen)
+
+[7] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[6] ← HTTP 200
+     B=T;
+[7] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[8] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=SendMessage;RE=12;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";Content:S=73"7C4A8D09CA3762AF61E59520943DC26494F8941B,9E983C20E7414451A3FBB3349110AD86";Key:S=7"0000999";MessageID:S=32"379137F492644356B2C061956B49CCAB";MsgState:I=4;Recipient:I=;StationID:I=1;Attachment:BS=;AttachmentType:I=6144 … (+37 Zeichen)
+
+[9] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";State:I=5;
+[8] ← HTTP 410
+[9] ← HTTP 200
+     B=T;
+     
+
+[10] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[10] ← HTTP 200
+     I=2;
+
+[11] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[11] ← HTTP 200
+     I=2;
+
+[12] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[12] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"E68301A619CA44F6A1FB522865BF802D";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[13] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";MessageID:S=32"E68301A619CA44F6A1FB522865BF802D";State:I=6;
+[13] ← HTTP 200
+     B=T;
+
+[14] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"E68301A619CA44F6A1FB522865BF802D";
+[14] ← HTTP 200
+     B=T;
+
+[15] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[15] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"E68301A619CA44F6A1FB522865BF802D";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[16] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";MessageID:S=32"E68301A619CA44F6A1FB522865BF802D";State:I=6;
+[16] ← HTTP 200
+     B=T;
+
+[17] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"E68301A619CA44F6A1FB522865BF802D";
+[17] ← HTTP 200
+     B=T;
+
+[18] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[18] ← HTTP 200
+     FC=;RE=10;Priority:I=;Key:S=7"0000999";StationID:I=;MessageID:S=32"E68301A619CA44F6A1FB522865BF802D";Recipient:I=1;MsgState:I=5;Content:S=;AttachmentType:I=61442;PartID:S=;PartCount:I=;
+
+[19] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ChangeState;RE=5;Key:S=7"0000999";StationID:I=1;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";MessageID:S=32"E68301A619CA44F6A1FB522865BF802D";State:I=6;
+[19] ← HTTP 200
+     B=T;
+
+[20] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=DeleteMessageID;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"E68301A619CA44F6A1FB522865BF802D";
+[20] ← HTTP 200
+     B=T;
+
+[21] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[21] ← HTTP 200
+     X=;
+
+[22] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[22] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[23] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[23] ← HTTP 200
+     I=2;
+
+[24] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[24] ← HTTP 200
+     I=2;
+
+[25] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[25] ← HTTP 200
+     X=;
+
+[26] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[26] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[27] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[27] ← HTTP 200
+     I=2;
+
+[28] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[28] ← HTTP 200
+     I=2;
+
+[29] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[29] ← HTTP 200
+     X=;
+
+[30] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[30] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[31] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[31] ← HTTP 200
+     I=2;
+
+[32] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[32] ← HTTP 200
+     I=2;
+
+[33] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[33] ← HTTP 200
+     X=;
+
+[34] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[34] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[35] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[35] ← HTTP 200
+     I=2;
+
+[36] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[36] ← HTTP 200
+     I=2;
+
+[37] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[37] ← HTTP 200
+     X=;
+
+[38] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[38] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[39] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[39] ← HTTP 200
+     I=2;
+
+[40] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[40] ← HTTP 200
+     I=2;
+
+[41] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[41] ← HTTP 200
+     X=;
+
+[42] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[42] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[43] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[43] ← HTTP 200
+     I=2;
+
+[44] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[44] ← HTTP 200
+     I=2;
+
+[45] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[45] ← HTTP 200
+     X=;
+
+[46] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[46] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[47] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[47] ← HTTP 200
+     I=2;
+
+[48] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[48] ← HTTP 200
+     I=2;
+
+[49] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[49] ← HTTP 200
+     X=;
+
+[50] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[50] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[51] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[51] ← HTTP 200
+     I=2;
+
+[52] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[52] ← HTTP 200
+     I=2;
+
+[53] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[53] ← HTTP 200
+     X=;
+
+[54] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[54] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[55] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[55] ← HTTP 200
+     I=2;
+
+[56] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[56] ← HTTP 200
+     I=2;
+
+[57] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[57] ← HTTP 200
+     X=;
+
+[58] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[58] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[59] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[59] ← HTTP 200
+     I=2;
+
+[60] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[60] ← HTTP 200
+     I=2;
+
+[61] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[61] ← HTTP 200
+     X=;
+
+[62] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[62] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[63] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[63] ← HTTP 200
+     I=2;
+
+[64] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[64] ← HTTP 200
+     I=2;
+
+[65] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[65] ← HTTP 200
+     X=;
+
+[66] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[66] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[67] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[67] ← HTTP 200
+     I=2;
+
+[68] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[68] ← HTTP 200
+     I=2;
+
+[69] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[69] ← HTTP 200
+     X=;
+
+[70] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[70] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[71] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[71] ← HTTP 200
+     I=2;
+
+[72] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[72] ← HTTP 200
+     I=2;
+
+[73] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[73] ← HTTP 200
+     X=;
+
+[74] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[74] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[75] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[75] ← HTTP 200
+     I=2;
+
+[76] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[76] ← HTTP 200
+     I=2;
+
+[77] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[77] ← HTTP 200
+     X=;
+
+[78] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[78] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[79] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[79] ← HTTP 200
+     I=2;
+
+[80] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[80] ← HTTP 200
+     I=2;
+
+[81] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[81] ← HTTP 200
+     X=;
+
+[82] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[82] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[83] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[83] ← HTTP 200
+     I=2;
+
+[84] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[84] ← HTTP 200
+     I=2;
+
+[85] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[85] ← HTTP 200
+     X=;
+
+[86] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[86] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[87] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[87] ← HTTP 200
+     I=2;
+
+[88] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[88] ← HTTP 200
+     I=2;
+
+[89] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[89] ← HTTP 200
+     X=;
+
+[90] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[90] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[91] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[91] ← HTTP 200
+     I=2;
+
+[92] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[92] ← HTTP 200
+     I=2;
+
+[93] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[93] ← HTTP 200
+     X=;
+
+[94] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[94] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[95] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[95] ← HTTP 200
+     I=2;
+
+[96] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[96] ← HTTP 200
+     I=2;
+
+[97] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[97] ← HTTP 200
+     X=;
+
+[98] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[98] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[99] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[99] ← HTTP 200
+     I=2;
+
+[100] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[100] ← HTTP 200
+     I=2;
+
+[101] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[101] ← HTTP 200
+     X=;
+
+[102] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[102] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[103] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[103] ← HTTP 200
+     I=2;
+
+[104] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[104] ← HTTP 200
+     I=2;
+
+[105] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[105] ← HTTP 200
+     X=;
+
+[106] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[106] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[107] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[107] ← HTTP 200
+     I=2;
+
+[108] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[108] ← HTTP 200
+     I=2;
+
+[109] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[109] ← HTTP 200
+     X=;
+
+[110] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[110] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[111] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[111] ← HTTP 200
+     I=2;
+
+[112] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[112] ← HTTP 200
+     I=2;
+
+[113] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[113] ← HTTP 200
+     X=;
+
+[114] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[114] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[115] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[115] ← HTTP 200
+     I=2;
+
+[116] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[116] ← HTTP 200
+     I=2;
+
+[117] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[117] ← HTTP 200
+     X=;
+
+[118] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[118] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[119] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[119] ← HTTP 200
+     I=2;
+
+[120] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[120] ← HTTP 200
+     I=2;
+
+[121] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[121] ← HTTP 200
+     X=;
+
+[122] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[122] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[123] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[123] ← HTTP 200
+     I=2;
+
+[124] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[124] ← HTTP 200
+     I=2;
+
+[125] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[125] ← HTTP 200
+     X=;
+
+[126] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[126] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[127] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[127] ← HTTP 200
+     I=2;
+
+[128] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[128] ← HTTP 200
+     I=2;
+
+[129] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[129] ← HTTP 200
+     X=;
+
+[130] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[130] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[131] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[131] ← HTTP 200
+     I=2;
+
+[132] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[132] ← HTTP 200
+     I=2;
+
+[133] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[133] ← HTTP 200
+     X=;
+
+[134] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[134] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[135] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[135] ← HTTP 200
+     I=2;
+
+[136] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[136] ← HTTP 200
+     I=2;
+
+[137] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[137] ← HTTP 200
+     X=;
+
+[138] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[138] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[139] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[139] ← HTTP 200
+     I=2;
+
+[140] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[140] ← HTTP 200
+     I=2;
+
+[141] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[141] ← HTTP 200
+     X=;
+
+[142] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[142] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[143] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[143] ← HTTP 200
+     I=2;
+
+[144] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[144] ← HTTP 200
+     I=2;
+
+[145] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[145] ← HTTP 200
+     X=;
+
+[146] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[146] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[147] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[147] ← HTTP 200
+     I=2;
+
+[148] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[148] ← HTTP 200
+     I=2;
+
+[149] → POST /mxWebService?ID=C0E61E58D1154E2F958DA4FF7D35001F
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=ReceiveMessage;RE=3;SessionID:S=32"C0E61E58D1154E2F958DA4FF7D35001F";Key:S=7"0000999";StationID:I=1;
+[149] ← HTTP 200
+     X=;
+
+[150] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[150] ← HTTP 200
+     S=32"95ACF513EC8942EDA9D298E86EB932FC";
+
+[151] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"AABEEE4A4E234DB3BAFB077122AE4D4D";
+[151] ← HTTP 200
+     I=2;
+
+[152] → POST /mxWebService?ID=95ACF513EC8942EDA9D298E86EB932FC
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=GetMessageState;RE=4;Key:S=7"0000999";StationID:I=1;SessionID:S=32"95ACF513EC8942EDA9D298E86EB932FC";MessageID:S=32"379137F492644356B2C061956B49CCAB";
+[152] ← HTTP 200
+     I=2;
