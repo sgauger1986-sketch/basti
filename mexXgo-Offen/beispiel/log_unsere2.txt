@@ -1,0 +1,239 @@
+Weiterleiter: http://0.0.0.0:8080  →  http://82.165.182.81:8080
+Alles unverändert. Beide Richtungen stehen hier.
+
+
+[1] → POST /mxWebService?ID=NEW
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Login;RE=2;Key:S=7"0000999";StationID:I=1;
+[1] ← HTTP 200  Set-Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[2] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[2] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[3] → POST /mxWebService?ID=NEW
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     FC=Connect2;RE=2;Key:S=7"0000999";StationID:I=1;
+[3] ← HTTP 200  Set-Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     S=32"27F60448329A48D2AB1904F06580E8FF";
+
+[4] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=SendMessage;RE=12;SessionID:S=32"A9DBF1BFFF294F8FA964BA342972CD96";Content:S=77"DA39A3EE5E6B4B0D3255BFEF95601890AFD80709,9e983c20-e741-4451-a3fb-b3349110ad86";Key:S=7"0000999";MessageID:S=32"6F2EB5149C8547F38B2ABBF621D26F6C";MsgState:I=4;Recipient:I=;StationID:I=1;Attachment:BS=;AttachmentType:I= … (+41 Zeichen)
+[4] ← HTTP 200
+     B=T;
+
+[5] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[5] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[6] → POST /mxWebService?ID=27F60448329A48D2AB1904F06580E8FF
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     FC=ReceiveMessage;RE=3;SessionID:S=32"27F60448329A48D2AB1904F06580E8FF";Key:S=7"0000999";StationID:I=1;
+[6] ← HTTP 200
+     X=;
+
+[7] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[7] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[8] → POST /mxWebService?ID=27F60448329A48D2AB1904F06580E8FF
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     FC=ReceiveMessage;RE=3;SessionID:S=32"27F60448329A48D2AB1904F06580E8FF";Key:S=7"0000999";StationID:I=1;
+[8] ← HTTP 200
+     X=;
+
+[9] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[9] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[10] → POST /mxWebService?ID=27F60448329A48D2AB1904F06580E8FF
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     FC=ReceiveMessage;RE=3;SessionID:S=32"27F60448329A48D2AB1904F06580E8FF";Key:S=7"0000999";StationID:I=1;
+[10] ← HTTP 200
+     X=;
+
+[11] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[11] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[12] → POST /mxWebService?ID=27F60448329A48D2AB1904F06580E8FF
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     FC=ReceiveMessage;RE=3;SessionID:S=32"27F60448329A48D2AB1904F06580E8FF";Key:S=7"0000999";StationID:I=1;
+[12] ← HTTP 200
+     X=;
+
+[13] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[13] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[14] → POST /mxWebService?ID=27F60448329A48D2AB1904F06580E8FF
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     FC=ReceiveMessage;RE=3;SessionID:S=32"27F60448329A48D2AB1904F06580E8FF";Key:S=7"0000999";StationID:I=1;
+[14] ← HTTP 200
+     X=;
+
+[15] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[15] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[16] → POST /mxWebService?ID=27F60448329A48D2AB1904F06580E8FF
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     FC=ReceiveMessage;RE=3;SessionID:S=32"27F60448329A48D2AB1904F06580E8FF";Key:S=7"0000999";StationID:I=1;
+[16] ← HTTP 200
+     X=;
+
+[17] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[17] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[18] → POST /mxWebService?ID=27F60448329A48D2AB1904F06580E8FF
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     FC=ReceiveMessage;RE=3;SessionID:S=32"27F60448329A48D2AB1904F06580E8FF";Key:S=7"0000999";StationID:I=1;
+[18] ← HTTP 200
+     X=;
+
+[19] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[19] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[20] → POST /mxWebService?ID=27F60448329A48D2AB1904F06580E8FF
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     FC=ReceiveMessage;RE=3;SessionID:S=32"27F60448329A48D2AB1904F06580E8FF";Key:S=7"0000999";StationID:I=1;
+[20] ← HTTP 200
+     X=;
+
+[21] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[21] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[22] → POST /mxWebService?ID=27F60448329A48D2AB1904F06580E8FF
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     FC=ReceiveMessage;RE=3;SessionID:S=32"27F60448329A48D2AB1904F06580E8FF";Key:S=7"0000999";StationID:I=1;
+[22] ← HTTP 200
+     X=;
+
+[23] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[23] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[24] → POST /mxWebService?ID=27F60448329A48D2AB1904F06580E8FF
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     FC=ReceiveMessage;RE=3;SessionID:S=32"27F60448329A48D2AB1904F06580E8FF";Key:S=7"0000999";StationID:I=1;
+[24] ← HTTP 200
+     X=;
+
+[25] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[25] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[26] → POST /mxWebService?ID=27F60448329A48D2AB1904F06580E8FF
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     FC=ReceiveMessage;RE=3;SessionID:S=32"27F60448329A48D2AB1904F06580E8FF";Key:S=7"0000999";StationID:I=1;
+[26] ← HTTP 200
+     X=;
+
+[27] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[27] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[28] → POST /mxWebService?ID=27F60448329A48D2AB1904F06580E8FF
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     FC=ReceiveMessage;RE=3;SessionID:S=32"27F60448329A48D2AB1904F06580E8FF";Key:S=7"0000999";StationID:I=1;
+[28] ← HTTP 200
+     X=;
+
+[29] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[29] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[30] → POST /mxWebService?ID=27F60448329A48D2AB1904F06580E8FF
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     FC=ReceiveMessage;RE=3;SessionID:S=32"27F60448329A48D2AB1904F06580E8FF";Key:S=7"0000999";StationID:I=1;
+[30] ← HTTP 200
+     X=;
+
+[31] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[31] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[32] → POST /mxWebService?ID=27F60448329A48D2AB1904F06580E8FF
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     FC=ReceiveMessage;RE=3;SessionID:S=32"27F60448329A48D2AB1904F06580E8FF";Key:S=7"0000999";StationID:I=1;
+[32] ← HTTP 200
+     X=;
+
+[33] → POST /mxWebService?ID=A9DBF1BFFF294F8FA964BA342972CD96
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=A9DBF1BFFF294F8FA964BA342972CD96
+     FC=Connect;RE=2;Key:S=7"0000999";StationID:I=1;
+[33] ← HTTP 200
+     S=32"A9DBF1BFFF294F8FA964BA342972CD96";
+
+[34] → POST /mxWebService?ID=27F60448329A48D2AB1904F06580E8FF
+     ! Content-Type: '' — die Gegenseite mag das nicht
+     Cookie: ID=27F60448329A48D2AB1904F06580E8FF
+     FC=ReceiveMessage;RE=3;SessionID:S=32"27F60448329A48D2AB1904F06580E8FF";Key:S=7"0000999";StationID:I=1;
+[34] ← HTTP 200
+     X=;
