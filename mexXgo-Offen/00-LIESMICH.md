@@ -37,6 +37,7 @@ Beschreibung. Die steht hier.
 | an der App weiterarbeiten | [03-FAHRPLAN.md](03-FAHRPLAN.md) und [05-APP-AUFBAU.md](05-APP-AUFBAU.md) |
 | etwas bauen oder ausprobieren | [06-BAUEN.md](06-BAUEN.md) |
 | am Windows-Rechner an der Zentrale weitermachen | [07-BRIEFING-WINDOWS.md](07-BRIEFING-WINDOWS.md) |
+| wissen wollen, warum die App nicht ankommt | [08-FEHLERSUCHE-VERBINDUNG.md](08-FEHLERSUCHE-VERBINDUNG.md) |
 
 ---
 
