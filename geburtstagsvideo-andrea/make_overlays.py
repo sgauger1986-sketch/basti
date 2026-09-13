@@ -73,7 +73,7 @@ photo = photo.crop((0, y0, pw, y0 + crop_h)).resize((2400, 1350), Image.LANCZOS)
 photo.save(f"{OUT}/photo_plate.png")
 photo_txt = text_layer([
     ("Bon anniversaire, Andrea !", font("GreatVibes.ttf", 124), GOLD, 866, 110),
-    (spaced("70 ANS  ·  70 JAHRE"), font("Montserrat-SemiBold.ttf", 28), CREAM, 1000, 120),
+    (spaced("70 ANS  ·  70 JAHRE  ·  HERZLICHEN GLÜCKWUNSCH"), font("Montserrat-SemiBold.ttf", 26), CREAM, 1000, 120),
 ])
 photo_txt.save(f"{OUT}/ov_photo.png")
 grad = bottom_gradient(Image.new("RGBA", (W, H), (0, 0, 0, 0)), start=0.5, strength=210)
@@ -88,10 +88,34 @@ paris.save(f"{OUT}/ov_paris.png")
 
 # 4) Bauchbinde über der Toast-Szene
 lower = text_layer([
-    ("Eine besondere Auszeit", font("CormorantGaramond-SemiBold.ttf", 78), CREAM, 760),
-    (spaced("IM CAFÉ PARIS AM HAMBURGER RATHAUS"), font("Montserrat-SemiBold.ttf", 30), GOLD, 870),
+    ("Santé, Andrea !  ·  Zum Wohl, Andrea!", font("CormorantGaramond-SemiBold.ttf", 78), CREAM, 740),
+    (spaced("UNE PAUSE SPÉCIALE  ·  EINE BESONDERE AUSZEIT"), font("Montserrat-SemiBold.ttf", 28), GOLD, 850),
+    (spaced("CAFÉ PARIS AM HAMBURGER RATHAUS"), font("Montserrat-SemiBold.ttf", 28), GOLD, 905),
 ])
 lower.save(f"{OUT}/ov_lower.png")
+
+# 4b) Liedtext-Einblendungen: gesungene deutsche Zeile + französische Übersetzung
+LYRICS = {
+    "g1": [
+        ("Liebe Andrea, heut’ wirst du siebzig Jahr,", "Chère Andrea, aujourd’hui tu as soixante-dix ans,"),
+        ("wir feiern dich, so wunderbar.", "nous te fêtons, c’est merveilleux."),
+        ("Auf Genuss, auf Glück, auf gute Zeit –", "Au plaisir, au bonheur, aux bons moments –"),
+        ("Café Paris, die Freude ist bereit!", "Café Paris, la joie t’attend !"),
+    ],
+    "g2": [
+        ("Auf dich, Andrea, stoßen wir heut’ an –", "À toi, Andrea, nous trinquons aujourd’hui –"),
+        ("auf siebzig Jahre voller Glanz!", "à soixante-dix ans pleins d’éclat !"),
+        ("Alles Liebe, liebe Andrea –", "Tous nos vœux, chère Andrea –"),
+        ("von Basti, von Herzen, ganz!", "de Basti, de tout cœur !"),
+    ],
+}
+for clip, lines in LYRICS.items():
+    for i, (de, fr) in enumerate(lines, 1):
+        text_layer([
+            (de, font("CormorantGaramond-SemiBold.ttf", 60), CREAM, 880),
+            (fr, font("CormorantGaramond-Regular.ttf", 46), GOLD, 960),
+        ]).save(f"{OUT}/sub_{clip}_{i}.png")
+bottom_gradient(Image.new("RGBA", (W, H), (0, 0, 0, 0)), start=0.68, strength=170).save(f"{OUT}/ov_subgrad.png")
 
 # 5) Gutschein-Tafel: unscharfer, abgedunkelter Hintergrund + Gutschein mit Goldrahmen
 voucher = Image.open(f"{ASSETS}/gutschein.png").convert("RGB")

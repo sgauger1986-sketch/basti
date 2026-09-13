@@ -49,6 +49,14 @@ finden sich in der Higgsfield-Historie unter „Generations“.
 
 > Cinematic golden-hour shot in Montmartre, Paris: an elegant elderly street musician in a flat cap and vest plays a lively, warm French musette waltz on a pearl-white accordion on a cobblestone square, the white domes of the Sacré-Cœur basilica softly blurred behind him, a small café terrace with red bistro chairs and a red awning, string lights, gentle slow dolly, warm nostalgic tones, shallow depth of field. Audio: clear, melodic French accordion musette waltz music only, no talking, no crowd noise, no text.
 
+## Gesprochene Grüße (`vo1.mp3`, `vo2.mp3`)
+
+- Modell: text2speech_v2, Variante ElevenLabs (multilingual), Stimme „Elodie“ (Preset 8b95a259-62fd-545d-b0f0-7b521a972b6b)
+- Job 1 (Fotoszene): 71def2f0-4033-4400-a95d-68e19cc6566d – https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260913_195253_71def2f0-4033-4400-a95d-68e19cc6566d.mp3
+  Text: „Joyeux anniversaire, Andrea ! Soixante-dix ans... quelle belle fête ! Alles Liebe zum siebzigsten Geburtstag, liebe Andrea !“
+- Job 2 (Abspann): f47f6070-d604-41ad-b6f8-6ca10a19bb29 – https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260913_195257_f47f6070-d604-41ad-b6f8-6ca10a19bb29.mp3
+  Text: „De la part de Basti, avec tout mon cœur. Von Basti, von ganzem Herzen.“
+
 ## Foto von Andrea (`assets/andrea.jpg`)
 
 Echtes Foto (Hafenrundfahrt), nicht KI-generiert. Wird als 16:9-Ausschnitt mit
@@ -59,4 +67,5 @@ langsamem Zoom gezeigt; in der Higgsfield-Mediathek als
 
 Der gesungene Text wurde per Spracherkennung (faster-whisper, Modell „small“)
 gegengeprüft: Beide Strophen werden mit dem Namen „Andrea“ und dem Text wie
-oben gesungen.
+oben gesungen. Die Wortzeiten aus Whisper steuern die zweisprachigen
+Liedtext-Einblendungen (deutsch gesungen, französische Übersetzung darunter).
