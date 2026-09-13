@@ -6,10 +6,27 @@ Rathaus als Abschluss.
 
 ## Fertiges Video
 
-- Download (MP4, 1080p, 46 MB): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/9949a282-7bda-4d2d-8298-e195897674d6.mp4
-- Vorschaubild: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/407be7bb-bcdd-40b8-bb5d-7eabbd26ae74.jpg
+- Download (MP4, 1080p, 46 MB, gehostet in der Higgsfield-Mediathek): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/9949a282-7bda-4d2d-8298-e195897674d6.mp4
+- Vorschaubild (Higgsfield): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/407be7bb-bcdd-40b8-bb5d-7eabbd26ae74.jpg
+- Higgsfield-Mediathek (Uploads → Video, Datei `Andrea_70_Geburtstag.mp4`): https://higgsfield.ai
 - Ansehen und teilen (Descript): https://share.descript.com/view/YWUbPN2abGU
 - Zum Nachbearbeiten (Descript-Projekt): https://web.descript.com/0dbf90e3-b35c-4ffc-a358-0b88b8ddaa84
+
+## Produktion mit Higgsfield
+
+Das Video wurde komplett mit **Higgsfield** (https://higgsfield.ai) produziert:
+
+- **Generierung der Szenen**: Kling 3.0 (Eröffnung, Toast) und Seedance 2.0 Mini
+  (beide Gesangsstrophen mit nativem Ton und Lippensynchronisation). Die
+  Sängerin der zweiten Strophe wurde über ein Referenzbild aus der ersten
+  Strophe konsistent gehalten. Alle Prompts, Modelle und Clip-Links: `prompts.md`.
+- **Schnitt und Rendering**: ffmpeg und Pillow in der Higgsfield-Cloud-Sandbox
+  (`build.sh`, `make_overlays.py`).
+- **Qualitätsprüfung**: Higgsfield-Videoanalyse (Szene für Szene) und
+  Spracherkennung mit faster-whisper.
+- **Hosting**: Fertiges Video und Vorschaubild liegen in der Higgsfield-Mediathek.
+- Verbrauch: ca. 108 Credits (Kling 3.0 std 10 s = 20 Credits, Seedance 2.0 Mini
+  15 s = 37,5 Credits, 12 s = 30 Credits).
 
 ## Ablauf des Videos
 

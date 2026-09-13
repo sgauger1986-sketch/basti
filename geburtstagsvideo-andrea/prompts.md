@@ -1,11 +1,13 @@
 # Generierungs-Prompts und Quellclips
 
-Alle Clips wurden über Higgsfield generiert (16:9, nativer Ton). Die Links
-zeigen auf die Original-Ausgaben.
+Alle Clips wurden über Higgsfield (https://higgsfield.ai) generiert
+(16:9, nativer Ton). Die Links zeigen auf die Original-Ausgaben; die Job-IDs
+finden sich in der Higgsfield-Historie unter „Generations“.
 
 ## Clip 1 – Eröffnung (`amb1.mp4`)
 
 - Modell: Kling 3.0 (std), 10 s, Ton an
+- Higgsfield-Job: 10ed7cfa-88eb-4685-bd9d-78baf00aab46
 - Download: https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260913_185902_10ed7cfa-88eb-4685-bd9d-78baf00aab46.mp4
 - Prompt:
 
@@ -14,6 +16,7 @@ zeigen auf die Original-Ausgaben.
 ## Clip 2 – Gesang, Strophe 1 (`g1.mp4`)
 
 - Modell: Seedance 2.0 Mini, 15 s, 720p, Ton an, Genre „drama“
+- Higgsfield-Job: 827a9a3f-2e1d-48aa-9f52-e60a6f86f906
 - Download: https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260913_185902_827a9a3f-2e1d-48aa-9f52-e60a6f86f906.mp4
 - Prompt:
 
@@ -22,6 +25,7 @@ zeigen auf die Original-Ausgaben.
 ## Clip 3 – Gesang, Strophe 2 (`g2.mp4`)
 
 - Modell: Seedance 2.0 Mini, 12 s, 720p, Ton an, Referenzbild = Standbild aus Clip 2 (Sekunde 4,5) für gleiche Sängerin
+- Higgsfield-Job: 361a17f4-6882-42a1-889f-53f9b52d8ffb
 - Download: https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260913_191823_361a17f4-6882-42a1-889f-53f9b52d8ffb.mp4
 - Prompt:
 
@@ -30,6 +34,7 @@ zeigen auf die Original-Ausgaben.
 ## Clip 4 – Toast (`toast.mp4`)
 
 - Modell: Kling 3.0 (std), 10 s, Ton an
+- Higgsfield-Job: fc3ff146-939f-449a-969a-d850e4aca632
 - Download: https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260913_191715_fc3ff146-939f-449a-969a-d850e4aca632.mp4
 - Prompt:
 
