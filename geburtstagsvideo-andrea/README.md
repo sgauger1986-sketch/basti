@@ -4,6 +4,13 @@ Professionelles Geburtstagsvideo (ca. 59 s, 1920×1080, 24 fps, Stereo) mit eine
 gesungenen Chanson-Gratulation und dem Gutschein fürs Café Paris am Hamburger
 Rathaus als Abschluss.
 
+## Fertiges Video
+
+- Download (MP4, 1080p, 46 MB): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/9949a282-7bda-4d2d-8298-e195897674d6.mp4
+- Vorschaubild: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/407be7bb-bcdd-40b8-bb5d-7eabbd26ae74.jpg
+- Ansehen und teilen (Descript): https://share.descript.com/view/YWUbPN2abGU
+- Zum Nachbearbeiten (Descript-Projekt): https://web.descript.com/0dbf90e3-b35c-4ffc-a358-0b88b8ddaa84
+
 ## Ablauf des Videos
 
 | Zeit (ca.) | Szene | Inhalt |
