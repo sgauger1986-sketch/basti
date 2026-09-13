@@ -12,6 +12,7 @@ Abschluss.
 - Version 2 (mit Foto, ohne Einblendungen, 75 s): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/b5fc742f-35a4-4fba-8e39-bc5af1701624.mp4
 - Version 1 (ohne Foto, 59 s): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/9949a282-7bda-4d2d-8298-e195897674d6.mp4
 - Higgsfield-Mediathek (Uploads → Video, Dateien `Andrea_70_Geburtstag_v3.mp4`, `_v2.mp4` und `Andrea_70_Geburtstag.mp4`): https://higgsfield.ai
+- Ansehen und teilen, Version 3 (Descript): https://share.descript.com/view/hlNSMgDaO2M
 - Ansehen und teilen, Version 2 (Descript): https://share.descript.com/view/CDbdnyVhQGe
 - Ansehen und teilen, Version 1 (Descript): https://share.descript.com/view/YWUbPN2abGU
 - Zum Nachbearbeiten (Descript-Projekt): https://web.descript.com/0dbf90e3-b35c-4ffc-a358-0b88b8ddaa84
@@ -27,7 +28,8 @@ Das Video wurde komplett mit **Higgsfield** (https://higgsfield.ai) produziert:
 - **Schnitt und Rendering**: ffmpeg und Pillow in der Higgsfield-Cloud-Sandbox
   (`build.sh`, `make_overlays.py`).
 - **Gesprochene Grüße**: Text-to-Speech (ElevenLabs Multilingual über
-  Higgsfield, Stimme „Elodie“), Französisch und Deutsch.
+  Higgsfield, Voice-Preset „Elodie“, klingt in der Ausgabe männlich),
+  Französisch und Deutsch.
 - **Qualitätsprüfung**: Higgsfield-Videoanalyse (Szene für Szene) und
   Spracherkennung mit faster-whisper (auch für die Wortzeiten der
   Liedtext-Einblendungen).
@@ -51,7 +53,8 @@ Das Video wurde komplett mit **Higgsfield** (https://higgsfield.ai) produziert:
 Musik: Durchgehend französische Akkordeon-Musette (aus den Higgsfield-Clips
 Eröffnung, Paris und Toast als Musikbett), in den Gesangsszenen Chanson mit
 Akkordeon und Kontrabass. Die gesprochenen Grüße kommen von einer
-ElevenLabs-Stimme (über Higgsfield), damit Französisch und Deutsch sauber
+ElevenLabs-Stimme (über Higgsfield, laut Szenenanalyse eine Männerstimme,
+passend zum Absender Basti), damit Französisch und Deutsch sauber
 ausgesprochen werden.
 
 ## Liedtext (gesungen, Deutsch, Walzer)
