@@ -14,7 +14,8 @@ Abschluss.
 - Version 2 (mit Foto, ohne Einblendungen, 75 s): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/b5fc742f-35a4-4fba-8e39-bc5af1701624.mp4
 - Version 1 (ohne Foto, 59 s): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/9949a282-7bda-4d2d-8298-e195897674d6.mp4
 - Higgsfield-Mediathek (Uploads → Video, Dateien `Andrea_70_Geburtstag_v5.mp4`, `_v4.mp4`, `_v3.mp4`, `_v2.mp4` und `Andrea_70_Geburtstag.mp4`): https://higgsfield.ai
-- **Ansehen und teilen, Version 4 (Descript): https://share.descript.com/view/6P1AarqtzY7**
+- **Ansehen und teilen, Version 5 (Descript): https://share.descript.com/view/ezGxn81P8c3**
+- Ansehen und teilen, Version 4 (Descript): https://share.descript.com/view/6P1AarqtzY7
 - Ansehen und teilen, Version 3 (Descript): https://share.descript.com/view/hlNSMgDaO2M
 - Ansehen und teilen, Version 2 (Descript): https://share.descript.com/view/CDbdnyVhQGe
 - Ansehen und teilen, Version 1 (Descript): https://share.descript.com/view/YWUbPN2abGU
