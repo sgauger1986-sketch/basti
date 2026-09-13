@@ -59,7 +59,7 @@ def bottom_gradient(img, start=0.55, strength=200):
 # 1) Titel über der Eröffnungsszene
 title = text_layer([
     ("Für Andrea", font("GreatVibes.ttf", 210), GOLD, 250),
-    ("Joyeux anniversaire  ·  Zum 70. Geburtstag", font("CormorantGaramond-SemiBold.ttf", 72), CREAM, 520),
+    ("Zum 70. Geburtstag", font("CormorantGaramond-SemiBold.ttf", 82), CREAM, 520),
 ])
 title.save(f"{OUT}/ov_title.png")
 
@@ -72,8 +72,8 @@ y0 = int(ph * 0.20)  # Ausschnitt beginnt über der Hand, endet unter der Tasche
 photo = photo.crop((0, y0, pw, y0 + crop_h)).resize((2400, 1350), Image.LANCZOS)
 photo.save(f"{OUT}/photo_plate.png")
 photo_txt = text_layer([
-    ("Bon anniversaire, Andrea !", font("GreatVibes.ttf", 124), GOLD, 866, 110),
-    (spaced("70 ANS  ·  70 JAHRE  ·  HERZLICHEN GLÜCKWUNSCH"), font("Montserrat-SemiBold.ttf", 26), CREAM, 1000, 120),
+    ("Herzlichen Glückwunsch, Andrea!", font("GreatVibes.ttf", 118), GOLD, 866, 110),
+    (spaced("70 JAHRE"), font("Montserrat-SemiBold.ttf", 28), CREAM, 1000, 120),
 ])
 photo_txt.save(f"{OUT}/ov_photo.png")
 grad = bottom_gradient(Image.new("RGBA", (W, H), (0, 0, 0, 0)), start=0.5, strength=210)
@@ -88,9 +88,8 @@ paris.save(f"{OUT}/ov_paris.png")
 
 # 4) Bauchbinde über der Toast-Szene
 lower = text_layer([
-    ("Santé, Andrea !  ·  Zum Wohl, Andrea!", font("CormorantGaramond-SemiBold.ttf", 78), CREAM, 740),
-    (spaced("UNE PAUSE SPÉCIALE  ·  EINE BESONDERE AUSZEIT"), font("Montserrat-SemiBold.ttf", 28), GOLD, 850),
-    (spaced("CAFÉ PARIS AM HAMBURGER RATHAUS"), font("Montserrat-SemiBold.ttf", 28), GOLD, 905),
+    ("Eine besondere Auszeit", font("CormorantGaramond-SemiBold.ttf", 78), CREAM, 760),
+    (spaced("IM CAFÉ PARIS AM HAMBURGER RATHAUS"), font("Montserrat-SemiBold.ttf", 30), GOLD, 870),
 ])
 lower.save(f"{OUT}/ov_lower.png")
 
@@ -143,13 +142,12 @@ for y in range(H):  # weicher Verlauf ins Warme
     d.line([(0, y), (W, y)], fill=(int(20 + 26 * t), int(15 + 18 * t), int(10 + 8 * t)))
 end = end.convert("RGBA")
 end_txt = text_layer([
-    ("Joyeux 70e anniversaire", font("CormorantGaramond-SemiBold.ttf", 80), CREAM, 280),
-    ("Andrea", font("GreatVibes.ttf", 260), GOLD, 380),
-    ("Alles Liebe zum 70. Geburtstag", font("CormorantGaramond-Regular.ttf", 56), CREAM, 730),
-    ("Von Basti", font("GreatVibes.ttf", 96), GOLD, 810),
+    ("Alles Liebe zum 70. Geburtstag", font("CormorantGaramond-SemiBold.ttf", 76), CREAM, 300),
+    ("Andrea", font("GreatVibes.ttf", 260), GOLD, 400),
+    ("Von Basti", font("GreatVibes.ttf", 96), GOLD, 740),
 ], shadow=False)
 end = Image.alpha_composite(end, end_txt)
 d = ImageDraw.Draw(end)
-d.line([(660, 690), (1260, 690)], fill=GOLD + (255,), width=2)
+d.line([(660, 700), (1260, 700)], fill=GOLD + (255,), width=2)
 end.convert("RGB").save(f"{OUT}/end_card.png")
 print("overlays ok")

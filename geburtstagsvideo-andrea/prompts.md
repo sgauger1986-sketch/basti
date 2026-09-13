@@ -33,6 +33,15 @@ finden sich in der Higgsfield-Historie unter „Generations“.
 
 > Scène cinématographique dans la lumière dorée du soir, sur la terrasse du Café Paris à Hambourg, la tour de l'hôtel de ville floue en arrière-plan, guirlandes lumineuses, hortensias blancs. La chanteuse de l'image de référence (même visage, béret noir, pull noir à col roulé, accordéon) chante face caméra une chanson d'anniversaire tendre pour Andrea. Elle chante lentement, avec une diction française très claire, chaque syllabe distincte ; le prénom se chante en trois syllabes bien nettes, An-dré-a, avec le a final bien audible. Valse musette lente à l'accordéon avec contrebasse douce. Elle chante exactement ces paroles, mot pour mot : « Joyeux anniversaire, Andrea ! Au Café Paris, à Hambourg, on trinque à toi. Avec tout notre amour, de la part de Basti. » À la toute fin, elle lève une coupe de champagne vers la caméra en souriant. Lent mouvement de caméra, bokeh doux, ambiance festive et élégante, qualité de clip musical professionnel, pas de sous-titres, pas de texte à l'image.
 
+## Clip 3 (Version 5) – Gesang, Strophe 2 auf Deutsch (`g2.mp4`)
+
+- Modell: Seedance 2.5, 12 s, 720p, Ton an, Prompt-Sprache Deutsch, Referenzbild der Sängerin, ein einziger Versuch
+- Higgsfield-Job: ebab2b59-cb78-4d8c-b4ea-662a626e4c0e
+- Download: https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260913_204735_ebab2b59-cb78-4d8c-b4ea-662a626e4c0e.mp4
+- Liedtext: „Im Café Paris in Hamburg stoßen wir auf dich an. Alles Liebe, liebe Andrea, von Herzen, von Basti.“
+- Spracherkennung: 94 % Treffer, „Andrea“ und „Basti“ klar.
+- Die zugehörige Strophe 1 („Liebe Andrea, heute wirst du siebzig Jahre alt. Wir feiern dich, denn du bist wunderbar.“) konnte nicht generiert werden: Guthaben reichte nicht (Fehlermeldung „Out of credits“). Version 5 nutzt dafür die deutsche Strophe 1 aus Version 4 (Job 746c74a3).
+
 ## Clip 2 (Versionen 1–3) – Gesang, Strophe 1 (`g1.mp4`, alt)
 
 - Modell: Seedance 2.0 Mini, 15 s, 720p, Ton an, Genre „drama“
