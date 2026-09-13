@@ -11,7 +11,8 @@ Abschluss.
 - Vorschaubild Version 2 (Higgsfield): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/f7769a77-1e5f-4198-8653-f4365e03dd78.jpg
 - Version 1 (ohne Foto, 59 s): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/9949a282-7bda-4d2d-8298-e195897674d6.mp4
 - Higgsfield-Mediathek (Uploads → Video, Dateien `Andrea_70_Geburtstag_v2.mp4` und `Andrea_70_Geburtstag.mp4`): https://higgsfield.ai
-- Ansehen und teilen (Descript): https://share.descript.com/view/YWUbPN2abGU
+- Ansehen und teilen, Version 2 (Descript): https://share.descript.com/view/CDbdnyVhQGe
+- Ansehen und teilen, Version 1 (Descript): https://share.descript.com/view/YWUbPN2abGU
 - Zum Nachbearbeiten (Descript-Projekt): https://web.descript.com/0dbf90e3-b35c-4ffc-a358-0b88b8ddaa84
 
 ## Produktion mit Higgsfield
