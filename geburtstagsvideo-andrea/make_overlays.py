@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Erzeugt alle Grafik-Ebenen für das Geburtstagsvideo (Titel, Bauchbinde,
-Gutschein-Tafel, Abspann) als PNG-Dateien mit Pillow.
+"""Erzeugt alle Grafik-Ebenen für das Geburtstagsvideo (Titel, Foto-Tafel,
+Bauchbinden, Gutschein-Tafel, Abspann) als PNG-Dateien mit Pillow.
 
 Aufruf:  python3 make_overlays.py <assets_dir> <out_dir>
 """
@@ -18,21 +18,26 @@ def font(name, size):
     return ImageFont.truetype(f"{ASSETS}/{name}", size)
 
 
-def text_layer(lines, shadow=True):
-    """lines: Liste von (text, font, fill, y). Transparentes 1920x1080-PNG."""
+def text_layer(lines, shadow=True, align="center"):
+    """lines: Liste von (text, font, fill, y[, x]). Transparentes 1920x1080-PNG."""
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+
+    def pos(d, text, f, y, x=None):
+        if x is not None:
+            return x, y
+        return (W - d.textlength(text, font=f)) / 2, y
+
     if shadow:
         sh = Image.new("RGBA", (W, H), (0, 0, 0, 0))
         d = ImageDraw.Draw(sh)
-        for text, f, fill, y in lines:
-            w = d.textlength(text, font=f)
-            d.text(((W - w) / 2 + 3, y + 4), text, font=f, fill=(0, 0, 0, 200))
+        for text, f, fill, y, *x in lines:
+            px, py = pos(d, text, f, y, *x)
+            d.text((px + 3, py + 4), text, font=f, fill=(0, 0, 0, 200))
         sh = sh.filter(ImageFilter.GaussianBlur(10))
         img = Image.alpha_composite(img, sh)
     d = ImageDraw.Draw(img)
-    for text, f, fill, y in lines:
-        w = d.textlength(text, font=f)
-        d.text(((W - w) / 2, y), text, font=f, fill=fill)
+    for text, f, fill, y, *x in lines:
+        d.text(pos(d, text, f, y, *x), text, font=f, fill=fill)
     return img
 
 
@@ -40,21 +45,55 @@ def spaced(text, gap=" "):
     return gap.join(text)
 
 
+def bottom_gradient(img, start=0.55, strength=200):
+    """Dunkler Verlauf im unteren Bildteil für lesbare Texte."""
+    grad = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(grad)
+    y0 = int(H * start)
+    for y in range(y0, H):
+        a = int(strength * ((y - y0) / (H - y0)) ** 1.5)
+        d.line([(0, y), (W, y)], fill=(0, 0, 0, a))
+    return Image.alpha_composite(img.convert("RGBA"), grad)
+
+
 # 1) Titel über der Eröffnungsszene
 title = text_layer([
     ("Für Andrea", font("GreatVibes.ttf", 210), GOLD, 250),
-    ("Zum 70. Geburtstag", font("CormorantGaramond-SemiBold.ttf", 82), CREAM, 520),
+    ("Joyeux anniversaire  ·  Zum 70. Geburtstag", font("CormorantGaramond-SemiBold.ttf", 72), CREAM, 520),
 ])
 title.save(f"{OUT}/ov_title.png")
 
-# 2) Bauchbinde über der Toast-Szene
+# 2) Foto-Tafel: Andreas Foto als 16:9-Ausschnitt (Gesicht im oberen Drittel),
+#    leicht vergrößert für den Ken-Burns-Zoom, mit dunklem Verlauf unten
+photo = Image.open(f"{ASSETS}/andrea.jpg").convert("RGB")
+pw, ph = photo.size
+crop_h = int(pw * 9 / 16)
+y0 = int(ph * 0.20)  # Ausschnitt beginnt über der Hand, endet unter der Tasche
+photo = photo.crop((0, y0, pw, y0 + crop_h)).resize((2400, 1350), Image.LANCZOS)
+photo.save(f"{OUT}/photo_plate.png")
+photo_txt = text_layer([
+    ("Bon anniversaire, Andrea !", font("GreatVibes.ttf", 124), GOLD, 866, 110),
+    (spaced("70 ANS  ·  70 JAHRE"), font("Montserrat-SemiBold.ttf", 28), CREAM, 1000, 120),
+])
+photo_txt.save(f"{OUT}/ov_photo.png")
+grad = bottom_gradient(Image.new("RGBA", (W, H), (0, 0, 0, 0)), start=0.5, strength=210)
+grad.save(f"{OUT}/ov_gradient.png")
+
+# 3) Bauchbinde über der Paris-Szene
+paris = text_layer([
+    ("Un peu de Paris à Hambourg", font("CormorantGaramond-SemiBold.ttf", 78), CREAM, 760),
+    (spaced("EIN STÜCK PARIS IN HAMBURG"), font("Montserrat-SemiBold.ttf", 30), GOLD, 870),
+])
+paris.save(f"{OUT}/ov_paris.png")
+
+# 4) Bauchbinde über der Toast-Szene
 lower = text_layer([
     ("Eine besondere Auszeit", font("CormorantGaramond-SemiBold.ttf", 78), CREAM, 760),
     (spaced("IM CAFÉ PARIS AM HAMBURGER RATHAUS"), font("Montserrat-SemiBold.ttf", 30), GOLD, 870),
 ])
 lower.save(f"{OUT}/ov_lower.png")
 
-# 3) Gutschein-Tafel: unscharfer, abgedunkelter Hintergrund + Gutschein mit Goldrahmen
+# 5) Gutschein-Tafel: unscharfer, abgedunkelter Hintergrund + Gutschein mit Goldrahmen
 voucher = Image.open(f"{ASSETS}/gutschein.png").convert("RGB")
 bg = voucher.resize((W, int(W * voucher.height / voucher.width)))
 bg = bg.crop((0, (bg.height - H) // 2, W, (bg.height - H) // 2 + H))
@@ -74,7 +113,7 @@ plate = Image.alpha_composite(bg.convert("RGBA"), shadow)
 plate.paste(frame, (x0, y0))
 plate.convert("RGB").save(f"{OUT}/voucher_plate.png")
 
-# 4) Abspann
+# 6) Abspann
 end = Image.new("RGB", (W, H), INK)
 d = ImageDraw.Draw(end)
 for y in range(H):  # weicher Verlauf ins Warme
@@ -82,13 +121,13 @@ for y in range(H):  # weicher Verlauf ins Warme
     d.line([(0, y), (W, y)], fill=(int(20 + 26 * t), int(15 + 18 * t), int(10 + 8 * t)))
 end = end.convert("RGBA")
 end_txt = text_layer([
-    ("Alles Liebe zum 70. Geburtstag", font("CormorantGaramond-SemiBold.ttf", 76), CREAM, 300),
-    ("Andrea", font("GreatVibes.ttf", 260), GOLD, 400),
-    ("Von Basti", font("CormorantGaramond-Regular.ttf", 60), CREAM, 750),
+    ("Joyeux 70e anniversaire", font("CormorantGaramond-SemiBold.ttf", 80), CREAM, 280),
+    ("Andrea", font("GreatVibes.ttf", 260), GOLD, 380),
+    ("Alles Liebe zum 70. Geburtstag", font("CormorantGaramond-Regular.ttf", 56), CREAM, 730),
+    ("Von Basti", font("GreatVibes.ttf", 96), GOLD, 810),
 ], shadow=False)
 end = Image.alpha_composite(end, end_txt)
-# Goldene Linien
 d = ImageDraw.Draw(end)
-d.line([(660, 700), (1260, 700)], fill=GOLD + (255,), width=2)
+d.line([(660, 690), (1260, 690)], fill=GOLD + (255,), width=2)
 end.convert("RGB").save(f"{OUT}/end_card.png")
 print("overlays ok")

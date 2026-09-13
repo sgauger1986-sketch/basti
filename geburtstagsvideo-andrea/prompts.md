@@ -40,6 +40,21 @@ finden sich in der Higgsfield-Historie unter „Generations“.
 
 > Cinematic close-up, golden hour on the terrace of an elegant Parisian-style café in Hamburg: two hands clink two glasses of sparkling champagne in a warm toast, slow motion, golden bubbles rising, a white porcelain cappuccino cup with latte art on a marble bistro table, white hydrangeas, a gold-ribboned gift envelope beside the cup, soft warm lantern light and bokeh fairy lights, the ornate Hamburg City Hall tower softly blurred in the background at dusk. Gentle French accordion waltz music and soft café ambience, celebratory and romantic, shallow depth of field, professional commercial quality, no faces, no text.
 
+## Clip 5 – Paris-Musette (`paris.mp4`)
+
+- Modell: Kling 3.0 (std), 8 s, Ton an
+- Higgsfield-Job: e2409f54-aafb-4ef5-a184-4cac06a68995
+- Download: https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260913_193839_e2409f54-aafb-4ef5-a184-4cac06a68995.mp4
+- Prompt:
+
+> Cinematic golden-hour shot in Montmartre, Paris: an elegant elderly street musician in a flat cap and vest plays a lively, warm French musette waltz on a pearl-white accordion on a cobblestone square, the white domes of the Sacré-Cœur basilica softly blurred behind him, a small café terrace with red bistro chairs and a red awning, string lights, gentle slow dolly, warm nostalgic tones, shallow depth of field. Audio: clear, melodic French accordion musette waltz music only, no talking, no crowd noise, no text.
+
+## Foto von Andrea (`assets/andrea.jpg`)
+
+Echtes Foto (Hafenrundfahrt), nicht KI-generiert. Wird als 16:9-Ausschnitt mit
+langsamem Zoom gezeigt; in der Higgsfield-Mediathek als
+`9db9e310-3162-4636-b62d-f0457412fc66.jpg` hinterlegt.
+
 ## Qualitätskontrolle
 
 Der gesungene Text wurde per Spracherkennung (faster-whisper, Modell „small“)
