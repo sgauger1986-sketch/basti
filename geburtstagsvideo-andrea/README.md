@@ -7,12 +7,13 @@ Abschluss.
 
 ## Fertiges Video
 
-- **Download Version 4** (MP4, 1080p, 84 s, Gesang neu in Seedance 2.5: Strophe 1 deutsch, Strophe 2 französisch, saubere Aussprache; Higgsfield-Mediathek): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/ab24db00-e44b-4925-b4c4-5d6e79527c83.mp4
-- Vorschaubild Version 4 (Higgsfield): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/dc44ac77-d27c-40cd-b60a-dc1605ec4cb3.jpg
+- **Download Version 5** (MP4, 1080p, 68 s, Aufbau wie Version 1, deutscher Gesang neu, keine Sprecherstimme; Higgsfield-Mediathek): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/21c668d9-f9c6-4a29-a6af-8386033e01e8.mp4
+- Vorschaubild Version 5 (Higgsfield): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/5a7b425e-dad9-42a1-8a72-5c33fe1a3c4b.jpg
+- Version 4 (84 s, mit Sprecherstimme, Untertiteln und französischer Strophe): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/ab24db00-e44b-4925-b4c4-5d6e79527c83.mp4
 - Version 3 (alter Gesang, 84 s): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/186edf74-faa6-4494-bcc4-18eb220f22fd.mp4
 - Version 2 (mit Foto, ohne Einblendungen, 75 s): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/b5fc742f-35a4-4fba-8e39-bc5af1701624.mp4
 - Version 1 (ohne Foto, 59 s): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/9949a282-7bda-4d2d-8298-e195897674d6.mp4
-- Higgsfield-Mediathek (Uploads → Video, Dateien `Andrea_70_Geburtstag_v4.mp4`, `_v3.mp4`, `_v2.mp4` und `Andrea_70_Geburtstag.mp4`): https://higgsfield.ai
+- Higgsfield-Mediathek (Uploads → Video, Dateien `Andrea_70_Geburtstag_v5.mp4`, `_v4.mp4`, `_v3.mp4`, `_v2.mp4` und `Andrea_70_Geburtstag.mp4`): https://higgsfield.ai
 - **Ansehen und teilen, Version 4 (Descript): https://share.descript.com/view/6P1AarqtzY7**
 - Ansehen und teilen, Version 3 (Descript): https://share.descript.com/view/hlNSMgDaO2M
 - Ansehen und teilen, Version 2 (Descript): https://share.descript.com/view/CDbdnyVhQGe
