@@ -6,8 +6,8 @@
 # Erwartet im Arbeitsverzeichnis:
 #   amb1.mp4  (Eröffnung Café Paris / Rathaus, Kling 3.0)
 #   paris.mp4 (Akkordeonspieler in Montmartre, Kling 3.0)
-#   g1.mp4    (Gesang Strophe 1, Seedance 2.0 mini)
-#   g2.mp4    (Gesang Strophe 2, Seedance 2.0 mini)
+#   g1.mp4    (Gesang Strophe 1 deutsch, Seedance 2.5, 1080p, 15 s)
+#   g2.mp4    (Gesang Strophe 2 französisch, Seedance 2.5, 1080p, 12 s)
 #   toast.mp4 (Champagner-Toast, Kling 3.0)
 #   vo1.mp3   (gesprochener Gruß FR/DE für die Fotoszene, ElevenLabs via Higgsfield)
 #   vo2.mp3   (gesprochener Gruß FR/DE für den Abspann)
@@ -69,12 +69,12 @@ ffmpeg -v error -y -i paris.mp4 -loop 1 -i ov/ov_paris.png -filter_complex \
   -map "[v]" -map "[a]" -t 8 $V $A segM.mp4
 
 echo "== Segment B: Gesang 1"
-subs g1 0.0:4.1 4.4:7.3 7.6:11.0 11.4:14.9
+subs g1 0.0:4.9 5.2:9.6 9.8:14.7
 ffmpeg -v error -y -i g1.mp4 $SUBIN -filter_complex "[0:v]${NORM}[v0];[1:v]format=rgba[sg];${SUBF};[0:a]${AF},${LN}[a]" \
   -map "[v]" -map "[a]" -t 15 $V $A segB.mp4
 
 echo "== Segment C: Gesang 2"
-subs g2 0.0:2.9 3.1:5.6 6.1:8.0 8.3:11.5
+subs g2 0.0:3.5 3.6:8.2 8.3:11.9
 ffmpeg -v error -y -i g2.mp4 $SUBIN -filter_complex "[0:v]${NORM}[v0];[1:v]format=rgba[sg];${SUBF};[0:a]${AF},${LN}[a]" \
   -map "[v]" -map "[a]" -t 12 $V $A segC.mp4
 

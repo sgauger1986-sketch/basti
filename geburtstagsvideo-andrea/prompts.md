@@ -13,7 +13,27 @@ finden sich in der Higgsfield-Historie unter „Generations“.
 
 > Cinematic establishing shot, golden hour in Hamburg, Germany: slow smooth dolly along the terrace of an elegant Parisian-style café with a black awning reading 'CAFÉ PARIS', bistro chairs, warm glowing lanterns, white hydrangeas, a steaming cappuccino and a glass of sparkling champagne on a marble table, the ornate neo-renaissance Hamburg City Hall (Rathaus) with its tall clock tower glowing in the background across the water. Soft French accordion chanson music playing, gentle café ambience, romantic and festive, shallow depth of field, professional commercial quality, no people talking, no text.
 
-## Clip 2 – Gesang, Strophe 1 (`g1.mp4`)
+## Clip 2 (Version 4) – Gesang, Strophe 1 auf Deutsch (`g1.mp4`)
+
+- Modell: Seedance 2.5, 15 s, 1080p, Ton an, Prompt-Sprache Deutsch, Referenzbild der Sängerin (omni_reference)
+- Higgsfield-Job: 746c74a3-96b6-4776-b090-e9d158e8b722 (gewählt aus zwei Kandidaten; Kandidat b384cac1 sang „André“ und wurde verworfen)
+- Download: https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260913_201535_746c74a3-96b6-4776-b090-e9d158e8b722.mp4
+- Liedtext: „Liebe Andrea, heute wirst du siebzig Jahr. Wir feiern dich, denn du bist wunderbar. Im Café Paris, auf eine schöne Zeit!“
+- Prompt (deutsch):
+
+> Filmische Szene im warmen Abendlicht auf der Terrasse des Café Paris in Hamburg, im Hintergrund unscharf der Turm des Hamburger Rathauses, Lichterketten, weiße Hortensien, Bistrostühle. Die Chanson-Sängerin aus dem Referenzbild (gleiches Gesicht, schwarze Baskenmütze, schwarzer Rollkragenpullover, Akkordeon) singt direkt in die Kamera ein herzliches Geburtstagslied für Andrea. Sie singt langsam, ruhig und sehr deutlich auf Deutsch mit klarer deutscher Aussprache, jedes Wort sauber artikuliert, langsamer Walzer mit Akkordeon und leisem Kontrabass. Der Name wird deutlich „An-dre-a“ gesungen. Sie singt genau diesen Text, Wort für Wort: „Liebe Andrea, heute wirst du siebzig Jahr. Wir feiern dich, denn du bist wunderbar. Im Café Paris, auf eine schöne Zeit!“ Warmes Lächeln, langsame Kamerafahrt, weiches Bokeh, festliche, elegante Stimmung, professionelle Musikvideo-Qualität, keine Untertitel, kein Text im Bild.
+
+## Clip 3 (Version 4) – Gesang, Strophe 2 auf Französisch (`g2.mp4`)
+
+- Modell: Seedance 2.5, 12 s, 1080p, Ton an, Prompt-Sprache Französisch, Referenzbild der Sängerin
+- Higgsfield-Job: c8a097ec-44bb-46d9-a65b-d49c184fdf9d (gewählt aus fünf Kandidaten: d0d6eb2a, 04df0572, 1f4e57bd, 0f6176a5 verworfen, weil „soixante-dix ans“ verschliffen oder „André“ gesungen wurde; 6fc1ebda vom Anbieter abgelehnt)
+- Download: https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260913_202822_c8a097ec-44bb-46d9-a65b-d49c184fdf9d.mp4
+- Liedtext: „Joyeux anniversaire, Andrea ! Au Café Paris, à Hambourg, on trinque à toi. Avec tout notre amour, de la part de Basti.“
+- Prompt (französisch):
+
+> Scène cinématographique dans la lumière dorée du soir, sur la terrasse du Café Paris à Hambourg, la tour de l'hôtel de ville floue en arrière-plan, guirlandes lumineuses, hortensias blancs. La chanteuse de l'image de référence (même visage, béret noir, pull noir à col roulé, accordéon) chante face caméra une chanson d'anniversaire tendre pour Andrea. Elle chante lentement, avec une diction française très claire, chaque syllabe distincte ; le prénom se chante en trois syllabes bien nettes, An-dré-a, avec le a final bien audible. Valse musette lente à l'accordéon avec contrebasse douce. Elle chante exactement ces paroles, mot pour mot : « Joyeux anniversaire, Andrea ! Au Café Paris, à Hambourg, on trinque à toi. Avec tout notre amour, de la part de Basti. » À la toute fin, elle lève une coupe de champagne vers la caméra en souriant. Lent mouvement de caméra, bokeh doux, ambiance festive et élégante, qualité de clip musical professionnel, pas de sous-titres, pas de texte à l'image.
+
+## Clip 2 (Versionen 1–3) – Gesang, Strophe 1 (`g1.mp4`, alt)
 
 - Modell: Seedance 2.0 Mini, 15 s, 720p, Ton an, Genre „drama“
 - Higgsfield-Job: 827a9a3f-2e1d-48aa-9f52-e60a6f86f906
@@ -22,7 +42,7 @@ finden sich in der Higgsfield-Historie unter „Generations“.
 
 > Cinematic, warm golden-hour scene on the terrace of a Parisian-style café in Hamburg, Germany, black awning with gold lettering 'CAFÉ PARIS', bistro chairs, white hydrangeas, the ornate Hamburg City Hall tower softly blurred in the background. A charming French chanson singer in her 40s with a black beret and an accordion stands at the terrace and sings a heartfelt, joyful birthday chanson directly into the camera, accompanied by her accordion and a gentle jazz double bass. She sings clearly in German, slow waltz tempo, the lyrics sung word for word: "Liebe Andrea, heut' wirst du siebzig Jahr, wir feiern dich, so wunderbar. Auf Genuss, auf Glück, auf gute Zeit – Café Paris, die Freude ist bereit!" Warm smile, elegant slow camera push-in, soft bokeh fairy lights, champagne glasses on the table, festive and elegant mood, professional music video quality, no subtitles, no on-screen text.
 
-## Clip 3 – Gesang, Strophe 2 (`g2.mp4`)
+## Clip 3 (Versionen 1–3) – Gesang, Strophe 2 (`g2.mp4`, alt)
 
 - Modell: Seedance 2.0 Mini, 12 s, 720p, Ton an, Referenzbild = Standbild aus Clip 2 (Sekunde 4,5) für gleiche Sängerin
 - Higgsfield-Job: 361a17f4-6882-42a1-889f-53f9b52d8ffb

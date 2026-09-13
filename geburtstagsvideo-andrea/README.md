@@ -21,8 +21,9 @@ Abschluss.
 
 Das Video wurde komplett mit **Higgsfield** (https://higgsfield.ai) produziert:
 
-- **Generierung der Szenen**: Kling 3.0 (Eröffnung, Paris-Musette, Toast) und Seedance 2.0 Mini
-  (beide Gesangsstrophen mit nativem Ton und Lippensynchronisation). Die
+- **Generierung der Szenen**: Kling 3.0 (Eröffnung, Paris-Musette, Toast) und Seedance 2.5
+  in 1080p (beide Gesangsstrophen mit nativem Ton und Lippensynchronisation; Versionen 1–3
+  nutzten Seedance 2.0 Mini). Die
   Sängerin der zweiten Strophe wurde über ein Referenzbild aus der ersten
   Strophe konsistent gehalten. Alle Prompts, Modelle und Clip-Links: `prompts.md`.
 - **Schnitt und Rendering**: ffmpeg und Pillow in der Higgsfield-Cloud-Sandbox
@@ -34,7 +35,8 @@ Das Video wurde komplett mit **Higgsfield** (https://higgsfield.ai) produziert:
   Spracherkennung mit faster-whisper (auch für die Wortzeiten der
   Liedtext-Einblendungen).
 - **Hosting**: Fertiges Video und Vorschaubild liegen in der Higgsfield-Mediathek.
-- Verbrauch: ca. 125 Credits (inkl. 0,9 Credits Sprachausgabe) (Kling 3.0 std 10 s = 20 Credits, 8 s = 16 Credits,
+- Verbrauch: ca. 800 Credits insgesamt, davon ca. 675 für sieben Seedance-2.5-Kandidaten der
+  Gesangsstrophen in Version 4 (Seedance 2.5 15 s 1080p = 135 Credits, 12 s = 108 Credits) (Kling 3.0 std 10 s = 20 Credits, 8 s = 16 Credits,
   Seedance 2.0 Mini 15 s = 37,5 Credits, 12 s = 30 Credits).
 
 ## Ablauf des Videos
@@ -44,8 +46,8 @@ Das Video wurde komplett mit **Higgsfield** (https://higgsfield.ai) produziert:
 | 0:00–0:10 | Eröffnung | Café-Paris-Terrasse mit Rathaus, Titel „Für Andrea – Joyeux anniversaire · Zum 70. Geburtstag“ |
 | 0:09–0:24 | Andrea | Andreas Foto (Hafenrundfahrt) mit langsamem Zoom, „Bon anniversaire, Andrea !“, gesprochener Gruß auf Französisch und Deutsch, französische Musette |
 | 0:23–0:31 | Paris | Akkordeonspieler in Montmartre, Bauchbinde „Un peu de Paris à Hambourg · Ein Stück Paris in Hamburg“ |
-| 0:31–0:45 | Gesang, Strophe 1 | Chanson-Sängerin singt die erste Strophe, Liedtext deutsch mit französischer Übersetzung eingeblendet |
-| 0:45–0:56 | Gesang, Strophe 2 | Zweite Strophe mit zweisprachiger Einblendung, Toast mit Champagner in die Kamera |
+| 0:31–0:45 | Gesang, Strophe 1 (deutsch) | Chanson-Sängerin singt auf Deutsch, Liedtext mit französischer Übersetzung eingeblendet |
+| 0:45–0:56 | Gesang, Strophe 2 (französisch) | Zweite Strophe auf Französisch mit deutscher Übersetzung, Toast mit Champagner in die Kamera |
 | 0:55–1:05 | Toast | Champagner-Anstoßen, Bauchbinde „Santé, Andrea ! · Zum Wohl, Andrea!“ |
 | 1:04–1:15 | Gutschein | Der Gutschein (Ken-Burns-Zoom) mit Goldrahmen |
 | 1:15–1:24 | Abspann | „Joyeux 70e anniversaire, Andrea – Alles Liebe zum 70. Geburtstag – Von Basti“, gesprochen „De la part de Basti, avec tout mon cœur – von Basti, von ganzem Herzen“ |
@@ -57,17 +59,23 @@ ElevenLabs-Stimme (über Higgsfield, laut Szenenanalyse eine Männerstimme,
 passend zum Absender Basti), damit Französisch und Deutsch sauber
 ausgesprochen werden.
 
-## Liedtext (gesungen, Deutsch, Walzer)
+## Liedtext (Version 4, gesungen)
 
-> Liebe Andrea, heut’ wirst du siebzig Jahr,
-> wir feiern dich, so wunderbar.
-> Auf Genuss, auf Glück, auf gute Zeit –
-> Café Paris, die Freude ist bereit!
->
-> Auf dich, Andrea, stoßen wir heut’ an –
-> auf siebzig Jahre voller Glanz!
-> Alles Liebe, liebe Andrea –
-> von Basti, von Herzen, ganz!
+Strophe 1 auf Deutsch (mit französischer Übersetzung im Bild):
+
+> Liebe Andrea, heute wirst du siebzig Jahr.
+> Wir feiern dich, denn du bist wunderbar.
+> Im Café Paris, auf eine schöne Zeit!
+
+Strophe 2 auf Französisch (mit deutscher Übersetzung im Bild):
+
+> Joyeux anniversaire, Andrea !
+> Au Café Paris, à Hambourg, on trinque à toi.
+> Avec tout notre amour, de la part de Basti.
+
+Beide Strophen wurden mit Seedance 2.5 in 1080p mit der jeweiligen
+Prompt-Sprache generiert, aus mehreren Kandidaten per Spracherkennung die
+mit der saubersten Aussprache ausgewählt.
 
 ## Dateien
 

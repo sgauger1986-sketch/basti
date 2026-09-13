@@ -96,17 +96,15 @@ lower.save(f"{OUT}/ov_lower.png")
 
 # 4b) Liedtext-Einblendungen: gesungene deutsche Zeile + französische Übersetzung
 LYRICS = {
-    "g1": [
-        ("Liebe Andrea, heut’ wirst du siebzig Jahr,", "Chère Andrea, aujourd’hui tu as soixante-dix ans,"),
-        ("wir feiern dich, so wunderbar.", "nous te fêtons, c’est merveilleux."),
-        ("Auf Genuss, auf Glück, auf gute Zeit –", "Au plaisir, au bonheur, aux bons moments –"),
-        ("Café Paris, die Freude ist bereit!", "Café Paris, la joie t’attend !"),
+    "g1": [  # Strophe 1: deutsch gesungen, französische Übersetzung
+        ("Liebe Andrea, heute wirst du siebzig Jahr.", "Chère Andrea, aujourd’hui tu as soixante-dix ans."),
+        ("Wir feiern dich, denn du bist wunderbar.", "Nous te fêtons, car tu es merveilleuse."),
+        ("Im Café Paris, auf eine schöne Zeit!", "Au Café Paris, à de beaux moments !"),
     ],
-    "g2": [
-        ("Auf dich, Andrea, stoßen wir heut’ an –", "À toi, Andrea, nous trinquons aujourd’hui –"),
-        ("auf siebzig Jahre voller Glanz!", "à soixante-dix ans pleins d’éclat !"),
-        ("Alles Liebe, liebe Andrea –", "Tous nos vœux, chère Andrea –"),
-        ("von Basti, von Herzen, ganz!", "de Basti, de tout cœur !"),
+    "g2": [  # Strophe 2: französisch gesungen, deutsche Übersetzung
+        ("Joyeux anniversaire, Andrea, soixante-dix ans !", "Herzlichen Glückwunsch, Andrea, siebzig Jahre!"),
+        ("Au Café Paris, à Hambourg, on trinque à toi.", "Im Café Paris in Hamburg stoßen wir auf dich an."),
+        ("Avec tout notre amour, de la part de Basti.", "Mit all unserer Liebe, von Basti."),
     ],
 }
 for clip, lines in LYRICS.items():
