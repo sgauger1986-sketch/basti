@@ -98,3 +98,12 @@ Der gesungene Text wurde per Spracherkennung (faster-whisper, Modell „small“
 gegengeprüft: Beide Strophen werden mit dem Namen „Andrea“ und dem Text wie
 oben gesungen. Die Wortzeiten aus Whisper steuern die zweisprachigen
 Liedtext-Einblendungen (deutsch gesungen, französische Übersetzung darunter).
+
+## Version 6 (Schnitt, keine neuen Generierungen, 0 Credits)
+
+Wie Version 5, zusätzlich die Paris-Akkordeon-Szene (Kling 3.0, 8 s, aus Version 1–4) wieder
+zwischen Foto und Gesang eingebaut. Gesamtlänge 75,2 s. Reiner ffmpeg-Schnitt in der
+Higgsfield-Sandbox, keine Credits verbraucht.
+
+- Download (Higgsfield): https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/5d6b3b1d-113e-42af-81e1-b4ac6ff4fb49.mp4
+- Ansehen (Descript): https://share.descript.com/view/e1NlLxFzygU

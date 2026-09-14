@@ -5,9 +5,9 @@
 #
 # Erwartet im Arbeitsverzeichnis:
 #   amb1.mp4  (Eröffnung Café Paris / Rathaus, Kling 3.0)
-#   paris.mp4 (Akkordeonspieler in Montmartre, Kling 3.0; nur die Musik wird genutzt)
+#   paris.mp4 (Akkordeonspieler in Montmartre, Kling 3.0)
 #   g1.mp4    (Gesang Strophe 1 deutsch, Seedance 2.5, 1080p, 15 s)
-#   g2.mp4    (Gesang Strophe 2 französisch, Seedance 2.5, 1080p, 12 s)
+#   g2.mp4    (Gesang Strophe 2 deutsch, Seedance 2.5, 1080p, 12 s)
 #   toast.mp4 (Champagner-Toast, Kling 3.0)
 #   assets/   (Schriften, andrea.jpg, gutschein.png)
 #   make_overlays.py
@@ -56,6 +56,13 @@ ffmpeg -v error -y -loop 1 -i ov/photo_plate.png -loop 1 -i ov/ov_gradient.png -
    [pg][t]overlay=0:0:shortest=1[v]" \
   -map "[v]" -map 3:a -t 10 $V $A segP.mp4
 
+echo "== Segment M: Paris-Musette + Bauchbinde"
+ffmpeg -v error -y -i paris.mp4 -loop 1 -i ov/ov_paris.png -filter_complex \
+  "[0:v]${NORM}[v0];
+   [1:v]format=rgba,fade=t=in:st=0.8:d=1.0:alpha=1,fade=t=out:st=6.2:d=1.0:alpha=1[t];
+   [v0][t]overlay=0:0:shortest=1[v];[0:a]${AF},${LN}[a]" \
+  -map "[v]" -map "[a]" -t 8 $V $A segM.mp4
+
 echo "== Segment B: Gesang 1"
 ffmpeg -v error -y -i g1.mp4 -filter_complex "[0:v]${NORM}[v];[0:a]${AF},${LN}[a]" \
   -map "[v]" -map "[a]" -t 15 $V $A segB.mp4
@@ -80,22 +87,23 @@ ffmpeg -v error -y -i segE_v.mp4 -i segF_v.mp4 -i bed_end.m4a -filter_complex \
 
 echo "== Finaler Schnitt mit Überblendungen"
 dur() { ffprobe -v error -show_entries format=duration -of csv=p=0 "$1"; }
-read -r o1 o2 o3 o4 o5 < <(python3 -c "
+read -r o1 o2 o3 o4 o5 o6 < <(python3 -c "
 import sys
 d=[float(x) for x in sys.argv[1:]]; t=0; o=[]
 for v in d:
     t+=v-0.8; o.append(t)
-print(' '.join(f'{v:.3f}' for v in o))" "$(dur segA.mp4)" "$(dur segP.mp4)" "$(dur segB.mp4)" "$(dur segC.mp4)" "$(dur segD.mp4)")
-echo "xfade offsets: $o1 $o2 $o3 $o4 $o5"
-ffmpeg -v error -y -i segA.mp4 -i segP.mp4 -i segB.mp4 -i segC.mp4 -i segD.mp4 -i segEF.mp4 -filter_complex \
+print(' '.join(f'{v:.3f}' for v in o))" "$(dur segA.mp4)" "$(dur segP.mp4)" "$(dur segM.mp4)" "$(dur segB.mp4)" "$(dur segC.mp4)" "$(dur segD.mp4)")
+echo "xfade offsets: $o1 $o2 $o3 $o4 $o5 $o6"
+ffmpeg -v error -y -i segA.mp4 -i segP.mp4 -i segM.mp4 -i segB.mp4 -i segC.mp4 -i segD.mp4 -i segEF.mp4 -filter_complex \
   "[0:v][1:v]xfade=transition=fade:duration=0.8:offset=${o1}[v1];
    [v1][2:v]xfade=transition=fade:duration=0.8:offset=${o2}[v2];
    [v2][3:v]xfade=transition=fade:duration=0.8:offset=${o3}[v3];
    [v3][4:v]xfade=transition=fade:duration=0.8:offset=${o4}[v4];
-   [v4][5:v]xfade=transition=fade:duration=0.8:offset=${o5}[v];
+   [v4][5:v]xfade=transition=fade:duration=0.8:offset=${o5}[v5];
+   [v5][6:v]xfade=transition=fade:duration=0.8:offset=${o6}[v];
    [0:a][1:a]acrossfade=d=0.8[a1];[a1][2:a]acrossfade=d=0.8[a2];
    [a2][3:a]acrossfade=d=0.8[a3];[a3][4:a]acrossfade=d=0.8[a4];
-   [a4][5:a]acrossfade=d=0.8[a]" \
+   [a4][5:a]acrossfade=d=0.8[a5];[a5][6:a]acrossfade=d=0.8[a]" \
   -map "[v]" -map "[a]" $V $A -movflags +faststart Andrea_70_Geburtstag.mp4
 
 ffmpeg -v error -y -ss 12 -i Andrea_70_Geburtstag.mp4 -frames:v 1 -q:v 2 poster.jpg
