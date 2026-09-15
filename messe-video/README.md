@@ -1,32 +1,44 @@
-# Messevideo mexXsoft X2 — Endlosschleife, ohne Ton
+# Messevideo mexXsoft X2 (GaLaBau & Tiefbau) — Endlosschleife, ohne Ton
 
-Aufmerksamkeitsstarkes Standvideo für **www.mexxsoft.com**: 48 Sekunden, 1920×1080,
-**ohne Tonspur**, nahtlos als **Dauerschleife** abspielbar (Anfang und Ende sind
-identisch dunkel, es gibt keinen sichtbaren Schnitt beim Neustart).
+Aufmerksamkeitsstarkes Standvideo für **www.mexxsoft.com**, Zielgruppe **GaLaBau und Tiefbau**:
+48 Sekunden, 1920×1080, **ohne Tonspur**, nahtlos als **Dauerschleife** abspielbar (Anfang und
+Ende sind identisch dunkel, es gibt keinen sichtbaren Schnitt beim Neustart).
+
+Die Bildwelt besteht aus **sechs exklusiv mit Higgsfield (Seedance 2.5) erzeugten Videoclips**
+(1080p, 8 s, ohne Ton, keine Stockfootage), über die Marke, Module und Botschaften animiert werden.
 
 | Datei | Zweck |
 |---|---|
-| `mexxsoft-messe-video.mp4` | **Das fertige Video** (H.264, 30 fps, keine Audiospur) – auf USB-Stick/TV/Player kopieren, Loop aktivieren, fertig. |
-| `messe-video.html` | Die Quelle: Animation als HTML/CSS/JS. Läuft auch direkt im Browser als Endlosschleife (Vollbild mit Taste **F** oder Doppelklick). |
-| `render.mjs` | Erzeugt aus der HTML-Datei das MP4 (Bild für Bild, deterministisch). |
+| `mexxsoft-messe-video-galabau-tiefbau.mp4` | **Das fertige Video** (H.264, 30 fps, keine Audiospur). Wird in der Higgsfield-Cloud gerendert und dort bereitgestellt (Download-Link siehe unten), da die Datei zu groß für das Repository ist. |
+| `mexxsoft-messe-video.mp4` | Erste Fassung ohne Videoclips (nur Motion Graphics), alle Gewerke. |
+| `messe-video.html` | Die Quelle: Animation als HTML/CSS/JS inkl. Video-Hintergründen. Läuft auch direkt im Browser als Endlosschleife (Vollbild mit Taste **F**), sobald `clips/*.webm` vorhanden sind. |
+| `clips/fetch-clips.sh` | Lädt die 6 Higgsfield-Clips und wandelt sie nach WebM/VP9 (für den Render-Browser). |
+| `render.mjs` | Erzeugt aus der HTML-Datei das MP4 (Bild für Bild, deterministisch, parallelisierbar). |
 | `fonts/` | Schriften Inter & Manrope (SIL Open Font License), lokal eingebettet. |
 | `assets/` | Logo (Original, weiße und dunkle Vektorversion). |
 
 ## Ablauf des Videos (8 Szenen)
 
-| Zeit | Szene | Inhalt |
-|---|---|---|
-| 0–5 s | Hook | „Zettelwirtschaft. Excel-Chaos. Abende im Büro.“ – wird durchgestrichen, Stempel **„Schluss damit.“** |
-| 5–10 s | Marke | **MEXXSOFT-Logo** mit Claim „Wir sind OneQrew“ + X2-Badge, „Die Handwerkersoftware.“, Slogan *Einfach · Schnell · Professionell* |
-| 10–18 s | Alles in einem | 8 Modulkacheln: Angebote & Rechnungen, Kalkulation, Aufmaß & LV, Kunden & Termine, Material & Artikel, Zeit & Lohn, Schriftverkehr, KI-Funktionen |
-| 18–26 s | Software in Aktion | Animiertes Angebot (GaLaBau-Positionen), Summen zählen hoch, Stempel „Angebot versendet“, Ablauf Angebot → Auftrag → Aufmaß → Rechnung |
-| 26–33 s | mexXgo | Handy-Mockup: Zeiterfassung, Baustellenfotos, Unterschrift vor Ort · iOS & Android |
-| 33–39 s | Gewerke | Laufband: GaLaBau, Tiefbau, Straßenbau, Stuckateure, Trockenbau, Maler, Fliesenleger, Bauunternehmen … |
-| 39–44 s | Versionen | Easy · Standard · Premium · Pro · Enterprise – „Wächst mit Ihrem Betrieb.“ · Kaufen / Mieten / Kostenlos testen |
-| 44–48 s | Call-to-Action | „Jetzt live erleben.“ · Standtext · **www.mexxsoft.com** · Kontakt |
+| Zeit | Szene | Clip (Higgsfield) | Inhalt |
+|---|---|---|---|
+| 0–5 s | Hook | Bagger hebt Rohrgraben aus (Tiefbau) | „Zettelwirtschaft. Excel-Chaos. Abende im Büro.“ – durchgestrichen, Stempel **„Schluss damit.“** |
+| 5–10 s | Marke | Fertige Gartenanlage, Drohne (GaLaBau) | **MEXXSOFT-Logo** + X2-Badge, „Die Software für GaLaBau und Tiefbau.“, Slogan *Einfach · Schnell · Professionell* |
+| 10–18 s | Alles in einem | Park im Morgenlicht (stark abgedunkelt) | 8 Modulkacheln: Angebote & Rechnungen, Kalkulation, Aufmaß & LV, Kunden & Termine, Material & Pflanzen, Zeit & Lohn, Baustellen-Doku, KI-Funktionen |
+| 18–26 s | Software in Aktion | Gartenanlage (stark abgedunkelt) | Animiertes Angebot mit GaLaBau- und Tiefbau-Positionen (Oberboden, Rohrgraben, Pflaster, Rasen), Summen zählen hoch, Stempel „Angebot versendet“, Ablauf Angebot → Auftrag → Aufmaß → Rechnung |
+| 26–33 s | mexXgo | Polier mit Tablet auf der Baustelle | „Büro und Baustelle. Verbunden.“ · Zeiterfassung, Fotos, Regieberichte, Leistungslisten · iOS & Android |
+| 33–39 s | Zwei Gewerke | Pflasterarbeiten ‖ Asphaltfertiger (Split-Screen) | **GaLaBau** und **Tiefbau** nebeneinander mit je drei branchenspezifischen Punkten – „Zwei Gewerke. Eine Software.“ |
+| 39–44 s | Versionen | – | Easy · Standard · Premium · Pro · Enterprise · Kaufen / Mieten / Kostenlos testen |
+| 44–48 s | Call-to-Action | Park im Morgenlicht | „Jetzt live erleben.“ · Standtext · **www.mexxsoft.com** · Kontakt · Logo |
 
-Durchgehend: kleine Fußzeile mit „mexXsoft X2 · Die Handwerkersoftware“ und der Web-Adresse,
-damit die Marke in jeder Sekunde der Schleife sichtbar ist.
+Durchgehend: kleine Fußzeile mit „mexXsoft X2 · Die Software für GaLaBau & Tiefbau“ und der Web-Adresse.
+
+## Die Higgsfield-Clips
+
+Alle sechs Clips wurden mit dem Modell **Seedance 2.5** (Text-to-Video, 1080p, 16:9, 8 s, `generate_audio: false`)
+exklusiv für dieses Video erzeugt (Job-IDs in `clips/fetch-clips.sh`). Die Prompts beschreiben deutsche
+Baustellen (Warnwesten, Betonsteinpflaster, Rollrasen, Asphaltfertiger, Rohrgraben mit Verbau) ohne Text,
+Logos oder Wasserzeichen. Die Clips werden im Video stark abgedunkelt bzw. mit Verläufen versehen, damit
+Texte lesbar bleiben; sie liegen im Higgsfield-Konto des Nutzers und lassen sich dort jederzeit erneut laden.
 
 ## Am Stand abspielen (Dauerschleife)
 
@@ -34,7 +46,7 @@ damit die Marke in jeder Sekunde der Schleife sichtbar ist.
 - **VLC (Windows/Mac):** Datei öffnen, *Wiedergabe → Wiederholen: Ein* (Schleifen-Symbol) und Vollbild (F).
   Kommandozeile: `vlc --loop --fullscreen --no-audio mexxsoft-messe-video.mp4`
 - **Windows Media Player / Filme & TV:** Wiederholen-Symbol aktivieren.
-- **Ohne Videoplayer:** `messe-video.html` in Chrome/Edge öffnen (Ordner mit `fonts/` und `assets/` mitnehmen), Vollbild mit **F** – läuft von selbst endlos.
+- **Ohne Videoplayer:** `messe-video.html` in Chrome/Edge öffnen (Ordner mit `fonts/`, `assets/` und `clips/*.webm` mitnehmen), Vollbild mit **F** – läuft von selbst endlos.
 
 ## Logo
 
@@ -70,9 +82,13 @@ Voraussetzungen: Node.js 18+, Playwright mit Chromium, ffmpeg mit libx264.
 ```bash
 cd messe-video
 npm install playwright && npx playwright install chromium
+bash clips/fetch-clips.sh       # Higgsfield-Clips laden und nach WebM wandeln (einmalig)
 node render.mjs                 # -> mexxsoft-messe-video.mp4 (1080p, 30 fps)
 node render.mjs --stills        # nur Vorschaubilder nach stills/
 node render.mjs --fps 25 --crf 18 --out video.mp4
+# schneller auf mehreren Kernen: Segmente parallel rendern und mit ffmpeg zusammenfügen
+node render.mjs --from 0 --to 720 --out seg1.mp4 & node render.mjs --from 720 --to 1440 --out seg2.mp4 & wait
+printf "file 'seg1.mp4'\nfile 'seg2.mp4'\n" > list.txt && ffmpeg -f concat -safe 0 -i list.txt -c copy -movflags +faststart out.mp4
 ```
 
 Ist ffmpeg nicht im PATH: `FFMPEG=/pfad/zu/ffmpeg node render.mjs`
