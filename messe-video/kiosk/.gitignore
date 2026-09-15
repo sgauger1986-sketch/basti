@@ -1,0 +1,4 @@
+node_modules/
+dist/
+video.mp4
+*.zip
