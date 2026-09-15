@@ -9,7 +9,7 @@ Die Bildwelt besteht aus **sechs exklusiv mit Higgsfield (Seedance 2.5) erzeugte
 
 | Datei | Zweck |
 |---|---|
-| `mexxsoft-messe-video-galabau-tiefbau.mp4` | **Das fertige Video** (H.264, 30 fps, keine Audiospur). Wird in der Higgsfield-Cloud gerendert und dort bereitgestellt (Download-Link siehe unten), da die Datei zu groß für das Repository ist. |
+| `mexxsoft-messe-video-galabau-tiefbau.mp4` | **Das fertige Video** (H.264, 1080p, 30 fps, 48 s, keine Audiospur, 20,5 MB). Gerendert in der Higgsfield-Cloud, **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/6683cf58-4295-41e4-b2a0-8a800acd3f9d.mp4 (liegt außerdem in der Higgsfield-Mediathek des Kontos). Lokal jederzeit mit `render.mjs` neu erzeugbar. |
 | `mexxsoft-messe-video.mp4` | Erste Fassung ohne Videoclips (nur Motion Graphics), alle Gewerke. |
 | `messe-video.html` | Die Quelle: Animation als HTML/CSS/JS inkl. Video-Hintergründen. Läuft auch direkt im Browser als Endlosschleife (Vollbild mit Taste **F**), sobald `clips/*.webm` vorhanden sind. |
 | `clips/fetch-clips.sh` | Lädt die 6 Higgsfield-Clips und wandelt sie nach WebM/VP9 (für den Render-Browser). |
