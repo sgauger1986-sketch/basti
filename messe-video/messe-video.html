@@ -16,8 +16,8 @@
 
 /* ---------- Markenfarben (vom Logo #220739 abgeleitet): hier zentral anpassen ---------- */
 :root{
-  --bg:#120626;
-  --bg2:#220739;
+  --bg:#1c0b36;
+  --bg2:#2e1052;
   --ink:#f5f8fc;
   --ink2:#c3b8d8;
   --ink3:#8a7aa6;
@@ -39,20 +39,24 @@ body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased
 .scene > *{position:absolute}
 
 /* ---------- Hintergrund (läuft durchgehend, nahtlos) ---------- */
-#bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--bg) 0%,var(--bg2) 60%,#150a2c 100%)}
+#bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--bg) 0%,var(--bg2) 60%,#22103f 100%)}
 #grid{position:absolute;inset:-100px;opacity:.10;
   background-image:linear-gradient(rgba(255,255,255,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.35) 1px,transparent 1px);
   background-size:80px 80px}
-.blob{position:absolute;width:1400px;height:1400px;border-radius:50%;opacity:.30;will-change:transform}
+.blob{position:absolute;width:1400px;height:1400px;border-radius:50%;opacity:.42;will-change:transform}
 #blob1{background:radial-gradient(circle,var(--green) 0%,rgba(180,140,255,.35) 22%,transparent 60%);left:-350px;top:-450px}
 #blob2{background:radial-gradient(circle,var(--blue) 0%,rgba(90,208,255,.35) 22%,transparent 60%);right:-500px;bottom:-600px;opacity:.22}
-#vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+#vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.35) 100%)}
 
 /* ---------- Video-Hintergründe (Higgsfield-Clips) ---------- */
 .clip{inset:0;overflow:hidden}
 .clip video{position:absolute;left:0;top:0;width:1920px;height:1080px;object-fit:cover}
 .clip .shade{position:absolute;inset:0;background:rgba(var(--shadeRGB),var(--shade,.6))}
-.clip .shade:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.45) 100%)}
+/* Beim Rendern wird jedes Video-Frame in ein Canvas gezeichnet (deterministisch, unabhängig vom Compositor) */
+.vframe{position:absolute;left:0;top:0;width:100%;height:100%;display:none}
+#stage.render .vframe{display:block}
+#stage.render video[data-scene]{opacity:0}
+.clip .shade:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.28) 100%)}
 
 /* ---------- Persistente Fußzeile ---------- */
 #foot{position:absolute;left:0;right:0;bottom:0;height:64px;display:flex;align-items:center;justify-content:space-between;
@@ -65,14 +69,14 @@ body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased
 /* ---------- Typo-Bausteine ---------- */
 .h1{font-family:var(--head);font-weight:800;letter-spacing:-.025em;line-height:1.02}
 .h2{font-family:var(--head);font-weight:800;letter-spacing:-.02em;line-height:1.06}
-.ts{text-shadow:0 4px 30px rgba(0,0,0,.6)}
-.chip{display:inline-flex;align-items:center;gap:14px;padding:16px 30px;border-radius:999px;border:1px solid var(--line);background:rgba(var(--shadeRGB),.55);font-size:36px;font-weight:600;white-space:nowrap;backdrop-filter:blur(6px)}
+.ts{text-shadow:0 2px 6px rgba(0,0,0,.85),0 6px 30px rgba(0,0,0,.7)}
+.chip{display:inline-flex;align-items:center;gap:14px;padding:16px 30px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(var(--shadeRGB),.72);font-size:36px;font-weight:600;white-space:nowrap;backdrop-filter:blur(6px)}
 .chip i{width:14px;height:14px;border-radius:50%;background:var(--green);flex:none}
 .pill{display:inline-flex;align-items:center;padding:14px 26px;border-radius:14px;background:var(--green);color:#1a0836;font-weight:800;font-family:var(--head)}
 
 /* ---------- Szene 1: Hook ---------- */
 #s1 .lines{left:0;right:0;top:170px;display:flex;flex-direction:column;align-items:center;gap:22px}
-#s1 .line{position:relative;font-family:var(--head);font-weight:800;font-size:132px;letter-spacing:-.03em;line-height:1;color:#e6dff2;padding:0 10px;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+#s1 .line{position:relative;font-family:var(--head);font-weight:800;font-size:132px;letter-spacing:-.03em;line-height:1;color:#ffffff;padding:0 10px;text-shadow:0 2px 6px rgba(0,0,0,.9),0 8px 36px rgba(0,0,0,.8)}
 #s1 .line .strike{position:absolute;left:0;top:50%;height:14px;width:100%;margin-top:-7px;background:var(--green);border-radius:8px;transform-origin:0 50%;transform:scaleX(0);box-shadow:0 0 20px rgba(180,140,255,.6)}
 #s1 .stamp{left:0;right:0;top:640px;display:flex;justify-content:center}
 #s1 .stamp span{display:inline-block;padding:28px 60px;border:8px solid var(--orange);color:var(--orange);border-radius:26px;font-family:var(--head);font-weight:800;font-size:128px;letter-spacing:-.02em;line-height:1;transform:rotate(-5deg);box-shadow:0 30px 80px rgba(0,0,0,.45);background:rgba(18,6,38,.78)}
@@ -80,32 +84,32 @@ body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased
 /* ---------- Szene 2: Marke ---------- */
 #s2 .brand{left:0;right:0;top:250px;display:flex;flex-direction:column;align-items:center}
 #s2 .logo-slot{display:flex;align-items:center;justify-content:center;gap:34px;height:260px}
-#s2 .logo-slot img{height:210px;width:auto;display:none;filter:drop-shadow(0 10px 40px rgba(0,0,0,.6))}
+#s2 .logo-slot img{height:210px;width:auto;display:none;filter:drop-shadow(0 3px 6px rgba(0,0,0,.8)) drop-shadow(0 12px 40px rgba(0,0,0,.7))}
 #s2 .logo-slot.haslogo img{display:block}
 #s2 .logo-slot.haslogo .wordmark{display:none}
 .wordmark{font-family:var(--head);font-weight:800;font-size:220px;letter-spacing:-.045em;line-height:1;display:inline-flex;align-items:baseline}
 .wordmark .x{color:var(--green);font-size:1.12em;display:inline-block;transform-origin:50% 70%}
 .badge-x2{font-size:88px;padding:16px 30px;border-radius:22px;margin-left:10px;align-self:center;letter-spacing:-.02em;box-shadow:0 10px 40px rgba(0,0,0,.5)}
-#s2 .tag{margin-top:34px;font-size:64px;font-weight:600;color:var(--ink);text-shadow:0 4px 30px rgba(0,0,0,.6)}
+#s2 .tag{margin-top:34px;font-size:64px;font-weight:600;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.9),0 8px 36px rgba(0,0,0,.8)}
 #s2 .tag em{font-style:normal;color:var(--green)}
-#s2 .slogan{margin-top:34px;display:flex;gap:40px;font-family:var(--head);font-weight:800;font-size:40px;letter-spacing:.24em;text-transform:uppercase;color:var(--green);text-shadow:0 4px 30px rgba(0,0,0,.6)}
+#s2 .slogan{margin-top:34px;display:flex;gap:40px;font-family:var(--head);font-weight:800;font-size:40px;letter-spacing:.24em;text-transform:uppercase;color:#d9c6ff;text-shadow:0 2px 6px rgba(0,0,0,.9),0 8px 36px rgba(0,0,0,.8)}
 #s2 .slogan span.sep{color:var(--ink3);letter-spacing:0}
 
 /* ---------- Szene 3: Alles in einem ---------- */
 #s3 .title{left:0;right:0;top:96px;text-align:center;font-size:96px}
 #s3 .title em{font-style:normal;color:var(--green)}
 #s3 .grid{left:110px;top:270px;width:1700px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
-#s3 .card{height:290px;border-radius:26px;background:rgba(var(--shadeRGB),.62);border:1px solid var(--line);display:flex;flex-direction:column;justify-content:flex-end;padding:30px 34px;box-sizing:border-box;position:relative;overflow:hidden;backdrop-filter:blur(8px)}
+#s3 .card{height:290px;border-radius:26px;background:rgba(var(--shadeRGB),.78);border:1px solid rgba(255,255,255,.2);display:flex;flex-direction:column;justify-content:flex-end;padding:30px 34px;box-sizing:border-box;position:relative;overflow:hidden;backdrop-filter:blur(8px)}
 #s3 .card:after{content:"";position:absolute;inset:0;background:linear-gradient(140deg,rgba(255,255,255,.07),transparent 55%)}
 #s3 .card svg{width:78px;height:78px;position:absolute;top:32px;left:34px;stroke:var(--green);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 #s3 .card b{font-size:36px;font-weight:700;line-height:1.15;letter-spacing:-.01em}
 #s3 .card small{font-size:23px;color:var(--ink2);font-weight:500;margin-top:8px}
-#s3 .more{left:0;right:0;top:920px;text-align:center;font-size:34px;color:var(--ink2);font-weight:500}
+#s3 .more{left:0;right:0;top:920px;text-align:center;font-size:34px;color:#fff;font-weight:500}
 
 /* ---------- Szene 4: Software in Aktion ---------- */
 #s4 .title{left:100px;top:90px;font-size:88px;width:1750px}
-#s4 .title small{display:block;font-family:var(--sans);font-weight:500;font-size:40px;color:var(--ink2);letter-spacing:0;margin-top:14px}
-#s4 .win{left:180px;top:290px;width:1560px;height:610px;border-radius:22px;background:rgba(23,11,46,.94);border:1px solid var(--line);box-shadow:0 40px 120px rgba(0,0,0,.6);overflow:hidden}
+#s4 .title small{display:block;font-family:var(--sans);font-weight:500;font-size:40px;color:#fff;letter-spacing:0;margin-top:14px}
+#s4 .win{left:180px;top:290px;width:1560px;height:610px;border-radius:22px;background:rgba(23,11,46,.96);border:1px solid rgba(255,255,255,.2);box-shadow:0 40px 120px rgba(0,0,0,.6);overflow:hidden}
 #s4 .bar{height:64px;display:flex;align-items:center;gap:14px;padding:0 26px;background:rgba(255,255,255,.05);border-bottom:1px solid var(--line);font-size:24px;font-weight:600;color:var(--ink2)}
 #s4 .bar i{width:16px;height:16px;border-radius:50%;background:#3a2a5c}
 #s4 .bar i:nth-child(1){background:#ff5f57}#s4 .bar i:nth-child(2){background:#febc2e}#s4 .bar i:nth-child(3){background:#28c840}
@@ -128,8 +132,8 @@ body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased
 #s4 .flow .arrow{color:var(--ink3);font-size:36px}
 
 /* ---------- Szene 5: mexXgo auf der Baustelle ---------- */
-#s5 .clip .shade{background:linear-gradient(90deg,rgba(var(--shadeRGB),.85) 0%,rgba(var(--shadeRGB),.35) 45%,rgba(var(--shadeRGB),.25) 100%)}
-#s5 .clip .shade:after{background:linear-gradient(0deg,rgba(var(--shadeRGB),.9) 0%,rgba(var(--shadeRGB),.3) 32%,transparent 60%)}
+#s5 .clip .shade{background:linear-gradient(90deg,rgba(var(--shadeRGB),.6) 0%,rgba(var(--shadeRGB),.2) 45%,rgba(var(--shadeRGB),.1) 100%)}
+#s5 .clip .shade:after{background:linear-gradient(0deg,rgba(var(--shadeRGB),.75) 0%,rgba(var(--shadeRGB),.25) 32%,transparent 60%)}
 #s5 .txt{left:100px;top:110px;width:1000px}
 #s5 .txt .h2{font-size:92px}
 #s5 .txt .h2 em{font-style:normal;color:var(--green)}
@@ -144,12 +148,12 @@ body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased
 #s6 .panel{top:0;bottom:0;width:960px;overflow:hidden}
 #s6 .pl{left:0}#s6 .pr{left:960px}
 #s6 .panel video{position:absolute;left:0;top:0;width:960px;height:1080px;object-fit:cover}
-#s6 .panel .shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(var(--shadeRGB),.94) 0%,rgba(var(--shadeRGB),.7) 38%,rgba(var(--shadeRGB),.3) 62%,rgba(var(--shadeRGB),.45) 100%)}
+#s6 .panel .shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(var(--shadeRGB),.86) 0%,rgba(var(--shadeRGB),.55) 38%,rgba(var(--shadeRGB),.12) 62%,rgba(var(--shadeRGB),.3) 100%)}
 #s6 .panel .info{position:absolute;left:80px;right:60px;bottom:120px}
 #s6 .panel .kicker{font-size:26px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
 #s6 .panel h3{font-family:var(--head);font-weight:800;font-size:76px;letter-spacing:-.02em;line-height:1.02;margin:0 0 26px;text-shadow:0 4px 30px rgba(0,0,0,.6)}
 #s6 .panel ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
-#s6 .panel li{font-size:33px;font-weight:500;display:flex;align-items:center;gap:16px;text-shadow:0 2px 16px rgba(0,0,0,.7)}
+#s6 .panel li{font-size:33px;font-weight:600;display:flex;align-items:center;gap:16px;text-shadow:0 2px 6px rgba(0,0,0,.9),0 4px 20px rgba(0,0,0,.8)}
 #s6 .panel li i{width:12px;height:12px;border-radius:50%;background:var(--green);flex:none}
 #s6 .divider{left:957px;top:0;width:6px;height:1080px;background:var(--green);box-shadow:0 0 30px rgba(180,140,255,.7);transform-origin:50% 0}
 #s6 .title{left:0;right:0;top:70px;text-align:center;font-size:84px}
@@ -161,17 +165,17 @@ body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased
 #s7 .bars{left:260px;top:320px;width:1400px;height:470px;display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
 #s7 .bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
 #s7 .bar .fill{width:100%;border-radius:20px 20px 8px 8px;background:linear-gradient(0deg,var(--green2),var(--green));transform-origin:50% 100%;box-shadow:0 20px 60px rgba(180,140,255,.25)}
-#s7 .bar .lbl{margin-top:22px;font-family:var(--head);font-weight:800;font-size:40px}
-#s7 .bar .mods{font-size:23px;color:var(--ink2);font-weight:500;margin-top:4px;white-space:nowrap}
+#s7 .bar .lbl{margin-top:22px;font-family:var(--head);font-weight:800;font-size:40px;text-shadow:0 2px 6px rgba(0,0,0,.9)}
+#s7 .bar .mods{font-size:23px;color:#fff;font-weight:500;margin-top:4px;white-space:nowrap;text-shadow:0 2px 6px rgba(0,0,0,.9)}
 #s7 .cta{left:0;right:0;top:900px;display:flex;justify-content:center;gap:26px}
 #s7 .cta .chip{font-size:38px;padding:18px 40px}
 
 /* ---------- Szene 8: Call to Action ---------- */
 #s8 .big{left:0;right:0;top:210px;text-align:center;font-size:150px}
-#s8 .stand{left:0;right:0;top:400px;text-align:center;font-size:66px;font-weight:600;color:var(--ink2)}
-#s8 .url{left:0;right:0;top:545px;text-align:center;font-family:var(--head);font-weight:800;font-size:130px;letter-spacing:-.03em;color:var(--green)}
+#s8 .stand{left:0;right:0;top:400px;text-align:center;font-size:66px;font-weight:600;color:#fff}
+#s8 .url{left:0;right:0;top:545px;text-align:center;font-family:var(--head);font-weight:800;font-size:130px;letter-spacing:-.03em;color:#d9c6ff}
 #s8 .url span{position:relative;display:inline-block}
-#s8 .contact{left:0;right:0;top:745px;text-align:center;font-size:40px;font-weight:500;color:var(--ink2)}
+#s8 .contact{left:0;right:0;top:745px;text-align:center;font-size:40px;font-weight:500;color:#fff}
 #s8 .contact b{color:var(--ink);font-weight:600}
 #s8 .logo{left:0;right:0;top:880px;display:flex;justify-content:center}
 #s8 .logo img{height:80px;width:auto;opacity:.95;filter:drop-shadow(0 6px 24px rgba(0,0,0,.6))}
@@ -183,7 +187,7 @@ body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased
 
   <!-- 1 · Hook (Clip: Tiefbau, Rohrgraben) -->
   <section class="scene" id="s1">
-    <div class="clip" style="--shade:.74"><video data-scene="s1" src="clips/c1.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="clip" style="--shade:.38"><video data-scene="s1" src="clips/c1.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
     <div class="lines">
       <div class="line">Zettelwirtschaft.<div class="strike"></div></div>
       <div class="line">Excel-Chaos.<div class="strike"></div></div>
@@ -194,7 +198,7 @@ body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased
 
   <!-- 2 · Marke (Clip: fertige Gartenanlage, Drohne) -->
   <section class="scene" id="s2">
-    <div class="clip" style="--shade:.6"><video data-scene="s2" src="clips/c2.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="clip" style="--shade:.3"><video data-scene="s2" src="clips/c2.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
     <div class="brand">
       <div class="logo-slot" id="logoSlot">
         <img id="logoImg" alt="MEXXSOFT Logo" src="assets/logo.svg">
@@ -208,7 +212,7 @@ body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased
 
   <!-- 3 · Alles in einem (Clip: Park im Morgenlicht, stark abgedunkelt) -->
   <section class="scene" id="s3">
-    <div class="clip" style="--shade:.84"><video data-scene="s3" data-rate="0.9" src="clips/c6.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="clip" style="--shade:.5"><video data-scene="s3" data-rate="0.9" src="clips/c6.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
     <div class="title h2 ts">Alles in <em>einem</em> System.</div>
     <div class="grid" id="cards">
       <div class="card"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M8 13h8M8 17h5"/></svg><b>Angebote &amp; Rechnungen</b><small>in Minuten erstellt</small></div>
@@ -225,7 +229,7 @@ body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased
 
   <!-- 4 · Software in Aktion (Clip: Gartenanlage, stark abgedunkelt) -->
   <section class="scene" id="s4">
-    <div class="clip" style="--shade:.88"><video data-scene="s4" data-rate="0.9" src="clips/c2.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="clip" style="--shade:.55"><video data-scene="s4" data-rate="0.9" src="clips/c2.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
     <div class="title h2 ts">Vom Angebot zur Rechnung.<small>Ein Durchlauf – ohne doppelte Eingaben.</small></div>
     <div class="win">
       <div class="bar"><i></i><i></i><i></i><span>Angebot 2026-0815 · Außenanlage &amp; Erschließung Familie Müller</span></div>
@@ -293,7 +297,8 @@ body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased
 
   <!-- 7 · Versionen -->
   <section class="scene" id="s7">
-    <div class="title h2">Wächst <em>mit</em> Ihrem Betrieb.</div>
+    <div class="clip" style="--shade:.55"><video data-scene="s7" src="clips/c4.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="title h2 ts">Wächst <em>mit</em> Ihrem Betrieb.</div>
     <div class="bars" id="bars">
       <div class="bar" data-h=".30"><div class="fill"></div><div class="lbl">Easy</div><div class="mods">Einstieg</div></div>
       <div class="bar" data-h=".47"><div class="fill"></div><div class="lbl">Standard</div><div class="mods">Büro komplett</div></div>
@@ -306,7 +311,7 @@ body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased
 
   <!-- 8 · CTA (Clip: Park im Morgenlicht) -->
   <section class="scene" id="s8">
-    <div class="clip" style="--shade:.62"><video data-scene="s8" src="clips/c6.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="clip" style="--shade:.35"><video data-scene="s8" src="clips/c6.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
     <div class="big h1 ts">Jetzt live erleben.</div>
     <div class="stand ts" id="standText"></div>
     <div class="url ts"><span>www.mexxsoft.com</span></div>
@@ -399,7 +404,7 @@ ticks.push(t=>{
   $$('#s1 .line').forEach((el,i)=>{
     s.in(el, .25+i*.8, {inD:.55, from:{opacity:0, transform:'translateY(70px) scale(1.12)'}, to:{opacity:1, transform:'translateY(0) scale(1)'}});
     anim(el.querySelector('.strike'), [{transform:'scaleX(0)'},{transform:'scaleX(1)'}], s.a+3.05+i*.12, .32, EASE_OUT);
-    anim(el, [{color:'#e6dff2'},{color:'#8d7fa8'}], s.a+3.2+i*.12, .3);
+    anim(el, [{color:'#ffffff'},{color:'#cfc3e6'}], s.a+3.2+i*.12, .3);
   });
   s.in($('#s1 .stamp'), 3.55, {inD:.45, inEase:EASE_POP, from:{opacity:0, transform:'scale(1.9)'}, to:{opacity:1, transform:'scale(1)'}});
 }
@@ -501,6 +506,18 @@ ticks.push(t=>{
 
 /* ---------- Video-Hintergründe: Clip-Zeit ist eine Funktion der Szenenzeit ---------- */
 const videos = $$('video[data-scene]');
+const canvases = new Map();
+if(window.__RENDER){
+  document.getElementById('stage').classList.add('render');
+  for(const v of videos){ const c = document.createElement('canvas'); c.className = 'vframe'; v.after(c); canvases.set(v, c); }
+}
+function drawFrame(v){
+  const c = canvases.get(v); if(!c || v.readyState < 2 || !v.videoWidth) return;
+  const W = c.clientWidth || 1920, H = c.clientHeight || 1080;
+  if(c.width !== W || c.height !== H){ c.width = W; c.height = H; }
+  const vw = v.videoWidth, vh = v.videoHeight, sc = Math.max(W/vw, H/vh), sw = W/sc, sh = H/sc;
+  c.getContext('2d').drawImage(v, (vw-sw)/2, (vh-sh)/2, sw, sh, 0, 0, W, H);
+}
 function clipActive(v, t){ const [a,b] = T[v.dataset.scene]; return t >= a-.6 && t <= b+.6; }
 function clipTime(v, t){
   const a = T[v.dataset.scene][0], rate = parseFloat(v.dataset.rate||'1'), off = parseFloat(v.dataset.offset||'0');
@@ -512,7 +529,11 @@ function seekVideo(v, time){
     if(v.readyState < 1) return res();
     if(Math.abs(v.currentTime - time) < .0005) return res();
     let done = false;
-    const fin = ()=>{ if(done) return; done = true; clearTimeout(to); v.removeEventListener('seeked', fin); res(); };
+    // Nach 'seeked' zusätzlich auf das tatsächlich präsentierte Frame warten (requestVideoFrameCallback),
+    // damit der Screenshot nie ein altes/leeres Frame erwischt.
+    const fin = ()=>{ if(done) return; done = true; clearTimeout(to); v.removeEventListener('seeked', fin);
+      if(typeof v.requestVideoFrameCallback === 'function'){ const to2 = setTimeout(res, 400); v.requestVideoFrameCallback(()=>{ clearTimeout(to2); res(); }); }
+      else res(); };
     const to = setTimeout(fin, 3000);
     v.addEventListener('seeked', fin);
     v.currentTime = time;
@@ -525,7 +546,8 @@ function seek(t){
   for(const a of anims) a.currentTime = t*1000;
   for(const f of ticks) f(t);
   if(window.__RENDER){
-    return Promise.all(videos.filter(v => clipActive(v,t)).map(v => seekVideo(v, clipTime(v,t))));
+    const act = videos.filter(v => clipActive(v,t));
+    return Promise.all(act.map(v => seekVideo(v, clipTime(v,t)))).then(()=>{ for(const v of act) drawFrame(v); });
   }
   // Live-Vorschau im Browser: Clips laufen in Echtzeit, werden beim Szenenstart positioniert
   for(const v of videos){
