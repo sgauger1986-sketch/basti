@@ -9,7 +9,7 @@ Die Bildwelt besteht aus **sechs exklusiv mit Higgsfield (Seedance 2.5) erzeugte
 
 | Datei | Zweck |
 |---|---|
-| `mexxsoft-messe-video-galabau-tiefbau.mp4` | **Das fertige Video** (H.264, 1080p, 30 fps, 48 s, keine Audiospur, 20,5 MB). Gerendert in der Higgsfield-Cloud, **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/6683cf58-4295-41e4-b2a0-8a800acd3f9d.mp4 (liegt außerdem in der Higgsfield-Mediathek des Kontos). Lokal jederzeit mit `render.mjs` neu erzeugbar. |
+| `mexxsoft-messe-video-galabau-tiefbau-v2.mp4` | **Das fertige Video** (H.264, 1080p, 30 fps, 48 s, keine Audiospur). Gerendert in der Higgsfield-Cloud, **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/ba496ee1-a269-46a2-8cf1-64fd6441cd0f.mp4 (liegt außerdem in der Higgsfield-Mediathek des Kontos). Lokal jederzeit mit `render.mjs` neu erzeugbar. Erste, dunklere Fassung: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/6683cf58-4295-41e4-b2a0-8a800acd3f9d.mp4 |
 | `mexxsoft-messe-video.mp4` | Erste Fassung ohne Videoclips (nur Motion Graphics), alle Gewerke. |
 | `messe-video.html` | Die Quelle: Animation als HTML/CSS/JS inkl. Video-Hintergründen. Läuft auch direkt im Browser als Endlosschleife (Vollbild mit Taste **F**), sobald `clips/*.webm` vorhanden sind. |
 | `clips/fetch-clips.sh` | Lädt die 6 Higgsfield-Clips und wandelt sie nach WebM/VP9 (für den Render-Browser). |
@@ -37,8 +37,8 @@ Durchgehend: kleine Fußzeile mit „mexXsoft X2 · Die Software für GaLaBau & 
 Alle sechs Clips wurden mit dem Modell **Seedance 2.5** (Text-to-Video, 1080p, 16:9, 8 s, `generate_audio: false`)
 exklusiv für dieses Video erzeugt (Job-IDs in `clips/fetch-clips.sh`). Die Prompts beschreiben deutsche
 Baustellen (Warnwesten, Betonsteinpflaster, Rollrasen, Asphaltfertiger, Rohrgraben mit Verbau) ohne Text,
-Logos oder Wasserzeichen. Die Clips werden im Video stark abgedunkelt bzw. mit Verläufen versehen, damit
-Texte lesbar bleiben; sie liegen im Higgsfield-Konto des Nutzers und lassen sich dort jederzeit erneut laden.
+Logos oder Wasserzeichen. Die Clips werden im Video nur leicht abgedunkelt bzw. mit Verläufen versehen, die
+Texte bekommen kräftige Schlagschatten, damit beides gut erkennbar bleibt; sie liegen im Higgsfield-Konto des Nutzers und lassen sich dort jederzeit erneut laden.
 
 ## Am Stand abspielen (Dauerschleife)
 
