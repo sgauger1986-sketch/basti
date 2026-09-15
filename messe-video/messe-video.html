@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>mexXsoft X2 – Messevideo (Endlosschleife, ohne Ton)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* ---------- Schriften (lokal, SIL OFL) ---------- */
+@font-face{font-family:'Inter';font-weight:400;font-display:block;src:url(fonts/inter-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-weight:500;font-display:block;src:url(fonts/inter-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-weight:600;font-display:block;src:url(fonts/inter-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-weight:700;font-display:block;src:url(fonts/inter-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-weight:800;font-display:block;src:url(fonts/inter-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'Manrope';font-weight:700;font-display:block;src:url(fonts/manrope-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Manrope';font-weight:800;font-display:block;src:url(fonts/manrope-latin-800-normal.woff2) format('woff2')}
+
+/* ---------- Markenfarben: hier zentral anpassen ---------- */
+:root{
+  --bg:#0a1020;          /* Hintergrund dunkel */
+  --bg2:#111b33;         /* Hintergrund Verlauf */
+  --ink:#f5f8fc;         /* Text hell */
+  --ink2:#aeb9cc;        /* Text gedämpft */
+  --ink3:#6f7d95;
+  --green:#2fd46a;       /* Akzent 1 (Marke) */
+  --green2:#17a94e;
+  --orange:#ffb020;      /* Akzent 2 (Handwerk / Highlight) */
+  --blue:#4cc3ff;
+  --card:rgba(255,255,255,.055);
+  --line:rgba(255,255,255,.13);
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --head:'Manrope','Inter',system-ui,Arial,sans-serif;
+}
+
+html,body{margin:0;padding:0;background:#000;overflow:hidden;height:100%}
+body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;background:var(--bg);transform-origin:0 0}
+.scene{position:absolute;inset:0;opacity:0}
+.scene > *{position:absolute}
+
+/* ---------- Hintergrund (läuft durchgehend, nahtlos) ---------- */
+#bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--bg) 0%,var(--bg2) 60%,#0d1729 100%)}
+#grid{position:absolute;inset:-100px;opacity:.10;
+  background-image:linear-gradient(rgba(255,255,255,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.35) 1px,transparent 1px);
+  background-size:80px 80px}
+.blob{position:absolute;width:1100px;height:1100px;border-radius:50%;filter:blur(90px);opacity:.28;will-change:transform}
+#blob1{background:radial-gradient(circle,var(--green) 0%,transparent 62%);left:-200px;top:-300px}
+#blob2{background:radial-gradient(circle,var(--blue) 0%,transparent 62%);right:-350px;bottom:-450px;opacity:.20}
+#vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+
+/* ---------- Persistente Fußzeile ---------- */
+#foot{position:absolute;left:0;right:0;bottom:0;height:64px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 56px;font-size:22px;font-weight:600;color:var(--ink2);letter-spacing:.01em;border-top:1px solid var(--line);
+  background:linear-gradient(0deg,rgba(0,0,0,.35),rgba(0,0,0,0))}
+#foot .l{display:flex;align-items:center;gap:14px}
+#foot .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green)}
+#foot .r{color:var(--ink)}
+
+/* ---------- Typo-Bausteine ---------- */
+.h1{font-family:var(--head);font-weight:800;letter-spacing:-.025em;line-height:1.02}
+.h2{font-family:var(--head);font-weight:800;letter-spacing:-.02em;line-height:1.06}
+.sub{font-weight:500;color:var(--ink2)}
+.chip{display:inline-flex;align-items:center;gap:14px;padding:16px 30px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:36px;font-weight:600;white-space:nowrap}
+.chip i{width:14px;height:14px;border-radius:50%;background:var(--green);flex:none}
+.pill{display:inline-flex;align-items:center;padding:14px 26px;border-radius:14px;background:var(--green);color:#052a12;font-weight:800;font-family:var(--head)}
+
+/* ---------- Szene 1: Hook ---------- */
+#s1 .lines{left:0;right:0;top:170px;display:flex;flex-direction:column;align-items:center;gap:22px}
+#s1 .line{position:relative;font-family:var(--head);font-weight:800;font-size:132px;letter-spacing:-.03em;line-height:1;color:#cfd8e6;padding:0 10px}
+#s1 .line .strike{position:absolute;left:0;top:50%;height:14px;width:100%;margin-top:-7px;background:var(--green);border-radius:8px;transform-origin:0 50%;transform:scaleX(0);box-shadow:0 0 20px rgba(47,212,106,.6)}
+#s1 .stamp{left:0;right:0;top:640px;display:flex;justify-content:center}
+#s1 .stamp span{display:inline-block;padding:28px 60px;border:8px solid var(--orange);color:var(--orange);border-radius:26px;font-family:var(--head);font-weight:800;font-size:128px;letter-spacing:-.02em;line-height:1;transform:rotate(-5deg);box-shadow:0 30px 80px rgba(0,0,0,.45);background:rgba(10,16,32,.7)}
+
+/* ---------- Szene 2: Marke ---------- */
+#s2 .brand{left:0;right:0;top:250px;display:flex;flex-direction:column;align-items:center}
+#s2 .logo-slot{display:flex;align-items:center;justify-content:center;gap:34px;height:260px}
+#s2 .logo-slot img{max-height:240px;max-width:1200px;display:none}
+#s2 .logo-slot.haslogo img{display:block}
+#s2 .logo-slot.haslogo .wordmark{display:none}
+.wordmark{font-family:var(--head);font-weight:800;font-size:220px;letter-spacing:-.045em;line-height:1;display:inline-flex;align-items:baseline}
+.wordmark .x{color:var(--green);font-size:1.12em;display:inline-block;transform-origin:50% 70%;text-shadow:0 0 40px rgba(47,212,106,.45)}
+.badge-x2{font-size:88px;padding:16px 30px;border-radius:22px;margin-left:10px;align-self:center;letter-spacing:-.02em}
+#s2 .tag{margin-top:34px;font-size:64px;font-weight:600;color:var(--ink)}
+#s2 .slogan{margin-top:34px;display:flex;gap:40px;font-family:var(--head);font-weight:800;font-size:40px;letter-spacing:.24em;text-transform:uppercase;color:var(--green)}
+#s2 .slogan span.sep{color:var(--ink3);letter-spacing:0}
+
+/* ---------- Szene 3: Alles in einem ---------- */
+#s3 .title{left:0;right:0;top:96px;text-align:center;font-size:96px}
+#s3 .title em{font-style:normal;color:var(--green)}
+#s3 .grid{left:110px;top:270px;width:1700px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+#s3 .card{height:290px;border-radius:26px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;justify-content:flex-end;padding:30px 34px;box-sizing:border-box;position:relative;overflow:hidden}
+#s3 .card:after{content:"";position:absolute;inset:0;background:linear-gradient(140deg,rgba(255,255,255,.06),transparent 55%)}
+#s3 .card svg{width:78px;height:78px;position:absolute;top:32px;left:34px;stroke:var(--green);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+#s3 .card b{font-size:36px;font-weight:700;line-height:1.15;letter-spacing:-.01em}
+#s3 .card small{font-size:23px;color:var(--ink2);font-weight:500;margin-top:8px}
+#s3 .more{left:0;right:0;top:920px;text-align:center;font-size:34px;color:var(--ink2);font-weight:500}
+
+/* ---------- Szene 4: Software in Aktion ---------- */
+#s4 .title{left:100px;top:90px;font-size:88px;width:1750px}
+#s4 .title small{display:block;font-family:var(--sans);font-weight:500;font-size:40px;color:var(--ink2);letter-spacing:0;margin-top:14px}
+#s4 .win{left:180px;top:290px;width:1560px;height:610px;border-radius:22px;background:#0f1729;border:1px solid var(--line);box-shadow:0 40px 120px rgba(0,0,0,.55);overflow:hidden}
+#s4 .bar{height:64px;display:flex;align-items:center;gap:14px;padding:0 26px;background:rgba(255,255,255,.05);border-bottom:1px solid var(--line);font-size:24px;font-weight:600;color:var(--ink2)}
+#s4 .bar i{width:16px;height:16px;border-radius:50%;background:#3a4661}
+#s4 .bar i:nth-child(1){background:#ff5f57}#s4 .bar i:nth-child(2){background:#febc2e}#s4 .bar i:nth-child(3){background:#28c840}
+#s4 .bar span{margin-left:18px;color:var(--ink)}
+#s4 table{border-collapse:collapse;width:100%;font-size:27px}
+#s4 th{font-weight:600;color:var(--ink3);text-align:left;padding:18px 26px;border-bottom:1px solid var(--line);font-size:22px;letter-spacing:.06em;text-transform:uppercase}
+#s4 td{padding:15px 26px;border-bottom:1px solid rgba(255,255,255,.06);white-space:nowrap}
+#s4 tr.row{opacity:0}
+#s4 .num{text-align:right;font-variant-numeric:tabular-nums}
+#s4 .sum{position:absolute;right:0;bottom:0;left:0;height:118px;display:flex;align-items:center;justify-content:flex-end;gap:60px;padding:0 40px;background:rgba(255,255,255,.04);border-top:1px solid var(--line)}
+#s4 .sum div{text-align:right;font-variant-numeric:tabular-nums}
+#s4 .sum small{display:block;font-size:20px;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+#s4 .sum b{font-size:40px;font-weight:800;font-family:var(--head)}
+#s4 .sum .tot b{color:var(--green);font-size:52px}
+#s4 .stamp{left:0;right:0;top:500px;display:flex;justify-content:center}
+#s4 .stamp span{padding:22px 48px;border:7px solid var(--green);color:var(--green);border-radius:22px;font-family:var(--head);font-weight:800;font-size:96px;transform:rotate(-6deg);background:rgba(10,16,32,.85);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+#s4 .flow{left:180px;top:928px;display:flex;gap:26px;align-items:center;font-size:32px;font-weight:700}
+#s4 .flow .st{display:flex;align-items:center;gap:12px;padding:12px 26px;border-radius:999px;border:2px solid var(--line);color:var(--ink3);background:rgba(0,0,0,.25)}
+#s4 .flow .st i{width:30px;height:30px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-style:normal;font-size:20px}
+#s4 .flow .arrow{color:var(--ink3);font-size:36px}
+
+/* ---------- Szene 5: mexXgo ---------- */
+#s5 .phone{left:230px;top:170px;width:400px;height:720px;border-radius:56px;background:#0a0f1c;border:10px solid #232c42;box-shadow:0 50px 120px rgba(0,0,0,.6);overflow:hidden}
+#s5 .phone .notch{position:absolute;left:50%;top:14px;width:150px;height:30px;margin-left:-75px;border-radius:20px;background:#000}
+#s5 .phone .app{position:absolute;inset:0;display:flex;flex-direction:column}
+#s5 .phone .head{height:150px;background:linear-gradient(160deg,var(--green2),var(--green));display:flex;align-items:flex-end;padding:0 28px 22px;font-family:var(--head);font-weight:800;font-size:42px;color:#052a12}
+#s5 .phone .head b{color:#fff}
+#s5 .phone .item{margin:16px 20px 0;padding:20px 22px;border-radius:18px;background:rgba(255,255,255,.07);border:1px solid var(--line);font-size:24px;font-weight:600;display:flex;flex-direction:column;gap:6px}
+#s5 .phone .item small{font-size:19px;color:var(--ink2);font-weight:500}
+#s5 .phone .item .ok{color:var(--green)}
+#s5 .phone svg.sig{width:100%;height:90px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+#s5 .phone .item.photos{flex-direction:row;gap:10px;align-items:center}
+#s5 .phone .item.photos i{width:80px;height:60px;border-radius:10px;background:linear-gradient(140deg,#2b7a3b,#5cb85c 60%,#a4d37a);display:block}
+#s5 .phone .item.photos i:nth-child(2){background:linear-gradient(140deg,#5b5f6a,#9a9ea9 60%,#c9ccd3)}
+#s5 .phone .item.photos i:nth-child(3){background:linear-gradient(140deg,#6b4a2e,#b48a5a 60%,#d9bf98)}
+#s5 .txt{left:760px;top:200px;width:1050px}
+#s5 .txt .h2{font-size:92px}
+#s5 .txt .h2 em{font-style:normal;color:var(--green)}
+#s5 .txt ul{list-style:none;margin:48px 0 0;padding:0;display:flex;flex-direction:column;gap:22px}
+#s5 .txt li{font-size:38px;font-weight:500;color:var(--ink);display:flex;align-items:center;gap:20px}
+#s5 .txt li i{width:44px;height:44px;border-radius:50%;background:var(--green);color:#052a12;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:28px;flex:none}
+#s5 .txt .os{margin-top:44px;display:flex;gap:18px}
+#s5 .txt .os span{padding:12px 24px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:28px;font-weight:600}
+
+/* ---------- Szene 6: Gewerke ---------- */
+#s6 .title{left:0;right:0;top:130px;text-align:center;font-size:96px}
+#s6 .title em{font-style:normal;color:var(--green)}
+#s6 .row{left:0;width:1920px;overflow:hidden;height:100px}
+#s6 .row .track{display:flex;gap:26px;will-change:transform}
+#s6 .r1{top:380px}#s6 .r2{top:520px}#s6 .r3{top:660px}
+#s6 .r2 .chip i{background:var(--orange)}
+#s6 .r3 .chip i{background:var(--blue)}
+#s6 .sub{left:0;right:0;top:850px;text-align:center;font-size:40px}
+
+/* ---------- Szene 7: Versionen ---------- */
+#s7 .title{left:0;right:0;top:110px;text-align:center;font-size:92px}
+#s7 .title em{font-style:normal;color:var(--green)}
+#s7 .bars{left:260px;top:320px;width:1400px;height:470px;display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
+#s7 .bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+#s7 .bar .fill{width:100%;border-radius:20px 20px 8px 8px;background:linear-gradient(0deg,var(--green2),var(--green));transform-origin:50% 100%;box-shadow:0 20px 60px rgba(47,212,106,.25)}
+#s7 .bar .lbl{margin-top:22px;font-family:var(--head);font-weight:800;font-size:40px}
+#s7 .bar .mods{font-size:23px;color:var(--ink2);font-weight:500;margin-top:4px;white-space:nowrap}
+#s7 .cta{left:0;right:0;top:900px;display:flex;justify-content:center;gap:26px}
+#s7 .cta .chip{font-size:38px;padding:18px 40px}
+
+/* ---------- Szene 8: Call to Action ---------- */
+#s8 .big{left:0;right:0;top:230px;text-align:center;font-size:150px}
+#s8 .stand{left:0;right:0;top:420px;text-align:center;font-size:70px;font-weight:600;color:var(--ink2)}
+#s8 .url{left:0;right:0;top:560px;text-align:center;font-family:var(--head);font-weight:800;font-size:130px;letter-spacing:-.03em;color:var(--green)}
+#s8 .url span{position:relative;display:inline-block}
+#s8 .contact{left:0;right:0;top:760px;text-align:center;font-size:40px;font-weight:500;color:var(--ink2)}
+#s8 .contact b{color:var(--ink);font-weight:600}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"><div id="grid"></div><div class="blob" id="blob1"></div><div class="blob" id="blob2"></div><div id="vignette"></div></div>
+
+  <!-- 1 · Hook -->
+  <section class="scene" id="s1">
+    <div class="lines">
+      <div class="line" data-i="0">Zettelwirtschaft.<div class="strike"></div></div>
+      <div class="line" data-i="1">Excel-Chaos.<div class="strike"></div></div>
+      <div class="line" data-i="2">Abende im Büro.<div class="strike"></div></div>
+    </div>
+    <div class="stamp"><span>Schluss damit.</span></div>
+  </section>
+
+  <!-- 2 · Marke -->
+  <section class="scene" id="s2">
+    <div class="brand">
+      <div class="logo-slot" id="logoSlot">
+        <img id="logoImg" alt="mexXsoft Logo" src="assets/logo.svg">
+        <div class="wordmark">mex<span class="x">X</span>soft</div>
+        <div class="pill badge-x2">X2</div>
+      </div>
+      <div class="tag">Die Handwerkersoftware.</div>
+      <div class="slogan"><span>Einfach</span><span class="sep">·</span><span>Schnell</span><span class="sep">·</span><span>Professionell</span></div>
+    </div>
+  </section>
+
+  <!-- 3 · Alles in einem -->
+  <section class="scene" id="s3">
+    <div class="title h2">Alles in <em>einem</em> System.</div>
+    <div class="grid" id="cards">
+      <div class="card"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M8 13h8M8 17h5"/></svg><b>Angebote &amp; Rechnungen</b><small>in Minuten erstellt</small></div>
+      <div class="card"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M16 15v3M8 18h6"/></svg><b>Kalkulation</b><small>Projekte sicher kalkulieren</small></div>
+      <div class="card"><svg viewBox="0 0 24 24"><path d="M3 17 17 3l4 4L7 21H3z"/><path d="m14 6 2 2M11 9l2 2M8 12l2 2"/></svg><b>Aufmaß &amp; LV</b><small>Leistungsverzeichnisse</small></div>
+      <div class="card"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 15h3"/></svg><b>Kunden &amp; Termine</b><small>alles im Blick</small></div>
+      <div class="card"><svg viewBox="0 0 24 24"><path d="m3 8 9-5 9 5-9 5z"/><path d="M3 8v8l9 5 9-5V8M12 13v8"/></svg><b>Material &amp; Artikel</b><small>Stammdaten &amp; Preise</small></div>
+      <div class="card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b>Zeit &amp; Lohn</b><small>erfassen &amp; abrechnen</small></div>
+      <div class="card"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><b>Schriftverkehr</b><small>Briefe, Mahnungen, Mails</small></div>
+      <div class="card"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.2 2.2M16.2 16.2l2.2 2.2M5.6 18.4l2.2-2.2M16.2 7.8l2.2-2.2"/><circle cx="12" cy="12" r="3.5"/></svg><b>KI-Funktionen</b><small>Unterstützung im Alltag</small></div>
+    </div>
+    <div class="more">… plus umfangreiche Schnittstellen zu Ihren Partnern und Programmen.</div>
+  </section>
+
+  <!-- 4 · Software in Aktion -->
+  <section class="scene" id="s4">
+    <div class="title h2">Vom Angebot zur Rechnung.<small>Ein Durchlauf – ohne doppelte Eingaben.</small></div>
+    <div class="win">
+      <div class="bar"><i></i><i></i><i></i><span>Angebot 2026-0815 · Gartenneuanlage Familie Müller</span></div>
+      <table>
+        <thead><tr><th>Pos.</th><th>Bezeichnung</th><th class="num">Menge</th><th>Einheit</th><th class="num">EP</th><th class="num">GP</th></tr></thead>
+        <tbody id="rows">
+          <tr class="row"><td>1</td><td>Oberboden abtragen und seitlich lagern</td><td class="num">120,00</td><td>m²</td><td class="num">8,50 €</td><td class="num">1.020,00 €</td></tr>
+          <tr class="row"><td>2</td><td>Pflasterfläche Betonstein 8 cm, inkl. Bettung</td><td class="num">85,00</td><td>m²</td><td class="num">64,90 €</td><td class="num">5.516,50 €</td></tr>
+          <tr class="row"><td>3</td><td>Rasenfläche ansäen inkl. Feinplanum</td><td class="num">240,00</td><td>m²</td><td class="num">6,20 €</td><td class="num">1.488,00 €</td></tr>
+          <tr class="row"><td>4</td><td>Hainbuchenhecke pflanzen, 100–125 cm</td><td class="num">36,00</td><td>Stk</td><td class="num">24,50 €</td><td class="num">882,00 €</td></tr>
+          <tr class="row"><td>5</td><td>Baustelleneinrichtung</td><td class="num">1,00</td><td>psch</td><td class="num">650,00 €</td><td class="num">650,00 €</td></tr>
+        </tbody>
+      </table>
+      <div class="sum">
+        <div><small>Netto</small><b id="sumNet">0,00 €</b></div>
+        <div><small>MwSt. 19 %</small><b id="sumTax">0,00 €</b></div>
+        <div class="tot"><small>Gesamt</small><b id="sumTot">0,00 €</b></div>
+      </div>
+    </div>
+    <div class="stamp"><span>Angebot versendet ✓</span></div>
+    <div class="flow" id="flow">
+      <div class="st"><i>1</i>Angebot</div><span class="arrow">→</span>
+      <div class="st"><i>2</i>Auftrag</div><span class="arrow">→</span>
+      <div class="st"><i>3</i>Aufmaß</div><span class="arrow">→</span>
+      <div class="st"><i>4</i>Rechnung</div>
+    </div>
+  </section>
+
+  <!-- 5 · mexXgo -->
+  <section class="scene" id="s5">
+    <div class="phone">
+      <div class="app">
+        <div class="head">mex<b>X</b>go</div>
+        <div class="item" data-k="time"><span>Zeiterfassung <span class="ok">✓</span></span><small>Heute 07:30–16:00 · Fam. Müller</small></div>
+        <div class="item photos" data-k="photos"><i></i><i></i><i></i></div>
+        <div class="item" data-k="sig"><span>Regiebericht <span class="ok">✓</span></span><small>Unterschrift vor Ort</small>
+          <svg class="sig" viewBox="0 0 320 80" preserveAspectRatio="none"><path id="sigPath" d="M10 55 C 30 10, 50 10, 60 50 S 90 70, 100 35 S 130 10, 140 45 S 170 75, 185 40 C 200 10, 215 20, 225 45 S 260 60, 275 35 S 300 30, 312 42"/></svg>
+        </div>
+      </div>
+      <div class="notch"></div>
+    </div>
+    <div class="txt">
+      <div class="h2">Büro und Baustelle.<br><em>Verbunden.</em></div>
+      <ul id="s5list">
+        <li><i>✓</i>Arbeitszeiten mobil erfassen</li>
+        <li><i>✓</i>Baustellenfotos direkt zum Projekt</li>
+        <li><i>✓</i>Regieberichte vor Ort unterschreiben lassen</li>
+        <li><i>✓</i>Kundendaten &amp; Leistungslisten immer dabei</li>
+      </ul>
+      <div class="os"><span>mexXgo App</span><span>iOS</span><span>Android</span></div>
+    </div>
+  </section>
+
+  <!-- 6 · Gewerke -->
+  <section class="scene" id="s6">
+    <div class="title h2">Für <em>Ihr</em> Gewerk gemacht.</div>
+    <div class="row r1"><div class="track" id="track1"></div></div>
+    <div class="row r2"><div class="track" id="track2"></div></div>
+    <div class="row r3"><div class="track" id="track3"></div></div>
+    <div class="sub">Modular anpassbar – so, wie Ihr Betrieb arbeitet.</div>
+  </section>
+
+  <!-- 7 · Versionen -->
+  <section class="scene" id="s7">
+    <div class="title h2">Wächst <em>mit</em> Ihrem Betrieb.</div>
+    <div class="bars" id="bars">
+      <div class="bar" data-h=".30"><div class="fill"></div><div class="lbl">Easy</div><div class="mods">Einstieg</div></div>
+      <div class="bar" data-h=".47"><div class="fill"></div><div class="lbl">Standard</div><div class="mods">Büro komplett</div></div>
+      <div class="bar" data-h=".64"><div class="fill"></div><div class="lbl">Premium</div><div class="mods">Kalkulation &amp; mehr</div></div>
+      <div class="bar" data-h=".82"><div class="fill"></div><div class="lbl">Pro</div><div class="mods">Profi-Module</div></div>
+      <div class="bar" data-h="1"><div class="fill"></div><div class="lbl">Enterprise</div><div class="mods">Netzwerk &amp; Server</div></div>
+    </div>
+    <div class="cta" id="s7cta"><div class="chip"><i></i>Kaufen</div><div class="chip"><i></i>Mieten</div><div class="chip"><i></i>Kostenlos testen</div></div>
+  </section>
+
+  <!-- 8 · CTA -->
+  <section class="scene" id="s8">
+    <div class="big h1">Jetzt live erleben.</div>
+    <div class="stand" id="standText"></div>
+    <div class="url"><span>www.mexxsoft.com</span></div>
+    <div class="contact"><b>info@mexxsoft.com</b> &nbsp;·&nbsp; <b>+49 6321 9152390</b> &nbsp;·&nbsp; mexXsoft GmbH, Haßloch</div>
+  </section>
+
+  <div id="foot"><div class="l"><span class="dot"></span><span>mexXsoft X2 · Die Handwerkersoftware</span></div><div class="r">www.mexxsoft.com</div></div>
+</div>
+
+<script>
+/* =====================================================================
+   KONFIGURATION
+   ===================================================================== */
+const CONFIG = {
+  // Text unter "Jetzt live erleben." – z. B. "Halle 4A · Stand 4A-115"
+  standText: 'Direkt hier am Stand – Live-Demo in 5 Minuten.',
+  // Gesamtlänge einer Schleife in Sekunden (Szenen-Zeiten unten sind darauf abgestimmt)
+  duration: 48,
+};
+document.getElementById('standText').textContent = CONFIG.standText;
+
+/* =====================================================================
+   ANIMATIONS-ENGINE
+   Alle Animationen sind reine Funktionen der Zeit t (Sekunden, 0..D).
+   -> Im Browser läuft eine Endlosschleife, beim Rendern wird Bild für Bild gesucht.
+   ===================================================================== */
+const D = CONFIG.duration;
+const EASE_OUT = 'cubic-bezier(.16,1,.3,1)';
+const EASE_IN  = 'cubic-bezier(.7,0,.84,0)';
+const EASE_IO  = 'cubic-bezier(.65,0,.35,1)';
+const EASE_POP = 'cubic-bezier(.34,1.56,.64,1)';
+const anims = [];   // Web-Animations (pausiert, per currentTime gesteuert)
+const ticks = [];   // Frame-Funktionen f(t) für Dinge, die WAAPI nicht kann
+
+function anim(el, keyframes, at, dur, easing){
+  const a = el.animate(keyframes, {delay: at*1000, duration: Math.max(dur,0.001)*1000, fill:'both', easing: easing || 'linear'});
+  a.pause(); anims.push(a); return a;
+}
+/* Ein Element ein- und wieder ausblenden: genau EINE Animation pro Element -> keine Konflikte. */
+function show(el, o){
+  const {at, dur, inD=.6, outD=.4, inEase=EASE_OUT, outEase=EASE_IN} = o;
+  const from = o.from || {opacity:0, transform:'translateY(40px)'};
+  const to   = o.to   || {opacity:1, transform:'translateY(0px)'};
+  const exit = o.exit || {opacity:0, transform:(o.to && o.to.transform) ? o.to.transform : 'translateY(-24px)'};
+  const kf = [
+    {...from, offset:0, easing:inEase},
+    {...to,   offset:Math.min(inD/dur, .999)},
+    {...to,   offset:Math.max(Math.min((dur-outD)/dur, 1), Math.min(inD/dur, .999)), easing:outEase},
+    {...exit, offset:1},
+  ];
+  return anim(el, kf, at, dur);
+}
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+const easeOutCubic = x => 1-Math.pow(1-x,3);
+const eur = n => n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+
+/* Szenenzeiten (Sekunden) */
+const T = {
+  s1:[0.0, 5.2],
+  s2:[5.0, 10.6],
+  s3:[10.4, 17.8],
+  s4:[17.6, 26.4],
+  s5:[26.2, 33.4],
+  s6:[33.2, 39.4],
+  s7:[39.2, 44.4],
+  s8:[44.2, 48.0],
+};
+function scene(id, o={}){
+  const [a,b] = T[id];
+  show($('#'+id), {at:a, dur:b-a, inD:o.inD??.45, outD:o.outD??.4, from:{opacity:0, transform:'none'}, to:{opacity:1, transform:'none'}, exit:{opacity:0, transform:'none'}, inEase:EASE_IO, outEase:EASE_IO});
+  return {a, b, el:$('#'+id),
+    /* Element relativ zum Szenenstart einblenden; bleibt bis Szenenende (Szene blendet selbst aus). */
+    in(el, rel, opt={}){ return show(el, {at:a+rel, dur:(b-a)-rel, outD:0, ...opt}); }
+  };
+}
+
+/* ---------- Hintergrund: nahtlos periodisch ---------- */
+ticks.push(t=>{
+  const w = 2*Math.PI*t/D;
+  $('#grid').style.backgroundPosition = `${(t*10)%80}px ${(t*10)%80}px`;   // 48 s * 10 px = 480 = 6*80 -> nahtlos
+  $('#blob1').style.transform = `translate(${Math.sin(w)*260}px, ${Math.cos(w*2)*140}px)`;
+  $('#blob2').style.transform = `translate(${Math.cos(w)*-300}px, ${Math.sin(w*3)*120}px)`;
+});
+
+/* ---------- Szene 1 ---------- */
+{
+  const s = scene('s1', {inD:.001});
+  $$('#s1 .line').forEach((el,i)=>{
+    s.in(el, .25+i*.8, {inD:.55, from:{opacity:0, transform:'translateY(70px) scale(1.12)'}, to:{opacity:1, transform:'translateY(0) scale(1)'}});
+    anim(el.querySelector('.strike'), [{transform:'scaleX(0)'},{transform:'scaleX(1)'}], s.a+3.05+i*.12, .32, EASE_OUT);
+    anim(el, [{color:'#cfd8e6'},{color:'#5c6a82'}], s.a+3.2+i*.12, .3);
+  });
+  s.in($('#s1 .stamp'), 3.55, {inD:.45, inEase:EASE_POP, from:{opacity:0, transform:'scale(1.9)'}, to:{opacity:1, transform:'scale(1)'}});
+}
+
+/* ---------- Szene 2 ---------- */
+{
+  const s = scene('s2');
+  const slot = $('#logoSlot');
+  s.in(slot, .15, {inD:.9, from:{opacity:0, transform:'scale(.82)', filter:'blur(24px)'}, to:{opacity:1, transform:'scale(1)', filter:'blur(0px)'}});
+  anim($('.wordmark .x'), [{transform:'scale(1)'},{transform:'scale(1.35) rotate(-8deg)'},{transform:'scale(1)'}], s.a+.95, .55, EASE_IO);
+  s.in($('.badge-x2'), .9, {inD:.5, inEase:EASE_POP, from:{opacity:0, transform:'scale(.3) rotate(12deg)'}, to:{opacity:1, transform:'scale(1) rotate(0deg)'}});
+  s.in($('#s2 .tag'), 1.35, {inD:.6});
+  $$('#s2 .slogan span').forEach((el,i)=> s.in(el, 1.8+i*.14, {inD:.5, from:{opacity:0, transform:'translateY(18px)'}}));
+}
+
+/* ---------- Szene 3 ---------- */
+{
+  const s = scene('s3');
+  s.in($('#s3 .title'), .15, {inD:.6});
+  $$('#s3 .card').forEach((el,i)=> s.in(el, .6+i*.13, {inD:.55, inEase:EASE_POP, from:{opacity:0, transform:'translateY(50px) scale(.9)'}, to:{opacity:1, transform:'translateY(0) scale(1)'}}));
+  s.in($('#s3 .more'), 2.4, {inD:.6});
+}
+
+/* ---------- Szene 4 ---------- */
+{
+  const s = scene('s4');
+  s.in($('#s4 .title'), .15, {inD:.6});
+  s.in($('#s4 .win'), .35, {inD:.8, from:{opacity:0, transform:'translateY(80px) scale(.97)'}, to:{opacity:1, transform:'translateY(0) scale(1)'}});
+  $$('#s4 tr.row').forEach((el,i)=> s.in(el, 1.2+i*.42, {inD:.4, from:{opacity:0, transform:'translateX(-30px)'}, to:{opacity:1, transform:'translateX(0)'}}));
+  const NET = 9556.50;
+  ticks.push(t=>{
+    const p = easeOutCubic(clamp((t-(s.a+3.3))/1.3, 0, 1));
+    const net = NET*p; $('#sumNet').textContent = eur(net); $('#sumTax').textContent = eur(net*.19); $('#sumTot').textContent = eur(net*1.19);
+  });
+  s.in($('#s4 .stamp'), 5.0, {inD:.45, inEase:EASE_POP, from:{opacity:0, transform:'scale(2.2) rotate(6deg)'}, to:{opacity:1, transform:'scale(1) rotate(0deg)'}});
+  s.in($('#s4 .flow'), .6, {inD:.6});
+  $$('#s4 .flow .st').forEach((el,i)=>{
+    anim(el, [{color:'#6f7d95', borderColor:'rgba(255,255,255,.13)', background:'rgba(0,0,0,.25)'},{color:'#052a12', borderColor:'#2fd46a', background:'#2fd46a'}], s.a+5.4+i*.55, .35, EASE_OUT);
+  });
+}
+
+/* ---------- Szene 5 ---------- */
+{
+  const s = scene('s5');
+  s.in($('#s5 .phone'), .2, {inD:.9, from:{opacity:0, transform:'translateX(-160px) rotate(-8deg)'}, to:{opacity:1, transform:'translateX(0) rotate(0deg)'}});
+  s.in($('#s5 .txt .h2'), .4, {inD:.6});
+  $$('#s5 .phone .item').forEach((el,i)=> s.in(el, 1.1+i*.7, {inD:.5, from:{opacity:0, transform:'translateY(30px) scale(.96)'}, to:{opacity:1, transform:'translateY(0) scale(1)'}}));
+  $$('#s5list li').forEach((el,i)=> s.in(el, 1.0+i*.35, {inD:.5, from:{opacity:0, transform:'translateX(40px)'}, to:{opacity:1, transform:'translateX(0)'}}));
+  s.in($('#s5 .txt .os'), 2.6, {inD:.5});
+  const path = $('#sigPath'); const L = path.getTotalLength(); path.style.strokeDasharray = L;
+  ticks.push(t=>{ const p = easeOutCubic(clamp((t-(s.a+2.9))/1.1,0,1)); path.style.strokeDashoffset = L*(1-p); });
+}
+
+/* ---------- Szene 6 ---------- */
+{
+  const s = scene('s6');
+  s.in($('#s6 .title'), .15, {inD:.6});
+  const rows = [
+    ['GaLaBau','Tiefbau','Straßenbau','Pflasterbau','Sportplatzbau','Landschaftspflege'],
+    ['Stuckateure','Trockenbau','Maler & Lackierer','Fliesenleger','Bodenleger','Putz & Fassade'],
+    ['Bauunternehmen','Bauhauptgewerbe','Baunebengewerbe','Hoch- & Tiefbau','Abbruch','Erdbau'],
+  ];
+  const tracks = [];
+  rows.forEach((r,i)=>{
+    const tr = $('#track'+(i+1));
+    const html = r.map(x=>`<div class="chip"><i></i>${x}</div>`).join('');
+    tr.innerHTML = html+html+html;   // dreifach, damit die Schleife nahtlos ist
+    tracks.push(tr);
+  });
+  $$('#s6 .row').forEach((el,i)=> s.in(el, .5+i*.2, {inD:.6, from:{opacity:0, transform:'translateY(30px)'}}));
+  s.in($('#s6 .sub'), 1.4, {inD:.6});
+  let widths = null;
+  ticks.push(t=>{
+    if(t < s.a-.1 || t > s.b+.1) return;
+    if(!widths) widths = tracks.map(tr => (tr.scrollWidth + 26) / 3);  // Breite eines Satzes inkl. gap
+    const local = t - s.a;
+    tracks.forEach((tr,i)=>{
+      const speed = [150, -120, 135][i];
+      const w = widths[i];
+      let x = (local*speed) % w; if(x>0) x -= w;   // immer im Bereich (-w,0]
+      tr.style.transform = `translateX(${x}px)`;
+    });
+  });
+}
+
+/* ---------- Szene 7 ---------- */
+{
+  const s = scene('s7');
+  s.in($('#s7 .title'), .15, {inD:.6});
+  $$('#s7 .bar').forEach((el,i)=>{
+    const h = parseFloat(el.dataset.h);
+    el.querySelector('.fill').style.height = Math.round(h*330)+'px';
+    s.in(el, .5+i*.12, {inD:.4, from:{opacity:0, transform:'translateY(20px)'}});
+    anim(el.querySelector('.fill'), [{transform:'scaleY(0)'},{transform:'scaleY(1)'}], s.a+.7+i*.16, .7, EASE_OUT);
+  });
+  $$('#s7cta .chip').forEach((el,i)=> s.in(el, 2.2+i*.15, {inD:.5, inEase:EASE_POP, from:{opacity:0, transform:'scale(.7)'}, to:{opacity:1, transform:'scale(1)'}}));
+}
+
+/* ---------- Szene 8 ---------- */
+{
+  const s = scene('s8', {outD:.6});
+  s.in($('#s8 .big'), .15, {inD:.7, from:{opacity:0, transform:'translateY(50px) scale(.96)'}, to:{opacity:1, transform:'translateY(0) scale(1)'}});
+  s.in($('#s8 .stand'), .6, {inD:.6});
+  s.in($('#s8 .url'), 1.0, {inD:.7, inEase:EASE_POP, from:{opacity:0, transform:'scale(.85)'}, to:{opacity:1, transform:'scale(1)'}});
+  s.in($('#s8 .contact'), 1.5, {inD:.6});
+  // Unterstrich der URL zeichnen
+  const u = document.createElement('div');
+  Object.assign(u.style, {position:'absolute', left:'0', right:'0', bottom:'-6px', height:'12px', borderRadius:'6px', background:'var(--green)', transformOrigin:'0 50%', transform:'scaleX(0)'});
+  $('#s8 .url span').appendChild(u);
+  anim(u, [{transform:'scaleX(0)'},{transform:'scaleX(1)'}], s.a+1.55, .6, EASE_OUT);
+}
+
+/* ---------- Logo-Datei optional: assets/logo.svg (oder .png) ---------- */
+{
+  const img = $('#logoImg'), slot = $('#logoSlot');
+  img.addEventListener('load', ()=> slot.classList.add('haslogo'));
+  img.addEventListener('error', ()=>{ if(!img.dataset.retry){ img.dataset.retry='1'; img.src='assets/logo.png'; } });
+}
+
+/* ---------- Zeitsteuerung ---------- */
+function seek(t){
+  t = ((t % D) + D) % D;
+  for(const a of anims) a.currentTime = t*1000;
+  for(const f of ticks) f(t);
+}
+window.__seek = seek;
+window.__DURATION = D;
+
+/* Bildschirm-Anpassung (nur im Browser, nicht beim Rendern) */
+function fit(){
+  const sc = Math.min(innerWidth/1920, innerHeight/1080);
+  const st = document.getElementById('stage');
+  st.style.transform = `translate(${(innerWidth-1920*sc)/2}px, ${(innerHeight-1080*sc)/2}px) scale(${sc})`;
+}
+if(!window.__RENDER){
+  fit(); addEventListener('resize', fit);
+  document.fonts.ready.then(()=>{
+    const t0 = performance.now();
+    (function loop(){ seek((performance.now()-t0)/1000); requestAnimationFrame(loop); })();
+  });
+  // Klick/Taste F = Vollbild
+  addEventListener('keydown', e=>{ if(e.key==='f'||e.key==='F') document.documentElement.requestFullscreen?.(); });
+  addEventListener('dblclick', ()=> document.documentElement.requestFullscreen?.());
+} else {
+  seek(0);
+}
+</script>
+</body>
+</html>
