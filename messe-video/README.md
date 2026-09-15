@@ -10,14 +10,14 @@ identisch dunkel, es gibt keinen sichtbaren Schnitt beim Neustart).
 | `messe-video.html` | Die Quelle: Animation als HTML/CSS/JS. Läuft auch direkt im Browser als Endlosschleife (Vollbild mit Taste **F** oder Doppelklick). |
 | `render.mjs` | Erzeugt aus der HTML-Datei das MP4 (Bild für Bild, deterministisch). |
 | `fonts/` | Schriften Inter & Manrope (SIL Open Font License), lokal eingebettet. |
-| `assets/` | Hier das **Original-Logo** ablegen (siehe unten). |
+| `assets/` | Logo (Original, weiße und dunkle Vektorversion). |
 
 ## Ablauf des Videos (8 Szenen)
 
 | Zeit | Szene | Inhalt |
 |---|---|---|
 | 0–5 s | Hook | „Zettelwirtschaft. Excel-Chaos. Abende im Büro.“ – wird durchgestrichen, Stempel **„Schluss damit.“** |
-| 5–10 s | Marke | Wortmarke **mexXsoft X2**, „Die Handwerkersoftware.“, Slogan *Einfach · Schnell · Professionell* |
+| 5–10 s | Marke | **MEXXSOFT-Logo** mit Claim „Wir sind OneQrew“ + X2-Badge, „Die Handwerkersoftware.“, Slogan *Einfach · Schnell · Professionell* |
 | 10–18 s | Alles in einem | 8 Modulkacheln: Angebote & Rechnungen, Kalkulation, Aufmaß & LV, Kunden & Termine, Material & Artikel, Zeit & Lohn, Schriftverkehr, KI-Funktionen |
 | 18–26 s | Software in Aktion | Animiertes Angebot (GaLaBau-Positionen), Summen zählen hoch, Stempel „Angebot versendet“, Ablauf Angebot → Auftrag → Aufmaß → Rechnung |
 | 26–33 s | mexXgo | Handy-Mockup: Zeiterfassung, Baustellenfotos, Unterschrift vor Ort · iOS & Android |
@@ -36,13 +36,23 @@ damit die Marke in jeder Sekunde der Schleife sichtbar ist.
 - **Windows Media Player / Filme & TV:** Wiederholen-Symbol aktivieren.
 - **Ohne Videoplayer:** `messe-video.html` in Chrome/Edge öffnen (Ordner mit `fonts/` und `assets/` mitnehmen), Vollbild mit **F** – läuft von selbst endlos.
 
-## Original-Logo einsetzen
+## Logo
 
-Das echte Logo konnte aus dieser Umgebung nicht von der Website geladen werden; das Video
-zeigt deshalb eine gesetzte Wortmarke **mexXsoft** mit hervorgehobenem X.
+Das Original-Logo (dunkelviolette Wortmarke MEXXSOFT mit Claim „Wir sind OneQrew“, Farbe `#220739`)
+liegt in `assets/`:
 
-1. Logo als `assets/logo.svg` (bevorzugt) oder `assets/logo.png` ablegen (ideal: transparenter Hintergrund, helle Version für dunklen Grund).
-2. Video neu rendern (siehe unten). Das Logo ersetzt automatisch die Wortmarke in der Markenszene; die Fußzeile bleibt Text.
+| Datei | Zweck |
+|---|---|
+| `assets/logo-original.png` | Logo wie geliefert (dunkel auf Weiß, zugeschnitten). |
+| `assets/logo.svg` | Vektorisierte **weiße** Variante – wird im Video auf dem dunklen Grund verwendet. |
+| `assets/logo-dark.svg` | Vektorisierte Variante in der Originalfarbe, z. B. für helle Flächen. |
+
+Die Vektorisierung wurde aus der gelieferten 470×470-Pixel-Datei erzeugt. Liegt eine höher
+aufgelöste oder eine originale Vektordatei (SVG/EPS) vor, einfach als `assets/logo.svg`
+(weiße Version) ablegen und neu rendern.
+
+Die Farbwelt des Videos (Hintergrund `#120626`/`#220739`, Akzent helles Violett `#b48cff`)
+ist vom Logo abgeleitet.
 
 ## Farben, Texte, Standnummer anpassen
 
