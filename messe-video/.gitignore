@@ -1,2 +1,4 @@
 stills/
 node_modules/
+clips/*.mp4
+clips/*.webm
