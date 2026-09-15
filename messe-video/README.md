@@ -10,6 +10,7 @@ Die Bildwelt besteht aus **sechs exklusiv mit Higgsfield (Seedance 2.5) erzeugte
 | Datei | Zweck |
 |---|---|
 | `mexxsoft-messe-video-galabau-tiefbau-v2.mp4` | **Das fertige Video** (H.264, 1080p, 30 fps, 48 s, keine Audiospur). Gerendert in der Higgsfield-Cloud, **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/ba496ee1-a269-46a2-8cf1-64fd6441cd0f.mp4 (liegt außerdem in der Higgsfield-Mediathek des Kontos). Lokal jederzeit mit `render.mjs` neu erzeugbar. Erste, dunklere Fassung: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/6683cf58-4295-41e4-b2a0-8a800acd3f9d.mp4 |
+| `MexXsoft-Messevideo-Windows.zip` | **Windows-Programm** (Bildschirmschoner/Kiosk mit PIN 0000, Video eingebaut). **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/e0389186-7367-4f54-bb77-7b12c962ed65.zip · Quellen in `kiosk/`. |
 | `mexxsoft-messe-video.mp4` | Erste Fassung ohne Videoclips (nur Motion Graphics), alle Gewerke. |
 | `messe-video.html` | Die Quelle: Animation als HTML/CSS/JS inkl. Video-Hintergründen. Läuft auch direkt im Browser als Endlosschleife (Vollbild mit Taste **F**), sobald `clips/*.webm` vorhanden sind. |
 | `clips/fetch-clips.sh` | Lädt die 6 Higgsfield-Clips und wandelt sie nach WebM/VP9 (für den Render-Browser). |
@@ -39,6 +40,17 @@ exklusiv für dieses Video erzeugt (Job-IDs in `clips/fetch-clips.sh`). Die Prom
 Baustellen (Warnwesten, Betonsteinpflaster, Rollrasen, Asphaltfertiger, Rohrgraben mit Verbau) ohne Text,
 Logos oder Wasserzeichen. Die Clips werden im Video nur leicht abgedunkelt bzw. mit Verläufen versehen, die
 Texte bekommen kräftige Schlagschatten, damit beides gut erkennbar bleibt; sie liegen im Higgsfield-Konto des Nutzers und lassen sich dort jederzeit erneut laden.
+
+## Windows-Programm (.exe) als Bildschirmschoner mit PIN
+
+Im Ordner `kiosk/` liegt eine kleine Windows-App (Electron, keine Installation nötig, Windows 10/11 64 Bit):
+sie zeigt das Video im Vollbild in Dauerschleife, immer im Vordergrund, ohne Mauszeiger, und lässt sich
+nur nach PIN-Eingabe beenden (Standard **0000**, änderbar in `config.json` neben der .exe).
+Tastendruck oder Klick öffnet das PIN-Feld; ohne Eingabe verschwindet es nach 20 s wieder. Alt+F4 und Esc
+beenden das Programm nicht. Ein `video.mp4` neben der .exe ersetzt das eingebaute Video.
+
+Fertiges Paket (Zip entpacken, `MexXsoft-Messevideo.exe` starten): siehe Link in der Dateitabelle oben.
+Selbst bauen: `cd kiosk && npm install && npm run pack:win` (Video vorher als `kiosk/video.mp4` ablegen).
 
 ## Am Stand abspielen (Dauerschleife)
 
