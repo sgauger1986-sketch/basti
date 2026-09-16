@@ -4,20 +4,42 @@ Aufmerksamkeitsstarkes Standvideo für **www.mexxsoft.com**, Zielgruppe **GaLaBa
 48 Sekunden, 1920×1080, **ohne Tonspur**, nahtlos als **Dauerschleife** abspielbar (Anfang und
 Ende sind identisch dunkel, es gibt keinen sichtbaren Schnitt beim Neustart).
 
-Die Bildwelt besteht aus **zehn exklusiv mit Higgsfield (Seedance 2.5) erzeugten Videoclips**
+Die Bildwelt besteht aus **vierzehn exklusiv mit Higgsfield (Seedance 2.5) erzeugten Videoclips**
 (1080p, 8 s, ohne Ton, keine Stockfootage), über die Marke, Module und Botschaften animiert werden.
 
 | Datei | Zweck |
 |---|---|
-| `mexxsoft-messe-video-v3.mp4` | **Aktuelle Fassung v3 (68 s)**: beschreibt das Angebot von mexXsoft ausführlicher – Prozesskette von der Anfrage bis zur Schlussrechnung, 8 Module, Angebot in Aktion, mexXgo, Schnittstellen & E-Rechnung, KI-Funktionen 2026, GaLaBau|Tiefbau, Versionen & Service. Quelle: `messe-video-v3.html`, 10 Higgsfield-Clips. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/220e58e2-fff8-46af-99bf-15528066bd35.mp4 |
+| `mexxsoft-messe-video-v4.mp4` | **Aktuelle Fassung v4 (112 s)**: die lange Fassung von v3 mit fünf zusätzlichen Szenen – Aufmaß → Abschlags-/Schlussrechnung, Kolonnen-Plantafel, digitale Bauakte, Material & Pflanzenkataloge, offene Posten/Mahnwesen/Nachkalkulation. Quelle: `messe-video-v4.html`, 14 Higgsfield-Clips. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/7a0dbd08-0659-459b-9f07-016aae1997a3.mp4 |
+| `mexxsoft-messe-video-v3.mp4` | **Fassung v3 (68 s)**: beschreibt das Angebot von mexXsoft ausführlicher – Prozesskette von der Anfrage bis zur Schlussrechnung, 8 Module, Angebot in Aktion, mexXgo, Schnittstellen & E-Rechnung, KI-Funktionen 2026, GaLaBau|Tiefbau, Versionen & Service. Quelle: `messe-video-v3.html`, 10 Higgsfield-Clips. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/220e58e2-fff8-46af-99bf-15528066bd35.mp4 |
 | `mexxsoft-messe-video-galabau-tiefbau-v2.mp4` | **Das fertige Video** (H.264, 1080p, 30 fps, 48 s, keine Audiospur). Gerendert in der Higgsfield-Cloud, **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/ba496ee1-a269-46a2-8cf1-64fd6441cd0f.mp4 (liegt außerdem in der Higgsfield-Mediathek des Kontos). Lokal jederzeit mit `render.mjs` neu erzeugbar. Erste, dunklere Fassung: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/6683cf58-4295-41e4-b2a0-8a800acd3f9d.mp4 |
-| `MexXsoft-Messevideo-v3-Windows.zip` | **Windows-Programm** (Bildschirmschoner/Kiosk mit PIN 0000, Video **v3** eingebaut). **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/eb3b79d6-6355-4ef1-b988-091753e4acb2.zip · Paket mit v2: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/e0389186-7367-4f54-bb77-7b12c962ed65.zip · Quellen in `kiosk/`. |
+| `MexXsoft-Messevideo-v4-Windows.zip` | **Windows-Programm** (Bildschirmschoner/Kiosk mit PIN 0000, Video **v4** eingebaut). **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/6e9f5bce-bdcb-4c8e-9ece-a826eff45513.zip · Paket mit v3: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/eb3b79d6-6355-4ef1-b988-091753e4acb2.zip · Paket mit v2: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/e0389186-7367-4f54-bb77-7b12c962ed65.zip · Quellen in `kiosk/`. |
 | `mexxsoft-messe-video.mp4` | Erste Fassung ohne Videoclips (nur Motion Graphics), alle Gewerke. |
 | `messe-video.html` | Die Quelle: Animation als HTML/CSS/JS inkl. Video-Hintergründen. Läuft auch direkt im Browser als Endlosschleife (Vollbild mit Taste **F**), sobald `clips/*.webm` vorhanden sind. |
-| `clips/fetch-clips.sh` | Lädt die 6 Higgsfield-Clips und wandelt sie nach WebM/VP9 (für den Render-Browser). |
+| `clips/fetch-clips.sh` | Lädt die 14 Higgsfield-Clips und wandelt sie nach WebM/VP9 (für den Render-Browser). |
 | `render.mjs` | Erzeugt aus der HTML-Datei das MP4 (Bild für Bild, deterministisch, parallelisierbar). |
 | `fonts/` | Schriften Inter & Manrope (SIL Open Font License), lokal eingebettet. |
 | `assets/` | Logo (Original, weiße und dunkle Vektorversion). |
+
+## Ablauf v4 (16 Szenen, 112 s)
+
+| Zeit | Szene | Clip | Inhalt |
+|---|---|---|---|
+| 0–5 s | Hook | Rohrgraben | „Zettelwirtschaft. Excel-Chaos. Abende im Büro.“ → „Schluss damit.“ |
+| 5–11 s | Marke | Gartenanlage, Drohne | Logo, „Die ERP-Software für GaLaBau und Tiefbau.“, Slogan, Fakten-Chips |
+| 11–19 s | Prozess | Neue Straße mit Rohrgraben | Anfrage → Angebot → Auftrag → Einsatzplanung → Aufmaß → Rechnung → Buchhaltung & Mahnwesen |
+| 19–28 s | Module | Büro | Angebot & Rechnung, Kalkulation & Nachkalkulation, Aufmaß (REB), AVA & Nachträge, Einsatzplanung, Bautagebuch & Bauakte, Zeit & Lohn, Warenwirtschaft & Kataloge |
+| 28–37 s | Angebot in Aktion | Gartenanlage | Positionen, Summen, Stempel, Ablauf bis E-Rechnung |
+| 37–45 s | Aufmaß rein, Rechnung raus | Aufmaß mit Messrad (neu) | Aufmaßtabelle mit Nachtrag, REB-konform, Abschlags- und Schlussrechnung, Mengen direkt in die Rechnung |
+| 45–52 s | Wer ist morgen wo? | Kolonnen-Einteilung am Betriebshof (neu) | Plantafel Kolonne A/B und Bagger über Mo–Fr, Änderungen sofort auf der App |
+| 52–60 s | mexXgo | Polier mit Tablet | Zeiten, Fotos in die Bauakte, Rapporte unterschreiben, Kundendaten & LV |
+| 60–67 s | Digitale Bauakte | Fotodokumentation am Rohrgraben (neu) | Bautagebuch, Fotos, Regiebericht, Aufmaß & Pläne, Lieferscheine, Rechnungen – alles zum Projekt an einem Ort |
+| 67–73 s | Schnittstellen | Baubesprechung | GAEB, Datanorm, DATEV, Excel, REB, ZUGFeRD 2.x, XRechnung, DA11/X31, Pflanzenkataloge Bruns & GBF |
+| 73–80 s | KI 2026 | Kundengespräch mit Tablet | KI-Texte, Förder-KI, Sketch (KI-Visualisierung) |
+| 80–87 s | Material und Pflanzen | Baumschule / Materiallager (neu) | Pflanzenkataloge Bruns & GBF, Lieferantenkataloge Datanorm, Bestellung & Lieferschein, Lager & Preise |
+| 87–93 s | Zwei Gewerke | Pflaster ‖ Asphalt | GaLaBau und Tiefbau mit je drei Punkten |
+| 93–100 s | Zahlen, die stimmen | Büro | Offene Posten (zählt hoch), Mahnwesen, Nachkalkulation +3,1 %, DATEV-Export, Controlling je Baustelle |
+| 100–106 s | Versionen & Service | Park | Easy…Enterprise, Kaufen/Mieten/Testen, Demoversion, Vorführung, Support & Fernwartung, Webinare |
+| 106–112 s | Call-to-Action | Neue Straße | „Jetzt live erleben.“ · www.mexxsoft.com · Kontakt · Logo |
 
 ## Ablauf v3 (11 Szenen, 68 s)
 
@@ -55,7 +77,7 @@ Durchgehend: kleine Fußzeile mit „mexXsoft X2 · Die Software für GaLaBau & 
 
 ## Die Higgsfield-Clips
 
-Alle zehn Clips wurden mit dem Modell **Seedance 2.5** (Text-to-Video, 1080p, 16:9, 8 s, `generate_audio: false`)
+Alle vierzehn Clips wurden mit dem Modell **Seedance 2.5** (Text-to-Video, 1080p, 16:9, 8 s, `generate_audio: false`)
 exklusiv für dieses Video erzeugt (Job-IDs in `clips/fetch-clips.sh`). Die Prompts beschreiben deutsche
 Baustellen (Warnwesten, Betonsteinpflaster, Rollrasen, Asphaltfertiger, Rohrgraben mit Verbau) ohne Text,
 Logos oder Wasserzeichen. Die Clips werden im Video nur leicht abgedunkelt bzw. mit Verläufen versehen, die
