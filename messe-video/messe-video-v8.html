@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>mexXsoft X2 – Messe-Attract-Loop v8: laute Stopper, 40 s (Endlosschleife, ohne Ton)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@font-face{font-family:'Inter';font-weight:400;font-display:block;src:url(fonts/inter-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-weight:500;font-display:block;src:url(fonts/inter-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-weight:600;font-display:block;src:url(fonts/inter-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-weight:700;font-display:block;src:url(fonts/inter-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-weight:800;font-display:block;src:url(fonts/inter-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'Manrope';font-weight:700;font-display:block;src:url(fonts/manrope-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Manrope';font-weight:800;font-display:block;src:url(fonts/manrope-latin-800-normal.woff2) format('woff2')}
+
+:root{
+  --bg:#1c0b36; --bg2:#2e1052;
+  --ink:#f5f8fc; --ink2:#c3b8d8; --ink3:#8a7aa6;
+  --green:#b48cff; --green2:#8a5cf6; --orange:#ffb020; --blue:#5ad0ff;
+  --line:rgba(255,255,255,.13);
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --head:'Manrope','Inter',system-ui,Arial,sans-serif;
+  --shadeRGB:18,6,38;
+}
+html,body{margin:0;padding:0;background:#000;overflow:hidden;height:100%}
+body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;background:var(--bg);transform-origin:0 0}
+.scene{position:absolute;inset:0;opacity:0}
+.scene > *{position:absolute}
+
+#bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--bg) 0%,var(--bg2) 60%,#22103f 100%)}
+#grid{position:absolute;inset:-100px;opacity:.10;background-image:linear-gradient(rgba(255,255,255,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.35) 1px,transparent 1px);background-size:80px 80px}
+.blob{position:absolute;width:1400px;height:1400px;border-radius:50%;opacity:.42;will-change:transform}
+#blob1{background:radial-gradient(circle,var(--green) 0%,rgba(180,140,255,.35) 22%,transparent 60%);left:-350px;top:-450px}
+#blob2{background:radial-gradient(circle,var(--blue) 0%,rgba(90,208,255,.35) 22%,transparent 60%);right:-500px;bottom:-600px;opacity:.22}
+#vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.35) 100%)}
+
+.clip{inset:0;overflow:hidden}
+.clip video{position:absolute;left:0;top:0;width:1920px;height:1080px;object-fit:cover}
+.clip .shade{position:absolute;inset:0;background:rgba(var(--shadeRGB),var(--shade,.5))}
+.clip .shade:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.28) 100%)}
+.vframe{position:absolute;left:0;top:0;width:100%;height:100%;display:none}
+#stage.render .vframe{display:block}
+#stage.render video[data-scene]{opacity:0}
+
+#foot{position:absolute;left:0;right:0;bottom:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 56px;font-size:22px;font-weight:600;color:var(--ink2);border-top:1px solid var(--line);background:linear-gradient(0deg,rgba(0,0,0,.45),rgba(0,0,0,.1))}
+#foot .l{display:flex;align-items:center;gap:14px}
+#foot .c{padding:7px 22px;border-radius:999px;background:var(--orange);color:#1a0836;font-size:24px;font-weight:800;box-shadow:0 6px 24px rgba(255,176,32,.35)}
+#foot .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green)}
+#foot .r{color:var(--ink)}
+
+.h1{font-family:var(--head);font-weight:800;letter-spacing:-.025em;line-height:1.02}
+.h2{font-family:var(--head);font-weight:800;letter-spacing:-.02em;line-height:1.06}
+.h2 em,.h1 em{font-style:normal;color:var(--green)}
+.ts{text-shadow:0 2px 6px rgba(0,0,0,.85),0 6px 30px rgba(0,0,0,.7)}
+.chip{display:inline-flex;align-items:center;gap:14px;padding:16px 30px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(var(--shadeRGB),.74);font-size:36px;font-weight:600;white-space:nowrap;backdrop-filter:blur(6px)}
+.chip i{width:14px;height:14px;border-radius:50%;background:var(--green);flex:none}
+.pill{display:inline-flex;align-items:center;padding:14px 26px;border-radius:14px;background:var(--green);color:#1a0836;font-weight:800;font-family:var(--head)}
+.panelbox{border-radius:26px;background:rgba(var(--shadeRGB),.78);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(8px);box-sizing:border-box}
+.sub{left:0;right:0;text-align:center;font-size:38px;font-weight:500;color:#fff}
+
+/* ---------- Attract-Loop ---------- */
+.flat{inset:0}
+.flat.o{background:linear-gradient(160deg,#ffb020 0%,#ff8a00 100%)}
+.flat.v{background:linear-gradient(160deg,#2e1052 0%,#1c0b36 100%)}
+.flat.l{background:linear-gradient(160deg,#b48cff 0%,#8a5cf6 100%)}
+.flash{inset:0;background:#fff;opacity:0;pointer-events:none}
+.big{left:60px;right:60px;text-align:center;font-family:var(--head);font-weight:800;letter-spacing:-.035em;line-height:.95}
+.dark{color:#1a0836}
+.white{color:#fff}
+.lil{color:var(--green)}
+.ora{color:var(--orange)}
+.mid{left:60px;right:60px;text-align:center;font-family:var(--head);font-weight:800;letter-spacing:-.02em;line-height:1.05}
+.stampx{left:0;right:0;display:flex;justify-content:center}
+.stampx span{display:inline-block;padding:26px 60px;border:9px solid #1a0836;color:#1a0836;border-radius:26px;font-family:var(--head);font-weight:800;font-size:140px;letter-spacing:-.02em;line-height:1;transform:rotate(-5deg)}
+.arrow{left:0;right:0;display:flex;justify-content:center}
+.arrow i{display:block;width:0;height:0;border-left:110px solid transparent;border-right:110px solid transparent;border-top:150px solid var(--orange);filter:drop-shadow(0 20px 40px rgba(0,0,0,.5))}
+.arrow b{position:absolute;top:-6px;width:90px;height:110px;background:var(--orange);left:50%;margin-left:-45px;top:-100px}
+.logoBig{left:0;right:0;display:flex;justify-content:center}
+.logoBig img{height:190px;width:auto;filter:drop-shadow(0 10px 40px rgba(0,0,0,.6))}
+.tsx{text-shadow:0 3px 8px rgba(0,0,0,.9),0 12px 48px rgba(0,0,0,.75)}
+.tsd{text-shadow:0 2px 0 rgba(255,255,255,.25)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"><div id="grid"></div><div class="blob" id="blob1"></div><div class="blob" id="blob2"></div><div id="vignette"></div></div>
+
+  
+  <!-- 1 SIE DA -->
+  <section class="scene" id="c1"><div class="flat o"></div>
+    <div class="big dark tsd" style="top:200px;font-size:300px">SIE DA!</div>
+    <div class="mid dark" style="top:600px;font-size:110px">Ja, Sie. Mit dem Kaffee.</div>
+    <div class="mid dark" style="top:760px;font-size:56px;font-weight:700;opacity:.85">Kurz stehen bleiben, lohnt sich.</div>
+    <div class="flash"></div>
+  </section>
+  <!-- 2 Excel -->
+  <section class="scene" id="c2">
+    <div class="clip" style="--shade:.45"><video data-scene="c2" src="clips/c1.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="big white tsx" style="top:200px;font-size:180px">Noch Excel<br>auf der Baustelle?</div>
+    <div class="mid ora tsx" style="top:690px;font-size:96px">Wir haben was Besseres.</div>
+    <div class="flash"></div>
+  </section>
+  <!-- 3 E-Rechnung -->
+  <section class="scene" id="c3"><div class="flat v"></div>
+    <div class="mid white tsx" style="top:110px;font-size:120px">Die E-Rechnung wird <span class="lil">Pflicht</span>.</div>
+    <div class="big ora tsx" style="top:300px;font-size:360px">2027</div>
+    <div class="mid white tsx" style="top:760px;font-size:110px">Sind Sie bereit?</div>
+    <div class="flash"></div>
+  </section>
+  <!-- 4 Aufmaß -->
+  <section class="scene" id="c4">
+    <div class="clip" style="--shade:.45"><video data-scene="c4" src="clips/c11.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="big white tsx" style="top:210px;font-size:170px">Aufmaß rein.<br><span class="lil">Rechnung raus.</span></div>
+    <div class="mid ora tsx" style="top:700px;font-size:96px">Ohne Abtippen.</div>
+    <div class="flash"></div>
+  </section>
+  <!-- 5 Küchentisch -->
+  <section class="scene" id="c5"><div class="flat o"></div>
+    <div class="big dark tsd" style="top:150px;font-size:150px">Rechnungen abends<br>am Küchentisch?</div>
+    <div class="stampx" style="top:640px"><span>Nie wieder.</span></div>
+    <div class="flash"></div>
+  </section>
+  <!-- 6 inFleet -->
+  <section class="scene" id="c6">
+    <div class="clip" style="--shade:.45"><video data-scene="c6" src="clips/c17.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="big white tsx" style="top:190px;font-size:160px">Wo ist Ihr Bagger<br>gerade?</div>
+    <div class="mid ora tsx" style="top:680px;font-size:96px">inFleet weiß es. <span class="white">Neu bei mexXsoft.</span></div>
+    <div class="flash"></div>
+  </section>
+  <!-- 7 5 Minuten -->
+  <section class="scene" id="c7"><div class="flat v"></div>
+    <div class="big ora tsx" style="top:120px;font-size:330px">5 Minuten.</div>
+    <div class="mid white tsx" style="top:520px;font-size:120px">Live-Demo. <span class="lil">Hier am Stand.</span></div>
+    <div class="arrow" style="top:760px"><i></i></div>
+    <div class="flash"></div>
+  </section>
+  <!-- 8 Marke -->
+  <section class="scene" id="c8"><div class="flat l"></div>
+    <div class="logoBig" style="top:160px"><img src="assets/logo.svg" alt=""></div>
+    <div class="mid dark" style="top:430px;font-size:88px">Die ERP-Software für GaLaBau und Tiefbau.</div>
+    <div class="big dark tsd" style="top:600px;font-size:190px">Bleiben Sie stehen.</div>
+    <div class="mid dark" style="top:840px;font-size:70px;font-weight:700">www.mexxsoft.com</div>
+    <div class="flash"></div>
+  </section>
+
+  <div id="foot"><div class="l"><span class="dot"></span><span>mexXsoft X2 · Die ERP-Software für GaLaBau &amp; Tiefbau · E-Rechnung ready · inFleet</span></div><div class="c" id="live">Live-Demo hier am Stand · 5 Minuten</div><div class="r">www.mexxsoft.com</div></div>
+</div>
+<script>
+const CONFIG = { duration: 40 };
+const D = CONFIG.duration;
+const EASE_OUT = 'cubic-bezier(.16,1,.3,1)', EASE_IN = 'cubic-bezier(.7,0,.84,0)', EASE_IO = 'cubic-bezier(.65,0,.35,1)', EASE_POP = 'cubic-bezier(.34,1.56,.64,1)';
+const anims = [], ticks = [];
+function anim(el, keyframes, at, dur, easing){ const a = el.animate(keyframes, {delay: at*1000, duration: Math.max(dur,0.001)*1000, fill:'both', easing: easing || 'linear'}); a.pause(); anims.push(a); return a; }
+function show(el, o){
+  const {at, dur, inD=.6, outD=.4, inEase=EASE_OUT, outEase=EASE_IN} = o;
+  const from = o.from || {opacity:0, transform:'translateY(40px)'};
+  const to   = o.to   || {opacity:1, transform:'translateY(0px)'};
+  const exit = o.exit || {opacity:0, transform:(o.to && o.to.transform) ? o.to.transform : 'translateY(-24px)'};
+  return anim(el, [
+    {...from, offset:0, easing:inEase},
+    {...to,   offset:Math.min(inD/dur, .999)},
+    {...to,   offset:Math.max(Math.min((dur-outD)/dur, 1), Math.min(inD/dur, .999)), easing:outEase},
+    {...exit, offset:1},
+  ], at, dur);
+}
+const $ = s => document.querySelector(s), $$ = s => Array.from(document.querySelectorAll(s));
+const clamp = (v,a,b)=>Math.max(a,Math.min(b,v)), easeOutCubic = x => 1-Math.pow(1-x,3);
+const eur = n => n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+
+const T = { c1:[0.0,5.2], c2:[5.0,10.2], c3:[10.0,15.2], c4:[15.0,20.2], c5:[20.0,25.2], c6:[25.0,30.2], c7:[30.0,35.2], c8:[35.0,40.0] };
+function scene(id, o={}){
+  const [a,b] = T[id];
+  show($('#'+id), {at:a, dur:b-a, inD:o.inD??.45, outD:o.outD??.4, from:{opacity:0, transform:'none'}, to:{opacity:1, transform:'none'}, exit:{opacity:0, transform:'none'}, inEase:EASE_IO, outEase:EASE_IO});
+  return {a, b, in(el, rel, opt={}){ return show(el, {at:a+rel, dur:(b-a)-rel, outD:0, ...opt}); }};
+}
+const pop = {inD:.55, inEase:EASE_POP, from:{opacity:0, transform:'translateY(50px) scale(.9)'}, to:{opacity:1, transform:'translateY(0) scale(1)'}};
+
+ticks.push(t=>{ const w = 2*Math.PI*t/D;
+  $('#grid').style.backgroundPosition = `${(t*20)%80}px ${(t*20)%80}px`;   // 40 s * 20 px = 800 = 10*80 -> nahtlos
+  $('#blob1').style.transform = `translate(${Math.sin(w)*260}px, ${Math.cos(w*2)*140}px)`;
+  $('#blob2').style.transform = `translate(${Math.cos(w)*-300}px, ${Math.sin(w*3)*120}px)`;
+  $('#live').style.transform = `scale(${(1+0.045*Math.sin(2*Math.PI*t/2)).toFixed(4)})`; });
+
+const SLAM = {inD:.4, inEase:EASE_POP, from:{opacity:0, transform:'scale(2.2)'}, to:{opacity:1, transform:'scale(1)'}};
+const RISE = {inD:.45, from:{opacity:0, transform:'translateY(60px)'}, to:{opacity:1, transform:'translateY(0)'}};
+function card(id, els){ const s = scene(id, {inD:.15, outD:.3});
+  anim($('#'+id+' .flash'), [{opacity:.85},{opacity:0}], s.a, .35, EASE_OUT);
+  els.forEach(([sel, at, o])=> s.in($('#'+id+' '+sel), at, o));
+  return s; }
+// leichter Dauer-Zoom auf jeder Karte, damit nie etwas stillsteht
+$$('.scene').forEach(sc=>{ const [a,b]=T[sc.id]; anim(sc.querySelector('.flat') || sc.querySelector('.clip'), [{transform:'scale(1)'},{transform:'scale(1.06)'}], a, b-a, 'linear'); });
+
+card('c1', [['.big', .1, SLAM], ['.mid:nth-of-type(3)', 1.0, RISE], ['.mid:nth-of-type(4)', 1.8, RISE]]);
+card('c2', [['.big', .1, SLAM], ['.mid', 1.4, RISE]]);
+card('c3', [['.mid:nth-of-type(2)', .1, RISE], ['.big', .6, SLAM], ['.mid:nth-of-type(4)', 1.6, RISE]]);
+card('c4', [['.big', .1, SLAM], ['.mid', 1.5, RISE]]);
+card('c5', [['.big', .1, SLAM], ['.stampx', 1.5, {inD:.4, inEase:EASE_POP, from:{opacity:0, transform:'scale(2.4) rotate(8deg)'}, to:{opacity:1, transform:'scale(1) rotate(0deg)'}}]]);
+card('c6', [['.big', .1, SLAM], ['.mid', 1.5, RISE]]);
+{ const s = card('c7', [['.big', .1, SLAM], ['.mid', .9, RISE], ['.arrow', 1.5, RISE]]);
+  ticks.push(t=>{ if(t<s.a||t>s.b) return; $('#c7 .arrow i').style.transform = `translateY(${Math.round(Math.abs(Math.sin((t-s.a)*4))*40)}px)`; }); }
+card('c8', [['.logoBig', .1, {inD:.7, from:{opacity:0, transform:'scale(.8)'}, to:{opacity:1, transform:'scale(1)'}}], ['.mid:nth-of-type(3)', .7, RISE], ['.big', 1.3, SLAM], ['.mid:nth-of-type(5)', 2.0, RISE]]);
+
+/* ---------- Video-Hintergründe ---------- */
+const videos = $$('video[data-scene]');
+const canvases = new Map();
+if(window.__RENDER){ document.getElementById('stage').classList.add('render');
+  for(const v of videos){ const c = document.createElement('canvas'); c.className = 'vframe'; v.after(c); canvases.set(v, c); } }
+function drawFrame(v){ const c = canvases.get(v); if(!c || v.readyState < 2 || !v.videoWidth) return;
+  const W = c.clientWidth || 1920, H = c.clientHeight || 1080; if(c.width !== W || c.height !== H){ c.width = W; c.height = H; }
+  const vw = v.videoWidth, vh = v.videoHeight, sc = Math.max(W/vw, H/vh), sw = W/sc, sh = H/sc;
+  c.getContext('2d').drawImage(v, (vw-sw)/2, (vh-sh)/2, sw, sh, 0, 0, W, H); }
+function clipActive(v, t){ const [a,b] = T[v.dataset.scene]; return t >= a-.6 && t <= b+.6; }
+function clipTime(v, t){ const a = T[v.dataset.scene][0], rate = parseFloat(v.dataset.rate||'1'), off = parseFloat(v.dataset.offset||'0');
+  const dur = (isFinite(v.duration) && v.duration>0) ? v.duration : 8; return clamp((t - a)*rate + off, 0, dur - .06); }
+function seekVideo(v, time){ return new Promise(res=>{
+    if(v.readyState < 1) return res();
+    if(Math.abs(v.currentTime - time) < .0005) return res();
+    let done = false;
+    const fin = ()=>{ if(done) return; done = true; clearTimeout(to); v.removeEventListener('seeked', fin);
+      if(typeof v.requestVideoFrameCallback === 'function'){ const to2 = setTimeout(res, 400); v.requestVideoFrameCallback(()=>{ clearTimeout(to2); res(); }); } else res(); };
+    const to = setTimeout(fin, 3000); v.addEventListener('seeked', fin); v.currentTime = time; }); }
+
+function seek(t){
+  t = ((t % D) + D) % D;
+  for(const a of anims) a.currentTime = t*1000;
+  for(const f of ticks) f(t);
+  if(window.__RENDER){ const act = videos.filter(v => clipActive(v,t));
+    return Promise.all(act.map(v => seekVideo(v, clipTime(v,t)))).then(()=>{ for(const v of act) drawFrame(v); }); }
+  for(const v of videos){ const act = clipActive(v,t);
+    if(act && v.paused){ v.currentTime = clipTime(v,t); v.play().catch(()=>{}); } else if(!act && !v.paused){ v.pause(); } }
+}
+window.__seek = seek; window.__DURATION = D;
+
+function fit(){ const sc = Math.min(innerWidth/1920, innerHeight/1080); const st = document.getElementById('stage');
+  st.style.transform = `translate(${(innerWidth-1920*sc)/2}px, ${(innerHeight-1080*sc)/2}px) scale(${sc})`; }
+if(!window.__RENDER){ fit(); addEventListener('resize', fit);
+  document.fonts.ready.then(()=>{ const t0 = performance.now(); (function loop(){ seek((performance.now()-t0)/1000); requestAnimationFrame(loop); })(); });
+  addEventListener('keydown', e=>{ if(e.key==='f'||e.key==='F') document.documentElement.requestFullscreen?.(); });
+  addEventListener('dblclick', ()=> document.documentElement.requestFullscreen?.());
+} else { seek(0); }
+</script>
+</body>
+</html>

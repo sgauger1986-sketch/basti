@@ -9,7 +9,9 @@ Die Bildwelt besteht aus **siebzehn exklusiv mit Higgsfield (Seedance 2.5) erzeu
 
 | Datei | Zweck |
 |---|---|
-| `mexxsoft-messe-video-v7.mp4` | **Aktuelle Fassung v7 (164 s)**: v6 plus Szene **inFleet** (neu bei mexXsoft, GPS-Fahrzeugortung, Inhalte von https://infleet.software/): Live-Karte mit Transportern, Bagger, Anhänger und Container, Kennzahlen (bis zu 25 % weniger Fuhrparkkosten, 15 % weniger Kraftstoff, 40 % weniger Rückfragen, 12 % effizientere Disposition), Fahrtenbuch, Tourenvergleich, Plug & Play, Server in Deutschland. Quelle: `messe-video-v7.html`, 17 Higgsfield-Clips. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/fe56f918-2a10-4bb3-8e14-1df7800fa82d.mp4 |
+| `mexxsoft-messe-attract-v8.mp4` | **Attract-Loop v8 (40 s) – der „Stopper“ für den Gang**: acht Karten in Riesenschrift, alle 5 s ein Schnitt mit Weißblitz, keine Erklärungen: „SIE DA! Ja, Sie. Mit dem Kaffee.“ · „Noch Excel auf der Baustelle?“ · „E-Rechnung wird Pflicht. 2027.“ · „Aufmaß rein. Rechnung raus.“ · „Rechnungen abends am Küchentisch? Nie wieder.“ · „Wo ist Ihr Bagger gerade? inFleet.“ · „5 Minuten. Live-Demo. Hier am Stand.“ (Pfeil) · Logo „Bleiben Sie stehen.“ Quelle: `messe-video-v8.html`. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/c2e456b2-691d-407b-bae4-f6fe7e37ff2d.mp4 |
+| `MexXsoft-Messevideo-v8-Windows.zip` | **Windows-Programm mit Spiegel-Modus** (PIN 0000): zeigt im Wechsel 25 s das **Live-Webcam-Spiegelbild** der Passanten mit Sprüchen („Sie da! Ja, Sie.“) und „HALLO!“-Einblendung bei Bewegung, danach einmal den Attract-Loop v8. Ohne Webcam läuft nur das Video. Einstellungen in `config.json` (`mode`, `mirrorSeconds`, `punchlines`, `scale`), siehe `kiosk/README.txt`. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/7c0bb906-a6f9-4e8d-8396-3e42f3731a5e.zip |
+| `mexxsoft-messe-video-v7.mp4` | **Fassung v7 (164 s)**: v6 plus Szene **inFleet** (neu bei mexXsoft, GPS-Fahrzeugortung, Inhalte von https://infleet.software/): Live-Karte mit Transportern, Bagger, Anhänger und Container, Kennzahlen (bis zu 25 % weniger Fuhrparkkosten, 15 % weniger Kraftstoff, 40 % weniger Rückfragen, 12 % effizientere Disposition), Fahrtenbuch, Tourenvergleich, Plug & Play, Server in Deutschland. Quelle: `messe-video-v7.html`, 17 Higgsfield-Clips. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/fe56f918-2a10-4bb3-8e14-1df7800fa82d.mp4 |
 | `mexxsoft-messe-video-v6.mp4` | **Fassung v6 (152 s)**: v5 plus zwei Szenen zu **MyOneQrew** (neu, exklusiv für Abo-Kunden, Inhalte von https://my.oneqrew.com/de-de/exklusiv): alle Helfer auf einen Blick (KI-Bürokraft HalloPetra, OneQrew Hub, MyMeisterQ, Sketch, Förder-Kompass, Preis-Check-Atlas, Fahrzeugortung, CraftIT, Academy, Social, WebKit, ein Login mit MFA) und „Ein Tag mit MyOneQrew“ (7:15 bis 17:00). Quelle: `messe-video-v6.html`, 16 Higgsfield-Clips. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/3d56b86c-8684-470e-ba23-e49324f952c1.mp4 |
 | `mexxsoft-messe-video-v5.mp4` | **Fassung v5 (128 s)**: v4 plus Stopper für Laufkundschaft – „Kennen Sie das?“ (drei Alltagsprobleme, „In 5 Minuten zeigen wir Ihnen, wie es einfacher geht“), eigene Szene **„Die E-Rechnung wird Pflicht“** (2025 Empfang, 2027 Versand ab 800.000 € Umsatz, 2028 alle; ZUGFeRD 2.x, XRechnung), E-Rechnung-Chip in der Markenszene, dauerhaft pulsierende Plakette „Live-Demo hier am Stand · 5 Minuten“ in der Fußzeile, Schluss „Bleiben Sie stehen – Live-Demo in 5 Minuten.“ Quelle: `messe-video-v5.html`. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/35fa0a0d-c199-4ff1-a146-a2d768e24b15.mp4 |
 | `mexxsoft-messe-video-v4.mp4` | **Fassung v4 (112 s)**: die lange Fassung von v3 mit fünf zusätzlichen Szenen – Aufmaß → Abschlags-/Schlussrechnung, Kolonnen-Plantafel, digitale Bauakte, Material & Pflanzenkataloge, offene Posten/Mahnwesen/Nachkalkulation. Quelle: `messe-video-v4.html`, 14 Higgsfield-Clips. Nicht als MP4 gerendert (durch v5 ersetzt, lokal mit `node render.mjs --html messe-video-v4.html` erzeugbar). |
@@ -22,6 +24,20 @@ Die Bildwelt besteht aus **siebzehn exklusiv mit Higgsfield (Seedance 2.5) erzeu
 | `render.mjs` | Erzeugt aus der HTML-Datei das MP4 (Bild für Bild, deterministisch, parallelisierbar). |
 | `fonts/` | Schriften Inter & Manrope (SIL Open Font License), lokal eingebettet. |
 | `assets/` | Logo (Original, weiße und dunkle Vektorversion). |
+
+## Warum ein Attract-Loop und ein Spiegel (v8)
+
+Ein erklärendes Video hält niemanden auf, der vorbeigeht: Er sieht 2–3 Sekunden Text und ist weg. Was auf Messen
+nachweislich stoppt: 1) **Menschen sehen sich selbst** auf einem Bildschirm (Spiegel-Effekt) und werden direkt
+angesprochen, 2) **eine Zeile pro Bild in Riesenschrift** mit hartem Schnitt und Blitz, 3) eine **konkrete
+Aufforderung** („5 Minuten. Hier.“). v8 liefert beides: Der Bildschirmschoner zeigt 25 s das Live-Spiegelbild mit
+wechselnden Sprüchen (Bewegung vor der Kamera löst „HALLO!“ aus), dann den 40-s-Attract-Loop, dann wieder den Spiegel.
+Die ausführliche Fassung v7 (164 s) gehört auf einen zweiten Bildschirm oder ein Tablet **im** Stand, für Leute, die
+schon stehen.
+
+Aufbau am Stand: Webcam oben auf den Monitor, Richtung Gang; Monitor auf Augenhöhe zum Gang gedreht, nicht in den
+Stand hinein. Eine Person steht **neben** dem Bildschirm, nicht dahinter. Wer stehen bleibt, bekommt sofort einen Satz
+und einen Kaffee, nicht einen Prospekt.
 
 ## Ablauf v7 (21 Szenen, 164 s)
 

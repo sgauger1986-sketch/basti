@@ -2,5 +2,8 @@
   "pin": "0000",
   "video": "",
   "pinTimeoutSeconds": 20,
-  "scale": 1
+  "scale": 1,
+  "mode": "attract",
+  "mirrorSeconds": 25,
+  "punchlines": []
 }

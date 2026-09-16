@@ -1,6 +1,6 @@
 // MexXsoft Messevideo – Kiosk / Bildschirmschoner
 // Zeigt video.mp4 im Vollbild in Dauerschleife (ohne Ton). Beenden nur nach PIN-Eingabe.
-const { app, BrowserWindow, ipcMain, screen, powerSaveBlocker } = require('electron');
+const { app, BrowserWindow, ipcMain, screen, powerSaveBlocker, session } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { pathToFileURL } = require('url');
@@ -13,10 +13,11 @@ if (!app.requestSingleInstanceLock()) { app.quit(); }
 
 app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
 app.commandLine.appendSwitch('disable-features', 'CalculateNativeWinOcclusion');
+app.commandLine.appendSwitch('use-fake-ui-for-media-stream');   // Webcam ohne Nachfrage freigeben (Spiegel-Modus)
 
 function readConfig() {
   const exeDir = path.dirname(app.getPath('exe'));
-  const cfg = { pin: '0000', video: '', pinTimeoutSeconds: 20, scale: 1 };
+  const cfg = { pin: '0000', video: '', pinTimeoutSeconds: 20, scale: 1, mode: 'attract', mirrorSeconds: 25, punchlines: [] };
   try { Object.assign(cfg, JSON.parse(fs.readFileSync(path.join(exeDir, 'config.json'), 'utf8'))); } catch {}
   const candidates = [
     cfg.video ? path.resolve(exeDir, cfg.video) : null,   // config.json: "video": "meinvideo.mp4"
@@ -26,6 +27,8 @@ function readConfig() {
   ].filter(Boolean);
   cfg.videoPath = candidates.find(p => fs.existsSync(p)) || candidates[candidates.length - 1];
   cfg.pin = String(cfg.pin);
+  cfg.mode = cfg.mode === 'video' ? 'video' : 'attract';   // attract = Spiegel (Webcam) und Video im Wechsel, video = nur Video
+  cfg.mirrorSeconds = Math.min(120, Math.max(5, Number(cfg.mirrorSeconds) || 25));
   cfg.scale = Math.min(1, Math.max(0.5, Number(cfg.scale) || 1));   // 0.9 = Video auf 90 % verkleinern (gegen TV-Overscan)
   return cfg;
 }
@@ -35,6 +38,8 @@ let unlocked = false;
 app.whenReady().then(() => {
   const cfg = readConfig();
   powerSaveBlocker.start('prevent-display-sleep');   // Monitor darf nicht abschalten
+  session.defaultSession.setPermissionRequestHandler((_wc, permission, cb) => cb(permission === 'media'));
+  session.defaultSession.setPermissionCheckHandler((_wc, permission) => permission === 'media');
 
   const { x, y, width, height } = screen.getPrimaryDisplay().bounds;
   const win = new BrowserWindow({
@@ -47,7 +52,7 @@ app.whenReady().then(() => {
   win.on('close', e => { if (!unlocked) e.preventDefault(); });   // Alt+F4 ohne PIN wirkungslos
   win.once('ready-to-show', () => { win.show(); win.focus(); });
   win.loadFile(path.join(__dirname, 'index.html'), {
-    query: { video: pathToFileURL(cfg.videoPath).href, timeout: String(cfg.pinTimeoutSeconds), pinlen: String(cfg.pin.length), scale: String(cfg.scale) },
+    query: { video: pathToFileURL(cfg.videoPath).href, timeout: String(cfg.pinTimeoutSeconds), pinlen: String(cfg.pin.length), scale: String(cfg.scale), mode: cfg.mode, mirror: String(cfg.mirrorSeconds), punchlines: JSON.stringify(Array.isArray(cfg.punchlines) ? cfg.punchlines : []) },
   });
 
   ipcMain.handle('kiosk:checkPin', (_e, pin) => String(pin) === cfg.pin);

@@ -6,6 +6,22 @@
 <style>
   html,body{margin:0;height:100%;background:#000;overflow:hidden;cursor:none;user-select:none;font-family:system-ui,Segoe UI,Arial,sans-serif;color:#fff}
   video{position:fixed;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+  #cam{object-fit:cover;transform:scaleX(-1);display:none;background:#1c0b36}
+  #cam.on{display:block}
+  #mir{position:fixed;inset:0;display:none;pointer-events:none}
+  #mir.on{display:block}
+  #mir .top{position:absolute;left:4vw;right:4vw;top:5vh;text-align:center;font-size:7.2vw;font-weight:800;line-height:1;letter-spacing:-.03em;color:#fff;text-shadow:0 4px 10px rgba(0,0,0,.9),0 16px 60px rgba(0,0,0,.7);opacity:0;transform:scale(1.6);transition:opacity .35s,transform .45s cubic-bezier(.34,1.56,.64,1)}
+  #mir .top.on{opacity:1;transform:scale(1)}
+  #mir .top em{font-style:normal;color:#ffb020}
+  #mir .bar{position:absolute;left:0;right:0;bottom:0;height:11vh;display:flex;align-items:center;justify-content:center;gap:2vw;background:linear-gradient(0deg,rgba(18,6,38,.92),rgba(18,6,38,.55));border-top:2px solid rgba(255,255,255,.15)}
+  #mir .bar .b{padding:1.2vh 2.4vw;border-radius:999px;background:#ffb020;color:#1a0836;font-size:3vw;font-weight:800;animation:pulse 2s ease-in-out infinite}
+  #mir .bar .t{font-size:2.2vw;font-weight:600;color:#e9e0ff}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+  #mir .frame{position:absolute;inset:2.5vh 2.5vw 11vh;border:6px solid rgba(255,176,32,.9);border-radius:2vw;box-shadow:0 0 0 2vw rgba(28,11,54,.35) inset}
+  #burst{position:absolute;left:0;right:0;top:32vh;text-align:center;font-size:13vw;font-weight:800;letter-spacing:-.04em;color:#ffb020;text-shadow:0 6px 14px rgba(0,0,0,.9),0 20px 70px rgba(0,0,0,.8);opacity:0;transform:scale(2.5) rotate(-6deg);transition:opacity .25s,transform .4s cubic-bezier(.34,1.56,.64,1)}
+  #burst.on{opacity:1;transform:scale(1) rotate(-4deg)}
+  #burst small{display:block;font-size:4vw;color:#fff;letter-spacing:0;margin-top:1vh}
+  #logo{position:absolute;right:3.5vw;top:4vh;font-size:2.4vw;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.9);letter-spacing:.02em}
   #lock{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(10,4,22,.82);backdrop-filter:blur(10px);cursor:default}
   #lock.on{display:flex}
   .box{width:min(92vw,420px);padding:34px 30px;border-radius:24px;background:#1c0b36;border:1px solid rgba(255,255,255,.18);box-shadow:0 30px 90px rgba(0,0,0,.6);text-align:center}
@@ -26,6 +42,15 @@
 </head>
 <body>
 <video id="v" autoplay loop muted playsinline disablepictureinpicture></video>
+<video id="cam" autoplay muted playsinline></video>
+<div id="mir">
+  <div class="frame"></div>
+  <div id="logo">MEXXSOFT X2</div>
+  <div class="top" id="pl"></div>
+  <div id="burst"></div>
+  <div class="bar"><span class="b">Live-Demo hier am Stand · 5 Minuten</span><span class="t">GaLaBau &amp; Tiefbau · E-Rechnung · inFleet</span></div>
+</div>
+<canvas id="mc" width="64" height="36" style="display:none"></canvas>
 
 <div id="lock">
   <div class="box" id="box">
@@ -51,9 +76,45 @@
   if (SCALE < 1) v.style.transform = 'scale(' + SCALE + ')';
   const play = () => v.play().catch(() => setTimeout(play, 500));
   v.addEventListener('canplay', play, { once: true });
-  v.addEventListener('ended', () => { v.currentTime = 0; play(); });   // Sicherheitsnetz zusätzlich zu loop
+  v.addEventListener('ended', () => { if (v.loop) { v.currentTime = 0; play(); } });   // Sicherheitsnetz zusätzlich zu loop
   v.addEventListener('error', () => { document.body.style.cursor = 'default'; document.body.innerHTML = '<div style="padding:40px;font-size:20px">Video nicht gefunden:<br>' + v.src + '</div>'; });
-  setInterval(() => { if (v.paused && !lock.classList.contains('on')) play(); }, 3000);
+  setInterval(() => { if (v.paused && !lock.classList.contains('on') && !mirrorOn) play(); }, 3000);
+
+  // ---------- Spiegel-Modus (Webcam) im Wechsel mit dem Video ----------
+  const MODE = q.get('mode') === 'video' ? 'video' : 'attract';
+  const MIRROR_S = Math.min(120, Math.max(5, parseInt(q.get('mirror')) || 25));
+  let PUNCH = [];
+  try { PUNCH = JSON.parse(q.get('punchlines') || '[]'); } catch {}
+  if (!Array.isArray(PUNCH) || !PUNCH.length) PUNCH = [
+    'Sie da! <em>Ja, Sie.</em>', 'Noch Excel auf der Baustelle?', 'Rechnungen abends am <em>Küchentisch?</em>',
+    'E-Rechnung wird Pflicht. <em>2027.</em>', 'Wo ist Ihr Bagger <em>gerade?</em>', 'Aufmaß rein. <em>Rechnung raus.</em>',
+    '<em>5 Minuten.</em> Dann wissen Sie es.', 'Lächeln – Sie sind auf dem <em>Messe-Bildschirm.</em>',
+  ];
+  const BURSTS = ['HALLO!', 'HEY!', 'MOMENT!', 'JA, SIE!', 'STOPP!'];
+  const cam = document.getElementById('cam'), mir = document.getElementById('mir'), pl = document.getElementById('pl'), burst = document.getElementById('burst');
+  const mc = document.getElementById('mc'), mctx = mc.getContext('2d', { willReadFrequently: true });
+  let mirrorOn = false, camOk = false, plIdx = 0, plTimer = null, phaseTimer = null, prev = null, lastBurst = 0, burstTimer = null;
+  const BURST_TEXTS = ['Bleiben Sie kurz stehen.', 'Wir zeigen es Ihnen in 5 Minuten.', 'Kaffee gibt es auch.', 'Live-Demo direkt hier.'];
+  function nextPunch(){ pl.classList.remove('on'); setTimeout(() => { pl.innerHTML = PUNCH[plIdx++ % PUNCH.length]; pl.classList.add('on'); }, 350); }
+  function showBurst(){ const now = Date.now(); if (now - lastBurst < 7000) return; lastBurst = now;
+    burst.innerHTML = BURSTS[Math.floor(Math.random()*BURSTS.length)] + '<small>' + BURST_TEXTS[Math.floor(Math.random()*BURST_TEXTS.length)] + '</small>';
+    burst.classList.add('on'); clearTimeout(burstTimer); burstTimer = setTimeout(() => burst.classList.remove('on'), 2600); }
+  function motion(){ if (!mirrorOn || cam.readyState < 2) return;
+    mctx.drawImage(cam, 0, 0, mc.width, mc.height); const d = mctx.getImageData(0, 0, mc.width, mc.height).data;
+    if (prev) { let sum = 0; for (let i = 0; i < d.length; i += 4) sum += Math.abs(d[i] - prev[i]) + Math.abs(d[i+1] - prev[i+1]) + Math.abs(d[i+2] - prev[i+2]);
+      const avg = sum / (d.length / 4) / 3; if (avg > 14) showBurst(); }
+    prev = new Uint8ClampedArray(d); }
+  function startMirror(){ mirrorOn = true; v.pause(); v.style.display = 'none'; cam.classList.add('on'); mir.classList.add('on'); prev = null;
+    nextPunch(); clearInterval(plTimer); plTimer = setInterval(nextPunch, 4000);
+    clearTimeout(phaseTimer); phaseTimer = setTimeout(startVideo, MIRROR_S * 1000); }
+  function startVideo(){ mirrorOn = false; clearInterval(plTimer); pl.classList.remove('on'); burst.classList.remove('on');
+    cam.classList.remove('on'); mir.classList.remove('on'); v.style.display = ''; v.loop = !camOk; v.currentTime = 0; play(); }
+  v.addEventListener('ended', () => { if (camOk && MODE === 'attract') startMirror(); });
+  if (MODE === 'attract' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1920 }, height: { ideal: 1080 }, facingMode: 'user' }, audio: false })
+      .then(stream => { cam.srcObject = stream; camOk = true; v.loop = false; setInterval(motion, 250); startMirror(); })
+      .catch(() => { camOk = false; v.loop = true; });
+  }
 
   const lock = document.getElementById('lock'), dots = document.getElementById('dots'), msg = document.getElementById('msg'), box = document.getElementById('box');
   const TIMEOUT = (parseInt(q.get('timeout')) || 20) * 1000;

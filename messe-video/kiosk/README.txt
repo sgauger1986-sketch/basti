@@ -9,6 +9,17 @@ Beenden:    Beliebige Taste drücken oder klicken -> PIN-Feld erscheint.
             Ohne Eingabe verschwindet das PIN-Feld nach 20 Sekunden wieder.
             Alt+F4 und Esc beenden das Programm NICHT.
 
+Spiegel-Modus (Standard, "mode": "attract"):
+            Ist eine Webcam angeschlossen (Laptop-Kamera reicht), zeigt der Bildschirm im
+            Wechsel 25 Sekunden das LIVE-Spiegelbild der Passanten mit wechselnden Sprüchen
+            ("Sie da! Ja, Sie.", "Wo ist Ihr Bagger gerade?") und danach einmal das Video.
+            Bewegt sich jemand vor der Kamera, erscheint groß "HALLO!" / "JA, SIE!".
+            Menschen bleiben stehen, wenn sie sich selbst auf einem Bildschirm sehen.
+            Kamera oben am Monitor befestigen, Richtung Gang. Ohne Webcam läuft nur das Video.
+            "mirrorSeconds": Dauer der Spiegelphase (5–120), "punchlines": eigene Sprüche als
+            Liste, z. B. ["Sie da!", "Noch Excel?"]. "mode": "video" schaltet den Spiegel ab.
+            Windows: Einstellungen -> Datenschutz -> Kamera -> Zugriff für Desktop-Apps erlauben.
+
 PIN ändern: config.json neben der .exe öffnen und "pin" anpassen (z. B. "1234").
 
 Ränder abgeschnitten?
