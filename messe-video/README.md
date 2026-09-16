@@ -9,7 +9,9 @@ Die Bildwelt besteht aus **siebzehn exklusiv mit Higgsfield (Seedance 2.5) erzeu
 
 | Datei | Zweck |
 |---|---|
-| `mexxsoft-messe-attract-v8.mp4` | **Attract-Loop v8 (40 s) – der „Stopper“ für den Gang**: acht Karten in Riesenschrift, alle 5 s ein Schnitt mit Weißblitz, keine Erklärungen: „SIE DA! Ja, Sie. Mit dem Kaffee.“ · „Noch Excel auf der Baustelle?“ · „E-Rechnung wird Pflicht. 2027.“ · „Aufmaß rein. Rechnung raus.“ · „Rechnungen abends am Küchentisch? Nie wieder.“ · „Wo ist Ihr Bagger gerade? inFleet.“ · „5 Minuten. Live-Demo. Hier am Stand.“ (Pfeil) · Logo „Bleiben Sie stehen.“ Quelle: `messe-video-v8.html`. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/c2e456b2-691d-407b-bae4-f6fe7e37ff2d.mp4 |
+| `mexxsoft-messe-video-v9.mp4` | **Aktuelle große Fassung v9 (200 s)**: v7 plus sieben eingestreute **Stopper-Karten** in Riesenschrift (alle 20–30 s ein Knall mit Weißblitz): „SIE DA! Ja, genau Sie.“ (Start) · „Noch Excel auf der Baustelle?“ · „Rechnungen abends am Küchentisch? Nie wieder.“ · „Aufmaß rein. Rechnung raus.“ · „E-Rechnung wird Pflicht. 2027.“ · „Wo ist Ihr Bagger gerade? inFleet.“ · „5 Minuten. Live-Demo. Hier am Stand.“ Quelle: `messe-video-v9.html`. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/b02849f0-63c8-4a74-b399-65d2b4735af8.mp4 |
+| `MexXsoft-Messevideo-v9-Windows.zip` | **Windows-Programm mit Spiegel-Modus und v9** (PIN 0000): 25 s Live-Webcam-Spiegel mit Sprüchen, dann 60 s Video (läuft beim nächsten Mal an der Stelle weiter), dann wieder Spiegel. `config.json`: `mode`, `mirrorSeconds`, `videoSeconds`, `punchlines`, `scale`. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/2bb6f7b3-cf4c-4615-9a51-95cad58ae698.zip |
+| `mexxsoft-messe-attract-v8.mp4` | **Attract-Loop v8 (40 s) – nur die Stopper, ohne Inhalt**: acht Karten in Riesenschrift, alle 5 s ein Schnitt mit Weißblitz, keine Erklärungen: „SIE DA! Ja, genau Sie.“ · „Noch Excel auf der Baustelle?“ · „E-Rechnung wird Pflicht. 2027.“ · „Aufmaß rein. Rechnung raus.“ · „Rechnungen abends am Küchentisch? Nie wieder.“ · „Wo ist Ihr Bagger gerade? inFleet.“ · „5 Minuten. Live-Demo. Hier am Stand.“ (Pfeil) · Logo „Bleiben Sie stehen.“ Quelle: `messe-video-v8.html`. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/c2e456b2-691d-407b-bae4-f6fe7e37ff2d.mp4 |
 | `MexXsoft-Messevideo-v8-Windows.zip` | **Windows-Programm mit Spiegel-Modus** (PIN 0000): zeigt im Wechsel 25 s das **Live-Webcam-Spiegelbild** der Passanten mit Sprüchen („Sie da! Ja, Sie.“) und „HALLO!“-Einblendung bei Bewegung, danach einmal den Attract-Loop v8. Ohne Webcam läuft nur das Video. Einstellungen in `config.json` (`mode`, `mirrorSeconds`, `punchlines`, `scale`), siehe `kiosk/README.txt`. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/7c0bb906-a6f9-4e8d-8396-3e42f3731a5e.zip |
 | `mexxsoft-messe-video-v7.mp4` | **Fassung v7 (164 s)**: v6 plus Szene **inFleet** (neu bei mexXsoft, GPS-Fahrzeugortung, Inhalte von https://infleet.software/): Live-Karte mit Transportern, Bagger, Anhänger und Container, Kennzahlen (bis zu 25 % weniger Fuhrparkkosten, 15 % weniger Kraftstoff, 40 % weniger Rückfragen, 12 % effizientere Disposition), Fahrtenbuch, Tourenvergleich, Plug & Play, Server in Deutschland. Quelle: `messe-video-v7.html`, 17 Higgsfield-Clips. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/fe56f918-2a10-4bb3-8e14-1df7800fa82d.mp4 |
 | `mexxsoft-messe-video-v6.mp4` | **Fassung v6 (152 s)**: v5 plus zwei Szenen zu **MyOneQrew** (neu, exklusiv für Abo-Kunden, Inhalte von https://my.oneqrew.com/de-de/exklusiv): alle Helfer auf einen Blick (KI-Bürokraft HalloPetra, OneQrew Hub, MyMeisterQ, Sketch, Förder-Kompass, Preis-Check-Atlas, Fahrzeugortung, CraftIT, Academy, Social, WebKit, ein Login mit MFA) und „Ein Tag mit MyOneQrew“ (7:15 bis 17:00). Quelle: `messe-video-v6.html`, 16 Higgsfield-Clips. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/3d56b86c-8684-470e-ba23-e49324f952c1.mp4 |
@@ -25,6 +27,20 @@ Die Bildwelt besteht aus **siebzehn exklusiv mit Higgsfield (Seedance 2.5) erzeu
 | `fonts/` | Schriften Inter & Manrope (SIL Open Font License), lokal eingebettet. |
 | `assets/` | Logo (Original, weiße und dunkle Vektorversion). |
 
+## Ablauf v9 (28 Szenen, 200 s)
+
+v7 mit sieben Stopper-Karten (je 5 s, Weißblitz, Riesenschrift) an diesen Stellen:
+
+| Zeit | Karte | danach |
+|---|---|---|
+| 0–5 s | SIE DA! Ja, genau Sie. | Hook, Marke, Prozess |
+| 24–29 s | Noch Excel auf der Baustelle? | Module |
+| 38–43 s | Rechnungen abends am Küchentisch? Nie wieder. | Angebot, Kennen Sie das? |
+| 58–63 s | Aufmaß rein. Rechnung raus. | Aufmaß, Plantafel, mexXgo, Bauakte, Schnittstellen |
+| 99–104 s | Die E-Rechnung wird Pflicht. 2027. | E-Rechnung, KI, MyOneQrew (2 Szenen) |
+| 144–149 s | Wo ist Ihr Bagger gerade? inFleet. | inFleet, Material, Zwei Gewerke, Zahlen, Versionen |
+| 187–192 s | 5 Minuten. Live-Demo. Hier am Stand. | Call-to-Action |
+
 ## Warum ein Attract-Loop und ein Spiegel (v8)
 
 Ein erklärendes Video hält niemanden auf, der vorbeigeht: Er sieht 2–3 Sekunden Text und ist weg. Was auf Messen
@@ -37,7 +53,7 @@ schon stehen.
 
 Aufbau am Stand: Webcam oben auf den Monitor, Richtung Gang; Monitor auf Augenhöhe zum Gang gedreht, nicht in den
 Stand hinein. Eine Person steht **neben** dem Bildschirm, nicht dahinter. Wer stehen bleibt, bekommt sofort einen Satz
-und einen Kaffee, nicht einen Prospekt.
+und eine Demo, nicht einen Prospekt.
 
 ## Ablauf v7 (21 Szenen, 164 s)
 

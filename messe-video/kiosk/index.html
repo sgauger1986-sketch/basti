@@ -83,6 +83,7 @@
   // ---------- Spiegel-Modus (Webcam) im Wechsel mit dem Video ----------
   const MODE = q.get('mode') === 'video' ? 'video' : 'attract';
   const MIRROR_S = Math.min(120, Math.max(5, parseInt(q.get('mirror')) || 25));
+  const VIDEO_S = Math.max(0, parseInt(q.get('videosec')) || 0);   // 0 = Video immer komplett, sonst nach x s zurück zum Spiegel (Video läuft später weiter)
   let PUNCH = [];
   try { PUNCH = JSON.parse(q.get('punchlines') || '[]'); } catch {}
   if (!Array.isArray(PUNCH) || !PUNCH.length) PUNCH = [
@@ -94,7 +95,7 @@
   const cam = document.getElementById('cam'), mir = document.getElementById('mir'), pl = document.getElementById('pl'), burst = document.getElementById('burst');
   const mc = document.getElementById('mc'), mctx = mc.getContext('2d', { willReadFrequently: true });
   let mirrorOn = false, camOk = false, plIdx = 0, plTimer = null, phaseTimer = null, prev = null, lastBurst = 0, burstTimer = null;
-  const BURST_TEXTS = ['Bleiben Sie kurz stehen.', 'Wir zeigen es Ihnen in 5 Minuten.', 'Kaffee gibt es auch.', 'Live-Demo direkt hier.'];
+  const BURST_TEXTS = ['Bleiben Sie kurz stehen.', 'Wir zeigen es Ihnen in 5 Minuten.', 'Live-Demo direkt hier.', 'Eine Frage, eine Antwort.'];
   function nextPunch(){ pl.classList.remove('on'); setTimeout(() => { pl.innerHTML = PUNCH[plIdx++ % PUNCH.length]; pl.classList.add('on'); }, 350); }
   function showBurst(){ const now = Date.now(); if (now - lastBurst < 7000) return; lastBurst = now;
     burst.innerHTML = BURSTS[Math.floor(Math.random()*BURSTS.length)] + '<small>' + BURST_TEXTS[Math.floor(Math.random()*BURST_TEXTS.length)] + '</small>';
@@ -108,7 +109,8 @@
     nextPunch(); clearInterval(plTimer); plTimer = setInterval(nextPunch, 4000);
     clearTimeout(phaseTimer); phaseTimer = setTimeout(startVideo, MIRROR_S * 1000); }
   function startVideo(){ mirrorOn = false; clearInterval(plTimer); pl.classList.remove('on'); burst.classList.remove('on');
-    cam.classList.remove('on'); mir.classList.remove('on'); v.style.display = ''; v.loop = !camOk; v.currentTime = 0; play(); }
+    cam.classList.remove('on'); mir.classList.remove('on'); v.style.display = ''; v.loop = !camOk; if (!VIDEO_S) v.currentTime = 0; play();
+    clearTimeout(phaseTimer); if (VIDEO_S && camOk) phaseTimer = setTimeout(startMirror, VIDEO_S * 1000); }
   v.addEventListener('ended', () => { if (camOk && MODE === 'attract') startMirror(); });
   if (MODE === 'attract' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1920 }, height: { ideal: 1080 }, facingMode: 'user' }, audio: false })

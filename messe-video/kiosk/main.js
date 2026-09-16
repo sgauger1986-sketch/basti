@@ -17,7 +17,7 @@ app.commandLine.appendSwitch('use-fake-ui-for-media-stream');   // Webcam ohne N
 
 function readConfig() {
   const exeDir = path.dirname(app.getPath('exe'));
-  const cfg = { pin: '0000', video: '', pinTimeoutSeconds: 20, scale: 1, mode: 'attract', mirrorSeconds: 25, punchlines: [] };
+  const cfg = { pin: '0000', video: '', pinTimeoutSeconds: 20, scale: 1, mode: 'attract', mirrorSeconds: 25, videoSeconds: 60, punchlines: [] };
   try { Object.assign(cfg, JSON.parse(fs.readFileSync(path.join(exeDir, 'config.json'), 'utf8'))); } catch {}
   const candidates = [
     cfg.video ? path.resolve(exeDir, cfg.video) : null,   // config.json: "video": "meinvideo.mp4"
@@ -29,6 +29,7 @@ function readConfig() {
   cfg.pin = String(cfg.pin);
   cfg.mode = cfg.mode === 'video' ? 'video' : 'attract';   // attract = Spiegel (Webcam) und Video im Wechsel, video = nur Video
   cfg.mirrorSeconds = Math.min(120, Math.max(5, Number(cfg.mirrorSeconds) || 25));
+  cfg.videoSeconds = Math.max(0, Number(cfg.videoSeconds) || 0);   // 0 = Video jedes Mal komplett abspielen
   cfg.scale = Math.min(1, Math.max(0.5, Number(cfg.scale) || 1));   // 0.9 = Video auf 90 % verkleinern (gegen TV-Overscan)
   return cfg;
 }
@@ -52,7 +53,7 @@ app.whenReady().then(() => {
   win.on('close', e => { if (!unlocked) e.preventDefault(); });   // Alt+F4 ohne PIN wirkungslos
   win.once('ready-to-show', () => { win.show(); win.focus(); });
   win.loadFile(path.join(__dirname, 'index.html'), {
-    query: { video: pathToFileURL(cfg.videoPath).href, timeout: String(cfg.pinTimeoutSeconds), pinlen: String(cfg.pin.length), scale: String(cfg.scale), mode: cfg.mode, mirror: String(cfg.mirrorSeconds), punchlines: JSON.stringify(Array.isArray(cfg.punchlines) ? cfg.punchlines : []) },
+    query: { video: pathToFileURL(cfg.videoPath).href, timeout: String(cfg.pinTimeoutSeconds), pinlen: String(cfg.pin.length), scale: String(cfg.scale), mode: cfg.mode, mirror: String(cfg.mirrorSeconds), videosec: String(cfg.videoSeconds), punchlines: JSON.stringify(Array.isArray(cfg.punchlines) ? cfg.punchlines : []) },
   });
 
   ipcMain.handle('kiosk:checkPin', (_e, pin) => String(pin) === cfg.pin);

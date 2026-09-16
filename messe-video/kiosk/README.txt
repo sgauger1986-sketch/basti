@@ -16,7 +16,9 @@ Spiegel-Modus (Standard, "mode": "attract"):
             Bewegt sich jemand vor der Kamera, erscheint groß "HALLO!" / "JA, SIE!".
             Menschen bleiben stehen, wenn sie sich selbst auf einem Bildschirm sehen.
             Kamera oben am Monitor befestigen, Richtung Gang. Ohne Webcam läuft nur das Video.
-            "mirrorSeconds": Dauer der Spiegelphase (5–120), "punchlines": eigene Sprüche als
+            "mirrorSeconds": Dauer der Spiegelphase (5–120). "videoSeconds": nach so vielen Sekunden Video
+            zurück zum Spiegel, das Video läuft danach an der Stelle weiter (0 = immer komplett).
+            "punchlines": eigene Sprüche als
             Liste, z. B. ["Sie da!", "Noch Excel?"]. "mode": "video" schaltet den Spiegel ab.
             Windows: Einstellungen -> Datenschutz -> Kamera -> Zugriff für Desktop-Apps erlauben.
 
