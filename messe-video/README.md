@@ -9,16 +9,48 @@ Die Bildwelt besteht aus **vierzehn exklusiv mit Higgsfield (Seedance 2.5) erzeu
 
 | Datei | Zweck |
 |---|---|
-| `mexxsoft-messe-video-v4.mp4` | **Aktuelle Fassung v4 (112 s)**: die lange Fassung von v3 mit fünf zusätzlichen Szenen – Aufmaß → Abschlags-/Schlussrechnung, Kolonnen-Plantafel, digitale Bauakte, Material & Pflanzenkataloge, offene Posten/Mahnwesen/Nachkalkulation. Quelle: `messe-video-v4.html`, 14 Higgsfield-Clips. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/7a0dbd08-0659-459b-9f07-016aae1997a3.mp4 |
+| `mexxsoft-messe-video-v5.mp4` | **Aktuelle Fassung v5 (128 s)**: v4 plus Stopper für Laufkundschaft – „Kennen Sie das?“ (drei Alltagsprobleme, „In 5 Minuten zeigen wir Ihnen, wie es einfacher geht“), eigene Szene **„Die E-Rechnung wird Pflicht“** (2025 Empfang, 2027 Versand ab 800.000 € Umsatz, 2028 alle; ZUGFeRD 2.x, XRechnung), E-Rechnung-Chip in der Markenszene, dauerhaft pulsierende Plakette „Live-Demo hier am Stand · 5 Minuten“ in der Fußzeile, Schluss „Bleiben Sie stehen – Live-Demo in 5 Minuten.“ Quelle: `messe-video-v5.html`. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/5303e5b1-410c-455d-97f5-b3c0d04d5869.mp4 |
+| `mexxsoft-messe-video-v4.mp4` | **Fassung v4 (112 s)**: die lange Fassung von v3 mit fünf zusätzlichen Szenen – Aufmaß → Abschlags-/Schlussrechnung, Kolonnen-Plantafel, digitale Bauakte, Material & Pflanzenkataloge, offene Posten/Mahnwesen/Nachkalkulation. Quelle: `messe-video-v4.html`, 14 Higgsfield-Clips. Nicht als MP4 gerendert (durch v5 ersetzt, lokal mit `node render.mjs --html messe-video-v4.html` erzeugbar). |
 | `mexxsoft-messe-video-v3.mp4` | **Fassung v3 (68 s)**: beschreibt das Angebot von mexXsoft ausführlicher – Prozesskette von der Anfrage bis zur Schlussrechnung, 8 Module, Angebot in Aktion, mexXgo, Schnittstellen & E-Rechnung, KI-Funktionen 2026, GaLaBau|Tiefbau, Versionen & Service. Quelle: `messe-video-v3.html`, 10 Higgsfield-Clips. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/220e58e2-fff8-46af-99bf-15528066bd35.mp4 |
 | `mexxsoft-messe-video-galabau-tiefbau-v2.mp4` | **Das fertige Video** (H.264, 1080p, 30 fps, 48 s, keine Audiospur). Gerendert in der Higgsfield-Cloud, **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/ba496ee1-a269-46a2-8cf1-64fd6441cd0f.mp4 (liegt außerdem in der Higgsfield-Mediathek des Kontos). Lokal jederzeit mit `render.mjs` neu erzeugbar. Erste, dunklere Fassung: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/6683cf58-4295-41e4-b2a0-8a800acd3f9d.mp4 |
-| `MexXsoft-Messevideo-v4-Windows.zip` | **Windows-Programm** (Bildschirmschoner/Kiosk mit PIN 0000, Video **v4** eingebaut). **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/6e9f5bce-bdcb-4c8e-9ece-a826eff45513.zip · Paket mit v3: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/eb3b79d6-6355-4ef1-b988-091753e4acb2.zip · Paket mit v2: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/e0389186-7367-4f54-bb77-7b12c962ed65.zip · Quellen in `kiosk/`. |
+| `MexXsoft-Messevideo-v5-Windows.zip` | **Windows-Programm** (Bildschirmschoner/Kiosk mit PIN 0000, Video **v5** eingebaut). **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/e53930e9-4ebb-4b70-aacf-fc2a2384e45b.zip · Paket mit v3: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/eb3b79d6-6355-4ef1-b988-091753e4acb2.zip · Paket mit v2: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/e0389186-7367-4f54-bb77-7b12c962ed65.zip · Quellen in `kiosk/`. |
 | `mexxsoft-messe-video.mp4` | Erste Fassung ohne Videoclips (nur Motion Graphics), alle Gewerke. |
 | `messe-video.html` | Die Quelle: Animation als HTML/CSS/JS inkl. Video-Hintergründen. Läuft auch direkt im Browser als Endlosschleife (Vollbild mit Taste **F**), sobald `clips/*.webm` vorhanden sind. |
 | `clips/fetch-clips.sh` | Lädt die 14 Higgsfield-Clips und wandelt sie nach WebM/VP9 (für den Render-Browser). |
 | `render.mjs` | Erzeugt aus der HTML-Datei das MP4 (Bild für Bild, deterministisch, parallelisierbar). |
 | `fonts/` | Schriften Inter & Manrope (SIL Open Font License), lokal eingebettet. |
 | `assets/` | Logo (Original, weiße und dunkle Vektorversion). |
+
+## Ablauf v5 (18 Szenen, 128 s)
+
+Wie v4, mit drei Ergänzungen für die Messe: Ein Passant sieht im Schnitt nur 10–20 Sekunden – deshalb gibt es
+alle 30–40 Sekunden einen „Stopper“ in großer Schrift, die Fußzeile trägt durchgehend die pulsierende Plakette
+**„Live-Demo hier am Stand · 5 Minuten“**, und die E-Rechnung hat eine eigene Szene.
+
+| Zeit | Szene | Clip | Inhalt |
+|---|---|---|---|
+| 0–5 s | Hook | Rohrgraben | „Zettelwirtschaft. Excel-Chaos. Abende im Büro.“ → „Schluss damit.“ |
+| 5–11 s | Marke | Gartenanlage, Drohne | Logo, Claim, Slogan, Chips inkl. **E-Rechnung ready** |
+| 11–19 s | Prozess | Neue Straße | Anfrage → … → Buchhaltung & Mahnwesen |
+| 19–28 s | Module | Büro | 8 Modulkacheln |
+| 28–37 s | Angebot in Aktion | Gartenanlage | Positionen, Summen, Stempel, Ablauf bis E-Rechnung |
+| 37–43 s | **Stopper „Kennen Sie das?“** | Asphaltfertiger, Drohne | Rechnungen abends am Küchentisch · Aufmaß auf dem Bierdeckel · Kolonne steht, Material fehlt → „In 5 Minuten zeigen wir Ihnen, wie es einfacher geht.“ |
+| 43–51 s | Aufmaß rein, Rechnung raus | Aufmaß mit Messrad | Aufmaßtabelle, REB, Abschlags-/Schlussrechnung |
+| 51–58 s | Wer ist morgen wo? | Kolonnen-Einteilung | Plantafel Mo–Fr |
+| 58–66 s | mexXgo | Polier mit Tablet | App für die Baustelle |
+| 66–73 s | Digitale Bauakte | Fotodoku am Rohrgraben | Bautagebuch, Fotos, Regiebericht, Lieferscheine, Rechnungen |
+| 73–79 s | Schnittstellen | Baubesprechung | GAEB, Datanorm, DATEV, ZUGFeRD 2.x, XRechnung, … |
+| 79–88 s | **Die E-Rechnung wird Pflicht** | Kundengespräch mit Tablet | 2025 Empfang Pflicht ✓ · 2027 Versand ab 800.000 € Vorjahresumsatz · 2028 alle Betriebe · „mexXsoft X2 ist bereit: ZUGFeRD 2.x, XRechnung, Empfangen & Versenden“ · Kommunen verlangen die XRechnung schon heute |
+| 88–95 s | KI 2026 | Baubesprechung | KI-Texte, Förder-KI, Sketch |
+| 95–102 s | Material und Pflanzen | Baumschule / Lager | Kataloge Bruns & GBF, Datanorm, Bestellung, Lager |
+| 102–108 s | Zwei Gewerke | Pflaster ‖ Asphalt | GaLaBau und Tiefbau |
+| 108–115 s | Zahlen, die stimmen | Büro | Offene Posten, Mahnwesen, Nachkalkulation |
+| 115–121 s | Versionen & Service | Park | Easy…Enterprise, Kaufen/Mieten/Testen, Support |
+| 121–128 s | Call-to-Action | Neue Straße | „Jetzt live erleben.“ · „Bleiben Sie stehen – Live-Demo in 5 Minuten.“ · www.mexxsoft.com · Kontakt · Logo |
+
+Hinweis E-Rechnung: Fristen nach Wachstumschancengesetz (Empfangspflicht seit 1.1.2025, Ausstellungspflicht ab
+1.1.2027 bei über 800.000 € Vorjahresumsatz, ab 1.1.2028 für alle; Kleinunternehmer nach § 19 UStG sind von der
+Ausstellungspflicht befreit) – bitte vor der Messe noch einmal gegen den aktuellen Stand prüfen.
 
 ## Ablauf v4 (16 Szenen, 112 s)
 
