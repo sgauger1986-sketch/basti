@@ -31,7 +31,7 @@ PIN ändern: config.json neben der .exe öffnen und "pin" anpassen (z. B. "1234"
 Ohne Webcam (Karten-Modus, automatisch):
             Gibt es keine Kamera, zeigt das Programm nach jeweils 60 s Video ("videoSeconds")
             22 s lang drei Karten ("cardsSeconds"): Schätzfrage -> Auflösung -> Knall-Karte
-            ("E-Rechnung? mexXsoft ist bereit.", "Wo ist Ihr Bagger gerade? inFleet weiß es." ...).
+            ("E-Rechnung? mexXsoft ist bereit.", "Wo ist Ihr Bagger gerade? INFLEET weiß es." ...).
             Optional "demoIntervalMinutes": 10 -> statt der Knall-Karte ein Countdown "Nächste
             Vorführung in 03:12" (auch als Plakette oben rechts im Video). Standard: 0 = aus.
             Eigene Fragen: "quiz": [{"q": "Frage?", "a": "Antwort."}, ...]

@@ -73,14 +73,14 @@
   <div id="logo">MEXXSOFT X2</div>
   <div class="top" id="pl"></div>
   <div id="burst"></div>
-  <div class="bar"><span class="b">Hier am Stand · einfach ansprechen</span><span class="t">GaLaBau &amp; Tiefbau · E-Rechnung · inFleet</span></div>
+  <div class="bar"><span class="b">Hier am Stand · einfach ansprechen</span><span class="t">GaLaBau &amp; Tiefbau · E-Rechnung · INFLEET</span></div>
 </div>
 <canvas id="mc" width="64" height="36" style="display:none"></canvas>
 <div id="cards">
   <div class="card o" id="cq"><div class="pill">Schätzfrage</div><div class="q" id="qq"></div><div class="sub">Auflösung in wenigen Sekunden …</div></div>
   <div class="card v" id="ca"><div class="pill">Auflösung</div><div class="q" id="aq"></div><div class="a slam" id="aa"></div></div>
   <div class="card l" id="cc"><div class="pill" id="cpill">mexXsoft X2</div><div id="ct1" class="q"></div><div class="cd" id="cd"></div><div class="sub" id="csub">Hier am Stand · einfach ansprechen</div></div>
-  <div class="foot"><b>Hier am Stand · einfach ansprechen</b><span>mexXsoft X2 · GaLaBau &amp; Tiefbau · E-Rechnung · inFleet</span></div>
+  <div class="foot"><b>Hier am Stand · einfach ansprechen</b><span>mexXsoft X2 · GaLaBau &amp; Tiefbau · E-Rechnung · INFLEET</span></div>
   <div class="flash" id="cflash"></div>
 </div>
 <div id="demo"></div>
@@ -163,9 +163,9 @@
   if (!Array.isArray(QUIZ) || !QUIZ.length) QUIZ = [
     { q: 'Ab wann müssen Sie E-Rechnungen <em>versenden</em>?', a: 'Ab 1.1.2027 (über 800.000 € Umsatz), ab 2028 jeder Betrieb. mexXsoft X2 ist bereit.' },
     { q: 'Wie viele Betriebe arbeiten mit OneQrew-Software?', a: 'Über 45.000.' },
-    { q: 'Wie viel Kraftstoff spart GPS-Fahrzeugortung?', a: 'Bis zu 15 % – mit inFleet, neu bei mexXsoft.' },
+    { q: 'Wie viel Kraftstoff spart GPS-Fahrzeugortung?', a: 'Bis zu 15 % – mit INFLEET, neu bei mexXsoft.' },
     { q: 'Wie lange dauert eine Abschlagsrechnung aus dem Aufmaß?', a: 'Ein Klick. Ohne Abtippen.' },
-    { q: 'Wo ist Ihr Bagger <em>gerade</em>?', a: 'inFleet weiß es – live auf der Karte.' },
+    { q: 'Wo ist Ihr Bagger <em>gerade</em>?', a: 'INFLEET weiß es – live auf der Karte.' },
   ];
   const cards = document.getElementById('cards'), demoBadge = document.getElementById('demo');
   const cq = document.getElementById('cq'), ca = document.getElementById('ca'), cc = document.getElementById('cc'), cflash = document.getElementById('cflash');
@@ -176,7 +176,7 @@
     const sl = el.querySelector('.slam'); if (sl) { sl.style.animation = 'none'; void sl.offsetWidth; sl.style.animation = ''; } }
   function startCards(){ cardsOn = true; v.pause(); v.style.display = 'none'; demoBadge.classList.remove('on'); cards.classList.add('on');
     const item = QUIZ[quizIdx++ % QUIZ.length]; document.getElementById('qq').innerHTML = item.q; document.getElementById('aq').innerHTML = item.q; document.getElementById('aa').innerHTML = item.a;
-    const BOOM = [['E-Rechnung?', 'mexXsoft ist bereit.', 'ZUGFeRD 2.x · XRechnung · Empfangen & Versenden'], ['Wo ist Ihr Bagger gerade?', 'inFleet weiß es.', 'GPS-Fahrzeugortung · neu bei mexXsoft'], ['Noch Excel auf der Baustelle?', 'Nie wieder.', 'mexXsoft X2 · GaLaBau & Tiefbau'], ['Neu.', 'MyOneQrew.', 'Ein Login, alle Helfer']];
+    const BOOM = [['E-Rechnung?', 'mexXsoft ist bereit.', 'ZUGFeRD 2.x · XRechnung · Empfangen & Versenden'], ['Wo ist Ihr Bagger gerade?', 'INFLEET weiß es.', 'GPS-Fahrzeugortung · neu bei mexXsoft'], ['Noch Excel auf der Baustelle?', 'Nie wieder.', 'mexXsoft X2 · GaLaBau & Tiefbau'], ['Neu.', 'MyOneQrew.', 'Ein Login, alle Helfer']];
     if (DEMO_MIN) { document.getElementById('cpill').textContent = 'Vorführung'; document.getElementById('ct1').textContent = 'Nächste Vorführung in'; document.getElementById('cd').classList.remove('small'); document.getElementById('csub').textContent = 'Hier am Stand · einfach ansprechen'; }
     else { const b = BOOM[(quizIdx - 1 + BOOM.length) % BOOM.length]; document.getElementById('cpill').textContent = 'mexXsoft X2'; document.getElementById('ct1').textContent = b[0]; const cd = document.getElementById('cd'); cd.classList.add('small'); cd.classList.add('slam'); cd.textContent = b[1]; document.getElementById('csub').textContent = b[2]; }
     const third = CARDS_S / 3; cardTimers.forEach(clearTimeout);
