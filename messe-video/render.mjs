@@ -6,6 +6,7 @@
  *   node render.mjs --fps 25 --crf 18       -> andere Bildrate / Qualität
  *   node render.mjs --stills                -> nur Vorschaubilder (stills/*.png), kein Video
  *   node render.mjs --from 0 --to 720 --out seg1.mp4   -> nur Bilder [from,to) rendern (parallelisierbar)
+ *   node render.mjs --html messe-video-v3.html          -> andere Quelldatei
  *
  * Voraussetzungen: Node 18+, `npm install playwright` (+ `npx playwright install chromium`)
  * und ein ffmpeg mit libx264 (Umgebungsvariable FFMPEG oder `ffmpeg` im PATH).
@@ -47,7 +48,8 @@ const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
 await page.addInitScript(() => { window.__RENDER = true; });
 page.on('pageerror', e => console.error('Seitenfehler:', e.message));
-await page.goto('file://' + path.join(here, 'messe-video.html'));
+const HTML = opt('html', 'messe-video.html');
+await page.goto('file://' + path.resolve(here, HTML));
 await page.evaluate(() => document.fonts.ready);
 // Auf Metadaten aller Video-Hintergründe warten (Seeking braucht readyState >= 1)
 const missing = await page.evaluate(() => Promise.all([...document.querySelectorAll('video')].map(v => new Promise(res => {

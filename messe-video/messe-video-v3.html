@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>mexXsoft X2 – Messevideo v3: Was mexXsoft kann (Endlosschleife, ohne Ton)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@font-face{font-family:'Inter';font-weight:400;font-display:block;src:url(fonts/inter-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-weight:500;font-display:block;src:url(fonts/inter-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-weight:600;font-display:block;src:url(fonts/inter-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-weight:700;font-display:block;src:url(fonts/inter-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-weight:800;font-display:block;src:url(fonts/inter-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'Manrope';font-weight:700;font-display:block;src:url(fonts/manrope-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Manrope';font-weight:800;font-display:block;src:url(fonts/manrope-latin-800-normal.woff2) format('woff2')}
+
+:root{
+  --bg:#1c0b36; --bg2:#2e1052;
+  --ink:#f5f8fc; --ink2:#c3b8d8; --ink3:#8a7aa6;
+  --green:#b48cff; --green2:#8a5cf6; --orange:#ffb020; --blue:#5ad0ff;
+  --line:rgba(255,255,255,.13);
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --head:'Manrope','Inter',system-ui,Arial,sans-serif;
+  --shadeRGB:18,6,38;
+}
+html,body{margin:0;padding:0;background:#000;overflow:hidden;height:100%}
+body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;background:var(--bg);transform-origin:0 0}
+.scene{position:absolute;inset:0;opacity:0}
+.scene > *{position:absolute}
+
+#bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--bg) 0%,var(--bg2) 60%,#22103f 100%)}
+#grid{position:absolute;inset:-100px;opacity:.10;background-image:linear-gradient(rgba(255,255,255,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.35) 1px,transparent 1px);background-size:80px 80px}
+.blob{position:absolute;width:1400px;height:1400px;border-radius:50%;opacity:.42;will-change:transform}
+#blob1{background:radial-gradient(circle,var(--green) 0%,rgba(180,140,255,.35) 22%,transparent 60%);left:-350px;top:-450px}
+#blob2{background:radial-gradient(circle,var(--blue) 0%,rgba(90,208,255,.35) 22%,transparent 60%);right:-500px;bottom:-600px;opacity:.22}
+#vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.35) 100%)}
+
+.clip{inset:0;overflow:hidden}
+.clip video{position:absolute;left:0;top:0;width:1920px;height:1080px;object-fit:cover}
+.clip .shade{position:absolute;inset:0;background:rgba(var(--shadeRGB),var(--shade,.5))}
+.clip .shade:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.28) 100%)}
+.vframe{position:absolute;left:0;top:0;width:100%;height:100%;display:none}
+#stage.render .vframe{display:block}
+#stage.render video[data-scene]{opacity:0}
+
+#foot{position:absolute;left:0;right:0;bottom:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 56px;font-size:22px;font-weight:600;color:var(--ink2);border-top:1px solid var(--line);background:linear-gradient(0deg,rgba(0,0,0,.45),rgba(0,0,0,.1))}
+#foot .l{display:flex;align-items:center;gap:14px}
+#foot .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green)}
+#foot .r{color:var(--ink)}
+
+.h1{font-family:var(--head);font-weight:800;letter-spacing:-.025em;line-height:1.02}
+.h2{font-family:var(--head);font-weight:800;letter-spacing:-.02em;line-height:1.06}
+.h2 em,.h1 em{font-style:normal;color:var(--green)}
+.ts{text-shadow:0 2px 6px rgba(0,0,0,.85),0 6px 30px rgba(0,0,0,.7)}
+.chip{display:inline-flex;align-items:center;gap:14px;padding:16px 30px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(var(--shadeRGB),.74);font-size:36px;font-weight:600;white-space:nowrap;backdrop-filter:blur(6px)}
+.chip i{width:14px;height:14px;border-radius:50%;background:var(--green);flex:none}
+.pill{display:inline-flex;align-items:center;padding:14px 26px;border-radius:14px;background:var(--green);color:#1a0836;font-weight:800;font-family:var(--head)}
+.panelbox{border-radius:26px;background:rgba(var(--shadeRGB),.78);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(8px);box-sizing:border-box}
+.sub{left:0;right:0;text-align:center;font-size:38px;font-weight:500;color:#fff}
+
+/* 1 Hook */
+#s1 .lines{left:0;right:0;top:170px;display:flex;flex-direction:column;align-items:center;gap:22px}
+#s1 .line{position:relative;font-family:var(--head);font-weight:800;font-size:132px;letter-spacing:-.03em;line-height:1;color:#fff;padding:0 10px;text-shadow:0 2px 6px rgba(0,0,0,.9),0 8px 36px rgba(0,0,0,.8)}
+#s1 .line .strike{position:absolute;left:0;top:50%;height:14px;width:100%;margin-top:-7px;background:var(--green);border-radius:8px;transform-origin:0 50%;transform:scaleX(0);box-shadow:0 0 20px rgba(180,140,255,.6)}
+#s1 .stamp{left:0;right:0;top:640px;display:flex;justify-content:center}
+#s1 .stamp span{display:inline-block;padding:28px 60px;border:8px solid var(--orange);color:var(--orange);border-radius:26px;font-family:var(--head);font-weight:800;font-size:128px;letter-spacing:-.02em;line-height:1;transform:rotate(-5deg);box-shadow:0 30px 80px rgba(0,0,0,.45);background:rgba(18,6,38,.78)}
+
+/* 2 Marke */
+#s2 .brand{left:0;right:0;top:230px;display:flex;flex-direction:column;align-items:center}
+#s2 .logo-slot{display:flex;align-items:center;justify-content:center;gap:34px;height:260px}
+#s2 .logo-slot img{height:210px;width:auto;filter:drop-shadow(0 3px 6px rgba(0,0,0,.8)) drop-shadow(0 12px 40px rgba(0,0,0,.7))}
+.badge-x2{font-size:88px;padding:16px 30px;border-radius:22px;margin-left:10px;align-self:center;letter-spacing:-.02em;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+#s2 .tag{margin-top:34px;font-size:64px;font-weight:600;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.9),0 8px 36px rgba(0,0,0,.8)}
+#s2 .tag em{font-style:normal;color:var(--green)}
+#s2 .slogan{margin-top:30px;display:flex;gap:40px;font-family:var(--head);font-weight:800;font-size:40px;letter-spacing:.24em;text-transform:uppercase;color:#d9c6ff;text-shadow:0 2px 6px rgba(0,0,0,.9),0 8px 36px rgba(0,0,0,.8)}
+#s2 .slogan span.sep{color:var(--ink3);letter-spacing:0}
+#s2 .facts{margin-top:44px;display:flex;gap:22px}
+#s2 .facts .chip{font-size:30px;padding:14px 26px}
+
+/* 3 Prozess */
+#s3 .title{left:0;right:0;top:110px;text-align:center;font-size:88px}
+#s3 .flow{left:110px;top:400px;width:1700px;height:260px}
+#s3 .rail{position:absolute;left:60px;right:60px;top:70px;height:10px;border-radius:5px;background:rgba(255,255,255,.18)}
+#s3 .rail .fill{position:absolute;left:0;top:0;bottom:0;width:100%;border-radius:5px;background:linear-gradient(90deg,var(--green2),var(--green));transform-origin:0 50%;transform:scaleX(0);box-shadow:0 0 24px rgba(180,140,255,.6)}
+#s3 .steps{position:absolute;inset:0;display:flex;justify-content:space-between}
+#s3 .step{width:220px;display:flex;flex-direction:column;align-items:center;gap:22px}
+#s3 .step .n{width:150px;height:150px;border-radius:50%;background:rgba(var(--shadeRGB),.85);border:4px solid var(--green);display:grid;place-items:center;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+#s3 .step .n svg{width:70px;height:70px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+#s3 .step b{font-size:30px;font-weight:700;text-align:center;line-height:1.15;white-space:nowrap;text-shadow:0 2px 6px rgba(0,0,0,.9)}
+#s3 .sub{top:790px}
+
+/* 4 Module */
+#s4 .title{left:0;right:0;top:80px;text-align:center;font-size:88px}
+#s4 .grid{left:110px;top:240px;width:1700px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+#s4 .card{height:300px;padding:28px 30px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+#s4 .card svg{width:70px;height:70px;position:absolute;top:28px;left:30px;stroke:var(--green);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+#s4 .card b{font-size:34px;font-weight:700;line-height:1.12;letter-spacing:-.01em}
+#s4 .card small{font-size:22px;color:var(--ink2);font-weight:500;margin-top:8px;line-height:1.25}
+#s4 .sub{top:920px;font-size:34px}
+
+/* 5 Angebot */
+#s5 .title{left:100px;top:80px;font-size:84px;width:1750px}
+#s5 .title small{display:block;font-family:var(--sans);font-weight:500;font-size:38px;color:#fff;letter-spacing:0;margin-top:12px}
+#s5 .win{left:180px;top:280px;width:1560px;height:610px;border-radius:22px;background:rgba(23,11,46,.96);border:1px solid rgba(255,255,255,.2);box-shadow:0 40px 120px rgba(0,0,0,.6);overflow:hidden}
+#s5 .bar{height:64px;display:flex;align-items:center;gap:14px;padding:0 26px;background:rgba(255,255,255,.05);border-bottom:1px solid var(--line);font-size:24px;font-weight:600;color:var(--ink2)}
+#s5 .bar i{width:16px;height:16px;border-radius:50%;background:#3a2a5c}
+#s5 .bar i:nth-child(1){background:#ff5f57}#s5 .bar i:nth-child(2){background:#febc2e}#s5 .bar i:nth-child(3){background:#28c840}
+#s5 .bar span{margin-left:18px;color:var(--ink)}
+#s5 table{border-collapse:collapse;width:100%;font-size:27px}
+#s5 th{font-weight:600;color:var(--ink3);text-align:left;padding:18px 26px;border-bottom:1px solid var(--line);font-size:22px;letter-spacing:.06em;text-transform:uppercase}
+#s5 td{padding:15px 26px;border-bottom:1px solid rgba(255,255,255,.06);white-space:nowrap}
+#s5 tr.row{opacity:0}
+#s5 .num{text-align:right;font-variant-numeric:tabular-nums}
+#s5 .sum{position:absolute;right:0;bottom:0;left:0;height:118px;display:flex;align-items:center;justify-content:flex-end;gap:60px;padding:0 40px;background:rgba(255,255,255,.04);border-top:1px solid var(--line)}
+#s5 .sum div{text-align:right;font-variant-numeric:tabular-nums}
+#s5 .sum small{display:block;font-size:20px;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+#s5 .sum b{font-size:40px;font-weight:800;font-family:var(--head)}
+#s5 .sum .tot b{color:var(--green);font-size:52px}
+#s5 .stamp{left:0;right:0;top:490px;display:flex;justify-content:center}
+#s5 .stamp span{padding:22px 48px;border:7px solid var(--green);color:var(--green);border-radius:22px;font-family:var(--head);font-weight:800;font-size:96px;transform:rotate(-6deg);background:rgba(18,6,38,.85);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+#s5 .flow{left:180px;top:920px;display:flex;gap:22px;align-items:center;font-size:30px;font-weight:700}
+#s5 .flow .st{display:flex;align-items:center;gap:12px;padding:12px 24px;border-radius:999px;border:2px solid var(--line);color:var(--ink3);background:rgba(0,0,0,.35)}
+#s5 .flow .st i{width:30px;height:30px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-style:normal;font-size:20px}
+#s5 .flow .arrow{color:var(--ink3);font-size:34px}
+
+/* 6 mexXgo */
+#s6 .clip .shade{background:linear-gradient(90deg,rgba(var(--shadeRGB),.6) 0%,rgba(var(--shadeRGB),.2) 45%,rgba(var(--shadeRGB),.1) 100%)}
+#s6 .clip .shade:after{background:linear-gradient(0deg,rgba(var(--shadeRGB),.75) 0%,rgba(var(--shadeRGB),.25) 32%,transparent 60%)}
+#s6 .txt{left:100px;top:110px;width:1000px}
+#s6 .txt .h2{font-size:92px}
+#s6 .txt .app{margin-top:30px;display:flex;gap:16px;align-items:center}
+#s6 .txt .app .pill{font-size:34px}
+#s6 .txt .app span.os{padding:12px 22px;border-radius:12px;border:1px solid var(--line);background:rgba(var(--shadeRGB),.55);font-size:28px;font-weight:600}
+#s6 .list{left:100px;top:740px;width:1300px;display:flex;gap:18px;flex-wrap:wrap}
+#s6 .list .chip{font-size:30px;padding:14px 26px}
+#s6 .list .chip i{width:34px;height:34px;border-radius:50%;background:var(--green);color:#1a0836;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:22px}
+
+/* 7 Schnittstellen */
+#s7 .title{left:0;right:0;top:110px;text-align:center;font-size:88px}
+#s7 .rows{left:0;right:0;top:330px;display:flex;flex-direction:column;align-items:center;gap:26px}
+#s7 .row{display:flex;gap:22px;justify-content:center}
+#s7 .chip{font-size:38px;padding:18px 34px}
+#s7 .chip.hi{background:var(--green);color:#1a0836;border-color:transparent}
+#s7 .chip.hi i{background:#1a0836}
+#s7 .sub{top:800px}
+
+/* 8 KI */
+#s8 .title{left:0;right:0;top:100px;text-align:center;font-size:92px}
+#s8 .cards{left:150px;top:320px;width:1620px;display:flex;gap:28px}
+#s8 .card{flex:1;height:420px;padding:34px 36px;display:flex;flex-direction:column;gap:14px;position:relative}
+#s8 .card .k{font-family:var(--head);font-weight:800;font-size:26px;letter-spacing:.16em;text-transform:uppercase;color:var(--green)}
+#s8 .card b{font-size:44px;font-weight:800;font-family:var(--head);line-height:1.08;letter-spacing:-.02em}
+#s8 .card p{margin:8px 0 0;font-size:27px;color:var(--ink2);line-height:1.3}
+#s8 .card .ic{position:absolute;right:30px;top:28px;width:74px;height:74px;border-radius:20px;background:rgba(180,140,255,.18);display:grid;place-items:center}
+#s8 .card .ic svg{width:44px;height:44px;stroke:var(--green);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+#s8 .sub{top:820px}
+
+/* 9 Split */
+#s9 .panel{top:0;bottom:0;width:960px;overflow:hidden}
+#s9 .pl{left:0}#s9 .pr{left:960px}
+#s9 .panel video{position:absolute;left:0;top:0;width:960px;height:1080px;object-fit:cover}
+#s9 .panel .shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(var(--shadeRGB),.86) 0%,rgba(var(--shadeRGB),.55) 38%,rgba(var(--shadeRGB),.12) 62%,rgba(var(--shadeRGB),.3) 100%)}
+#s9 .panel .info{position:absolute;left:80px;right:60px;bottom:120px}
+#s9 .panel .kicker{font-size:26px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+#s9 .panel h3{font-family:var(--head);font-weight:800;font-size:76px;letter-spacing:-.02em;line-height:1.02;margin:0 0 26px;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+#s9 .panel ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+#s9 .panel li{font-size:33px;font-weight:600;display:flex;align-items:center;gap:16px;text-shadow:0 2px 6px rgba(0,0,0,.9),0 4px 20px rgba(0,0,0,.8)}
+#s9 .panel li i{width:12px;height:12px;border-radius:50%;background:var(--green);flex:none}
+#s9 .divider{left:957px;top:0;width:6px;height:1080px;background:var(--green);box-shadow:0 0 30px rgba(180,140,255,.7);transform-origin:50% 0}
+#s9 .title{left:0;right:0;top:70px;text-align:center;font-size:84px}
+
+/* 10 Versionen & Service */
+#s10 .title{left:0;right:0;top:90px;text-align:center;font-size:84px}
+#s10 .bars{left:120px;top:300px;width:900px;height:380px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+#s10 .bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+#s10 .bar .fill{width:100%;border-radius:16px 16px 6px 6px;background:linear-gradient(0deg,var(--green2),var(--green));transform-origin:50% 100%;box-shadow:0 20px 60px rgba(180,140,255,.25)}
+#s10 .bar .lbl{margin-top:16px;font-family:var(--head);font-weight:800;font-size:30px;text-shadow:0 2px 6px rgba(0,0,0,.9)}
+#s10 .buy{left:120px;top:760px;width:900px;display:flex;gap:18px}
+#s10 .buy .chip{font-size:32px;padding:14px 30px}
+#s10 .svc{left:1120px;top:280px;width:680px;padding:36px 40px}
+#s10 .svc h3{margin:0 0 22px;font-family:var(--head);font-weight:800;font-size:40px;letter-spacing:-.01em}
+#s10 .svc ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:18px}
+#s10 .svc li{font-size:31px;font-weight:500;display:flex;align-items:center;gap:16px}
+#s10 .svc li i{width:38px;height:38px;border-radius:50%;background:var(--green);color:#1a0836;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:24px;flex:none}
+
+/* 11 CTA */
+#s11 .big{left:0;right:0;top:210px;text-align:center;font-size:150px}
+#s11 .stand{left:0;right:0;top:400px;text-align:center;font-size:66px;font-weight:600;color:#fff}
+#s11 .url{left:0;right:0;top:545px;text-align:center;font-family:var(--head);font-weight:800;font-size:130px;letter-spacing:-.03em;color:#d9c6ff}
+#s11 .url span{position:relative;display:inline-block}
+#s11 .contact{left:0;right:0;top:745px;text-align:center;font-size:40px;font-weight:500;color:#fff}
+#s11 .contact b{color:var(--ink);font-weight:600}
+#s11 .logo{left:0;right:0;top:880px;display:flex;justify-content:center}
+#s11 .logo img{height:80px;width:auto;filter:drop-shadow(0 6px 24px rgba(0,0,0,.6))}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"><div id="grid"></div><div class="blob" id="blob1"></div><div class="blob" id="blob2"></div><div id="vignette"></div></div>
+
+  <!-- 1 Hook · Rohrgraben -->
+  <section class="scene" id="s1">
+    <div class="clip" style="--shade:.38"><video data-scene="s1" src="clips/c1.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="lines">
+      <div class="line">Zettelwirtschaft.<div class="strike"></div></div>
+      <div class="line">Excel-Chaos.<div class="strike"></div></div>
+      <div class="line">Abende im Büro.<div class="strike"></div></div>
+    </div>
+    <div class="stamp"><span>Schluss damit.</span></div>
+  </section>
+
+  <!-- 2 Marke · Gartenanlage -->
+  <section class="scene" id="s2">
+    <div class="clip" style="--shade:.3"><video data-scene="s2" src="clips/c2.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="brand">
+      <div class="logo-slot"><img alt="MEXXSOFT Logo" src="assets/logo.svg"><div class="pill badge-x2">X2</div></div>
+      <div class="tag">Die ERP-Software für <em>GaLaBau</em> und <em>Tiefbau</em>.</div>
+      <div class="slogan"><span>Einfach</span><span class="sep">·</span><span>Schnell</span><span class="sep">·</span><span>Professionell</span></div>
+      <div class="facts"><div class="chip"><i></i>Entwickelt in Deutschland</div><div class="chip"><i></i>Für Betriebe jeder Größe</div><div class="chip"><i></i>Version 2026 mit KI</div></div>
+    </div>
+  </section>
+
+  <!-- 3 Prozess · Straßenbau-Drohne -->
+  <section class="scene" id="s3">
+    <div class="clip" style="--shade:.55"><video data-scene="s3" src="clips/c9.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="title h2 ts">Vom ersten Kontakt bis zur <em>Schlussrechnung</em>.</div>
+    <div class="flow">
+      <div class="rail"><div class="fill"></div></div>
+      <div class="steps">
+        <div class="step"><div class="n"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></div><b>Anfrage</b></div>
+        <div class="step"><div class="n"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M8 13h8M8 17h5"/></svg></div><b>Angebot</b></div>
+        <div class="step"><div class="n"><svg viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"/></svg></div><b>Auftrag</b></div>
+        <div class="step"><div class="n"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><b>Einsatz-<br>planung</b></div>
+        <div class="step"><div class="n"><svg viewBox="0 0 24 24"><path d="M3 17 17 3l4 4L7 21H3z"/><path d="m14 6 2 2M11 9l2 2M8 12l2 2"/></svg></div><b>Aufmaß</b></div>
+        <div class="step"><div class="n"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><b>Rechnung</b></div>
+        <div class="step"><div class="n"><svg viewBox="0 0 24 24"><path d="M3 20h18M5 20V9l7-5 7 5v11"/><path d="M10 20v-5h4v5"/></svg></div><b>Buchhaltung &amp;<br>Mahnwesen</b></div>
+      </div>
+    </div>
+    <div class="sub ts">Einmal erfasst – überall verfügbar. Ohne doppelte Eingaben.</div>
+  </section>
+
+  <!-- 4 Module · Büro -->
+  <section class="scene" id="s4">
+    <div class="clip" style="--shade:.55"><video data-scene="s4" src="clips/c7.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="title h2 ts">Alles in <em>einem</em> System.</div>
+    <div class="grid">
+      <div class="card panelbox"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M8 13h8M8 17h5"/></svg><b>Angebot &amp; Rechnung</b><small>Teil-, Abschlags- &amp; Schlussrechnung</small></div>
+      <div class="card panelbox"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M8 15h2M12 15h2M16 15v3M8 18h6"/></svg><b>Kalkulation &amp; Nachkalkulation</b><small>Lohn, Material, Geräte, Zuschläge</small></div>
+      <div class="card panelbox"><svg viewBox="0 0 24 24"><path d="M3 17 17 3l4 4L7 21H3z"/><path d="m14 6 2 2M11 9l2 2M8 12l2 2"/></svg><b>Aufmaß</b><small>REB-konform, mit Mengenberechnung</small></div>
+      <div class="card panelbox"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 9v11"/></svg><b>AVA &amp; Nachträge</b><small>Ausschreibung, Vergabe, Nachtragsverwaltung</small></div>
+      <div class="card panelbox"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 15h3"/></svg><b>Einsatzplanung</b><small>Kolonnen, Maschinen, Termine</small></div>
+      <div class="card panelbox"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h6M9 16h6"/></svg><b>Bautagebuch &amp; digitale Bauakte</b><small>Dokumente, Fotos, Berichte je Projekt</small></div>
+      <div class="card panelbox"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b>Zeit &amp; Lohn</b><small>Stunden erfassen, Löhne abrechnen</small></div>
+      <div class="card panelbox"><svg viewBox="0 0 24 24"><path d="m3 8 9-5 9 5-9 5z"/><path d="M3 8v8l9 5 9-5V8M12 13v8"/></svg><b>Warenwirtschaft &amp; Kataloge</b><small>Artikel, Pflanzen, Lieferanten</small></div>
+    </div>
+    <div class="sub ts">Plus Kunden- &amp; Terminverwaltung, Schriftverkehr, Controlling und Buchhaltung.</div>
+  </section>
+
+  <!-- 5 Angebot in Aktion · Gartenanlage -->
+  <section class="scene" id="s5">
+    <div class="clip" style="--shade:.55"><video data-scene="s5" data-rate="0.9" src="clips/c2.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="title h2 ts">So schnell steht ein Angebot.<small>Positionen aus Katalogen und Leistungsverzeichnissen – Preise werden automatisch kalkuliert.</small></div>
+    <div class="win">
+      <div class="bar"><i></i><i></i><i></i><span>Angebot 2026-0815 · Außenanlage &amp; Erschließung Familie Müller</span></div>
+      <table>
+        <thead><tr><th>Pos.</th><th>Bezeichnung</th><th class="num">Menge</th><th>Einheit</th><th class="num">EP</th><th class="num">GP</th></tr></thead>
+        <tbody>
+          <tr class="row"><td>1</td><td>Oberboden abtragen und seitlich lagern</td><td class="num">120,00</td><td>m²</td><td class="num">8,50 €</td><td class="num">1.020,00 €</td></tr>
+          <tr class="row"><td>2</td><td>Rohrgraben ausheben, 1,20 m tief, inkl. Verbau</td><td class="num">45,00</td><td>m</td><td class="num">38,00 €</td><td class="num">1.710,00 €</td></tr>
+          <tr class="row"><td>3</td><td>Pflasterfläche Betonstein 8 cm, inkl. Bettung</td><td class="num">85,00</td><td>m²</td><td class="num">64,90 €</td><td class="num">5.516,50 €</td></tr>
+          <tr class="row"><td>4</td><td>Rasenfläche ansäen inkl. Feinplanum</td><td class="num">240,00</td><td>m²</td><td class="num">6,20 €</td><td class="num">1.488,00 €</td></tr>
+          <tr class="row"><td>5</td><td>Baustelleneinrichtung</td><td class="num">1,00</td><td>psch</td><td class="num">650,00 €</td><td class="num">650,00 €</td></tr>
+        </tbody>
+      </table>
+      <div class="sum">
+        <div><small>Netto</small><b id="sumNet">0,00 €</b></div>
+        <div><small>MwSt. 19 %</small><b id="sumTax">0,00 €</b></div>
+        <div class="tot"><small>Gesamt</small><b id="sumTot">0,00 €</b></div>
+      </div>
+    </div>
+    <div class="stamp"><span>Angebot versendet ✓</span></div>
+    <div class="flow">
+      <div class="st"><i>1</i>Angebot</div><span class="arrow">→</span>
+      <div class="st"><i>2</i>Auftrag</div><span class="arrow">→</span>
+      <div class="st"><i>3</i>Aufmaß</div><span class="arrow">→</span>
+      <div class="st"><i>4</i>Rechnung</div><span class="arrow">→</span>
+      <div class="st"><i>5</i>E-Rechnung</div>
+    </div>
+  </section>
+
+  <!-- 6 mexXgo · Polier mit Tablet -->
+  <section class="scene" id="s6">
+    <div class="clip"><video data-scene="s6" src="clips/c3.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="txt">
+      <div class="h2 ts">Büro und Baustelle.<br><em>Verbunden.</em></div>
+      <div class="app"><span class="pill">mexXgo App</span><span class="os">iOS</span><span class="os">Android</span></div>
+    </div>
+    <div class="list">
+      <div class="chip"><i>✓</i>Arbeitszeiten mobil erfassen</div>
+      <div class="chip"><i>✓</i>Fotos direkt in die Bauakte</div>
+      <div class="chip"><i>✓</i>Rapporte &amp; Tagesberichte vor Ort unterschreiben</div>
+      <div class="chip"><i>✓</i>Kundendaten &amp; LV immer dabei</div>
+    </div>
+  </section>
+
+  <!-- 7 Schnittstellen · Baubesprechung -->
+  <section class="scene" id="s7">
+    <div class="clip" style="--shade:.5"><video data-scene="s7" src="clips/c10.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="title h2 ts">Verbunden mit <em>Ihrer</em> Welt.</div>
+    <div class="rows">
+      <div class="row"><div class="chip"><i></i>GAEB</div><div class="chip"><i></i>Datanorm</div><div class="chip"><i></i>DATEV</div><div class="chip"><i></i>Excel</div><div class="chip"><i></i>REB</div></div>
+      <div class="row"><div class="chip hi"><i></i>E-Rechnung: ZUGFeRD 2.x</div><div class="chip hi"><i></i>XRechnung</div><div class="chip"><i></i>DA11 · X31</div></div>
+      <div class="row"><div class="chip"><i></i>Pflanzenkataloge Bruns &amp; GBF</div><div class="chip"><i></i>Lieferantenkataloge</div><div class="chip"><i></i>Steuerberater-Export</div></div>
+    </div>
+    <div class="sub ts">Ausschreibungen einlesen, Kataloge übernehmen, E-Rechnungen versenden – ohne Umwege.</div>
+  </section>
+
+  <!-- 8 KI · Kundengespräch mit Tablet -->
+  <section class="scene" id="s8">
+    <div class="clip" style="--shade:.45"><video data-scene="s8" src="clips/c8.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="title h2 ts">Version 2026: <em>mit KI</em>.</div>
+    <div class="cards">
+      <div class="card panelbox"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="m12 8 4 4"/></svg></div><div class="k">KI-Texte</div><b>Anschreiben &amp; Positionstexte in Sekunden</b><p>Formulieren, umformulieren, kürzen – direkt im Dokument.</p></div>
+      <div class="card panelbox"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></div><div class="k">Förder-KI</div><b>Passende Förderprogramme finden</b><p>Automatische Suche für Ihre Projekte und Kunden.</p></div>
+      <div class="card panelbox"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="m3 15 5-5 4 4 3-3 6 6"/></svg></div><div class="k">Sketch</div><b>KI-Visualisierung für Ihre Kunden</b><p>Den fertigen Garten zeigen, bevor der Bagger kommt.</p></div>
+    </div>
+    <div class="sub ts">Überzeugen Sie im Kundengespräch – mit Bildern statt Worten.</div>
+  </section>
+
+  <!-- 9 GaLaBau | Tiefbau -->
+  <section class="scene" id="s9">
+    <div class="panel pl">
+      <video data-scene="s9" src="clips/c4.webm" muted playsinline preload="auto"></video><div class="shade"></div>
+      <div class="info"><div class="kicker">Garten- &amp; Landschaftsbau</div><h3>GaLaBau</h3>
+        <ul><li><i></i>Pflanz-, Pflaster- und Rasenflächen kalkulieren</li><li><i></i>Pflanzenkataloge Bruns &amp; GBF integriert</li><li><i></i>Pflege- und Wartungsaufträge abrechnen</li></ul></div>
+    </div>
+    <div class="panel pr">
+      <video data-scene="s9" src="clips/c5.webm" muted playsinline preload="auto"></video><div class="shade"></div>
+      <div class="info"><div class="kicker">Tief- &amp; Straßenbau</div><h3>Tiefbau</h3>
+        <ul><li><i></i>GAEB-Ausschreibungen einlesen und anbieten</li><li><i></i>REB-Aufmaß, Nachträge, Abschlagsrechnungen</li><li><i></i>Maschinen- und Kolonnenstunden erfassen</li></ul></div>
+    </div>
+    <div class="divider"></div>
+    <div class="title h2 ts">Zwei Gewerke. <em>Eine</em> Software.</div>
+  </section>
+
+  <!-- 10 Versionen & Service · Park -->
+  <section class="scene" id="s10">
+    <div class="clip" style="--shade:.55"><video data-scene="s10" src="clips/c6.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="title h2 ts">Wächst mit Ihrem Betrieb. <em>Mit Service.</em></div>
+    <div class="bars">
+      <div class="bar" data-h=".30"><div class="fill"></div><div class="lbl">Easy</div></div>
+      <div class="bar" data-h=".47"><div class="fill"></div><div class="lbl">Standard</div></div>
+      <div class="bar" data-h=".64"><div class="fill"></div><div class="lbl">Premium</div></div>
+      <div class="bar" data-h=".82"><div class="fill"></div><div class="lbl">Pro</div></div>
+      <div class="bar" data-h="1"><div class="fill"></div><div class="lbl">Enterprise</div></div>
+    </div>
+    <div class="buy"><div class="chip"><i></i>Kaufen</div><div class="chip"><i></i>Mieten</div><div class="chip"><i></i>Kostenlos testen</div></div>
+    <div class="svc panelbox">
+      <h3>Wir lassen Sie nicht allein.</h3>
+      <ul>
+        <li><i>✓</i>Kostenlose Demoversion</li>
+        <li><i>✓</i>Vorführung vor Ort oder online</li>
+        <li><i>✓</i>Support &amp; Fernwartung</li>
+        <li><i>✓</i>Webinare &amp; Lehrvideos</li>
+        <li><i>✓</i>Einzelplatz oder Server-Lösung</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 11 CTA · Straßenbau-Drohne -->
+  <section class="scene" id="s11">
+    <div class="clip" style="--shade:.35"><video data-scene="s11" data-offset="3" src="clips/c9.webm" muted playsinline preload="auto"></video><div class="shade"></div></div>
+    <div class="big h1 ts">Jetzt live erleben.</div>
+    <div class="stand ts" id="standText"></div>
+    <div class="url ts"><span>www.mexxsoft.com</span></div>
+    <div class="contact ts"><b>info@mexxsoft.com</b> &nbsp;·&nbsp; <b>+49 6321 9152390</b> &nbsp;·&nbsp; mexXsoft GmbH, Haßloch</div>
+    <div class="logo"><img src="assets/logo.svg" alt=""></div>
+  </section>
+
+  <div id="foot"><div class="l"><span class="dot"></span><span>mexXsoft X2 · Die ERP-Software für GaLaBau &amp; Tiefbau</span></div><div class="r">www.mexxsoft.com</div></div>
+</div>
+
+<script>
+const CONFIG = {
+  standText: 'Direkt hier am Stand – Live-Demo in 5 Minuten.',
+  duration: 68,
+};
+document.getElementById('standText').textContent = CONFIG.standText;
+
+const D = CONFIG.duration;
+const EASE_OUT = 'cubic-bezier(.16,1,.3,1)', EASE_IN = 'cubic-bezier(.7,0,.84,0)', EASE_IO = 'cubic-bezier(.65,0,.35,1)', EASE_POP = 'cubic-bezier(.34,1.56,.64,1)';
+const anims = [], ticks = [];
+function anim(el, keyframes, at, dur, easing){ const a = el.animate(keyframes, {delay: at*1000, duration: Math.max(dur,0.001)*1000, fill:'both', easing: easing || 'linear'}); a.pause(); anims.push(a); return a; }
+function show(el, o){
+  const {at, dur, inD=.6, outD=.4, inEase=EASE_OUT, outEase=EASE_IN} = o;
+  const from = o.from || {opacity:0, transform:'translateY(40px)'};
+  const to   = o.to   || {opacity:1, transform:'translateY(0px)'};
+  const exit = o.exit || {opacity:0, transform:(o.to && o.to.transform) ? o.to.transform : 'translateY(-24px)'};
+  return anim(el, [
+    {...from, offset:0, easing:inEase},
+    {...to,   offset:Math.min(inD/dur, .999)},
+    {...to,   offset:Math.max(Math.min((dur-outD)/dur, 1), Math.min(inD/dur, .999)), easing:outEase},
+    {...exit, offset:1},
+  ], at, dur);
+}
+const $ = s => document.querySelector(s), $$ = s => Array.from(document.querySelectorAll(s));
+const clamp = (v,a,b)=>Math.max(a,Math.min(b,v)), easeOutCubic = x => 1-Math.pow(1-x,3);
+const eur = n => n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+
+const T = {
+  s1:[0.0, 5.2], s2:[5.0, 10.6], s3:[10.4, 17.6], s4:[17.4, 25.6], s5:[25.4, 34.2], s6:[34.0, 41.2],
+  s7:[41.0, 47.2], s8:[47.0, 53.2], s9:[53.0, 59.2], s10:[59.0, 64.4], s11:[64.2, 68.0],
+};
+function scene(id, o={}){
+  const [a,b] = T[id];
+  show($('#'+id), {at:a, dur:b-a, inD:o.inD??.45, outD:o.outD??.4, from:{opacity:0, transform:'none'}, to:{opacity:1, transform:'none'}, exit:{opacity:0, transform:'none'}, inEase:EASE_IO, outEase:EASE_IO});
+  return {a, b, in(el, rel, opt={}){ return show(el, {at:a+rel, dur:(b-a)-rel, outD:0, ...opt}); }};
+}
+const pop = {inD:.55, inEase:EASE_POP, from:{opacity:0, transform:'translateY(50px) scale(.9)'}, to:{opacity:1, transform:'translateY(0) scale(1)'}};
+
+ticks.push(t=>{ const w = 2*Math.PI*t/D;
+  $('#grid').style.backgroundPosition = `${(t*10)%80}px ${(t*10)%80}px`;   // 68 s * 10 px = 680 = 8.5*80 -> Restversatz 40 px ist bei 10 % Deckkraft unsichtbar
+  $('#blob1').style.transform = `translate(${Math.sin(w)*260}px, ${Math.cos(w*2)*140}px)`;
+  $('#blob2').style.transform = `translate(${Math.cos(w)*-300}px, ${Math.sin(w*3)*120}px)`; });
+
+{ const s = scene('s1', {inD:.4});
+  $$('#s1 .line').forEach((el,i)=>{
+    s.in(el, .25+i*.8, {inD:.55, from:{opacity:0, transform:'translateY(70px) scale(1.12)'}, to:{opacity:1, transform:'translateY(0) scale(1)'}});
+    anim(el.querySelector('.strike'), [{transform:'scaleX(0)'},{transform:'scaleX(1)'}], s.a+3.05+i*.12, .32, EASE_OUT);
+    anim(el, [{color:'#ffffff'},{color:'#cfc3e6'}], s.a+3.2+i*.12, .3); });
+  s.in($('#s1 .stamp'), 3.55, {inD:.45, inEase:EASE_POP, from:{opacity:0, transform:'scale(1.9)'}, to:{opacity:1, transform:'scale(1)'}}); }
+
+{ const s = scene('s2');
+  s.in($('#s2 .logo-slot'), .15, {inD:.9, from:{opacity:0, transform:'scale(.82)', filter:'blur(24px)'}, to:{opacity:1, transform:'scale(1)', filter:'blur(0px)'}});
+  s.in($('.badge-x2'), .9, {inD:.5, inEase:EASE_POP, from:{opacity:0, transform:'scale(.3) rotate(12deg)'}, to:{opacity:1, transform:'scale(1) rotate(0deg)'}});
+  s.in($('#s2 .tag'), 1.3, {inD:.6});
+  $$('#s2 .slogan span').forEach((el,i)=> s.in(el, 1.7+i*.12, {inD:.5, from:{opacity:0, transform:'translateY(18px)'}}));
+  $$('#s2 .facts .chip').forEach((el,i)=> s.in(el, 2.6+i*.2, pop)); }
+
+{ const s = scene('s3');
+  s.in($('#s3 .title'), .15, {inD:.6});
+  anim($('#s3 .rail .fill'), [{transform:'scaleX(0)'},{transform:'scaleX(1)'}], s.a+.9, 3.2);
+  $$('#s3 .step').forEach((el,i)=> s.in(el, .8+i*.45, pop));
+  s.in($('#s3 .sub'), 4.4, {inD:.6}); }
+
+{ const s = scene('s4');
+  s.in($('#s4 .title'), .15, {inD:.6});
+  $$('#s4 .card').forEach((el,i)=> s.in(el, .6+i*.14, pop));
+  s.in($('#s4 .sub'), 2.6, {inD:.6}); }
+
+{ const s = scene('s5');
+  s.in($('#s5 .title'), .15, {inD:.6});
+  s.in($('#s5 .win'), .35, {inD:.8, from:{opacity:0, transform:'translateY(80px) scale(.97)'}, to:{opacity:1, transform:'translateY(0) scale(1)'}});
+  $$('#s5 tr.row').forEach((el,i)=> s.in(el, 1.2+i*.42, {inD:.4, from:{opacity:0, transform:'translateX(-30px)'}, to:{opacity:1, transform:'translateX(0)'}}));
+  const NET = 10384.50;
+  ticks.push(t=>{ const p = easeOutCubic(clamp((t-(s.a+3.3))/1.3, 0, 1)); const net = Math.round(NET*p*100)/100, tax = Math.round(net*19)/100;
+    $('#sumNet').textContent = eur(net); $('#sumTax').textContent = eur(tax); $('#sumTot').textContent = eur(net+tax); });
+  s.in($('#s5 .stamp'), 5.0, {inD:.45, inEase:EASE_POP, from:{opacity:0, transform:'scale(2.2) rotate(6deg)'}, to:{opacity:1, transform:'scale(1) rotate(0deg)'}});
+  s.in($('#s5 .flow'), .6, {inD:.6});
+  $$('#s5 .flow .st').forEach((el,i)=> anim(el, [{color:'#8a7aa6', borderColor:'rgba(255,255,255,.13)', background:'rgba(0,0,0,.35)'},{color:'#1a0836', borderColor:'#b48cff', background:'#b48cff'}], s.a+5.4+i*.5, .35, EASE_OUT)); }
+
+{ const s = scene('s6');
+  s.in($('#s6 .txt .h2'), .3, {inD:.7, from:{opacity:0, transform:'translateX(-60px)'}, to:{opacity:1, transform:'translateX(0)'}});
+  s.in($('#s6 .txt .app'), .9, {inD:.6});
+  $$('#s6 .list .chip').forEach((el,i)=> s.in(el, 1.4+i*.35, pop)); }
+
+{ const s = scene('s7');
+  s.in($('#s7 .title'), .15, {inD:.6});
+  $$('#s7 .chip').forEach((el,i)=> s.in(el, .6+i*.16, pop));
+  s.in($('#s7 .sub'), 2.8, {inD:.6}); }
+
+{ const s = scene('s8');
+  s.in($('#s8 .title'), .15, {inD:.6});
+  $$('#s8 .card').forEach((el,i)=> s.in(el, .7+i*.35, pop));
+  s.in($('#s8 .sub'), 2.6, {inD:.6}); }
+
+{ const s = scene('s9', {inD:.3});
+  s.in($('#s9 .pl'), 0, {inD:.9, from:{opacity:0, transform:'translateX(-120px)'}, to:{opacity:1, transform:'translateX(0)'}});
+  s.in($('#s9 .pr'), .1, {inD:.9, from:{opacity:0, transform:'translateX(120px)'}, to:{opacity:1, transform:'translateX(0)'}});
+  anim($('#s9 .divider'), [{transform:'scaleY(0)'},{transform:'scaleY(1)'}], s.a+.5, .7, EASE_OUT);
+  s.in($('#s9 .title'), .7, {inD:.7, from:{opacity:0, transform:'translateY(-30px)'}});
+  $$('#s9 .panel').forEach((p,pi)=>{ s.in(p.querySelector('.kicker'), 1.1+pi*.15, {inD:.5}); s.in(p.querySelector('h3'), 1.25+pi*.15, {inD:.6});
+    p.querySelectorAll('li').forEach((li,i)=> s.in(li, 1.7+pi*.15+i*.3, {inD:.5, from:{opacity:0, transform:'translateX(-30px)'}, to:{opacity:1, transform:'translateX(0)'}})); }); }
+
+{ const s = scene('s10');
+  s.in($('#s10 .title'), .15, {inD:.6});
+  $$('#s10 .bar').forEach((el,i)=>{ el.querySelector('.fill').style.height = Math.round(parseFloat(el.dataset.h)*300)+'px';
+    s.in(el, .5+i*.1, {inD:.4, from:{opacity:0, transform:'translateY(20px)'}});
+    anim(el.querySelector('.fill'), [{transform:'scaleY(0)'},{transform:'scaleY(1)'}], s.a+.6+i*.14, .7, EASE_OUT); });
+  $$('#s10 .buy .chip').forEach((el,i)=> s.in(el, 1.6+i*.15, pop));
+  s.in($('#s10 .svc'), .8, {inD:.7, from:{opacity:0, transform:'translateX(60px)'}, to:{opacity:1, transform:'translateX(0)'}});
+  $$('#s10 .svc li').forEach((el,i)=> s.in(el, 1.3+i*.25, {inD:.45, from:{opacity:0, transform:'translateX(30px)'}, to:{opacity:1, transform:'translateX(0)'}})); }
+
+{ const s = scene('s11', {outD:.6});
+  s.in($('#s11 .big'), .15, {inD:.7, from:{opacity:0, transform:'translateY(50px) scale(.96)'}, to:{opacity:1, transform:'translateY(0) scale(1)'}});
+  s.in($('#s11 .stand'), .6, {inD:.6});
+  s.in($('#s11 .url'), 1.0, {inD:.7, inEase:EASE_POP, from:{opacity:0, transform:'scale(.85)'}, to:{opacity:1, transform:'scale(1)'}});
+  s.in($('#s11 .contact'), 1.5, {inD:.6});
+  s.in($('#s11 .logo'), 1.8, {inD:.6});
+  const u = document.createElement('div');
+  Object.assign(u.style, {position:'absolute', left:'0', right:'0', bottom:'-6px', height:'12px', borderRadius:'6px', background:'var(--green)', transformOrigin:'0 50%', transform:'scaleX(0)'});
+  $('#s11 .url span').appendChild(u);
+  anim(u, [{transform:'scaleX(0)'},{transform:'scaleX(1)'}], s.a+1.55, .6, EASE_OUT); }
+
+/* ---------- Video-Hintergründe ---------- */
+const videos = $$('video[data-scene]');
+const canvases = new Map();
+if(window.__RENDER){ document.getElementById('stage').classList.add('render');
+  for(const v of videos){ const c = document.createElement('canvas'); c.className = 'vframe'; v.after(c); canvases.set(v, c); } }
+function drawFrame(v){ const c = canvases.get(v); if(!c || v.readyState < 2 || !v.videoWidth) return;
+  const W = c.clientWidth || 1920, H = c.clientHeight || 1080; if(c.width !== W || c.height !== H){ c.width = W; c.height = H; }
+  const vw = v.videoWidth, vh = v.videoHeight, sc = Math.max(W/vw, H/vh), sw = W/sc, sh = H/sc;
+  c.getContext('2d').drawImage(v, (vw-sw)/2, (vh-sh)/2, sw, sh, 0, 0, W, H); }
+function clipActive(v, t){ const [a,b] = T[v.dataset.scene]; return t >= a-.6 && t <= b+.6; }
+function clipTime(v, t){ const a = T[v.dataset.scene][0], rate = parseFloat(v.dataset.rate||'1'), off = parseFloat(v.dataset.offset||'0');
+  const dur = (isFinite(v.duration) && v.duration>0) ? v.duration : 8; return clamp((t - a)*rate + off, 0, dur - .06); }
+function seekVideo(v, time){ return new Promise(res=>{
+    if(v.readyState < 1) return res();
+    if(Math.abs(v.currentTime - time) < .0005) return res();
+    let done = false;
+    const fin = ()=>{ if(done) return; done = true; clearTimeout(to); v.removeEventListener('seeked', fin);
+      if(typeof v.requestVideoFrameCallback === 'function'){ const to2 = setTimeout(res, 400); v.requestVideoFrameCallback(()=>{ clearTimeout(to2); res(); }); } else res(); };
+    const to = setTimeout(fin, 3000); v.addEventListener('seeked', fin); v.currentTime = time; }); }
+
+function seek(t){
+  t = ((t % D) + D) % D;
+  for(const a of anims) a.currentTime = t*1000;
+  for(const f of ticks) f(t);
+  if(window.__RENDER){ const act = videos.filter(v => clipActive(v,t));
+    return Promise.all(act.map(v => seekVideo(v, clipTime(v,t)))).then(()=>{ for(const v of act) drawFrame(v); }); }
+  for(const v of videos){ const act = clipActive(v,t);
+    if(act && v.paused){ v.currentTime = clipTime(v,t); v.play().catch(()=>{}); } else if(!act && !v.paused){ v.pause(); } }
+}
+window.__seek = seek; window.__DURATION = D;
+
+function fit(){ const sc = Math.min(innerWidth/1920, innerHeight/1080); const st = document.getElementById('stage');
+  st.style.transform = `translate(${(innerWidth-1920*sc)/2}px, ${(innerHeight-1080*sc)/2}px) scale(${sc})`; }
+if(!window.__RENDER){ fit(); addEventListener('resize', fit);
+  document.fonts.ready.then(()=>{ const t0 = performance.now(); (function loop(){ seek((performance.now()-t0)/1000); requestAnimationFrame(loop); })(); });
+  addEventListener('keydown', e=>{ if(e.key==='f'||e.key==='F') document.documentElement.requestFullscreen?.(); });
+  addEventListener('dblclick', ()=> document.documentElement.requestFullscreen?.());
+} else { seek(0); }
+</script>
+</body>
+</html>

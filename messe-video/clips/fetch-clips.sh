@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Lädt die sechs exklusiv mit Higgsfield (Seedance 2.5, 1080p, 8 s, ohne Ton) erzeugten Clips
+# Lädt die zehn exklusiv mit Higgsfield (Seedance 2.5, 1080p, 8 s, ohne Ton) erzeugten Clips
 # und wandelt sie in WebM/VP9 um, damit sie im Render-Browser (Chromium ohne H.264/HEVC) laufen.
 #
 #   cd messe-video && bash clips/fetch-clips.sh
@@ -16,9 +16,13 @@ declare -A URLS=(
   [c4]="https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260915_095230_2ae729f3-c8eb-45dd-80fa-7a43717aa572.mp4"  # GaLaBau: Pflastern, Rollrasen, Hecke
   [c5]="https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260915_095230_dcfaf8de-1ae3-4181-bdf0-9771e033c602.mp4"  # Tiefbau: Asphaltfertiger, Drohne
   [c6]="https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260915_095217_04115428-c62c-4f39-90ff-920fe04de939.mp4"  # Park im Morgenlicht
+  [c7]="https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260916_050618_c4c2d978-3adb-41d9-aee4-7048b3538837.mp4"  # Büro eines GaLaBau-Betriebs (v3)
+  [c8]="https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260916_050618_800028dd-ac09-4fde-8557-785aea150391.mp4"  # Kundengespräch mit Tablet-Visualisierung (v3)
+  [c9]="https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260916_050618_cb9b7c90-97fd-4a32-bf9a-bb95414498e5.mp4"  # Drohne: neue Straße, Pflaster und Rohrgraben (v3)
+  [c10]="https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260916_050618_ff8cdb98-81ff-40da-a01a-8e7a899f4a83.mp4"  # Baubesprechung am Bauplan (v3)
 )
 
-for k in c1 c2 c3 c4 c5 c6; do
+for k in c1 c2 c3 c4 c5 c6 c7 c8 c9 c10; do
   [ -f "$k.mp4" ] || curl -fL --retry 3 -o "$k.mp4" "${URLS[$k]}"
   if [ ! -f "$k.webm" ]; then
     "$FF" -y -hide_banner -loglevel error -i "$k.mp4" -an \
