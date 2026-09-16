@@ -30,11 +30,10 @@ PIN ändern: config.json neben der .exe öffnen und "pin" anpassen (z. B. "1234"
 
 Ohne Webcam (Karten-Modus, automatisch):
             Gibt es keine Kamera, zeigt das Programm nach jeweils 60 s Video ("videoSeconds")
-            22 s lang drei Karten ("cardsSeconds"): Schätzfrage -> Auflösung -> Countdown
-            "Nächste Live-Demo in 03:12". Der Countdown läuft in "demoIntervalMinutes"-Schritten
-            (Standard 10 Minuten, an der vollen Uhrzeit ausgerichtet) und ist während des Videos
-            oben rechts als Plakette zu sehen. Bitte dann auch alle 10 Minuten kurz etwas zeigen –
-            oder "demoIntervalMinutes": 0 setzen, dann steht dort "Live-Demo? Jederzeit."
+            22 s lang drei Karten ("cardsSeconds"): Schätzfrage -> Auflösung -> Knall-Karte
+            ("E-Rechnung? mexXsoft ist bereit.", "Wo ist Ihr Bagger gerade? inFleet weiß es." ...).
+            Optional "demoIntervalMinutes": 10 -> statt der Knall-Karte ein Countdown "Nächste
+            Vorführung in 03:12" (auch als Plakette oben rechts im Video). Standard: 0 = aus.
             Eigene Fragen: "quiz": [{"q": "Frage?", "a": "Antwort."}, ...]
 
 Zu dunkel?  In config.json "brightness" erhöhen: 1.2 = 20 % heller, 1.5 = 50 % heller

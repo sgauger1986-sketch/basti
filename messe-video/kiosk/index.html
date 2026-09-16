@@ -35,7 +35,7 @@
   #cards .q{font-size:6.2vw;font-weight:800;line-height:1.05;letter-spacing:-.03em;max-width:88vw}
   #cards .a{font-size:5.4vw;font-weight:800;line-height:1.08;letter-spacing:-.02em;max-width:88vw;margin-top:2vh}
   #cards .cd{font-size:16vw;font-weight:800;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:#ffb020;text-shadow:0 8px 40px rgba(0,0,0,.5)}
-  #cards .cd.small{font-size:7vw;color:#fff}
+  #cards .cd.small{font-size:11vw;color:#ffb020;line-height:1.05}
   #cards .sub{font-size:3vw;font-weight:600;margin-top:3vh;opacity:.9}
   #cards .slam{animation:slam .5s cubic-bezier(.34,1.56,.64,1)}
   @keyframes slam{0%{transform:scale(2.2);opacity:0}100%{transform:scale(1);opacity:1}}
@@ -73,14 +73,14 @@
   <div id="logo">MEXXSOFT X2</div>
   <div class="top" id="pl"></div>
   <div id="burst"></div>
-  <div class="bar"><span class="b">Live-Demo hier am Stand · 5 Minuten</span><span class="t">GaLaBau &amp; Tiefbau · E-Rechnung · inFleet</span></div>
+  <div class="bar"><span class="b">Hier am Stand · einfach ansprechen</span><span class="t">GaLaBau &amp; Tiefbau · E-Rechnung · inFleet</span></div>
 </div>
 <canvas id="mc" width="64" height="36" style="display:none"></canvas>
 <div id="cards">
   <div class="card o" id="cq"><div class="pill">Schätzfrage</div><div class="q" id="qq"></div><div class="sub">Auflösung in wenigen Sekunden …</div></div>
   <div class="card v" id="ca"><div class="pill">Auflösung</div><div class="q" id="aq"></div><div class="a slam" id="aa"></div></div>
-  <div class="card l" id="cc"><div class="pill">Live-Demo</div><div id="ct1" class="q">Nächste Live-Demo in</div><div class="cd" id="cd"></div><div class="sub">Hier am Stand · 5 Minuten · einfach ansprechen</div></div>
-  <div class="foot"><b>Live-Demo hier am Stand · 5 Minuten</b><span>mexXsoft X2 · GaLaBau &amp; Tiefbau · E-Rechnung · inFleet</span></div>
+  <div class="card l" id="cc"><div class="pill" id="cpill">mexXsoft X2</div><div id="ct1" class="q"></div><div class="cd" id="cd"></div><div class="sub" id="csub">Hier am Stand · einfach ansprechen</div></div>
+  <div class="foot"><b>Hier am Stand · einfach ansprechen</b><span>mexXsoft X2 · GaLaBau &amp; Tiefbau · E-Rechnung · inFleet</span></div>
   <div class="flash" id="cflash"></div>
 </div>
 <div id="demo"></div>
@@ -124,13 +124,13 @@
   if (!Array.isArray(PUNCH) || !PUNCH.length) PUNCH = [
     'Sie da! <em>Ja, Sie.</em>', 'Noch Excel auf der Baustelle?', 'Rechnungen abends am <em>Küchentisch?</em>',
     'E-Rechnung wird Pflicht. <em>2027.</em>', 'Wo ist Ihr Bagger <em>gerade?</em>', 'Aufmaß rein. <em>Rechnung raus.</em>',
-    '<em>5 Minuten.</em> Dann wissen Sie es.', 'Lächeln – Sie sind auf dem <em>Messe-Bildschirm.</em>',
+    'E-Rechnung? <em>mexXsoft ist bereit.</em>', 'Lächeln – Sie sind auf dem <em>Messe-Bildschirm.</em>',
   ];
   const BURSTS = ['HALLO!', 'HEY!', 'MOMENT!', 'JA, SIE!', 'STOPP!'];
   const cam = document.getElementById('cam'), mir = document.getElementById('mir'), pl = document.getElementById('pl'), burst = document.getElementById('burst');
   const mc = document.getElementById('mc'), mctx = mc.getContext('2d', { willReadFrequently: true });
   let mirrorOn = false, camOk = false, plIdx = 0, plTimer = null, phaseTimer = null, prev = null, lastBurst = 0, burstTimer = null;
-  const BURST_TEXTS = ['Bleiben Sie kurz stehen.', 'Wir zeigen es Ihnen in 5 Minuten.', 'Live-Demo direkt hier.', 'Eine Frage, eine Antwort.'];
+  const BURST_TEXTS = ['Bleiben Sie kurz stehen.', 'Einfach ansprechen.', 'Eine Frage, eine Antwort.'];
   function nextPunch(){ pl.classList.remove('on'); setTimeout(() => { pl.innerHTML = PUNCH[plIdx++ % PUNCH.length]; pl.classList.add('on'); }, 350); }
   function showBurst(){ const now = Date.now(); if (now - lastBurst < 7000) return; lastBurst = now;
     burst.innerHTML = BURSTS[Math.floor(Math.random()*BURSTS.length)] + '<small>' + BURST_TEXTS[Math.floor(Math.random()*BURST_TEXTS.length)] + '</small>';
@@ -171,13 +171,14 @@
   const cq = document.getElementById('cq'), ca = document.getElementById('ca'), cc = document.getElementById('cc'), cflash = document.getElementById('cflash');
   let cardsOn = false, quizIdx = 0, cardTimers = [];
   function demoLeft(){ const T = DEMO_MIN * 60000; const left = T - (Date.now() % T); const s = Math.ceil(left / 1000); return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
-  setInterval(() => { if (!DEMO_MIN) return; const t = demoLeft(); document.getElementById('cd').textContent = t; demoBadge.textContent = 'Nächste Live-Demo in ' + t; }, 250);
+  setInterval(() => { if (!DEMO_MIN) return; const t = demoLeft(); document.getElementById('cd').textContent = t; demoBadge.textContent = 'Nächste Vorführung in ' + t; }, 250);
   function showCard(el){ [cq, ca, cc].forEach(c => c.classList.remove('on')); cflash.classList.remove('on'); void cflash.offsetWidth; cflash.classList.add('on'); el.classList.add('on');
     const sl = el.querySelector('.slam'); if (sl) { sl.style.animation = 'none'; void sl.offsetWidth; sl.style.animation = ''; } }
   function startCards(){ cardsOn = true; v.pause(); v.style.display = 'none'; demoBadge.classList.remove('on'); cards.classList.add('on');
     const item = QUIZ[quizIdx++ % QUIZ.length]; document.getElementById('qq').innerHTML = item.q; document.getElementById('aq').innerHTML = item.q; document.getElementById('aa').innerHTML = item.a;
-    if (DEMO_MIN) { document.getElementById('ct1').textContent = 'Nächste Live-Demo in'; document.getElementById('cd').classList.remove('small'); }
-    else { document.getElementById('ct1').textContent = 'Live-Demo?'; const cd = document.getElementById('cd'); cd.classList.add('small'); cd.textContent = 'Jederzeit. Einfach ansprechen.'; }
+    const BOOM = [['E-Rechnung?', 'mexXsoft ist bereit.', 'ZUGFeRD 2.x · XRechnung · Empfangen & Versenden'], ['Wo ist Ihr Bagger gerade?', 'inFleet weiß es.', 'GPS-Fahrzeugortung · neu bei mexXsoft'], ['Noch Excel auf der Baustelle?', 'Nie wieder.', 'mexXsoft X2 · GaLaBau & Tiefbau'], ['Neu.', 'MyOneQrew.', 'Ein Login, alle Helfer']];
+    if (DEMO_MIN) { document.getElementById('cpill').textContent = 'Vorführung'; document.getElementById('ct1').textContent = 'Nächste Vorführung in'; document.getElementById('cd').classList.remove('small'); document.getElementById('csub').textContent = 'Hier am Stand · einfach ansprechen'; }
+    else { const b = BOOM[(quizIdx - 1 + BOOM.length) % BOOM.length]; document.getElementById('cpill').textContent = 'mexXsoft X2'; document.getElementById('ct1').textContent = b[0]; const cd = document.getElementById('cd'); cd.classList.add('small'); cd.classList.add('slam'); cd.textContent = b[1]; document.getElementById('csub').textContent = b[2]; }
     const third = CARDS_S / 3; cardTimers.forEach(clearTimeout);
     showCard(cq);
     cardTimers = [ setTimeout(() => showCard(ca), third * 1000), setTimeout(() => showCard(cc), 2 * third * 1000), setTimeout(startVideoFromCards, CARDS_S * 1000) ]; }

@@ -7,7 +7,7 @@
   "mode": "cards",
   "videoSeconds": 60,
   "cardsSeconds": 22,
-  "demoIntervalMinutes": 10,
+  "demoIntervalMinutes": 0,
   "mirrorSeconds": 25,
   "quiz": [],
   "punchlines": []

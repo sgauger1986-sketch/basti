@@ -17,7 +17,7 @@ app.commandLine.appendSwitch('use-fake-ui-for-media-stream');   // Webcam ohne N
 
 function readConfig() {
   const exeDir = path.dirname(app.getPath('exe'));
-  const cfg = { pin: '0000', video: '', pinTimeoutSeconds: 20, scale: 1, mode: 'attract', mirrorSeconds: 25, videoSeconds: 60, punchlines: [], brightness: 1, cardsSeconds: 22, demoIntervalMinutes: 10, quiz: [] };
+  const cfg = { pin: '0000', video: '', pinTimeoutSeconds: 20, scale: 1, mode: 'attract', mirrorSeconds: 25, videoSeconds: 60, punchlines: [], brightness: 1, cardsSeconds: 22, demoIntervalMinutes: 0, quiz: [] };
   try { Object.assign(cfg, JSON.parse(fs.readFileSync(path.join(exeDir, 'config.json'), 'utf8'))); } catch {}
   const candidates = [
     cfg.video ? path.resolve(exeDir, cfg.video) : null,   // config.json: "video": "meinvideo.mp4"
