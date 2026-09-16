@@ -21,6 +21,31 @@
   #burst{position:absolute;left:0;right:0;top:32vh;text-align:center;font-size:13vw;font-weight:800;letter-spacing:-.04em;color:#ffb020;text-shadow:0 6px 14px rgba(0,0,0,.9),0 20px 70px rgba(0,0,0,.8);opacity:0;transform:scale(2.5) rotate(-6deg);transition:opacity .25s,transform .4s cubic-bezier(.34,1.56,.64,1)}
   #burst.on{opacity:1;transform:scale(1) rotate(-4deg)}
   #burst small{display:block;font-size:4vw;color:#fff;letter-spacing:0;margin-top:1vh}
+  /* Karten-Modus ohne Webcam: Schätzfrage, Auflösung, Countdown */
+  #cards{position:fixed;inset:0;display:none;overflow:hidden;font-family:system-ui,Segoe UI,Arial,sans-serif}
+  #cards.on{display:block}
+  #cards .card{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 5vw;box-sizing:border-box}
+  #cards .card.on{display:flex}
+  #cards .o{background:linear-gradient(160deg,#ffb020,#ff8a00);color:#1a0836}
+  #cards .v{background:linear-gradient(160deg,#2e1052,#1c0b36);color:#fff}
+  #cards .l{background:linear-gradient(160deg,#b48cff,#8a5cf6);color:#1a0836}
+  #cards .pill{padding:1vh 2.4vw;border-radius:999px;font-size:2.2vw;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4vh}
+  #cards .o .pill,#cards .l .pill{background:#1a0836;color:#ffb020}
+  #cards .v .pill{background:#ffb020;color:#1a0836}
+  #cards .q{font-size:6.2vw;font-weight:800;line-height:1.05;letter-spacing:-.03em;max-width:88vw}
+  #cards .a{font-size:5.4vw;font-weight:800;line-height:1.08;letter-spacing:-.02em;max-width:88vw;margin-top:2vh}
+  #cards .cd{font-size:16vw;font-weight:800;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:#ffb020;text-shadow:0 8px 40px rgba(0,0,0,.5)}
+  #cards .cd.small{font-size:7vw;color:#fff}
+  #cards .sub{font-size:3vw;font-weight:600;margin-top:3vh;opacity:.9}
+  #cards .slam{animation:slam .5s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes slam{0%{transform:scale(2.2);opacity:0}100%{transform:scale(1);opacity:1}}
+  #cards .flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+  #cards .flash.on{animation:fl .4s ease-out}
+  @keyframes fl{0%{opacity:.85}100%{opacity:0}}
+  #cards .foot{position:absolute;left:0;right:0;bottom:0;height:9vh;display:flex;align-items:center;justify-content:center;gap:2vw;background:rgba(18,6,38,.85);color:#fff;font-size:2vw;font-weight:600}
+  #cards .foot b{padding:1vh 2vw;border-radius:999px;background:#ffb020;color:#1a0836;font-size:2.4vw;font-weight:800;animation:pulse 2s ease-in-out infinite}
+  #demo{position:fixed;right:2.5vw;top:2.5vh;display:none;padding:1.2vh 2.2vw;border-radius:999px;background:#ffb020;color:#1a0836;font-size:2.6vw;font-weight:800;font-variant-numeric:tabular-nums;box-shadow:0 10px 40px rgba(0,0,0,.5);pointer-events:none}
+  #demo.on{display:block}
   #logo{position:absolute;right:3.5vw;top:4vh;font-size:2.4vw;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.9);letter-spacing:.02em}
   #lock{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(10,4,22,.82);backdrop-filter:blur(10px);cursor:default}
   #lock.on{display:flex}
@@ -51,6 +76,14 @@
   <div class="bar"><span class="b">Live-Demo hier am Stand · 5 Minuten</span><span class="t">GaLaBau &amp; Tiefbau · E-Rechnung · inFleet</span></div>
 </div>
 <canvas id="mc" width="64" height="36" style="display:none"></canvas>
+<div id="cards">
+  <div class="card o" id="cq"><div class="pill">Schätzfrage</div><div class="q" id="qq"></div><div class="sub">Auflösung in wenigen Sekunden …</div></div>
+  <div class="card v" id="ca"><div class="pill">Auflösung</div><div class="q" id="aq"></div><div class="a slam" id="aa"></div></div>
+  <div class="card l" id="cc"><div class="pill">Live-Demo</div><div id="ct1" class="q">Nächste Live-Demo in</div><div class="cd" id="cd"></div><div class="sub">Hier am Stand · 5 Minuten · einfach ansprechen</div></div>
+  <div class="foot"><b>Live-Demo hier am Stand · 5 Minuten</b><span>mexXsoft X2 · GaLaBau &amp; Tiefbau · E-Rechnung · inFleet</span></div>
+  <div class="flash" id="cflash"></div>
+</div>
+<div id="demo"></div>
 
 <div id="lock">
   <div class="box" id="box">
@@ -78,9 +111,9 @@
   if (BRIGHT !== 1) { const f = 'brightness(' + BRIGHT + ') contrast(' + (1 + (BRIGHT - 1) * 0.25).toFixed(3) + ')'; v.style.filter = f; document.getElementById('cam').style.filter = f + ' ' ; }
   const play = () => v.play().catch(() => setTimeout(play, 500));
   v.addEventListener('canplay', play, { once: true });
-  v.addEventListener('ended', () => { if (v.loop) { v.currentTime = 0; play(); } });   // Sicherheitsnetz zusätzlich zu loop
+  v.addEventListener('ended', () => { if (v.loop || (MODE === 'attract' && !camOk && !cardsMode)) { v.currentTime = 0; play(); } });   // Sicherheitsnetz zusätzlich zu loop
   v.addEventListener('error', () => { document.body.style.cursor = 'default'; document.body.innerHTML = '<div style="padding:40px;font-size:20px">Video nicht gefunden:<br>' + v.src + '</div>'; });
-  setInterval(() => { if (v.paused && !lock.classList.contains('on') && !mirrorOn) play(); }, 3000);
+  setInterval(() => { if (v.paused && !lock.classList.contains('on') && !mirrorOn && !cardsOn) play(); }, 3000);
 
   // ---------- Spiegel-Modus (Webcam) im Wechsel mit dem Video ----------
   const MODE = q.get('mode') === 'video' ? 'video' : 'attract';
@@ -113,12 +146,42 @@
   function startVideo(){ mirrorOn = false; clearInterval(plTimer); pl.classList.remove('on'); burst.classList.remove('on');
     cam.classList.remove('on'); mir.classList.remove('on'); v.style.display = ''; v.loop = !camOk; if (!VIDEO_S) v.currentTime = 0; play();
     clearTimeout(phaseTimer); if (VIDEO_S && camOk) phaseTimer = setTimeout(startMirror, VIDEO_S * 1000); }
-  v.addEventListener('ended', () => { if (camOk && MODE === 'attract') startMirror(); });
+  // ---------- Karten-Modus (ohne Webcam) ----------
+  const CARDS_S = Math.min(120, Math.max(8, parseInt(q.get('cards')) || 22));
+  const DEMO_MIN = Math.max(0, parseInt(q.get('demo')) || 0);
+  let QUIZ = [];
+  try { QUIZ = JSON.parse(q.get('quiz') || '[]'); } catch {}
+  if (!Array.isArray(QUIZ) || !QUIZ.length) QUIZ = [
+    { q: 'Ab wann müssen Sie E-Rechnungen <em>versenden</em>?', a: 'Ab 1.1.2027 (über 800.000 € Umsatz), ab 2028 jeder Betrieb. mexXsoft X2 ist bereit.' },
+    { q: 'Wie viele Betriebe arbeiten mit OneQrew-Software?', a: 'Über 45.000.' },
+    { q: 'Wie viel Kraftstoff spart GPS-Fahrzeugortung?', a: 'Bis zu 15 % – mit inFleet, neu bei mexXsoft.' },
+    { q: 'Wie lange dauert eine Abschlagsrechnung aus dem Aufmaß?', a: 'Ein Klick. Ohne Abtippen.' },
+    { q: 'Wo ist Ihr Bagger <em>gerade</em>?', a: 'inFleet weiß es – live auf der Karte.' },
+  ];
+  const cards = document.getElementById('cards'), demoBadge = document.getElementById('demo');
+  const cq = document.getElementById('cq'), ca = document.getElementById('ca'), cc = document.getElementById('cc'), cflash = document.getElementById('cflash');
+  let cardsOn = false, quizIdx = 0, cardTimers = [];
+  function demoLeft(){ const T = DEMO_MIN * 60000; const left = T - (Date.now() % T); const s = Math.ceil(left / 1000); return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+  setInterval(() => { if (!DEMO_MIN) return; const t = demoLeft(); document.getElementById('cd').textContent = t; demoBadge.textContent = 'Nächste Live-Demo in ' + t; }, 250);
+  function showCard(el){ [cq, ca, cc].forEach(c => c.classList.remove('on')); cflash.classList.remove('on'); void cflash.offsetWidth; cflash.classList.add('on'); el.classList.add('on');
+    const sl = el.querySelector('.slam'); if (sl) { sl.style.animation = 'none'; void sl.offsetWidth; sl.style.animation = ''; } }
+  function startCards(){ cardsOn = true; v.pause(); v.style.display = 'none'; demoBadge.classList.remove('on'); cards.classList.add('on');
+    const item = QUIZ[quizIdx++ % QUIZ.length]; document.getElementById('qq').innerHTML = item.q; document.getElementById('aq').innerHTML = item.q; document.getElementById('aa').innerHTML = item.a;
+    if (DEMO_MIN) { document.getElementById('ct1').textContent = 'Nächste Live-Demo in'; document.getElementById('cd').classList.remove('small'); }
+    else { document.getElementById('ct1').textContent = 'Live-Demo?'; const cd = document.getElementById('cd'); cd.classList.add('small'); cd.textContent = 'Jederzeit. Einfach ansprechen.'; }
+    const third = CARDS_S / 3; cardTimers.forEach(clearTimeout);
+    showCard(cq);
+    cardTimers = [ setTimeout(() => showCard(ca), third * 1000), setTimeout(() => showCard(cc), 2 * third * 1000), setTimeout(startVideoFromCards, CARDS_S * 1000) ]; }
+  function startVideoFromCards(){ cardsOn = false; cardTimers.forEach(clearTimeout); cards.classList.remove('on'); v.style.display = ''; v.loop = false; play();
+    if (DEMO_MIN) demoBadge.classList.add('on');
+    clearTimeout(phaseTimer); if (VIDEO_S) phaseTimer = setTimeout(startCards, VIDEO_S * 1000); }
+  v.addEventListener('ended', () => { if (MODE !== 'attract') return; if (camOk) startMirror(); else if (cardsMode) startCards(); });
+  let cardsMode = false;
   if (MODE === 'attract' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1920 }, height: { ideal: 1080 }, facingMode: 'user' }, audio: false })
       .then(stream => { cam.srcObject = stream; camOk = true; v.loop = false; setInterval(motion, 250); startMirror(); })
-      .catch(() => { camOk = false; v.loop = true; });
-  }
+      .catch(() => { camOk = false; cardsMode = true; v.loop = false; if (DEMO_MIN) demoBadge.classList.add('on'); clearTimeout(phaseTimer); if (VIDEO_S) phaseTimer = setTimeout(startCards, VIDEO_S * 1000); });
+  } else if (MODE === 'attract') { cardsMode = true; v.loop = false; if (DEMO_MIN) demoBadge.classList.add('on'); if (VIDEO_S) phaseTimer = setTimeout(startCards, VIDEO_S * 1000); }
 
   const lock = document.getElementById('lock'), dots = document.getElementById('dots'), msg = document.getElementById('msg'), box = document.getElementById('box');
   const TIMEOUT = (parseInt(q.get('timeout')) || 20) * 1000;

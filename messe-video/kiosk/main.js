@@ -17,7 +17,7 @@ app.commandLine.appendSwitch('use-fake-ui-for-media-stream');   // Webcam ohne N
 
 function readConfig() {
   const exeDir = path.dirname(app.getPath('exe'));
-  const cfg = { pin: '0000', video: '', pinTimeoutSeconds: 20, scale: 1, mode: 'attract', mirrorSeconds: 25, videoSeconds: 60, punchlines: [], brightness: 1 };
+  const cfg = { pin: '0000', video: '', pinTimeoutSeconds: 20, scale: 1, mode: 'attract', mirrorSeconds: 25, videoSeconds: 60, punchlines: [], brightness: 1, cardsSeconds: 22, demoIntervalMinutes: 10, quiz: [] };
   try { Object.assign(cfg, JSON.parse(fs.readFileSync(path.join(exeDir, 'config.json'), 'utf8'))); } catch {}
   const candidates = [
     cfg.video ? path.resolve(exeDir, cfg.video) : null,   // config.json: "video": "meinvideo.mp4"
@@ -31,6 +31,8 @@ function readConfig() {
   cfg.mirrorSeconds = Math.min(120, Math.max(5, Number(cfg.mirrorSeconds) || 25));
   cfg.videoSeconds = Math.max(0, Number(cfg.videoSeconds) || 0);   // 0 = Video jedes Mal komplett abspielen
   cfg.brightness = Math.min(2, Math.max(0.5, Number(cfg.brightness) || 1));   // 1.3 = 30 % heller (dunkler Monitor)
+  cfg.cardsSeconds = Math.min(120, Math.max(8, Number(cfg.cardsSeconds) || 22));   // Karten-Phase ohne Webcam
+  cfg.demoIntervalMinutes = Math.max(0, Number(cfg.demoIntervalMinutes) || 0);   // Countdown "Nächste Live-Demo" (0 = aus)
   cfg.scale = Math.min(1, Math.max(0.5, Number(cfg.scale) || 1));   // 0.9 = Video auf 90 % verkleinern (gegen TV-Overscan)
   return cfg;
 }
@@ -54,7 +56,7 @@ app.whenReady().then(() => {
   win.on('close', e => { if (!unlocked) e.preventDefault(); });   // Alt+F4 ohne PIN wirkungslos
   win.once('ready-to-show', () => { win.show(); win.focus(); });
   win.loadFile(path.join(__dirname, 'index.html'), {
-    query: { video: pathToFileURL(cfg.videoPath).href, timeout: String(cfg.pinTimeoutSeconds), pinlen: String(cfg.pin.length), scale: String(cfg.scale), mode: cfg.mode, mirror: String(cfg.mirrorSeconds), videosec: String(cfg.videoSeconds), brightness: String(cfg.brightness), punchlines: JSON.stringify(Array.isArray(cfg.punchlines) ? cfg.punchlines : []) },
+    query: { video: pathToFileURL(cfg.videoPath).href, timeout: String(cfg.pinTimeoutSeconds), pinlen: String(cfg.pin.length), scale: String(cfg.scale), mode: cfg.mode, mirror: String(cfg.mirrorSeconds), videosec: String(cfg.videoSeconds), brightness: String(cfg.brightness), cards: String(cfg.cardsSeconds), demo: String(cfg.demoIntervalMinutes), quiz: JSON.stringify(Array.isArray(cfg.quiz) ? cfg.quiz : []), punchlines: JSON.stringify(Array.isArray(cfg.punchlines) ? cfg.punchlines : []) },
   });
 
   ipcMain.handle('kiosk:checkPin', (_e, pin) => String(pin) === cfg.pin);

@@ -5,7 +5,10 @@
   "scale": 1,
   "brightness": 1,
   "mode": "attract",
-  "mirrorSeconds": 25,
   "videoSeconds": 60,
+  "cardsSeconds": 22,
+  "demoIntervalMinutes": 10,
+  "mirrorSeconds": 25,
+  "quiz": [],
   "punchlines": []
 }
