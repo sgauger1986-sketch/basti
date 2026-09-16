@@ -9,12 +9,16 @@ Beenden:    Beliebige Taste drücken oder klicken -> PIN-Feld erscheint.
             Ohne Eingabe verschwindet das PIN-Feld nach 20 Sekunden wieder.
             Alt+F4 und Esc beenden das Programm NICHT.
 
-Spiegel-Modus (Standard, "mode": "attract"):
+Modus in config.json: "cards" (Standard, ohne Kamera: Video + Karten), "attract" (Kamera-Spiegel,
+            wenn eine Kamera ein Bild liefert, sonst automatisch Karten), "video" (nur Video).
+
+Spiegel-Modus ("mode": "attract"):
             Ist eine Webcam angeschlossen (Laptop-Kamera reicht), zeigt der Bildschirm im
             Wechsel 25 Sekunden das LIVE-Spiegelbild der Passanten mit wechselnden Sprüchen
             ("Sie da! Ja, Sie.", "Wo ist Ihr Bagger gerade?") und danach einmal das Video.
             Bewegt sich jemand vor der Kamera, erscheint groß "HALLO!" / "JA, SIE!".
-            Menschen bleiben stehen, wenn sie sich selbst auf einem Bildschirm sehen.
+            Liefert die Kamera kein Bild (z. B. virtueller Kameratreiber), schaltet das Programm nach
+            2 Sekunden von selbst auf die Karten um.
             Kamera oben am Monitor befestigen, Richtung Gang. Ohne Webcam läuft nur das Video.
             "mirrorSeconds": Dauer der Spiegelphase (5–120). "videoSeconds": nach so vielen Sekunden Video
             zurück zum Spiegel, das Video läuft danach an der Stelle weiter (0 = immer komplett).

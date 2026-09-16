@@ -111,12 +111,12 @@
   if (BRIGHT !== 1) { const f = 'brightness(' + BRIGHT + ') contrast(' + (1 + (BRIGHT - 1) * 0.25).toFixed(3) + ')'; v.style.filter = f; document.getElementById('cam').style.filter = f + ' ' ; }
   const play = () => v.play().catch(() => setTimeout(play, 500));
   v.addEventListener('canplay', play, { once: true });
-  v.addEventListener('ended', () => { if (v.loop || (MODE === 'attract' && !camOk && !cardsMode)) { v.currentTime = 0; play(); } });   // Sicherheitsnetz zusätzlich zu loop
+  v.addEventListener('ended', () => { if (v.loop || (MODE !== 'video' && !camOk && !cardsMode)) { v.currentTime = 0; play(); } });   // Sicherheitsnetz zusätzlich zu loop
   v.addEventListener('error', () => { document.body.style.cursor = 'default'; document.body.innerHTML = '<div style="padding:40px;font-size:20px">Video nicht gefunden:<br>' + v.src + '</div>'; });
   setInterval(() => { if (v.paused && !lock.classList.contains('on') && !mirrorOn && !cardsOn) play(); }, 3000);
 
   // ---------- Spiegel-Modus (Webcam) im Wechsel mit dem Video ----------
-  const MODE = q.get('mode') === 'video' ? 'video' : 'attract';
+  const MODE = ['video', 'cards', 'attract'].includes(q.get('mode')) ? q.get('mode') : 'cards';   // cards: Karten ohne Kamera, attract: Kamera-Spiegel wenn ein Bild kommt
   const MIRROR_S = Math.min(120, Math.max(5, parseInt(q.get('mirror')) || 25));
   const VIDEO_S = Math.max(0, parseInt(q.get('videosec')) || 0);   // 0 = Video immer komplett, sonst nach x s zurück zum Spiegel (Video läuft später weiter)
   let PUNCH = [];
@@ -135,10 +135,19 @@
   function showBurst(){ const now = Date.now(); if (now - lastBurst < 7000) return; lastBurst = now;
     burst.innerHTML = BURSTS[Math.floor(Math.random()*BURSTS.length)] + '<small>' + BURST_TEXTS[Math.floor(Math.random()*BURST_TEXTS.length)] + '</small>';
     burst.classList.add('on'); clearTimeout(burstTimer); burstTimer = setTimeout(() => burst.classList.remove('on'), 2600); }
-  function motion(){ if (!mirrorOn || cam.readyState < 2) return;
+  let blankCount = 0, noFrameCount = 0;
+  function giveUpCamera(){ if (!camOk) return; camOk = false; cardsMode = true;
+    try { (cam.srcObject && cam.srcObject.getTracks() || []).forEach(t => t.stop()); } catch {} cam.srcObject = null;
+    clearInterval(plTimer); clearTimeout(phaseTimer); pl.classList.remove('on'); burst.classList.remove('on'); cam.classList.remove('on'); mir.classList.remove('on'); mirrorOn = false;
+    startVideoFromCards(); }
+  function motion(){ if (!mirrorOn) return;
+    if (cam.readyState < 2) { if (++noFrameCount > 16) giveUpCamera(); return; }   // 4 s ohne Bild -> Karten
     mctx.drawImage(cam, 0, 0, mc.width, mc.height); const d = mctx.getImageData(0, 0, mc.width, mc.height).data;
+    let lum = 0, lum2 = 0, n = d.length / 4; for (let i = 0; i < d.length; i += 4) { const l = (d[i] + d[i+1] + d[i+2]) / 3; lum += l; lum2 += l * l; }
+    const mean = lum / n, sd = Math.sqrt(Math.max(0, lum2 / n - mean * mean));
+    if (mean < 16 || sd < 3) { if (++blankCount > 8) return giveUpCamera(); } else blankCount = 0;   // 2 s schwarz/einfarbig -> Karten
     if (prev) { let sum = 0; for (let i = 0; i < d.length; i += 4) sum += Math.abs(d[i] - prev[i]) + Math.abs(d[i+1] - prev[i+1]) + Math.abs(d[i+2] - prev[i+2]);
-      const avg = sum / (d.length / 4) / 3; if (avg > 14) showBurst(); }
+      const avg = sum / n / 3; if (avg > 14) showBurst(); }
     prev = new Uint8ClampedArray(d); }
   function startMirror(){ mirrorOn = true; v.pause(); v.style.display = 'none'; cam.classList.add('on'); mir.classList.add('on'); prev = null;
     nextPunch(); clearInterval(plTimer); plTimer = setInterval(nextPunch, 4000);
@@ -175,9 +184,10 @@
   function startVideoFromCards(){ cardsOn = false; cardTimers.forEach(clearTimeout); cards.classList.remove('on'); v.style.display = ''; v.loop = false; play();
     if (DEMO_MIN) demoBadge.classList.add('on');
     clearTimeout(phaseTimer); if (VIDEO_S) phaseTimer = setTimeout(startCards, VIDEO_S * 1000); }
-  v.addEventListener('ended', () => { if (MODE !== 'attract') return; if (camOk) startMirror(); else if (cardsMode) startCards(); });
   let cardsMode = false;
-  if (MODE === 'attract' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  v.addEventListener('ended', () => { if (MODE === 'video') return; if (camOk) startMirror(); else if (cardsMode) startCards(); });
+  if (MODE === 'cards') { cardsMode = true; v.loop = false; if (DEMO_MIN) demoBadge.classList.add('on'); if (VIDEO_S) phaseTimer = setTimeout(startCards, VIDEO_S * 1000); }
+  else if (MODE === 'attract' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1920 }, height: { ideal: 1080 }, facingMode: 'user' }, audio: false })
       .then(stream => { cam.srcObject = stream; camOk = true; v.loop = false; setInterval(motion, 250); startMirror(); })
       .catch(() => { camOk = false; cardsMode = true; v.loop = false; if (DEMO_MIN) demoBadge.classList.add('on'); clearTimeout(phaseTimer); if (VIDEO_S) phaseTimer = setTimeout(startCards, VIDEO_S * 1000); });

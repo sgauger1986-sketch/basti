@@ -4,7 +4,7 @@
   "pinTimeoutSeconds": 20,
   "scale": 1,
   "brightness": 1,
-  "mode": "attract",
+  "mode": "cards",
   "videoSeconds": 60,
   "cardsSeconds": 22,
   "demoIntervalMinutes": 10,

@@ -27,7 +27,7 @@ function readConfig() {
   ].filter(Boolean);
   cfg.videoPath = candidates.find(p => fs.existsSync(p)) || candidates[candidates.length - 1];
   cfg.pin = String(cfg.pin);
-  cfg.mode = cfg.mode === 'video' ? 'video' : 'attract';   // attract = Spiegel (Webcam) und Video im Wechsel, video = nur Video
+  cfg.mode = ['video', 'cards', 'attract'].includes(cfg.mode) ? cfg.mode : 'cards';   // cards = Video + Karten (ohne Kamera), attract = Kamera-Spiegel wenn vorhanden, video = nur Video
   cfg.mirrorSeconds = Math.min(120, Math.max(5, Number(cfg.mirrorSeconds) || 25));
   cfg.videoSeconds = Math.max(0, Number(cfg.videoSeconds) || 0);   // 0 = Video jedes Mal komplett abspielen
   cfg.brightness = Math.min(2, Math.max(0.5, Number(cfg.brightness) || 1));   // 1.3 = 30 % heller (dunkler Monitor)
