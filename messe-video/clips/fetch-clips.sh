@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Lädt die 14 exklusiv mit Higgsfield (Seedance 2.5, 1080p, 8 s, ohne Ton) erzeugten Clips
+# Lädt die 16 exklusiv mit Higgsfield (Seedance 2.5, 1080p, 8 s, ohne Ton) erzeugten Clips
 # und wandelt sie in WebM/VP9 um, damit sie im Render-Browser (Chromium ohne H.264/HEVC) laufen.
 #
 #   cd messe-video && bash clips/fetch-clips.sh
@@ -23,10 +23,12 @@ declare -A URLS=(
   [c11]="https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260916_064650_88f11a3c-a903-483c-a3f6-e188bb261979.mp4"  # Aufmaß mit Messrad auf neuem Pflaster (v4)
   [c12]="https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260916_064650_41e7d903-6d98-4c5c-8134-916cf894f6b2.mp4"  # Kolonnen-Einteilung am Morgen auf dem Betriebshof (v4)
   [c13]="https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260916_064650_4d8dda41-12ad-4d70-939e-8b6f5c74faab.mp4"  # Fotodokumentation am Rohrgraben mit Smartphone (v4)
+  [c15]="https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260916_091912_2c9ce5ff-98ad-4e2a-856c-d32594711e11.mp4"  # Betriebshof am Morgen, Polier mit Smartphone am Transporter (v6, MyOneQrew)
+  [c16]="https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260916_091911_752ed4b0-fbbd-4c1b-9e4e-16ba3c31d662.mp4"  # Büro: Telefonat am Schreibtisch (v6, MyOneQrew)
   [c14]="https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20260916_064650_5798f1cc-9f6b-47d0-9cb7-16dcfd92f07b.mp4"  # Baumschule / Materiallager, Stapler mit Pflasterpalette (v4)
 )
 
-for k in c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 c11 c12 c13 c14; do
+for k in c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 c11 c12 c13 c14 c15 c16; do
   [ -f "$k.mp4" ] || curl -fL --retry 3 -o "$k.mp4" "${URLS[$k]}"
   if [ ! -f "$k.webm" ]; then
     "$FF" -y -hide_banner -loglevel error -i "$k.mp4" -an \
