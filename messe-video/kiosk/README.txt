@@ -24,6 +24,10 @@ Spiegel-Modus (Standard, "mode": "attract"):
 
 PIN ändern: config.json neben der .exe öffnen und "pin" anpassen (z. B. "1234").
 
+Zu dunkel?  In config.json "brightness" erhöhen: 1.2 = 20 % heller, 1.5 = 50 % heller
+            (gilt für Video und Spiegelbild). Zusätzlich am Monitor Helligkeit/Kontrast hochdrehen
+            und einen Bildmodus wie "Dynamisch"/"Lebhaft" statt "Kino"/"Eco" wählen.
+
 Ränder abgeschnitten?
             Fehlen links/rechts oder oben/unten Bildteile (z. B. Chips oder die Web-Adresse
             unten rechts), schneidet der Fernseher das Bild ab ("Overscan").

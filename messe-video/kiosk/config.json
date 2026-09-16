@@ -3,6 +3,7 @@
   "video": "",
   "pinTimeoutSeconds": 20,
   "scale": 1,
+  "brightness": 1,
   "mode": "attract",
   "mirrorSeconds": 25,
   "videoSeconds": 60,
