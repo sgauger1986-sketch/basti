@@ -4,11 +4,12 @@ Aufmerksamkeitsstarkes Standvideo für **www.mexxsoft.com**, Zielgruppe **GaLaBa
 48 Sekunden, 1920×1080, **ohne Tonspur**, nahtlos als **Dauerschleife** abspielbar (Anfang und
 Ende sind identisch dunkel, es gibt keinen sichtbaren Schnitt beim Neustart).
 
-Die Bildwelt besteht aus **sechs exklusiv mit Higgsfield (Seedance 2.5) erzeugten Videoclips**
+Die Bildwelt besteht aus **zehn exklusiv mit Higgsfield (Seedance 2.5) erzeugten Videoclips**
 (1080p, 8 s, ohne Ton, keine Stockfootage), über die Marke, Module und Botschaften animiert werden.
 
 | Datei | Zweck |
 |---|---|
+| `mexxsoft-messe-video-v3.mp4` | **Aktuelle Fassung v3 (68 s)**: beschreibt das Angebot von mexXsoft ausführlicher – Prozesskette von der Anfrage bis zur Schlussrechnung, 8 Module, Angebot in Aktion, mexXgo, Schnittstellen & E-Rechnung, KI-Funktionen 2026, GaLaBau|Tiefbau, Versionen & Service. Quelle: `messe-video-v3.html`, 10 Higgsfield-Clips. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/220e58e2-fff8-46af-99bf-15528066bd35.mp4 |
 | `mexxsoft-messe-video-galabau-tiefbau-v2.mp4` | **Das fertige Video** (H.264, 1080p, 30 fps, 48 s, keine Audiospur). Gerendert in der Higgsfield-Cloud, **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/ba496ee1-a269-46a2-8cf1-64fd6441cd0f.mp4 (liegt außerdem in der Higgsfield-Mediathek des Kontos). Lokal jederzeit mit `render.mjs` neu erzeugbar. Erste, dunklere Fassung: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/6683cf58-4295-41e4-b2a0-8a800acd3f9d.mp4 |
 | `MexXsoft-Messevideo-Windows.zip` | **Windows-Programm** (Bildschirmschoner/Kiosk mit PIN 0000, Video eingebaut). **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/e0389186-7367-4f54-bb77-7b12c962ed65.zip · Quellen in `kiosk/`. |
 | `mexxsoft-messe-video.mp4` | Erste Fassung ohne Videoclips (nur Motion Graphics), alle Gewerke. |
@@ -18,7 +19,26 @@ Die Bildwelt besteht aus **sechs exklusiv mit Higgsfield (Seedance 2.5) erzeugte
 | `fonts/` | Schriften Inter & Manrope (SIL Open Font License), lokal eingebettet. |
 | `assets/` | Logo (Original, weiße und dunkle Vektorversion). |
 
-## Ablauf des Videos (8 Szenen)
+## Ablauf v3 (11 Szenen, 68 s)
+
+| Zeit | Szene | Clip | Inhalt |
+|---|---|---|---|
+| 0–5 s | Hook | Rohrgraben | „Zettelwirtschaft. Excel-Chaos. Abende im Büro.“ → „Schluss damit.“ |
+| 5–10 s | Marke | Gartenanlage, Drohne | Logo, „Die ERP-Software für GaLaBau und Tiefbau.“, Slogan, Fakten-Chips |
+| 10–17 s | Prozess | Neue Straße mit Rohrgraben | Anfrage → Angebot → Auftrag → Einsatzplanung → Aufmaß → Rechnung → Buchhaltung & Mahnwesen |
+| 17–25 s | Module | Büro | Angebot & Rechnung, Kalkulation & Nachkalkulation, Aufmaß (REB), AVA & Nachträge, Einsatzplanung, Bautagebuch & Bauakte, Zeit & Lohn, Warenwirtschaft & Kataloge |
+| 25–34 s | Angebot in Aktion | Gartenanlage | Positionen, Summen, Stempel, Ablauf bis E-Rechnung |
+| 34–41 s | mexXgo | Polier mit Tablet | Zeiten, Fotos in die Bauakte, Rapporte unterschreiben, Kundendaten & LV |
+| 41–47 s | Schnittstellen | Baubesprechung | GAEB, Datanorm, DATEV, Excel, REB, ZUGFeRD 2.x, XRechnung, DA11/X31, Pflanzenkataloge Bruns & GBF |
+| 47–53 s | KI 2026 | Kundengespräch mit Tablet | KI-Texte, Förder-KI, Sketch (KI-Visualisierung) |
+| 53–59 s | Zwei Gewerke | Pflaster ‖ Asphalt | GaLaBau und Tiefbau mit je drei Punkten |
+| 59–64 s | Versionen & Service | Park | Easy…Enterprise, Kaufen/Mieten/Testen, Demoversion, Vorführung, Support & Fernwartung, Webinare |
+| 64–68 s | Call-to-Action | Neue Straße | „Jetzt live erleben.“ · www.mexxsoft.com · Kontakt · Logo |
+
+Die Inhalte stammen von mexxsoft.com und Software-Verzeichnissen (Stand September 2026); Schnittstellen- und
+Modulnamen bitte vor der Messe einmal gegen den aktuellen Leistungsumfang prüfen.
+
+## Ablauf v2 (8 Szenen, 48 s)
 
 | Zeit | Szene | Clip (Higgsfield) | Inhalt |
 |---|---|---|---|
@@ -35,7 +55,7 @@ Durchgehend: kleine Fußzeile mit „mexXsoft X2 · Die Software für GaLaBau & 
 
 ## Die Higgsfield-Clips
 
-Alle sechs Clips wurden mit dem Modell **Seedance 2.5** (Text-to-Video, 1080p, 16:9, 8 s, `generate_audio: false`)
+Alle zehn Clips wurden mit dem Modell **Seedance 2.5** (Text-to-Video, 1080p, 16:9, 8 s, `generate_audio: false`)
 exklusiv für dieses Video erzeugt (Job-IDs in `clips/fetch-clips.sh`). Die Prompts beschreiben deutsche
 Baustellen (Warnwesten, Betonsteinpflaster, Rollrasen, Asphaltfertiger, Rohrgraben mit Verbau) ohne Text,
 Logos oder Wasserzeichen. Die Clips werden im Video nur leicht abgedunkelt bzw. mit Verläufen versehen, die
