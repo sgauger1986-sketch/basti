@@ -47,6 +47,8 @@
   const q = new URLSearchParams(location.search);
   const v = document.getElementById('v');
   v.src = q.get('video') || 'video.mp4';
+  const SCALE = Math.min(1, Math.max(0.5, parseFloat(q.get('scale')) || 1));   // config.json "scale": 0.9 -> Ränder frei (TV-Overscan)
+  if (SCALE < 1) v.style.transform = 'scale(' + SCALE + ')';
   const play = () => v.play().catch(() => setTimeout(play, 500));
   v.addEventListener('canplay', play, { once: true });
   v.addEventListener('ended', () => { v.currentTime = 0; play(); });   // Sicherheitsnetz zusätzlich zu loop

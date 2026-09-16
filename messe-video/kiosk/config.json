@@ -1,5 +1,6 @@
 {
   "pin": "0000",
   "video": "",
-  "pinTimeoutSeconds": 20
+  "pinTimeoutSeconds": 20,
+  "scale": 1
 }

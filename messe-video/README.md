@@ -4,23 +4,36 @@ Aufmerksamkeitsstarkes Standvideo für **www.mexxsoft.com**, Zielgruppe **GaLaBa
 48 Sekunden, 1920×1080, **ohne Tonspur**, nahtlos als **Dauerschleife** abspielbar (Anfang und
 Ende sind identisch dunkel, es gibt keinen sichtbaren Schnitt beim Neustart).
 
-Die Bildwelt besteht aus **sechzehn exklusiv mit Higgsfield (Seedance 2.5) erzeugten Videoclips**
+Die Bildwelt besteht aus **siebzehn exklusiv mit Higgsfield (Seedance 2.5) erzeugten Videoclips**
 (1080p, 8 s, ohne Ton, keine Stockfootage), über die Marke, Module und Botschaften animiert werden.
 
 | Datei | Zweck |
 |---|---|
-| `mexxsoft-messe-video-v6.mp4` | **Aktuelle Fassung v6 (152 s)**: v5 plus zwei Szenen zu **MyOneQrew** (neu, exklusiv für Abo-Kunden, Inhalte von https://my.oneqrew.com/de-de/exklusiv): alle Helfer auf einen Blick (KI-Bürokraft HalloPetra, OneQrew Hub, MyMeisterQ, Sketch, Förder-Kompass, Preis-Check-Atlas, Fahrzeugortung, CraftIT, Academy, Social, WebKit, ein Login mit MFA) und „Ein Tag mit MyOneQrew“ (7:15 bis 17:00). Quelle: `messe-video-v6.html`, 16 Higgsfield-Clips. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/3d56b86c-8684-470e-ba23-e49324f952c1.mp4 |
+| `mexxsoft-messe-video-v7.mp4` | **Aktuelle Fassung v7 (164 s)**: v6 plus Szene **inFleet** (neu bei mexXsoft, GPS-Fahrzeugortung, Inhalte von https://infleet.software/): Live-Karte mit Transportern, Bagger, Anhänger und Container, Kennzahlen (bis zu 25 % weniger Fuhrparkkosten, 15 % weniger Kraftstoff, 40 % weniger Rückfragen, 12 % effizientere Disposition), Fahrtenbuch, Tourenvergleich, Plug & Play, Server in Deutschland. Quelle: `messe-video-v7.html`, 17 Higgsfield-Clips. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/fe56f918-2a10-4bb3-8e14-1df7800fa82d.mp4 |
+| `mexxsoft-messe-video-v6.mp4` | **Fassung v6 (152 s)**: v5 plus zwei Szenen zu **MyOneQrew** (neu, exklusiv für Abo-Kunden, Inhalte von https://my.oneqrew.com/de-de/exklusiv): alle Helfer auf einen Blick (KI-Bürokraft HalloPetra, OneQrew Hub, MyMeisterQ, Sketch, Förder-Kompass, Preis-Check-Atlas, Fahrzeugortung, CraftIT, Academy, Social, WebKit, ein Login mit MFA) und „Ein Tag mit MyOneQrew“ (7:15 bis 17:00). Quelle: `messe-video-v6.html`, 16 Higgsfield-Clips. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/3d56b86c-8684-470e-ba23-e49324f952c1.mp4 |
 | `mexxsoft-messe-video-v5.mp4` | **Fassung v5 (128 s)**: v4 plus Stopper für Laufkundschaft – „Kennen Sie das?“ (drei Alltagsprobleme, „In 5 Minuten zeigen wir Ihnen, wie es einfacher geht“), eigene Szene **„Die E-Rechnung wird Pflicht“** (2025 Empfang, 2027 Versand ab 800.000 € Umsatz, 2028 alle; ZUGFeRD 2.x, XRechnung), E-Rechnung-Chip in der Markenszene, dauerhaft pulsierende Plakette „Live-Demo hier am Stand · 5 Minuten“ in der Fußzeile, Schluss „Bleiben Sie stehen – Live-Demo in 5 Minuten.“ Quelle: `messe-video-v5.html`. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/35fa0a0d-c199-4ff1-a146-a2d768e24b15.mp4 |
 | `mexxsoft-messe-video-v4.mp4` | **Fassung v4 (112 s)**: die lange Fassung von v3 mit fünf zusätzlichen Szenen – Aufmaß → Abschlags-/Schlussrechnung, Kolonnen-Plantafel, digitale Bauakte, Material & Pflanzenkataloge, offene Posten/Mahnwesen/Nachkalkulation. Quelle: `messe-video-v4.html`, 14 Higgsfield-Clips. Nicht als MP4 gerendert (durch v5 ersetzt, lokal mit `node render.mjs --html messe-video-v4.html` erzeugbar). |
 | `mexxsoft-messe-video-v3.mp4` | **Fassung v3 (68 s)**: beschreibt das Angebot von mexXsoft ausführlicher – Prozesskette von der Anfrage bis zur Schlussrechnung, 8 Module, Angebot in Aktion, mexXgo, Schnittstellen & E-Rechnung, KI-Funktionen 2026, GaLaBau|Tiefbau, Versionen & Service. Quelle: `messe-video-v3.html`, 10 Higgsfield-Clips. **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/220e58e2-fff8-46af-99bf-15528066bd35.mp4 |
 | `mexxsoft-messe-video-galabau-tiefbau-v2.mp4` | **Das fertige Video** (H.264, 1080p, 30 fps, 48 s, keine Audiospur). Gerendert in der Higgsfield-Cloud, **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/ba496ee1-a269-46a2-8cf1-64fd6441cd0f.mp4 (liegt außerdem in der Higgsfield-Mediathek des Kontos). Lokal jederzeit mit `render.mjs` neu erzeugbar. Erste, dunklere Fassung: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/6683cf58-4295-41e4-b2a0-8a800acd3f9d.mp4 |
-| `MexXsoft-Messevideo-v6-Windows.zip` | **Windows-Programm** (Bildschirmschoner/Kiosk mit PIN 0000, Video **v6** eingebaut). **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/6f79ab9b-4193-49f4-ae21-a8ea1b0850d0.zip · Paket mit v5: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/8f45929f-fd99-4849-9c12-b39ce91eb338.zip · Paket mit v3: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/eb3b79d6-6355-4ef1-b988-091753e4acb2.zip · Paket mit v2: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/e0389186-7367-4f54-bb77-7b12c962ed65.zip · Quellen in `kiosk/`. |
+| `MexXsoft-Messevideo-v7-Windows.zip` | **Windows-Programm** (Bildschirmschoner/Kiosk mit PIN 0000, Video **v7** eingebaut, neue Option `"scale"` in config.json gegen abgeschnittene Ränder/TV-Overscan). **Download:** https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/31edb5a5-b9d9-48d4-8230-b3b0bd116555.zip · Paket mit v6: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/6f79ab9b-4193-49f4-ae21-a8ea1b0850d0.zip · Paket mit v5: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/8f45929f-fd99-4849-9c12-b39ce91eb338.zip · Paket mit v3: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/eb3b79d6-6355-4ef1-b988-091753e4acb2.zip · Paket mit v2: https://d2ol7oe51mr4n9.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/e0389186-7367-4f54-bb77-7b12c962ed65.zip · Quellen in `kiosk/`. |
 | `mexxsoft-messe-video.mp4` | Erste Fassung ohne Videoclips (nur Motion Graphics), alle Gewerke. |
 | `messe-video.html` | Die Quelle: Animation als HTML/CSS/JS inkl. Video-Hintergründen. Läuft auch direkt im Browser als Endlosschleife (Vollbild mit Taste **F**), sobald `clips/*.webm` vorhanden sind. |
-| `clips/fetch-clips.sh` | Lädt die 16 Higgsfield-Clips und wandelt sie nach WebM/VP9 (für den Render-Browser). |
+| `clips/fetch-clips.sh` | Lädt die 17 Higgsfield-Clips und wandelt sie nach WebM/VP9 (für den Render-Browser). |
 | `render.mjs` | Erzeugt aus der HTML-Datei das MP4 (Bild für Bild, deterministisch, parallelisierbar). |
 | `fonts/` | Schriften Inter & Manrope (SIL Open Font License), lokal eingebettet. |
 | `assets/` | Logo (Original, weiße und dunkle Vektorversion). |
+
+## Ablauf v7 (21 Szenen, 164 s)
+
+Wie v6, plus eine Szene zu **inFleet** direkt nach „Ein Tag mit MyOneQrew“ (Inhalt von infleet.software, Stand September 2026):
+
+| Zeit | Szene | Clip | Inhalt |
+|---|---|---|---|
+| 0–119 s | wie v6 | | Hook … KI, MyOneQrew (Helfer, Tagesablauf) |
+| 119–131 s | **inFleet: Ihr Fuhrpark live im Blick** | Drohne: Transporter mit Anhänger (neu) | Plakette „Neu bei mexXsoft · GPS-Fahrzeugortung“, Live-Karte mit Transporter 1, Bagger 8 t, Transporter 2 + Anhänger, Container 3 (pulsierende Pins), Kennzahlen − 25 % Fuhrparkkosten · − 15 % Kraftstoff · − 40 % Rückfragen · + 12 % Effizienz, Chips Fahrtenbuch · Transporter/Anhänger/Container/Geräte · Plug & Play · Server in Deutschland/DSGVO, „Erfassen. Finden. Auswerten. – infleet.software“ |
+| 131–164 s | wie v6 | | Material & Pflanzen, Zwei Gewerke, Zahlen, Versionen & Service, Call-to-Action |
+
+Die Prozentwerte sind die „bis zu“-Angaben von infleet.software.
 
 ## Ablauf v6 (20 Szenen, 152 s)
 
@@ -137,6 +150,8 @@ beenden das Programm nicht. Ein `video.mp4` neben der .exe ersetzt das eingebaut
 
 Fertiges Paket (Zip entpacken, `MexXsoft-Messevideo.exe` starten): siehe Link in der Dateitabelle oben.
 Selbst bauen: `cd kiosk && npm install && npm run pack:win` (Video vorher als `kiosk/video.mp4` ablegen).
+
+Werden am Fernseher links/rechts Bildteile abgeschnitten (Overscan), im TV-Menü „Just Scan“/„1:1“ wählen oder in `config.json` `"scale": 0.9` setzen (siehe `kiosk/README.txt`).
 
 ## Am Stand abspielen (Dauerschleife)
 

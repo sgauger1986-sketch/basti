@@ -16,7 +16,7 @@ app.commandLine.appendSwitch('disable-features', 'CalculateNativeWinOcclusion');
 
 function readConfig() {
   const exeDir = path.dirname(app.getPath('exe'));
-  const cfg = { pin: '0000', video: '', pinTimeoutSeconds: 20 };
+  const cfg = { pin: '0000', video: '', pinTimeoutSeconds: 20, scale: 1 };
   try { Object.assign(cfg, JSON.parse(fs.readFileSync(path.join(exeDir, 'config.json'), 'utf8'))); } catch {}
   const candidates = [
     cfg.video ? path.resolve(exeDir, cfg.video) : null,   // config.json: "video": "meinvideo.mp4"
@@ -26,6 +26,7 @@ function readConfig() {
   ].filter(Boolean);
   cfg.videoPath = candidates.find(p => fs.existsSync(p)) || candidates[candidates.length - 1];
   cfg.pin = String(cfg.pin);
+  cfg.scale = Math.min(1, Math.max(0.5, Number(cfg.scale) || 1));   // 0.9 = Video auf 90 % verkleinern (gegen TV-Overscan)
   return cfg;
 }
 
@@ -46,7 +47,7 @@ app.whenReady().then(() => {
   win.on('close', e => { if (!unlocked) e.preventDefault(); });   // Alt+F4 ohne PIN wirkungslos
   win.once('ready-to-show', () => { win.show(); win.focus(); });
   win.loadFile(path.join(__dirname, 'index.html'), {
-    query: { video: pathToFileURL(cfg.videoPath).href, timeout: String(cfg.pinTimeoutSeconds), pinlen: String(cfg.pin.length) },
+    query: { video: pathToFileURL(cfg.videoPath).href, timeout: String(cfg.pinTimeoutSeconds), pinlen: String(cfg.pin.length), scale: String(cfg.scale) },
   });
 
   ipcMain.handle('kiosk:checkPin', (_e, pin) => String(pin) === cfg.pin);
