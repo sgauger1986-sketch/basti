@@ -165,6 +165,7 @@
     { q: 'Wie viele Betriebe arbeiten mit OneQrew-Software?', a: 'Über 45.000.' },
     { q: 'Wie viel Kraftstoff spart GPS-Fahrzeugortung?', a: 'Bis zu 15 % – mit INFLEET, neu bei mexXsoft.' },
     { q: 'Wie lange dauert eine Abschlagsrechnung aus dem Aufmaß?', a: 'Ein Klick. Ohne Abtippen.' },
+    { q: 'Wie lange dauert ein <em>Angebot</em> in mexXsoft X2?', a: 'Sekunden – per Drag & Drop, mehrere Fenster gleichzeitig.' },
     { q: 'Wo ist Ihr Bagger <em>gerade</em>?', a: 'INFLEET weiß es – live auf der Karte.' },
     { q: 'Wie kommen Fotos von der Baustelle in die <em>Bauakte</em>?', a: 'Mit mexXgo – vom Handy, ohne Umweg.' },
   ];
@@ -177,7 +178,7 @@
     const sl = el.querySelector('.slam'); if (sl) { sl.style.animation = 'none'; void sl.offsetWidth; sl.style.animation = ''; } }
   function startCards(){ cardsOn = true; v.pause(); v.style.display = 'none'; demoBadge.classList.remove('on'); cards.classList.add('on');
     const item = QUIZ[quizIdx++ % QUIZ.length]; document.getElementById('qq').innerHTML = item.q; document.getElementById('aq').innerHTML = item.q; document.getElementById('aa').innerHTML = item.a;
-    const BOOM = [['E-Rechnung?', 'mexXsoft ist bereit.', 'ZUGFeRD 2.x · XRechnung · Empfangen & Versenden'], ['Wo ist Ihr Bagger gerade?', 'INFLEET weiß es.', 'GPS-Fahrzeugortung · neu bei mexXsoft'], ['Noch Excel auf der Baustelle?', 'Nie wieder.', 'mexXsoft X2 · GaLaBau & Tiefbau'], ['Neu.', 'MyOneQrew.', 'Ein Login, alle Helfer'], ['Die App für die Baustelle?', 'mexXgo.', 'Zeiten · Fotos · Rapporte · Unterschrift'], ['E-Rechnung wird Pflicht.', '2027', 'Sind Sie bereit? mexXsoft ist es.']];
+    const BOOM = [['E-Rechnung?', 'mexXsoft ist bereit.', 'ZUGFeRD 2.x · XRechnung · Empfangen & Versenden'], ['Wo ist Ihr Bagger gerade?', 'INFLEET weiß es.', 'GPS-Fahrzeugortung · neu bei mexXsoft'], ['Noch Excel auf der Baustelle?', 'Nie wieder.', 'mexXsoft X2 · GaLaBau & Tiefbau'], ['Neu.', 'MyOneQrew.', 'Ein Login, alle Helfer'], ['Die App für die Baustelle?', 'mexXgo.', 'Zeiten · Fotos · Rapporte · Unterschrift'], ['E-Rechnung wird Pflicht.', '2027', 'Sind Sie bereit? mexXsoft ist es.'], ['Angebot?', 'In Sekunden.', 'Drag & Drop · Mehrfenstertechnik']];
     if (DEMO_MIN) { document.getElementById('cpill').textContent = 'Vorführung'; document.getElementById('ct1').textContent = 'Nächste Vorführung in'; document.getElementById('cd').classList.remove('small'); document.getElementById('csub').textContent = 'Hier am Stand · einfach ansprechen'; }
     else { const b = BOOM[(quizIdx - 1 + BOOM.length) % BOOM.length]; document.getElementById('cpill').textContent = 'mexXsoft X2'; document.getElementById('ct1').textContent = b[0]; const cd = document.getElementById('cd'); cd.classList.add('small'); cd.classList.add('slam'); cd.textContent = b[1]; document.getElementById('csub').textContent = b[2]; }
     const third = CARDS_S / 3; cardTimers.forEach(clearTimeout);
