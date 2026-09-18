@@ -7,7 +7,14 @@ EAS Build in der Cloud – **ein Mac ist nicht nötig**.
 Gestaltung: Schrift **Inter**, Markengrün mit Verlaufsflächen, Karten mit weichen
 Schatten, Hell-/Dunkelmodus, Bildwelten aus Higgsfield (siehe unten).
 
-## Was die App kann
+## Zwei Betriebsmodi (`brand.js` → `startModus`)
+
+| Modus | Was passiert |
+|---|---|
+| **`web`** (Standard) | **Hülle um die bestehende heywerki-Web-Oberfläche.** Die App lädt `webAppUrl` in einer nativen Ansicht und ergänzt: eigenes Icon und Splash, App-Sperre, Screenshot-Schutz, Push-Benachrichtigungen, Teilen, Haptik, Offline-Anzeige, Zurück-Taste, Telegram-Kompatibilitätsschicht. Details: [`docs/WEB-BRUECKE.md`](docs/WEB-BRUECKE.md). |
+| **`erp`** | Native Bildschirme (Projekte, Leistungsverzeichnisse, Rapporte, Adressen) gegen ein eigenes Backend nach [`docs/API.md`](docs/API.md). Basis für die schrittweise Ablösung der Hülle. |
+
+## Was die App kann (ERP-Modus)
 
 | Bereich | Funktionen |
 |---|---|
@@ -108,6 +115,7 @@ Zertifikate und Signierschlüssel verwaltet EAS automatisch.
 brand.js               ← Markenkonfiguration (Name, IDs, Farben)
 app.config.ts          ← Expo-Konfiguration, liest brand.js
 app/                   ← Bildschirme (Expo Router, dateibasiert)
+  huelle.tsx           ← Web-Hülle (startModus 'web')
   (tabs)/              ← Start, Projekte, Rapporte, Adressen, Mehr
   projekt/[id].tsx     ← Projektdetail
   lv/[id].tsx          ← LV-Positionsbaum
@@ -119,9 +127,11 @@ src/
   domain/              ← Fachmodell, Status, Formatierung, LV-Baum, Kennzahlen
   data/                ← Mapping X2-Felder → Modell, Repository (Demo/Server), Storage, Sync
   security/            ← Tresor (AES-GCM, Schlüsselbund), Foto-Tresor, App-Sperre
+  huelle/              ← Web-Hülle: Navigationsregeln, Brückenskript, Push
   state/               ← globaler App-Zustand (AppProvider)
   theme/, ui/          ← Farben, Bausteine
-docs/API.md            ← Vertrag für das Backend
+docs/WEB-BRUECKE.md    ← Web-Hülle: Brücke, Telegram-Kompatibilität, Navigationsregeln
+docs/API.md            ← Vertrag für das Backend (ERP-Modus)
 docs/SICHERHEIT.md     ← Sicherheitskonzept und Release-Checkliste
 scripts/               ← Icon-Platzhalter (icons-erzeugen.py), Bildpipeline (bilder-anpassen.js)
 __tests__/             ← Jest-Tests

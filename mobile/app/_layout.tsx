@@ -5,6 +5,7 @@ import { ActivityIndicator, View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts, Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold, Inter_800ExtraBold } from '@expo-google-fonts/inter';
 import { AppProvider, useApp } from '@/state/AppProvider';
+import { brand } from '@/brand';
 import { useTheme } from '@/theme/useTheme';
 import { AppSperre } from '@/security/AppSperre';
 import { Hinweis } from '@/ui';
@@ -15,6 +16,8 @@ void SplashScreen.preventAutoHideAsync().catch(() => {});
 function Navigation() {
   const { bereit: datenBereit, einstellungen, tresorFehler } = useApp();
   const { farben, dunkel } = useTheme();
+  // EXPO_PUBLIC_STARTMODUS=erp erlaubt es, die nativen Bildschirme ohne Änderung an brand.js zu starten
+  const webModus = (process.env.EXPO_PUBLIC_STARTMODUS ?? brand.startModus) === 'web';
   const angemeldet = einstellungen.modus != null;
   const [schriftenBereit] = useFonts({ Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold, Inter_800ExtraBold });
   const bereit = datenBereit && schriftenBereit;
@@ -53,11 +56,15 @@ function Navigation() {
           contentStyle: { backgroundColor: farben.hintergrund },
         }}
       >
-        {/* Ohne Anmeldung ist nur der Login erreichbar; danach nur die App. */}
-        <Stack.Protected guard={!angemeldet}>
+        {/* Web-Hülle: die bestehende heywerki-Oberfläche in der App (brand.startModus = 'web') */}
+        <Stack.Protected guard={webModus}>
+          <Stack.Screen name="huelle" options={{ headerShown: false }} />
+        </Stack.Protected>
+        {/* ERP-Modus: ohne Anmeldung nur der Login, danach die nativen Bildschirme */}
+        <Stack.Protected guard={!webModus && !angemeldet}>
           <Stack.Screen name="login" options={{ headerShown: false }} />
         </Stack.Protected>
-        <Stack.Protected guard={angemeldet}>
+        <Stack.Protected guard={!webModus && angemeldet}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="projekt/[id]" options={{ title: 'Projekt' }} />
           <Stack.Screen name="lv/[id]" options={{ title: 'Leistungsverzeichnis' }} />

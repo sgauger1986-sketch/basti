@@ -14,7 +14,9 @@ const config: ExpoConfig = {
     supportsTablet: true,
     infoPlist: {
       NSCameraUsageDescription:
-        `${brand.name} nutzt die Kamera, um Fotos zu Rapporten und Baustellen aufzunehmen.`,
+        `${brand.name} nutzt die Kamera, um Fotos aufzunehmen.`,
+      NSMicrophoneUsageDescription:
+        `${brand.name} nutzt das Mikrofon für Sprach- und Videoaufnahmen in der App.`,
       NSPhotoLibraryUsageDescription:
         `${brand.name} greift auf Ihre Fotos zu, um Bilder an Rapporte anzuhängen.`,
       NSLocationWhenInUseUsageDescription:
@@ -33,7 +35,7 @@ const config: ExpoConfig = {
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: brand.colors.androidIconBackground,
     },
-    permissions: ['CAMERA', 'ACCESS_FINE_LOCATION', 'ACCESS_COARSE_LOCATION', 'USE_BIOMETRIC', 'USE_FINGERPRINT'],
+    permissions: ['CAMERA', 'RECORD_AUDIO', 'ACCESS_FINE_LOCATION', 'ACCESS_COARSE_LOCATION', 'USE_BIOMETRIC', 'USE_FINGERPRINT', 'POST_NOTIFICATIONS'],
     predictiveBackGestureEnabled: false,
     // Keine App-Daten in Google-/Geräte-Backups
     allowBackup: false,
@@ -57,6 +59,10 @@ const config: ExpoConfig = {
           enableShrinkResourcesInReleaseBuilds: true,
         },
       },
+    ],
+    [
+      'expo-notifications',
+      { icon: './assets/splash-icon.png', color: brand.colors.primary, defaultChannel: 'standard' },
     ],
     [
       'expo-local-authentication',

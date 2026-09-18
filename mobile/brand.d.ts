@@ -7,6 +7,9 @@ export interface Brand {
   readonly iosBundleId: string;
   readonly androidPackage: string;
   readonly supportEmail: string;
+  readonly startModus: 'web' | 'erp';
+  readonly webAppUrl: string;
+  readonly webErlaubteHosts: readonly string[];
   readonly defaultServerUrl: string;
   readonly colors: {
     readonly primary: string;

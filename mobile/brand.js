@@ -28,7 +28,17 @@ const brand = {
   androidPackage: 'de.heywerki.app',
   /** Support-Adresse, die auf der Über-Seite angezeigt wird */
   supportEmail: 'support@heywerki.de',
-  /** Standard-Server, der beim ersten Start vorgeschlagen wird (leer = nur Demo-Modus) */
+  /**
+   * Startmodus der App:
+   *  'web' = Hülle um die bestehende heywerki-Web-Oberfläche (webAppUrl)
+   *  'erp' = native Bildschirme (Projekte, LVs, Rapporte) mit eigenem Backend
+   */
+  startModus: 'web',
+  /** Adresse der bestehenden Web-Oberfläche, die in der Hülle geladen wird */
+  webAppUrl: 'https://serene-lichterman.82-165-52-98.plesk.page/',
+  /** Weitere Hosts, die innerhalb der Hülle geöffnet werden dürfen (z. B. Login-Anbieter). Alles andere öffnet den System-Browser. */
+  webErlaubteHosts: ['t.me', 'oauth.telegram.org'],
+  /** Standard-Server für den ERP-Modus (leer = nur Demo-Modus) */
   defaultServerUrl: '',
   /** Markenfarben (werden auch für App-Icon und Splash verwendet) */
   colors: {
