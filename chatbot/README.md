@@ -10,12 +10,26 @@ fragenden Kunden** zeigt. Gesamtstrategie und Einbettung in X2 (In-Process-DLL):
 
 ```bash
 cd chatbot
-python3 build_db.py          # 1x: baut x2demo.sqlite aus den echten Demo-Daten
-python3 selfcheck_engine.py  # Demo: interne + Kundenfragen, mit Prüfgremium
+python3 build_db.py               # 1x: baut x2demo.sqlite aus den echten Demo-Daten
+python3 selfcheck_engine.py       # Demo (Mock): interne + Kundenfragen, mit Gremium
+python3 selfcheck_engine.py --selftest   # Offline-Kette über echtes HTTP beweisen
 python3 selfcheck_engine.py "Wie viele Projekte gibt es?"
 ```
 
 Läuft **ohne Netz und ohne API-Schlüssel** (deterministisches Mock-Backend).
+
+**Offline mit echtem lokalem Modell** (die Produktivvariante) — siehe
+`OFFLINE-SETUP.md`. Kurz:
+
+```bash
+ollama pull qwen2.5-coder:7b               # einmalig
+X2_LLM=local python3 selfcheck_engine.py "Wie viele Projekte gibt es?"
+```
+
+Der `--selftest` fährt die vollständige Kette (Autor + 3 Prüfer + Freigabe) über
+**echtes HTTP auf localhost** gegen einen lokalen Stub — dieselbe Schnittstelle,
+die im Betrieb `ollama serve` bedient. So ist die Offline-Kette nachweisbar, auch
+ohne installiertes Modell.
 
 ## Die zwei Kernregeln
 
@@ -59,7 +73,7 @@ ist eine Liste (`REVIEWERS`) und leicht erweiterbar (z. B. PII-/Injection-Prüfe
 | Umgebungsvariable | Wirkung |
 |---|---|
 | _(nichts)_ | `MockBackend` — deterministisch, offline, für die Demo |
-| `X2_LLM=local` | lokales Modell (Ollama/llama.cpp) — **die Produktivvariante**, hier anzubinden |
+| `X2_LLM=local` | lokales Modell (Ollama/llama.cpp) — **die Produktivvariante**, fertig implementiert (siehe `OFFLINE-SETUP.md`) |
 | `X2_LLM=anthropic` | Cloud-Claude — **gesperrt**, nur mit `X2_ALLOW_EGRESS=1` für Tests |
 
 Modelle: `X2_GEN_MODEL` (Autor), `X2_VER_MODEL` (Prüfer).

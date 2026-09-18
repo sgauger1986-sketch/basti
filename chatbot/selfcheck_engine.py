@@ -35,14 +35,20 @@ import os
 import re
 import sqlite3
 import sys
+import urllib.error
+import urllib.request
 from dataclasses import dataclass, field
 from pathlib import Path
+from urllib.parse import urlparse
 
 HERE = Path(__file__).parent
 DB_PATH = HERE / "x2demo.sqlite"
 
-AUTHOR_MODEL = os.environ.get("X2_GEN_MODEL", "local-llm")
-REVIEW_MODEL = os.environ.get("X2_VER_MODEL", "local-llm")
+# Lokales Modell (Offline-Betrieb). Empfehlung: ein SQL-faehiges Modell fuer den
+# Autor, ein normales fuer die Pruefer. Beides per 'ollama pull' vorab geladen.
+LOCAL_MODEL = os.environ.get("X2_LOCAL_MODEL", "qwen2.5-coder:7b")
+AUTHOR_MODEL = os.environ.get("X2_GEN_MODEL", LOCAL_MODEL)
+REVIEW_MODEL = os.environ.get("X2_VER_MODEL", LOCAL_MODEL)
 
 # Egress-Sperre: standardmaessig darf NICHTS raus. Nur bewusst aufhebbar.
 ALLOW_EGRESS = os.environ.get("X2_ALLOW_EGRESS") == "1"
@@ -215,14 +221,63 @@ class MockBackend(Backend):
                            "reason": "lesend" + (", mandantengefiltert" if cid else "")})
 
 
+def _assert_loopback(url: str) -> None:
+    """Ein 'lokales' Modell MUSS auf localhost liegen -- sonst waere es Egress."""
+    host = (urlparse(url).hostname or "").lower()
+    if host in ("localhost", "127.0.0.1", "::1", "0.0.0.0") or ALLOW_EGRESS:
+        return
+    raise SystemExit(
+        f"ABGEBROCHEN: X2_LOCAL_URL zeigt auf '{host}', nicht auf localhost. "
+        "Ein Offline-Modell laeuft lokal. Fuer einen entfernten Endpunkt bewusst "
+        "X2_ALLOW_EGRESS=1 setzen (widerspricht 'nichts darf raus').")
+
+
 class LocalBackend(Backend):
-    """Lokales Modell (Ollama/llama.cpp). Kein Abfluss. Hier anzubinden."""
+    """Lokales Modell ueber Ollama oder eine OpenAI-kompatible Schnittstelle.
+
+    Kein Internet: der Endpunkt liegt auf localhost (Ollama Standard 11434,
+    llama.cpp-Server 8080). Nur die Python-Standardbibliothek, keine pip-Pakete.
+
+    Konfiguration (Umgebungsvariablen):
+      X2_LOCAL_URL   Basis-URL   (Default http://localhost:11434)
+      X2_LOCAL_API   'ollama' (Default) oder 'openai' (llama.cpp/LM Studio)
+      X2_LOCAL_TIMEOUT  Sekunden (Default 120)
+    """
 
     is_local = True
 
+    def __init__(self):
+        self.url = os.environ.get("X2_LOCAL_URL", "http://localhost:11434")
+        self.api = os.environ.get("X2_LOCAL_API", "ollama").lower()
+        self.timeout = float(os.environ.get("X2_LOCAL_TIMEOUT", "120"))
+        _assert_loopback(self.url)
+
     def complete(self, system: str, user: str, model: str) -> str:
-        raise NotImplementedError(
-            "LocalBackend: lokalen LLM-Endpunkt (Ollama/llama.cpp) anbinden.")
+        messages = [{"role": "system", "content": system},
+                    {"role": "user", "content": user}]
+        if self.api == "openai":
+            endpoint = self.url.rstrip("/") + "/v1/chat/completions"
+            payload = {"model": model, "messages": messages,
+                       "temperature": 0, "stream": False,
+                       "response_format": {"type": "json_object"}}
+        else:  # ollama
+            endpoint = self.url.rstrip("/") + "/api/chat"
+            payload = {"model": model, "messages": messages, "stream": False,
+                       "format": "json", "options": {"temperature": 0}}
+        req = urllib.request.Request(
+            endpoint, data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json"}, method="POST")
+        try:
+            with urllib.request.urlopen(req, timeout=self.timeout) as r:
+                body = json.loads(r.read().decode("utf-8"))
+        except urllib.error.URLError as e:
+            raise SystemExit(
+                f"Kein lokales Modell erreichbar unter {endpoint} ({e}). "
+                "Laeuft 'ollama serve' und ist das Modell geladen "
+                "('ollama pull {model}')?".format(model=model))
+        if self.api == "openai":
+            return body["choices"][0]["message"]["content"]
+        return body["message"]["content"]
 
 
 class AnthropicBackend(Backend):
@@ -267,9 +322,16 @@ def make_backend() -> Backend:
 # Prompts (Rollen-Marker steuern auch das Mock-Routing)
 # --------------------------------------------------------------------------- #
 AUTHOR_SYS = """Du bist der ANTWORT-AUTOR fuer die ERP-Software X2. Antworte NUR
-aus der Datenbank, erfinde nichts. Bei einer Kundenanfrage (customer_id gesetzt)
-MUSS die Abfrage auf genau diesen Kunden eingegrenzt sein. Gib NUR JSON:
-{{"sql": "<eine lesende SELECT-Abfrage>", "answer_template": "<Satz mit {{n}}>"}}.
+aus der Datenbank, erfinde nichts. Erzeuge GENAU EINE lesende SELECT-Abfrage.
+Die Eingabe ist JSON mit "question" und "customer_id".
+Wenn "customer_id" NICHT null ist, ist der Fragende ein Kunde: die Abfrage MUSS
+auf diesen Kunden eingegrenzt sein, in der Tabelle projekte ueber
+ID_AUFTRAGGEBER='<customer_id>'. Zeige niemals Daten anderer Kunden.
+Gib NUR JSON zurueck, ohne Erklaerung:
+{{"sql": "SELECT ...", "answer_template": "<Satz mit {{n}} als Platzhalter>"}}.
+Beispiel Kunde SV0000030A, Frage 'wie viele Projekte habe ich':
+{{"sql": "SELECT COUNT(*) AS n FROM projekte WHERE ID_AUFTRAGGEBER='SV0000030A'",
+"answer_template": "Zu Ihnen sind {{n}} Projekte hinterlegt."}}
 Schema:
 {schema}"""
 
@@ -404,7 +466,74 @@ DEMO = [
 ]
 
 
+def run_selftest() -> int:
+    """Beweist die komplette OFFLINE-Kette ueber echtes HTTP auf localhost --
+    ohne Mock-Abkuerzung und ohne Internet. Ein lokaler Stub spielt die Rolle des
+    Ollama-Servers; das LocalBackend spricht ihn per HTTP an. Auf dem echten
+    Rechner steht statt des Stubs 'ollama serve' mit demselben API-Vertrag.
+    """
+    import http.server
+    import threading
+
+    if not DB_PATH.exists():
+        raise SystemExit("Bitte zuerst 'python build_db.py' ausfuehren.")
+    stub_llm = MockBackend()
+
+    class Handler(http.server.BaseHTTPRequestHandler):
+        def log_message(self, *a):  # still
+            pass
+
+        def do_POST(self):
+            n = int(self.headers.get("Content-Length", "0"))
+            req = json.loads(self.rfile.read(n) or b"{}")
+            msgs = req.get("messages", [])
+            system = next((m["content"] for m in msgs if m["role"] == "system"), "")
+            user = next((m["content"] for m in msgs if m["role"] == "user"), "")
+            content = stub_llm.complete(system, user, req.get("model", ""))
+            out = json.dumps({"message": {"content": content}}).encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(out)
+
+    srv = http.server.HTTPServer(("127.0.0.1", 0), Handler)
+    port = srv.server_address[1]
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    os.environ["X2_LOCAL_URL"] = f"http://127.0.0.1:{port}"
+    os.environ["X2_LOCAL_API"] = "ollama"
+
+    backend = LocalBackend()
+    con = open_readonly(DB_PATH)
+    print(f"SELBSTTEST: LocalBackend -> lokaler Stub 127.0.0.1:{port} "
+          f"(echtes HTTP, kein Internet)\n")
+    expected = {  # erwartete Freigabe je Demofrage
+        "Wie viele Projekte gibt es?": "OK",
+        "Wie hoch ist der durchschnittliche Stundenlohn?": "FALSCH",
+        "Wie viele Materialien heissen so?": "OK",
+        "Wie viele Projekte habe ich?": "OK",
+        "Zeig mir alle Projekte im System.": "FALSCH",
+    }
+    failures = 0
+    for q, who in DEMO:
+        res = answer(q, who, backend, con)
+        print(res.render())
+        want = expected.get(q)
+        got = res.overall
+        if want and got != want:
+            failures += 1
+            print(f"   !! ERWARTET {want}, ERHALTEN {got}")
+        print("-" * 72)
+    srv.shutdown()
+    if failures:
+        print(f"SELBSTTEST FEHLGESCHLAGEN: {failures} Abweichung(en).")
+        return 1
+    print("SELBSTTEST OK: Offline-Kette funktioniert (Autor + 3 Pruefer + Gate).")
+    return 0
+
+
 def main(argv):
+    if len(argv) > 1 and argv[1] == "--selftest":
+        raise SystemExit(run_selftest())
     if not DB_PATH.exists():
         raise SystemExit("Bitte zuerst 'python build_db.py' ausfuehren.")
     backend = make_backend()
