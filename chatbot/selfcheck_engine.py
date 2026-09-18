@@ -489,6 +489,22 @@ class Result:
         return {"OK": "🟢 freigegeben", "WARNUNG": "🟡 mit Vorbehalt",
                 "FALSCH": "🔴 gesperrt", "FEHLER": "⚫ Fehler"}.get(self.overall, "⚪")
 
+    def to_dict(self) -> dict:
+        """Fuer die lokale Dienst-Schnittstelle (serve.py -> Chat-Panel)."""
+        return {
+            "question": self.question,
+            "principal": self.principal,
+            "answer": self.answer,
+            "released": self.released,
+            "overall": self.overall,
+            "badge": self.badge,
+            "reviews": [{"name": n, "verdict": v, "reason": r}
+                        for n, v, r in self.reviews],
+            "corrected_answer": self.corrected_answer,
+            "sql": self.sql,
+            "error": self.error,
+        }
+
     def render(self) -> str:
         out = [f"Frage:     {self.question}   [Fragender: {self.principal}]",
                f"Antwort:   {self.answer or '(gesperrt)'}",

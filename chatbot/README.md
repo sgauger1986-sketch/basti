@@ -74,6 +74,23 @@ Angriffstest für jeden Guard einzeln:
 python3 test_guards.py      # 25 Fälle: Injection, Schreib-SQL, Mandanten-Leck, PII …
 ```
 
+## Einbau in X2 (Panel im X2-Fenster)
+
+Der Assistent wird als Chat-Panel **in X2** angezeigt, ohne die `X2.exe` zu
+verändern. Konkrete Schritt-für-Schritt-Anleitung: `../chatbot/EINBAU-IN-EXE.md`.
+
+```bash
+python3 serve.py            # lokaler Dienst http://127.0.0.1:8756/ (nur localhost)
+```
+
+- `serve.py` — lokale Dienst-Schnittstelle: liefert das Panel und beantwortet
+  `POST /ask` mit dem geprüften Ergebnis (alle sechs Bots).
+- `panel/index.html` — das Chat-Panel; im Betrieb zeigt es ein WebView2 im
+  X2-Fenster an.
+- `x2host/` — Delphi-Vorlagen: `X2Companion.dpr` (WebView2-Fenster),
+  `X2Dock.dpr` (dockt das Panel per SetParent an X2), `x2inject.dpr`
+  (In-Process-Variante per DLL-Injektion). Auf dem Windows-Rechner zu bauen.
+
 ## Dateien
 
 - `build_db.py` — baut die schreibgeschützte SQLite-DB aus den echten Demo-Daten

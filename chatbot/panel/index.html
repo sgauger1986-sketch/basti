@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X2 Assistent</title>
+<style>
+  :root {
+    --bg:#f4f5f7; --panel:#ffffff; --ink:#1c2430; --muted:#5b6674;
+    --line:#e3e7ec; --accent:#2456d6; --ok:#1a8f3c; --warn:#b8860b; --bad:#c0392b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:#0f1319; --panel:#171d26; --ink:#e8ecf1; --muted:#96a2b2;
+      --line:#28313d; --accent:#5b8bff; --ok:#3ec77a; --warn:#e0b64a; --bad:#ff6b5e;
+    }
+  }
+  * { box-sizing:border-box; }
+  html,body { margin:0; height:100%; }
+  body { background:var(--bg); color:var(--ink); display:flex; flex-direction:column;
+         font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif; }
+  header { padding:12px 16px; border-bottom:1px solid var(--line); background:var(--panel);
+           display:flex; align-items:center; gap:10px; }
+  header b { font-size:15px; } header span { color:var(--muted); font-size:13px; }
+  #log { flex:1; overflow:auto; padding:16px; display:flex; flex-direction:column; gap:14px; }
+  .msg { max-width:680px; }
+  .me { align-self:flex-end; background:var(--accent); color:#fff; padding:8px 12px;
+        border-radius:12px 12px 2px 12px; }
+  .bot { align-self:flex-start; background:var(--panel); border:1px solid var(--line);
+         padding:12px 14px; border-radius:12px 12px 12px 2px; width:100%; }
+  .ans { font-size:15px; margin-bottom:8px; }
+  .badge { display:inline-block; font-size:12px; font-weight:600; padding:2px 8px;
+           border-radius:999px; margin-bottom:8px; }
+  .b-ok{ background:color-mix(in srgb,var(--ok) 18%,transparent); color:var(--ok); }
+  .b-warn{ background:color-mix(in srgb,var(--warn) 20%,transparent); color:var(--warn); }
+  .b-bad{ background:color-mix(in srgb,var(--bad) 18%,transparent); color:var(--bad); }
+  .checks { border-top:1px solid var(--line); margin-top:8px; padding-top:8px;
+            display:grid; gap:3px; }
+  .chk { display:flex; gap:8px; font-size:12.5px; color:var(--muted); }
+  .chk .v { width:14px; text-align:center; }
+  .v-ok{ color:var(--ok);} .v-warn{ color:var(--warn);} .v-bad{ color:var(--bad);}
+  .chk .n { min-width:96px; color:var(--ink); }
+  .corr { margin-top:8px; font-size:13.5px; color:var(--warn); }
+  .sql { margin-top:8px; font:12px ui-monospace,Menlo,Consolas,monospace;
+         color:var(--muted); word-break:break-all; }
+  form { display:flex; gap:8px; padding:12px 16px; border-top:1px solid var(--line);
+         background:var(--panel); }
+  select,input,button { font:inherit; border:1px solid var(--line); border-radius:8px;
+                        padding:9px 11px; background:var(--bg); color:var(--ink); }
+  input { flex:1; } button { background:var(--accent); color:#fff; border:none; cursor:pointer; }
+  button:disabled { opacity:.5; cursor:default; }
+</style>
+</head>
+<body>
+  <header>
+    <b>X2 Assistent</b>
+    <span>lokal · geprüft durch 6 Bots · offline</span>
+  </header>
+  <div id="log"></div>
+  <form id="f">
+    <select id="who" title="Als wer fragen?">
+      <option value="">intern</option>
+      <option value="SV0000030A">Kunde: Müller, Franz</option>
+    </select>
+    <input id="q" placeholder="Frage zu X2-Daten…" autocomplete="off">
+    <button id="send">Fragen</button>
+  </form>
+<script>
+const log = document.getElementById('log');
+const form = document.getElementById('f');
+const qEl = document.getElementById('q');
+const whoEl = document.getElementById('who');
+const btn = document.getElementById('send');
+
+function el(cls, txt){ const d=document.createElement('div'); d.className=cls; if(txt!=null) d.textContent=txt; return d; }
+function badgeClass(o){ return o==='OK'?'b-ok':o==='WARNUNG'?'b-warn':'b-bad'; }
+function vClass(v){ return v==='OK'?'v-ok':v==='WARNUNG'?'v-warn':'v-bad'; }
+function vMark(v){ return v==='OK'?'✓':v==='WARNUNG'?'!':v==='FEHLER'?'⚫':'✗'; }
+
+function addBot(data){
+  const box = el('bot');
+  if (data.error){ box.appendChild(el('ans','Fehler: '+data.error)); log.appendChild(box); scroll(); return; }
+  const b = el('badge '+badgeClass(data.overall), data.badge);
+  box.appendChild(b);
+  box.appendChild(el('ans', data.answer || '(gesperrt — keine belegbare Antwort)'));
+  if (data.corrected_answer) box.appendChild(el('corr','Korrektur: '+data.corrected_answer));
+  const checks = el('checks');
+  (data.reviews||[]).forEach(r=>{
+    const row = el('chk');
+    const v = el('v '+vClass(r.verdict), vMark(r.verdict));
+    row.appendChild(v);
+    row.appendChild(el('n', r.name));
+    row.appendChild(el('r', r.reason));
+    checks.appendChild(row);
+  });
+  box.appendChild(checks);
+  if (data.sql) box.appendChild(el('sql', data.sql));
+  log.appendChild(box); scroll();
+}
+function scroll(){ log.scrollTop = log.scrollHeight; }
+
+form.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const q = qEl.value.trim(); if(!q) return;
+  log.appendChild(Object.assign(el('msg me'), {textContent:q}));
+  qEl.value=''; btn.disabled=true; scroll();
+  try{
+    const res = await fetch('/ask', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({question:q, customer_id: whoEl.value||null})});
+    addBot(await res.json());
+  }catch(err){ addBot({error:String(err)}); }
+  btn.disabled=false; qEl.focus();
+});
+</script>
+</body>
+</html>
