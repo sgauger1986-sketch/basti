@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { brand } from '@/brand';
 import { kennzahlen, rapportStunden } from '@/domain/kpi';
@@ -7,7 +9,7 @@ import { datum, euroKompakt, stunden } from '@/domain/format';
 import { PROJEKT_STATUS_LABEL, SYNC_STATUS_LABEL, projektStatusTon, syncStatusTon } from '@/domain/status';
 import { useApp, useDaten } from '@/state/AppProvider';
 import { useTheme } from '@/theme/useTheme';
-import { ABSTAND } from '@/theme/farben';
+import { ABSTAND, SCHATTEN, SCHRIFT } from '@/theme/farben';
 import { Bildschirm } from '@/ui/Bildschirm';
 import { Abschnitt, Hinweis, Karte, Kennzahl, Knopf, Leer, Pille, Trenner, Zeile } from '@/ui';
 
@@ -26,22 +28,38 @@ export default function Start() {
 
   return (
     <Bildschirm aktualisieren={datenAktualisieren} laedt={laedt}>
-      <View style={s.kopf}>
-        <Text style={[s.gruss, { color: farben.text }]}>{brand.name}</Text>
-        <Text style={[s.stand, { color: farben.text3 }]}>
-          {einstellungen.modus === 'demo' ? 'Demo-Modus · offline' : `Stand ${daten?.standVom ? datum(daten.standVom) : '—'}`}
-        </Text>
-      </View>
+      <LinearGradient
+        colors={[farben.akzent, '#1f4d38']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={[s.hero, SCHATTEN.hervorgehoben]}
+      >
+        <View style={s.heroKopf}>
+          <View>
+            <Text style={s.heroGruss}>{gruss()}</Text>
+            <Text style={s.heroName}>{brand.name}</Text>
+          </View>
+          <View style={s.heroBadge}>
+            <Ionicons name={einstellungen.modus === 'demo' ? 'flask-outline' : 'cloud-done-outline'} size={13} color="#fff" />
+            <Text style={s.heroBadgeText}>
+              {einstellungen.modus === 'demo' ? 'Demo · offline' : `Stand ${daten?.standVom ? datum(daten.standVom) : '—'}`}
+            </Text>
+          </View>
+        </View>
+        <Text style={s.heroLabel}>Offene Auftragssumme</Text>
+        <Text style={s.heroWert}>{euroKompakt(k.offen)}</Text>
+        <View style={s.heroZeile}>
+          <HeroStat label="Angebote" wert={euroKompakt(k.angebotsvolumen)} />
+          <HeroStat label="Aufträge" wert={euroKompakt(k.auftragsvolumen)} />
+          <HeroStat label="Fakturiert" wert={euroKompakt(k.fakturiert)} />
+        </View>
+      </LinearGradient>
 
       {ladeFehler ? <Hinweis ton="fehler">Daten konnten nicht geladen werden: {ladeFehler}</Hinweis> : null}
 
       <View style={s.kpis}>
-        <Kennzahl label="Projekte" wert={String(k.projekte)} meta={`${d.lvListen.length} Leistungsverzeichnisse`} />
-        <Kennzahl label="Offen" wert={euroKompakt(k.offen)} meta={`${euroKompakt(k.fakturiert)} fakturiert`} />
-      </View>
-      <View style={s.kpis}>
-        <Kennzahl label="Angebote" wert={euroKompakt(k.angebotsvolumen)} />
-        <Kennzahl label="Aufträge" wert={euroKompakt(k.auftragsvolumen)} />
+        <Kennzahl icon="briefcase-outline" label="Projekte" wert={String(k.projekte)} meta={`${d.lvListen.length} Leistungsverzeichnisse`} />
+        <Kennzahl icon="create-outline" label="Rapporte" wert={String(rapporte.length)} meta={`${offeneRapporte.length} offen`} />
       </View>
 
       <View style={{ paddingHorizontal: ABSTAND.l, paddingTop: ABSTAND.l }}>
@@ -70,7 +88,7 @@ export default function Start() {
       <Abschnitt>Meine offenen Rapporte</Abschnitt>
       <Karte>
         {offeneRapporte.length === 0 ? (
-          <Leer icon="checkmark-done-outline" titel="Alles übertragen" text="Keine offenen Rapporte." />
+          <Leer bild titel="Alles übertragen" text="Keine offenen Rapporte." />
         ) : (
           offeneRapporte.map((r, i) => (
             <React.Fragment key={r.id}>
@@ -89,9 +107,35 @@ export default function Start() {
   );
 }
 
+function gruss(): string {
+  const h = new Date().getHours();
+  if (h < 11) return 'Guten Morgen';
+  if (h < 17) return 'Guten Tag';
+  return 'Guten Abend';
+}
+
+function HeroStat({ label, wert }: { label: string; wert: string }) {
+  return (
+    <View style={{ flex: 1 }}>
+      <Text style={s.heroStatLabel}>{label}</Text>
+      <Text style={s.heroStatWert} numberOfLines={1}>
+        {wert}
+      </Text>
+    </View>
+  );
+}
+
 const s = StyleSheet.create({
-  kopf: { paddingHorizontal: ABSTAND.l, paddingTop: ABSTAND.l, paddingBottom: ABSTAND.m },
-  gruss: { fontSize: 26, fontWeight: '800', letterSpacing: -0.4 },
-  stand: { fontSize: 12.5, marginTop: 2 },
-  kpis: { flexDirection: 'row', gap: ABSTAND.m, paddingHorizontal: ABSTAND.l, paddingTop: ABSTAND.m },
+  hero: { marginHorizontal: ABSTAND.l, marginTop: ABSTAND.l, borderRadius: 22, padding: ABSTAND.xl - 2 },
+  heroKopf: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: ABSTAND.xl },
+  heroGruss: { fontFamily: SCHRIFT.medium, fontSize: 13, color: 'rgba(255,255,255,0.78)' },
+  heroName: { fontFamily: SCHRIFT.extrabold, fontSize: 24, color: '#fff', letterSpacing: -0.5 },
+  heroBadge: { flexDirection: 'row', alignItems: 'center', gap: 5, backgroundColor: 'rgba(255,255,255,0.16)', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 999 },
+  heroBadgeText: { fontFamily: SCHRIFT.medium, fontSize: 11, color: '#fff' },
+  heroLabel: { fontFamily: SCHRIFT.medium, fontSize: 12, color: 'rgba(255,255,255,0.78)', textTransform: 'uppercase', letterSpacing: 0.8 },
+  heroWert: { fontFamily: SCHRIFT.extrabold, fontSize: 36, color: '#fff', letterSpacing: -1, marginTop: 2, marginBottom: ABSTAND.l, fontVariant: ['tabular-nums'] },
+  heroZeile: { flexDirection: 'row', gap: ABSTAND.m, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: 'rgba(255,255,255,0.3)', paddingTop: ABSTAND.m },
+  heroStatLabel: { fontFamily: SCHRIFT.regular, fontSize: 11, color: 'rgba(255,255,255,0.72)' },
+  heroStatWert: { fontFamily: SCHRIFT.semibold, fontSize: 14, color: '#fff', marginTop: 2, fontVariant: ['tabular-nums'] },
+  kpis: { flexDirection: 'row', gap: ABSTAND.m, paddingHorizontal: ABSTAND.l, paddingTop: ABSTAND.l },
 });

@@ -3,17 +3,21 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
+import { useFonts, Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold, Inter_800ExtraBold } from '@expo-google-fonts/inter';
 import { AppProvider, useApp } from '@/state/AppProvider';
 import { useTheme } from '@/theme/useTheme';
 import { AppSperre } from '@/security/AppSperre';
 import { Hinweis } from '@/ui';
+import { SCHRIFT } from '@/theme/farben';
 
 void SplashScreen.preventAutoHideAsync().catch(() => {});
 
 function Navigation() {
-  const { bereit, einstellungen, tresorFehler } = useApp();
+  const { bereit: datenBereit, einstellungen, tresorFehler } = useApp();
   const { farben, dunkel } = useTheme();
   const angemeldet = einstellungen.modus != null;
+  const [schriftenBereit] = useFonts({ Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold, Inter_800ExtraBold });
+  const bereit = datenBereit && schriftenBereit;
 
   useEffect(() => {
     if (bereit) void SplashScreen.hideAsync().catch(() => {});
@@ -43,7 +47,7 @@ function Navigation() {
         screenOptions={{
           headerStyle: { backgroundColor: farben.flaeche },
           headerTintColor: farben.akzent,
-          headerTitleStyle: { color: farben.text, fontWeight: '700' },
+          headerTitleStyle: { color: farben.text, fontFamily: SCHRIFT.semibold, fontSize: 17 },
           headerShadowVisible: false,
           headerBackButtonDisplayMode: 'minimal',
           contentStyle: { backgroundColor: farben.hintergrund },

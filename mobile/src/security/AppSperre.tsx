@@ -15,7 +15,7 @@ import * as LocalAuthentication from 'expo-local-authentication';
 import * as ScreenCapture from 'expo-screen-capture';
 import { brand } from '@/brand';
 import { useTheme } from '@/theme/useTheme';
-import { ABSTAND, RADIUS } from '@/theme/farben';
+import { ABSTAND, RADIUS, SCHRIFT } from '@/theme/farben';
 import { Knopf } from '@/ui';
 
 export interface AppSperreProps {
@@ -143,5 +143,5 @@ export function AppSperre({ aktiv, sperrNachSekunden, screenshotSchutz, children
 const s = StyleSheet.create({
   deckel: { alignItems: 'center', justifyContent: 'center', padding: ABSTAND.xl, zIndex: 1000 },
   logo: { width: 64, height: 64, borderRadius: RADIUS.l, alignItems: 'center', justifyContent: 'center' },
-  name: { fontSize: 22, fontWeight: '800', marginTop: ABSTAND.m },
+  name: { fontSize: 22, fontFamily: SCHRIFT.extrabold, marginTop: ABSTAND.m },
 });

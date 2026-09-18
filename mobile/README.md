@@ -4,6 +4,9 @@ Native App für Baustelle und Außendienst, gebaut mit **Expo / React Native**
 (TypeScript). Ein Code für iOS und Android; Builds für beide Stores laufen über
 EAS Build in der Cloud – **ein Mac ist nicht nötig**.
 
+Gestaltung: Schrift **Inter**, Markengrün mit Verlaufsflächen, Karten mit weichen
+Schatten, Hell-/Dunkelmodus, Bildwelten aus Higgsfield (siehe unten).
+
 ## Was die App kann
 
 | Bereich | Funktionen |
@@ -45,6 +48,27 @@ npx expo prebuild --clean           # nur falls native Ordner ios/android existi
 > **Wichtig:** `iosBundleId` und `androidPackage` lassen sich nach dem ersten
 > Store-Upload **nicht mehr ändern**. Den endgültigen Namen also vor dem ersten
 > Release festlegen (Reverse-Domain, z. B. `de.neuername.app`).
+
+## Bildwelten (Icon, Login-Hintergrund, Illustrationen)
+
+Die Bildwelten wurden mit **Higgsfield** (Modell GPT Image 2.5) erzeugt:
+
+| Bild | Verwendung | Higgsfield-Job |
+|---|---|---|
+| App-Icon (Sechskant-Mutter mit Blatt, Markengrün) | `assets/quelle/icon.png` → Icon, Adaptive-Icon, Splash, Favicon | `517e209f-a9cf-4291-8de1-b98322fed5bd` |
+| Natursteinterrasse im Morgenlicht (9:16) | `assets/quelle/hero.png` → Login-Hintergrund | `3d4c9791-a98c-4157-9375-9a4be8a82552` |
+| Klemmbrett mit Pflanze (transparent) | `assets/quelle/leer.png` → Leerzustände | `d75a5c95-9457-4da4-8283-c015b8b93767` |
+
+Die Dateien im Repository sind **Platzhalter** (aus `scripts/icons-erzeugen.py`),
+weil das Higgsfield-CDN aus der Build-Umgebung nicht erreichbar war. Übernahme
+der echten Bilder:
+
+1. Die drei Bilder aus dem Higgsfield-Verlauf herunterladen und als
+   `assets/quelle/icon.png`, `assets/quelle/hero.png`, `assets/quelle/leer.png` ablegen.
+2. `node scripts/bilder-anpassen.js` ausführen – erzeugt alle Größen in `assets/`
+   (nutzt `jimp-compact`, das mit Expo mitkommt; keine weitere Installation).
+
+Neue Motive: gleiches Vorgehen, die Prompts stehen im Higgsfield-Verlauf.
 
 ## Entwicklung
 
@@ -99,7 +123,7 @@ src/
   theme/, ui/          ← Farben, Bausteine
 docs/API.md            ← Vertrag für das Backend
 docs/SICHERHEIT.md     ← Sicherheitskonzept und Release-Checkliste
-scripts/               ← Icon-Generator
+scripts/               ← Icon-Platzhalter (icons-erzeugen.py), Bildpipeline (bilder-anpassen.js)
 __tests__/             ← Jest-Tests
 ```
 

@@ -6,7 +6,7 @@ import { projektFortschritt, rapportStunden } from '@/domain/kpi';
 import { LV_STATUS_LABEL, PROJEKT_STATUS_LABEL, SYNC_STATUS_LABEL, lvStatusTon, projektStatusTon, syncStatusTon } from '@/domain/status';
 import { useApp, useDaten } from '@/state/AppProvider';
 import { useTheme } from '@/theme/useTheme';
-import { ABSTAND } from '@/theme/farben';
+import { ABSTAND, SCHRIFT } from '@/theme/farben';
 import { Bildschirm } from '@/ui/Bildschirm';
 import { Abschnitt, AktionsKnopf, Feld, Karte, Knopf, Leer, Pille, Titel, Trenner, Untertitel, Zeile } from '@/ui';
 
@@ -67,7 +67,7 @@ export default function ProjektDetail() {
             <View style={[s.balken, { backgroundColor: farben.flaeche2 }]}>
               <View style={[s.balkenFuellung, { backgroundColor: farben.akzent, width: `${Math.round(fortschritt * 100)}%` }]} />
             </View>
-            <Text style={{ color: farben.text2, fontSize: 12 }}>{prozent(fortschritt * 100)} der Auftragssumme fakturiert</Text>
+            <Text style={{ color: farben.text2, fontFamily: SCHRIFT.regular, fontSize: 12 }}>{prozent(fortschritt * 100)} der Auftragssumme fakturiert</Text>
           </View>
         ) : null}
       </Karte>
@@ -90,7 +90,7 @@ export default function ProjektDetail() {
                 rechts={
                   <View style={{ alignItems: 'flex-end', gap: 4 }}>
                     <Pille ton={lvStatusTon(l.status)}>{LV_STATUS_LABEL[l.status]}</Pille>
-                    <Text style={{ color: farben.text2, fontSize: 12, fontVariant: ['tabular-nums'] }}>{euro(l.summe)}</Text>
+                    <Text style={{ color: farben.text2, fontFamily: SCHRIFT.regular, fontSize: 12, fontVariant: ['tabular-nums'] }}>{euro(l.summe)}</Text>
                   </View>
                 }
                 onPress={() => router.push(`/lv/${l.id}`)}

@@ -29,10 +29,10 @@ export function Liste<T>(props: FlatListProps<T>) {
               borderRightWidth: 1,
               borderTopWidth: erste ? 1 : 0,
               borderBottomWidth: letzte ? 1 : 0,
-              borderTopLeftRadius: erste ? RADIUS.m : 0,
-              borderTopRightRadius: erste ? RADIUS.m : 0,
-              borderBottomLeftRadius: letzte ? RADIUS.m : 0,
-              borderBottomRightRadius: letzte ? RADIUS.m : 0,
+              borderTopLeftRadius: erste ? RADIUS.l : 0,
+              borderTopRightRadius: erste ? RADIUS.l : 0,
+              borderBottomLeftRadius: letzte ? RADIUS.l : 0,
+              borderBottomRightRadius: letzte ? RADIUS.l : 0,
               overflow: 'hidden',
             }}
           >

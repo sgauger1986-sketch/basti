@@ -7,7 +7,7 @@ import { passtZurSuche } from '@/domain/kpi';
 import { PROJEKT_STATUS_LABEL, projektStatusTon } from '@/domain/status';
 import { useApp, useDaten } from '@/state/AppProvider';
 import { useTheme } from '@/theme/useTheme';
-import { ABSTAND } from '@/theme/farben';
+import { ABSTAND, SCHRIFT } from '@/theme/farben';
 import { Flaeche } from '@/ui/Bildschirm';
 import { Liste } from '@/ui/Liste';
 import { Leer, Pille, Suchfeld, Zeile } from '@/ui';
@@ -60,7 +60,7 @@ export default function Projekte() {
                       { backgroundColor: aktiv ? farben.akzent : farben.flaeche, borderColor: farben.rand },
                     ]}
                   >
-                    <Text style={{ color: aktiv ? farben.akzentText : farben.text2, fontSize: 13, fontWeight: '600' }}>
+                    <Text style={{ color: aktiv ? farben.akzentText : farben.text2, fontSize: 13, fontFamily: SCHRIFT.semibold }}>
                       {f.label}
                     </Text>
                   </Pressable>
@@ -78,7 +78,7 @@ export default function Projekte() {
               <View style={{ alignItems: 'flex-end', gap: 4 }}>
                 <Pille ton={projektStatusTon(p.status)}>{PROJEKT_STATUS_LABEL[p.status]}</Pille>
                 {p.summeAuftrag != null ? (
-                  <Text style={{ color: farben.text2, fontSize: 12, fontVariant: ['tabular-nums'] }}>
+                  <Text style={{ color: farben.text2, fontFamily: SCHRIFT.regular, fontSize: 12, fontVariant: ['tabular-nums'] }}>
                     {euro(p.summeAuftrag)}
                   </Text>
                 ) : null}

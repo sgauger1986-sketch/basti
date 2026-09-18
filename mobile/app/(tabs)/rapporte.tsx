@@ -87,7 +87,7 @@ export default function Rapporte() {
           </View>
         }
         ListEmptyComponent={
-          <Leer icon="create-outline" titel="Noch keine Rapporte" text="Erfassen Sie den ersten Tagesbericht direkt auf der Baustelle." />
+          <Leer bild titel="Noch keine Rapporte" text="Erfassen Sie den ersten Tagesbericht direkt auf der Baustelle." />
         }
         renderItem={({ item: e }) => (
           <Zeile

@@ -7,7 +7,7 @@ import { lvBaumBauen, lvBaumFlach, lvPositionenZaehlen, type LvKnoten } from '@/
 import { LV_STATUS_LABEL, lvStatusTon } from '@/domain/status';
 import { useDaten } from '@/state/AppProvider';
 import { useTheme } from '@/theme/useTheme';
-import { ABSTAND } from '@/theme/farben';
+import { ABSTAND, SCHRIFT } from '@/theme/farben';
 import { Flaeche } from '@/ui/Bildschirm';
 import { Liste } from '@/ui/Liste';
 import { Abschnitt, Chip, Feld, Karte, Leer, Pille, Suchfeld, Titel, Untertitel } from '@/ui';
@@ -72,7 +72,7 @@ export default function LvDetail() {
                 <Feld label="LV-Summe (netto)" wert={euro(lv.summe)} />
               </View>
             </Karte>
-            <Abschnitt rechts={<Text style={{ color: farben.text3, fontSize: 12 }}>{anzahl} Positionen</Text>}>Positionen</Abschnitt>
+            <Abschnitt rechts={<Text style={{ color: farben.text3, fontFamily: SCHRIFT.regular, fontSize: 12 }}>{anzahl} Positionen</Text>}>Positionen</Abschnitt>
             <View style={{ paddingBottom: ABSTAND.m }}>
               <Suchfeld wert={suche} onChange={setSuche} placeholder="OZ oder Kurztext" />
             </View>
@@ -94,7 +94,7 @@ export default function LvDetail() {
                 {k.istGruppe ? <Ionicons name={zu ? 'chevron-forward' : 'chevron-down'} size={15} color={farben.text3} /> : null}
                 <Text style={[s.oz, { color: farben.text3 }]}>{p.oz ?? ''}</Text>
                 {k.istGruppe && p.ke ? <Chip>{p.ke}</Chip> : null}
-                <Text style={[s.kurztext, { color: farben.text, fontWeight: k.istGruppe ? '700' : '500' }]} numberOfLines={3}>
+                <Text style={[s.kurztext, { color: farben.text, fontFamily: k.istGruppe ? SCHRIFT.bold : SCHRIFT.medium }]} numberOfLines={3}>
                   {p.kurztext}
                 </Text>
               </View>
@@ -104,7 +104,7 @@ export default function LvDetail() {
                 ) : (
                   <View />
                 )}
-                <Text style={[s.wert, { color: farben.text, fontWeight: '700' }]}>{euro(p.gesamtpreis)}</Text>
+                <Text style={[s.wert, { color: farben.text, fontFamily: SCHRIFT.bold }]}>{euro(p.gesamtpreis)}</Text>
               </View>
             </Pressable>
           );
@@ -120,7 +120,7 @@ const s = StyleSheet.create({
   pos: { paddingRight: ABSTAND.l, paddingVertical: 10, gap: 4 },
   posKopf: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   oz: { fontFamily: Platform.select({ ios: 'Menlo', default: 'monospace' }), fontSize: 12, minWidth: 44 },
-  kurztext: { flex: 1, fontSize: 14 },
+  kurztext: { flex: 1, fontFamily: SCHRIFT.regular, fontSize: 14 },
   posWerte: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingLeft: 52 },
-  wert: { fontSize: 13, fontVariant: ['tabular-nums'] },
+  wert: { fontFamily: SCHRIFT.regular, fontSize: 13, fontVariant: ['tabular-nums'] },
 });

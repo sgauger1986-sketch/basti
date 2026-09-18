@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { prozent } from '@/domain/format';
 import { useDaten } from '@/state/AppProvider';
 import { useTheme } from '@/theme/useTheme';
-import { ABSTAND } from '@/theme/farben';
+import { ABSTAND, SCHRIFT } from '@/theme/farben';
 import { Flaeche } from '@/ui/Bildschirm';
 import { Liste } from '@/ui/Liste';
 import { Chip, Leer, Zeile } from '@/ui';
@@ -31,7 +31,7 @@ export default function Stammdaten() {
             onPress={() => setTab(t.key)}
             style={[s.tab, { backgroundColor: aktiv ? farben.akzent : farben.flaeche, borderColor: farben.rand }]}
           >
-            <Text style={{ color: aktiv ? farben.akzentText : farben.text2, fontWeight: '600', fontSize: 13 }}>
+            <Text style={{ color: aktiv ? farben.akzentText : farben.text2, fontFamily: SCHRIFT.semibold, fontSize: 13 }}>
               {t.label} ({t.anzahl})
             </Text>
           </Pressable>

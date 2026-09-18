@@ -4,7 +4,7 @@ import { euro } from '@/domain/format';
 import { passtZurSuche } from '@/domain/kpi';
 import { useDaten } from '@/state/AppProvider';
 import { useTheme } from '@/theme/useTheme';
-import { ABSTAND } from '@/theme/farben';
+import { ABSTAND, SCHRIFT } from '@/theme/farben';
 import { Flaeche } from '@/ui/Bildschirm';
 import { Liste } from '@/ui/Liste';
 import { Leer, Suchfeld, Zeile } from '@/ui';
@@ -34,10 +34,10 @@ export default function MitarbeiterListe() {
             untertitel={[m.personalnummer, m.matchcode].filter(Boolean).join(' · ')}
             rechts={
               <View style={{ alignItems: 'flex-end' }}>
-                <Text style={{ color: farben.text, fontSize: 13, fontWeight: '600', fontVariant: ['tabular-nums'] }}>{euro(m.stundenlohn)}</Text>
-                <Text style={{ color: farben.text3, fontSize: 11 }}>Lohn / h</Text>
+                <Text style={{ color: farben.text, fontSize: 13, fontFamily: SCHRIFT.semibold, fontVariant: ['tabular-nums'] }}>{euro(m.stundenlohn)}</Text>
+                <Text style={{ color: farben.text3, fontFamily: SCHRIFT.regular, fontSize: 11 }}>Lohn / h</Text>
                 {m.stundensatzTaglohn != null ? (
-                  <Text style={{ color: farben.text2, fontSize: 11, marginTop: 2 }}>Verrechnung {euro(m.stundensatzTaglohn)}</Text>
+                  <Text style={{ color: farben.text2, fontFamily: SCHRIFT.regular, fontSize: 11, marginTop: 2 }}>Verrechnung {euro(m.stundensatzTaglohn)}</Text>
                 ) : null}
               </View>
             }

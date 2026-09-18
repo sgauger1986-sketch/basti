@@ -63,3 +63,30 @@ export const DUNKEL: Farben = {
 
 export const ABSTAND = { xs: 4, s: 8, m: 12, l: 16, xl: 24 } as const;
 export const RADIUS = { s: 7, m: 10, l: 14 } as const;
+
+/** Schriftfamilie Inter (wird in app/_layout.tsx geladen) */
+export const SCHRIFT = {
+  regular: 'Inter_400Regular',
+  medium: 'Inter_500Medium',
+  semibold: 'Inter_600SemiBold',
+  bold: 'Inter_700Bold',
+  extrabold: 'Inter_800ExtraBold',
+} as const;
+
+/** Weiche Kartenschatten (iOS) bzw. Elevation (Android) */
+export const SCHATTEN = {
+  karte: {
+    shadowColor: '#14200f',
+    shadowOpacity: 0.06,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 2,
+  },
+  hervorgehoben: {
+    shadowColor: '#14200f',
+    shadowOpacity: 0.18,
+    shadowRadius: 20,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 6,
+  },
+} as const;

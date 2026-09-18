@@ -4,7 +4,7 @@ import Constants from 'expo-constants';
 import { Ionicons } from '@expo/vector-icons';
 import { brand } from '@/brand';
 import { useTheme } from '@/theme/useTheme';
-import { ABSTAND, RADIUS } from '@/theme/farben';
+import { ABSTAND, RADIUS, SCHRIFT } from '@/theme/farben';
 import { Bildschirm } from '@/ui/Bildschirm';
 import { Abschnitt, Karte, Trenner, Zeile } from '@/ui';
 
@@ -19,7 +19,7 @@ export default function Ueber() {
         </View>
         <Text style={[s.name, { color: farben.text }]}>{brand.name}</Text>
         <Text style={{ color: farben.text2 }}>{brand.tagline}</Text>
-        <Text style={{ color: farben.text3, fontSize: 12, marginTop: 4 }}>Version {version}</Text>
+        <Text style={{ color: farben.text3, fontFamily: SCHRIFT.regular, fontSize: 12, marginTop: 4 }}>Version {version}</Text>
       </View>
       <Abschnitt>Kontakt</Abschnitt>
       <Karte>
@@ -34,5 +34,5 @@ export default function Ueber() {
 const s = StyleSheet.create({
   kopf: { alignItems: 'center', padding: ABSTAND.xl, gap: 6 },
   logo: { width: 64, height: 64, borderRadius: RADIUS.l, alignItems: 'center', justifyContent: 'center', marginBottom: 6 },
-  name: { fontSize: 24, fontWeight: '800' },
+  name: { fontSize: 24, fontFamily: SCHRIFT.extrabold },
 });

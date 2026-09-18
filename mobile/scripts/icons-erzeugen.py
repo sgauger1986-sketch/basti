@@ -85,3 +85,52 @@ erzeuge(assets / "adaptive-icon.png", 1024, PRIMARY, ecken=0, glyph_k=0.7)  # An
 erzeuge_transparent(assets / "splash-icon.png", 512, 1.0)            # weiße Marke auf Markenfarbe
 erzeuge(assets / "favicon.png", 64, PRIMARY, ecken=12)
 print(f"Icons für '{NAME}' in {PRIMARY} erzeugt.")
+
+# ---------------------------------------------------------------------------
+# Platzhalter-Quellbilder für scripts/bilder-anpassen.js (werden durch die
+# finalen Bildwelten aus Higgsfield ersetzt, siehe README "Bildwelten").
+# ---------------------------------------------------------------------------
+quelle = assets / "quelle"
+quelle.mkdir(exist_ok=True)
+
+def hero_platzhalter(path, w=540, h=960):
+    oben = mischen(hex2rgb(PRIMARY), (255, 255, 255), 0.35)
+    unten = mischen(hex2rgb(PRIMARY), (0, 0, 0), 0.65)
+    kreise = [(0.2, 0.25, 0.30, 0.18), (0.8, 0.15, 0.22, 0.12), (0.65, 0.5, 0.42, 0.10), (0.3, 0.7, 0.35, 0.08)]
+    def pixel(x, y):
+        t = y / h
+        farbe = mischen(oben, unten, t * t)
+        for cx, cy, r, a in kreise:
+            d = math.hypot((x / w - cx), (y / h - cy) * (h / w))
+            if d < r:
+                farbe = mischen(farbe, (255, 255, 255), a * (1 - d / r))
+        return (*farbe, 255)
+    png(path, w, h, pixel)
+
+def leer_platzhalter(path, s=512):
+    bg = hex2rgb(PRIMARY); mint = (228, 239, 232); sand = (232, 220, 196)
+    def rr(x, y, x0, y0, x1, y1, r):
+        cx = min(max(x, x0 + r), x1 - r); cy = min(max(y, y0 + r), y1 - r)
+        return math.hypot(x - cx, y - cy) <= r
+    def pixel(x, y):
+        # Klemmbrett
+        if rr(x, y, 150, 120, 380, 420, 18):
+            farbe, a = mint, 255
+            if rr(x, y, 175, 165, 355, 395, 10): farbe = (255, 255, 255)
+            for i, yy in enumerate((200, 250, 300, 350)):
+                if rr(x, y, 200, yy, 330 - i * 15, yy + 14, 7): farbe = bg if i == 0 else sand
+                if 196 <= x <= 208 and yy - 2 <= y <= yy + 16: farbe = bg
+            if rr(x, y, 225, 100, 305, 140, 12): farbe = bg
+            return (*farbe, a)
+        # Pflanze
+        if rr(x, y, 390, 330, 470, 420, 12): return (*sand, 255)
+        if math.hypot(x - 430, y - 300) < 34 or math.hypot(x - 405, y - 275) < 22 or math.hypot(x - 455, y - 270) < 22:
+            return (*bg, 255)
+        return (0, 0, 0, 0)
+    png(path, s, s, pixel)
+
+# Icon-Quelle = das erzeugte Icon; Hero/Leer = Platzhalter
+(quelle / "icon.png").write_bytes((assets / "icon.png").read_bytes())
+hero_platzhalter(quelle / "hero.png")
+leer_platzhalter(quelle / "leer.png")
+print("Platzhalter-Quellbilder in assets/quelle/ geschrieben")

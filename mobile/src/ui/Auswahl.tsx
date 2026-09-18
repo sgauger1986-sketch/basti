@@ -3,7 +3,7 @@ import { FlatList, Modal, Pressable, StyleSheet, Text, View } from 'react-native
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/theme/useTheme';
-import { ABSTAND, RADIUS } from '@/theme/farben';
+import { ABSTAND, RADIUS, SCHRIFT } from '@/theme/farben';
 import { Suchfeld, Trenner } from '@/ui';
 
 export interface Option {
@@ -51,13 +51,13 @@ export function Auswahl({
 
   return (
     <View style={{ gap: 6 }}>
-      <Text style={{ fontSize: 13, fontWeight: '600', color: farben.text2 }}>{label}</Text>
+      <Text style={{ fontSize: 13, fontFamily: SCHRIFT.semibold, color: farben.text2 }}>{label}</Text>
       <Pressable
         accessibilityRole="button"
         onPress={gesperrt ? undefined : () => setOffen(true)}
         style={[s.feld, { backgroundColor: farben.flaeche, borderColor: farben.rand, opacity: gesperrt ? 0.6 : 1 }]}
       >
-        <Text style={{ color: aktuell ? farben.text : farben.text3, fontSize: 16, flex: 1 }} numberOfLines={1}>
+        <Text style={{ color: aktuell ? farben.text : farben.text3, fontFamily: SCHRIFT.regular, fontSize: 16, flex: 1 }} numberOfLines={1}>
           {aktuell?.text ?? leerText}
         </Text>
         {!gesperrt ? <Ionicons name="chevron-expand-outline" size={16} color={farben.text3} /> : null}
@@ -105,8 +105,8 @@ function Eintrag({ text, untertitel, aktiv, onPress }: { text: string; untertite
   return (
     <Pressable onPress={onPress} style={({ pressed }) => [s.eintrag, { backgroundColor: pressed ? farben.flaeche2 : farben.flaeche }]}>
       <View style={{ flex: 1 }}>
-        <Text style={{ color: farben.text, fontSize: 16, fontWeight: aktiv ? '700' : '400' }}>{text}</Text>
-        {untertitel ? <Text style={{ color: farben.text2, fontSize: 13 }}>{untertitel}</Text> : null}
+        <Text style={{ color: farben.text, fontSize: 16, fontFamily: aktiv ? SCHRIFT.bold : SCHRIFT.regular }}>{text}</Text>
+        {untertitel ? <Text style={{ color: farben.text2, fontFamily: SCHRIFT.regular, fontSize: 13 }}>{untertitel}</Text> : null}
       </View>
       {aktiv ? <Ionicons name="checkmark" size={20} color={farben.akzent} /> : null}
     </Pressable>
@@ -116,6 +116,6 @@ function Eintrag({ text, untertitel, aktiv, onPress }: { text: string; untertite
 const s = StyleSheet.create({
   feld: { flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderRadius: RADIUS.s, paddingHorizontal: 12, minHeight: 44 },
   kopf: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: ABSTAND.l },
-  kopfTitel: { fontSize: 18, fontWeight: '700' },
+  kopfTitel: { fontSize: 18, fontFamily: SCHRIFT.bold },
   eintrag: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: ABSTAND.l, paddingVertical: 14, gap: 12 },
 });

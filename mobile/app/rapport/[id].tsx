@@ -12,7 +12,7 @@ import { neueId, rapportPruefen } from '@/data/rapportSync';
 import { useApp, useDaten } from '@/state/AppProvider';
 import { fotoAblegen, fotoAnzeigen, fotoLoeschen } from '@/security/fotoTresor';
 import { useTheme } from '@/theme/useTheme';
-import { ABSTAND, RADIUS } from '@/theme/farben';
+import { ABSTAND, RADIUS, SCHRIFT } from '@/theme/farben';
 import { Bildschirm } from '@/ui/Bildschirm';
 import { Abschnitt, Chip, Eingabe, Hinweis, Karte, Knopf, Pille, Trenner, Untertitel, Zeile } from '@/ui';
 import { Auswahl } from '@/ui/Auswahl';
@@ -233,7 +233,7 @@ export default function RapportEditor() {
         </View>
       </Karte>
 
-      <Abschnitt rechts={<Text style={{ color: farben.text3, fontSize: 12 }}>{stunden(rapportStunden(r))}</Text>}>Arbeitszeiten</Abschnitt>
+      <Abschnitt rechts={<Text style={{ color: farben.text3, fontFamily: SCHRIFT.regular, fontSize: 12 }}>{stunden(rapportStunden(r))}</Text>}>Arbeitszeiten</Abschnitt>
       <Karte>
         {r.zeiten.map((z, i) => (
           <React.Fragment key={z.key}>
@@ -332,7 +332,7 @@ export default function RapportEditor() {
         ) : null}
       </Karte>
 
-      <Abschnitt rechts={<Text style={{ color: farben.text3, fontSize: 12 }}>{r.fotos.length} Fotos</Text>}>Fotos</Abschnitt>
+      <Abschnitt rechts={<Text style={{ color: farben.text3, fontFamily: SCHRIFT.regular, fontSize: 12 }}>{r.fotos.length} Fotos</Text>}>Fotos</Abschnitt>
       <Karte>
         {r.fotos.length > 0 ? (
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.fotos}>

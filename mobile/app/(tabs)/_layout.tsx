@@ -2,8 +2,10 @@ import React from 'react';
 import type { ColorValue } from 'react-native';
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { StyleSheet } from 'react-native';
 import { useTheme } from '@/theme/useTheme';
 import type { IconName } from '@/ui';
+import { SCHRIFT } from '@/theme/farben';
 
 function TabIcon(name: IconName, aktiv: IconName) {
   return ({ color, focused, size }: { color: ColorValue; focused: boolean; size: number }) => (
@@ -17,9 +19,10 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerStyle: { backgroundColor: farben.flaeche },
-        headerTitleStyle: { color: farben.text, fontWeight: '700' },
+        headerTitleStyle: { color: farben.text, fontFamily: SCHRIFT.semibold, fontSize: 17 },
         headerShadowVisible: false,
-        tabBarStyle: { backgroundColor: farben.flaeche, borderTopColor: farben.rand },
+        tabBarStyle: { backgroundColor: farben.flaeche, borderTopColor: farben.rand, borderTopWidth: StyleSheet.hairlineWidth },
+        tabBarLabelStyle: { fontFamily: SCHRIFT.medium, fontSize: 11, lineHeight: 14 },
         tabBarActiveTintColor: farben.akzent,
         tabBarInactiveTintColor: farben.text3,
         sceneStyle: { backgroundColor: farben.hintergrund },

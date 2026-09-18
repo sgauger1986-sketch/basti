@@ -19,7 +19,8 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import type { StatusTon } from '@/domain/status';
-import { ABSTAND, RADIUS } from '@/theme/farben';
+import { Image } from 'expo-image';
+import { ABSTAND, RADIUS, SCHATTEN, SCHRIFT } from '@/theme/farben';
 import { useTheme } from '@/theme/useTheme';
 
 export type IconName = React.ComponentProps<typeof Ionicons>['name'];
@@ -51,7 +52,7 @@ export function Abschnitt({ children, rechts }: { children: React.ReactNode; rec
 export function Karte({ children, style }: { children: React.ReactNode; style?: StyleProp<ViewStyle> }) {
   const { farben } = useTheme();
   return (
-    <View style={[s.karte, { backgroundColor: farben.flaeche, borderColor: farben.rand }, style]}>
+    <View style={[s.karte, SCHATTEN.karte, { backgroundColor: farben.flaeche, borderColor: farben.rand }, style]}>
       {children}
     </View>
   );
@@ -64,11 +65,14 @@ export function Trenner() {
 
 /* ---------- Kennzahl ---------- */
 
-export function Kennzahl({ label, wert, meta }: { label: string; wert: string; meta?: string }) {
+export function Kennzahl({ label, wert, meta, icon }: { label: string; wert: string; meta?: string; icon?: IconName }) {
   const { farben } = useTheme();
   return (
     <Karte style={s.kpi}>
-      <Text style={[s.kpiLabel, { color: farben.text3 }]}>{label}</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Text style={[s.kpiLabel, { color: farben.text3 }]}>{label}</Text>
+        {icon ? <Ionicons name={icon} size={16} color={farben.akzent} /> : null}
+      </View>
       <Text style={[s.kpiWert, { color: farben.text }]} numberOfLines={1} adjustsFontSizeToFit>
         {wert}
       </Text>
@@ -278,11 +282,17 @@ export function AktionsKnopf({ icon, titel, onPress }: { icon: IconName; titel: 
 
 /* ---------- Leerzustand & Hinweis ---------- */
 
-export function Leer({ icon = 'folder-open-outline', titel, text }: { icon?: IconName; titel: string; text?: string }) {
+export function Leer({ icon = 'folder-open-outline', titel, text, bild }: { icon?: IconName; titel: string; text?: string; bild?: boolean }) {
   const { farben } = useTheme();
   return (
     <View style={s.leer}>
-      <Ionicons name={icon} size={40} color={farben.text3} />
+      {bild ? (
+        <Image source={require('../../assets/leer.png')} style={{ width: 150, height: 150, marginBottom: 4 }} contentFit="contain" />
+      ) : (
+        <View style={[s.leerIcon, { backgroundColor: farben.akzentWeich }]}>
+          <Ionicons name={icon} size={26} color={farben.akzent} />
+        </View>
+      )}
       <Text style={[s.leerTitel, { color: farben.text }]}>{titel}</Text>
       {text ? <Text style={[s.leerText, { color: farben.text2 }]}>{text}</Text> : null}
     </View>
@@ -302,8 +312,8 @@ export function Hinweis({ ton = 'neutral', children }: { ton?: StatusTon; childr
 /* ---------- Styles ---------- */
 
 const s = StyleSheet.create({
-  titel: { fontSize: 22, fontWeight: '700', letterSpacing: -0.3 },
-  untertitel: { fontSize: 13, marginTop: 2 },
+  titel: { fontSize: 24, fontFamily: SCHRIFT.bold, letterSpacing: -0.4, lineHeight: 30 },
+  untertitel: { fontFamily: SCHRIFT.regular, fontSize: 13, marginTop: 2 },
   abschnitt: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -312,21 +322,21 @@ const s = StyleSheet.create({
     paddingTop: ABSTAND.xl,
     paddingBottom: ABSTAND.s,
   },
-  abschnittText: { fontSize: 11.5, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.8 },
+  abschnittText: { fontSize: 11.5, fontFamily: SCHRIFT.bold, textTransform: 'uppercase', letterSpacing: 0.8 },
   karte: {
-    borderRadius: RADIUS.m,
+    borderRadius: RADIUS.l,
     borderWidth: StyleSheet.hairlineWidth,
     overflow: 'hidden',
     marginHorizontal: ABSTAND.l,
   },
   kpi: { flex: 1, padding: ABSTAND.l, marginHorizontal: 0, minWidth: 140 },
-  kpiLabel: { fontSize: 11, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.6 },
-  kpiWert: { fontSize: 22, fontWeight: '700', marginTop: 6, fontVariant: ['tabular-nums'] },
-  kpiMeta: { fontSize: 12, marginTop: 2 },
+  kpiLabel: { fontSize: 11, fontFamily: SCHRIFT.bold, textTransform: 'uppercase', letterSpacing: 0.6 },
+  kpiWert: { fontSize: 22, fontFamily: SCHRIFT.bold, marginTop: 8, fontVariant: ['tabular-nums'], letterSpacing: -0.3 },
+  kpiMeta: { fontFamily: SCHRIFT.regular, fontSize: 12, marginTop: 2 },
   pille: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: 999, alignSelf: 'flex-start' },
-  pilleText: { fontSize: 11.5, fontWeight: '600' },
+  pilleText: { fontSize: 11.5, fontFamily: SCHRIFT.semibold },
   chip: { paddingHorizontal: 7, paddingVertical: 2, borderRadius: 5, borderWidth: StyleSheet.hairlineWidth },
-  chipText: { fontSize: 11, fontWeight: '600' },
+  chipText: { fontSize: 11, fontFamily: SCHRIFT.semibold },
   zeile: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -335,25 +345,25 @@ const s = StyleSheet.create({
     paddingVertical: ABSTAND.m,
     minHeight: 56,
   },
-  zeileIcon: { width: 34, height: 34, borderRadius: 8, alignItems: 'center', justifyContent: 'center' },
+  zeileIcon: { width: 36, height: 36, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
   zeileMitte: { flex: 1, gap: 2 },
-  zeileTitel: { fontSize: 15, fontWeight: '600' },
-  zeileUnter: { fontSize: 13 },
-  zeileRechtsText: { fontSize: 14, fontWeight: '600', fontVariant: ['tabular-nums'] },
+  zeileTitel: { fontSize: 15, fontFamily: SCHRIFT.semibold },
+  zeileUnter: { fontFamily: SCHRIFT.regular, fontSize: 13 },
+  zeileRechtsText: { fontSize: 14, fontFamily: SCHRIFT.semibold, fontVariant: ['tabular-nums'] },
   mono: { fontFamily: Platform.select({ ios: 'Menlo', default: 'monospace' }) },
   feld: { width: '50%', paddingHorizontal: ABSTAND.l, paddingVertical: ABSTAND.s },
-  feldLabel: { fontSize: 11, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.6 },
-  feldWert: { fontSize: 15, marginTop: 3 },
+  feldLabel: { fontSize: 11, fontFamily: SCHRIFT.bold, textTransform: 'uppercase', letterSpacing: 0.6 },
+  feldWert: { fontFamily: SCHRIFT.regular, fontSize: 15, marginTop: 3 },
   eingabeBlock: { gap: 6 },
-  eingabeLabel: { fontSize: 13, fontWeight: '600' },
+  eingabeLabel: { fontSize: 13, fontFamily: SCHRIFT.semibold },
   eingabe: {
     borderWidth: 1,
     borderRadius: RADIUS.s,
     paddingHorizontal: 12,
     paddingVertical: 10,
-    fontSize: 16,
+    fontFamily: SCHRIFT.regular, fontSize: 16,
   },
-  eingabeFehler: { fontSize: 12 },
+  eingabeFehler: { fontFamily: SCHRIFT.regular, fontSize: 12 },
   suche: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -364,18 +374,18 @@ const s = StyleSheet.create({
     height: 40,
     marginHorizontal: ABSTAND.l,
   },
-  sucheInput: { flex: 1, fontSize: 15, paddingVertical: 0 },
+  sucheInput: { flex: 1, fontFamily: SCHRIFT.regular, fontSize: 15, paddingVertical: 0 },
   knopf: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    borderRadius: RADIUS.s,
-    paddingVertical: 13,
+    borderRadius: RADIUS.m,
+    paddingVertical: 14,
     paddingHorizontal: 18,
-    minHeight: 46,
+    minHeight: 50,
   },
-  knopfText: { fontSize: 15, fontWeight: '700' },
+  knopfText: { fontSize: 15, fontFamily: SCHRIFT.bold },
   aktion: {
     flex: 1,
     alignItems: 'center',
@@ -384,10 +394,11 @@ const s = StyleSheet.create({
     borderRadius: RADIUS.s,
     paddingVertical: 10,
   },
-  aktionText: { fontSize: 12, fontWeight: '600' },
-  leer: { alignItems: 'center', padding: ABSTAND.xl * 2, gap: 8 },
-  leerTitel: { fontSize: 16, fontWeight: '700' },
-  leerText: { fontSize: 13, textAlign: 'center' },
+  aktionText: { fontSize: 12, fontFamily: SCHRIFT.semibold },
+  leer: { alignItems: 'center', paddingVertical: ABSTAND.xl * 1.5, paddingHorizontal: ABSTAND.xl, gap: 6 },
+  leerIcon: { width: 52, height: 52, borderRadius: 26, alignItems: 'center', justifyContent: 'center', marginBottom: 6 },
+  leerTitel: { fontSize: 16, fontFamily: SCHRIFT.bold },
+  leerText: { fontFamily: SCHRIFT.regular, fontSize: 13, textAlign: 'center' },
   hinweis: { borderRadius: RADIUS.s, padding: ABSTAND.m, marginHorizontal: ABSTAND.l },
-  hinweisText: { fontSize: 13, lineHeight: 18 },
+  hinweisText: { fontFamily: SCHRIFT.regular, fontSize: 13, lineHeight: 18 },
 });
