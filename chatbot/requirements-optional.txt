@@ -1,0 +1,10 @@
+# Optionale Guard-Bibliotheken. Der Assistent laeuft AUCH OHNE sie (sicherer
+# Eigen-Fallback). Einmalig lokal installieren, dann offline nutzbar.
+
+# Echte SQL-Baumanalyse statt Regex (SQL-Struktur-Bot). Reines Python.
+sqlglot>=25
+
+# PII-Erkennung in der Ausgabe (Datenschutz-Bot). Braucht zusaetzlich ein
+# spaCy-Sprachmodell, das einmalig geladen wird:
+#   python -m spacy download de_core_news_lg
+presidio-analyzer>=2.2

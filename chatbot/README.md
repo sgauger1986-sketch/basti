@@ -47,18 +47,32 @@ Nur bewusst für Tests aufhebbar mit `X2_ALLOW_EGRESS=1`. Im Echtbetrieb kommt
 zusätzlich eine Firewall ohne ausgehenden Internetzugang dazu (Defense in Depth).
 
 **2. Mehrere Chatbots prüfen sich gegenseitig.**
-Nach dem Autor prüfen drei unabhängige Rollen den Antwortentwurf gegen die echten
-Datenzeilen, jede auf eine andere Fehlerklasse:
+Jede Antwort durchläuft **sechs** unabhängige Prüf-Bots. Drei sind deterministische
+Guardrails (modellunabhängig, mit etablierten Bibliotheken), drei sind
+Modell-Prüfer, die den Entwurf gegen die echten Datenzeilen kontrollieren:
 
-| Prüfer | prüft |
-|---|---|
-| **Fakten** | Stimmt jede genannte Zahl exakt mit den Datenzeilen? |
-| **Fehler** | Passt die Abfrage zur Frage, gibt es Belegzeilen? |
-| **Sicherheit** | Nur lesend? Auf den fragenden Kunden eingegrenzt? Kein Leck? |
+| Prüf-Bot | Art | prüft | Baustein |
+|---|---|---|---|
+| **Injektion** | Guard, Eingang | Prompt-/SQL-Injection in der Frage | Muster (Idee: Rebuff/Prompt Guard) |
+| **SQL-Struktur** | Guard, vor Ausführung | echtes SELECT, kein Schreibbefehl, mandantengefiltert | **sqlglot** (Fallback: Regex) |
+| **Fakten** | Modell | stimmt jede Zahl exakt mit den Zeilen? | LLM-Prüfer |
+| **Fehler** | Modell | passt die Abfrage, gibt es Belegzeilen? | LLM-Prüfer |
+| **Sicherheit** | Modell | nur lesend, auf den Kunden begrenzt, kein Leck? | LLM-Prüfer |
+| **Datenschutz** | Guard, Ausgang | PII in der Antwort (E-Mail, IBAN, Steuernr. …) | **Presidio** (Fallback: Regex) |
 
-**Freigabe-Gate:** Die Antwort wird nur ausgegeben, wenn **kein** Prüfer „falsch"
-sagt; sonst 🔴 gesperrt (und wo möglich aus den Daten korrigiert). Das Gremium
-ist eine Liste (`REVIEWERS`) und leicht erweiterbar (z. B. PII-/Injection-Prüfer).
+**Freigabe-Gate:** Die Antwort wird nur ausgegeben, wenn **kein** Prüf-Bot
+„falsch" sagt; sonst 🔴 gesperrt (und wo möglich aus den Daten korrigiert). Ein
+Injektions- oder SQL-Struktur-Treffer sperrt schon **vor** dem Datenbankzugriff.
+
+Die Guards nutzen echte Bibliotheken, wenn installiert
+(`requirements-optional.txt`), sonst einen sicheren Eigen-Fallback — der
+Assistent läuft also auch ohne Zusatzpakete.
+
+Angriffstest für jeden Guard einzeln:
+
+```bash
+python3 test_guards.py      # 25 Fälle: Injection, Schreib-SQL, Mandanten-Leck, PII …
+```
 
 ## Dateien
 

@@ -133,11 +133,24 @@ Kontrolle. Jeder Prüfer bekommt Frage, ausgeführte Abfrage und die **echten
 Ergebniszeilen** und muss sein Urteil daraus belegen. Die drei Rollen prüfen
 bewusst *verschiedene* Fehlerklassen:
 
-- **Fakten** — stimmt jede genannte Zahl exakt mit den Datenzeilen überein?
-- **Fehler** — passt die Abfrage überhaupt zur Frage, gibt es Belegzeilen?
-- **Sicherheit** — nur lesend, auf den fragenden Kunden eingegrenzt, kein
-  fremder Datensatz? (Bei verletzter Mandantentrennung bekommen die anderen
-  Prüfer die Zeilen gar nicht erst zu sehen.)
+Es sind **sechs** Prüf-Bots — drei deterministische Guardrails auf Basis
+etablierter Bibliotheken plus drei Modell-Prüfer:
+
+- **Injektion** (Guard, Eingang) — Prompt-/SQL-Injection in der Frage, blockt
+  schon vor dem Datenbankzugriff (Idee: Rebuff / Prompt Guard).
+- **SQL-Struktur** (Guard, vor Ausführung) — echte Baumanalyse mit **sqlglot**:
+  genau ein `SELECT`, kein Schreibbefehl, bei Kundenfragen mandantengefiltert.
+- **Fakten** (Modell) — stimmt jede genannte Zahl exakt mit den Datenzeilen?
+- **Fehler** (Modell) — passt die Abfrage zur Frage, gibt es Belegzeilen?
+- **Sicherheit** (Modell) — nur lesend, auf den fragenden Kunden eingegrenzt?
+  (Bei verletzter Mandantentrennung bekommen die anderen Prüfer die Zeilen gar
+  nicht erst zu sehen.)
+- **Datenschutz** (Guard, Ausgang) — PII in der Antwort (E-Mail, IBAN,
+  Steuernummer …) mit **Microsoft Presidio**.
+
+Alle Guards nutzen die echte Bibliothek, wenn installiert, sonst einen sicheren
+Eigen-Fallback — der Assistent läuft also auch ohne Zusatzpakete. Ein
+Angriffstest je Guard liegt in `chatbot/test_guards.py` (25 Fälle).
 
 **Freigabe-Gate.** Die Antwort wird nur ausgegeben, wenn **kein** Prüfer „falsch"
 urteilt; sonst wird sie **gesperrt** und, wo möglich, aus den echten Daten
