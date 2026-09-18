@@ -4,6 +4,7 @@
  *  - ServerRepository: REST-Anbindung an das (künftige) Backend, siehe docs/API.md
  */
 import type { Datenbestand, MobilerRapport } from '@/domain/types';
+import type { FotoAnhang } from '@/security/fotoTresor';
 import { datenbestandAusRoh, type RohBundle } from './mapping';
 import demoRoh from './demo-daten.json';
 
@@ -23,7 +24,7 @@ export interface Sitzung {
 export interface Repository {
   readonly modus: 'demo' | 'server';
   datenLaden(): Promise<Datenbestand>;
-  rapportSenden(r: MobilerRapport): Promise<{ serverId: string }>;
+  rapportSenden(r: MobilerRapport, fotos: FotoAnhang[]): Promise<{ serverId: string }>;
 }
 
 export class DemoRepository implements Repository {
@@ -56,6 +57,21 @@ export function serverUrlNormalisieren(url: string): string {
   return u.replace(/\/+$/, '');
 }
 
+/**
+ * Erzwingt verschlüsselte Verbindungen. Unverschlüsseltes HTTP ist nur in
+ * Entwicklungs-Builds und nur zu lokalen Adressen erlaubt.
+ */
+export function serverUrlPruefen(url: string, entwicklung: boolean = typeof __DEV__ !== 'undefined' && __DEV__): string {
+  const u = serverUrlNormalisieren(url);
+  if (!u) throw new Error('Bitte eine Server-Adresse angeben.');
+  if (/^http:\/\//i.test(u)) {
+    const host = u.replace(/^http:\/\//i, '').split(/[/:]/)[0];
+    const lokal = /^(localhost|127\.\d+\.\d+\.\d+|10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+)$/.test(host);
+    if (!(entwicklung && lokal)) throw new Error('Nur verschlüsselte Verbindungen (https://) sind erlaubt.');
+  }
+  return u;
+}
+
 async function json<T>(res: Response): Promise<T> {
   const text = await res.text();
   if (!res.ok) {
@@ -72,7 +88,7 @@ async function json<T>(res: Response): Promise<T> {
 }
 
 export async function anmelden(a: Anmeldung, fetchFn: typeof fetch = fetch): Promise<Sitzung> {
-  const serverUrl = serverUrlNormalisieren(a.serverUrl);
+  const serverUrl = serverUrlPruefen(a.serverUrl);
   const res = await fetchFn(`${serverUrl}/api/v1/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -106,11 +122,13 @@ export class ServerRepository implements Repository {
     return datenbestandAusRoh(bundle);
   }
 
-  async rapportSenden(r: MobilerRapport): Promise<{ serverId: string }> {
-    const form = new FormData();
-    form.append(
-      'rapport',
-      JSON.stringify({
+  async rapportSenden(r: MobilerRapport, fotos: FotoAnhang[]): Promise<{ serverId: string }> {
+    // Fotos werden aus dem Tresor entschlüsselt und direkt im JSON übertragen –
+    // so entsteht zu keinem Zeitpunkt eine unverschlüsselte Datei auf dem Gerät.
+    const res = await this.fetchFn(`${this.sitzung.serverUrl}/api/v1/rapporte`, {
+      method: 'POST',
+      headers: this.headers(),
+      body: JSON.stringify({
         lokaleId: r.id,
         projektId: r.projektId,
         datum: r.datum,
@@ -120,16 +138,8 @@ export class ServerRepository implements Repository {
         material: r.material.map(({ bezeichnung, menge, einheit }) => ({ bezeichnung, menge, einheit })),
         standort: r.standort,
         notizen: r.notizen,
-      })
-    );
-    r.fotos.forEach((uri, i) => {
-      // React Native akzeptiert {uri,name,type} als Datei in FormData
-      form.append('fotos', { uri, name: `foto-${i + 1}.jpg`, type: 'image/jpeg' } as unknown as Blob);
-    });
-    const res = await this.fetchFn(`${this.sitzung.serverUrl}/api/v1/rapporte`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${this.sitzung.token}`, Accept: 'application/json' },
-      body: form,
+        fotos,
+      }),
     });
     const body = await json<{ id: string }>(res);
     return { serverId: body.id };

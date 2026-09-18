@@ -15,9 +15,17 @@ EAS Build in der Cloud – **ein Mac ist nicht nötig**.
 | Adressen | Suche, Detail, Anrufen / E-Mail / Navigation / Website, zugehörige Projekte |
 | Mehr | Mitarbeiter mit Löhnen/Verrechnungssätzen, Einheiten / MwSt / Lohnarten, Einstellungen (Hell/Dunkel, Standard-Mitarbeiter, Server), Über |
 
-**Offline-first:** Alle Daten liegen lokal (AsyncStorage), Zugangsdaten
-verschlüsselt im SecureStore. Ohne Netz kann weiter gearbeitet werden; Rapporte
-werden übertragen, sobald ein Server erreichbar ist.
+**Offline-first:** Alle Daten liegen lokal. Ohne Netz kann weiter gearbeitet
+werden; Rapporte werden übertragen, sobald ein Server erreichbar ist.
+
+**Sicherheit (Details in [`docs/SICHERHEIT.md`](docs/SICHERHEIT.md)):**
+- Alle Daten, Rapporte und Fotos liegen **AES-256-GCM-verschlüsselt** auf dem Gerät;
+  der Schlüssel nur im iOS Keychain / Android Keystore, nicht in Backups.
+- **App-Sperre** per Face ID / Fingerabdruck / Gerätecode, Sichtschutz im
+  App-Switcher, Screenshot-Schutz.
+- **Nur HTTPS**, keine Klartext-Verbindungen, keine Logs im Release-Build,
+  keine EXIF-/GPS-Daten in Fotos.
+- „Abmelden“ vernichtet Daten **und** Schlüssel (kryptografisches Löschen).
 
 **Zwei Betriebsarten:**
 - **Demo-Modus** – eingebettete Daten der Demo-Datenbank (dieselben wie im
@@ -86,9 +94,11 @@ app/                   ← Bildschirme (Expo Router, dateibasiert)
 src/
   domain/              ← Fachmodell, Status, Formatierung, LV-Baum, Kennzahlen
   data/                ← Mapping X2-Felder → Modell, Repository (Demo/Server), Storage, Sync
+  security/            ← Tresor (AES-GCM, Schlüsselbund), Foto-Tresor, App-Sperre
   state/               ← globaler App-Zustand (AppProvider)
   theme/, ui/          ← Farben, Bausteine
 docs/API.md            ← Vertrag für das Backend
+docs/SICHERHEIT.md     ← Sicherheitskonzept und Release-Checkliste
 scripts/               ← Icon-Generator
 __tests__/             ← Jest-Tests
 ```

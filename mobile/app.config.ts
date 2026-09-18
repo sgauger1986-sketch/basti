@@ -19,6 +19,11 @@ const config: ExpoConfig = {
         `${brand.name} greift auf Ihre Fotos zu, um Bilder an Rapporte anzuhängen.`,
       NSLocationWhenInUseUsageDescription:
         `${brand.name} verwendet Ihren Standort, um Rapporte der richtigen Baustelle zuzuordnen.`,
+      NSFaceIDUsageDescription:
+        `${brand.name} nutzt Face ID, um die App und die darin gespeicherten Kundendaten zu entsperren.`,
+      // App Transport Security: ausschließlich TLS, keine Ausnahmen
+      NSAppTransportSecurity: { NSAllowsArbitraryLoads: false },
+      // Die App nutzt Standard-TLS und AES (Ausnahme von US-Exportmeldung)
       ITSAppUsesNonExemptEncryption: false,
     },
   },
@@ -28,8 +33,10 @@ const config: ExpoConfig = {
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: brand.colors.androidIconBackground,
     },
-    permissions: ['CAMERA', 'ACCESS_FINE_LOCATION', 'ACCESS_COARSE_LOCATION'],
+    permissions: ['CAMERA', 'ACCESS_FINE_LOCATION', 'ACCESS_COARSE_LOCATION', 'USE_BIOMETRIC', 'USE_FINGERPRINT'],
     predictiveBackGestureEnabled: false,
+    // Keine App-Daten in Google-/Geräte-Backups
+    allowBackup: false,
   },
   web: {
     bundler: 'metro',
@@ -39,6 +46,22 @@ const config: ExpoConfig = {
   plugins: [
     'expo-router',
     'expo-secure-store',
+    [
+      'expo-build-properties',
+      {
+        android: {
+          // Kein unverschlüsselter Netzwerkverkehr
+          usesCleartextTraffic: false,
+          // Code-Verkleinerung/Verschleierung im Release
+          enableProguardInReleaseBuilds: true,
+          enableShrinkResourcesInReleaseBuilds: true,
+        },
+      },
+    ],
+    [
+      'expo-local-authentication',
+      { faceIDPermission: `${brand.name} nutzt Face ID, um die App zu entsperren.` },
+    ],
     [
       'expo-image-picker',
       {

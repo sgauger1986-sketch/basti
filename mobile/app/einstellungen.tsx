@@ -1,5 +1,6 @@
 import React from 'react';
-import { Alert } from 'react-native';
+import { Alert, Switch } from 'react-native';
+import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import type { Farbschema } from '@/data/storage';
 import { storage } from '@/data/storage';
@@ -12,7 +13,27 @@ import { View } from 'react-native';
 import { ABSTAND } from '@/theme/farben';
 
 export default function Einstellungen() {
-  const { einstellungen, einstellungenAendern, sitzung, datenAktualisieren, laedt, daten } = useApp();
+  const { einstellungen, einstellungenAendern, sitzung, datenAktualisieren, laedt, daten, abmelden, rapporte } = useApp();
+  const router = useRouter();
+  const offeneRapporte = rapporte.filter((r) => r.sync !== 'synchronisiert').length;
+
+  const sperrzeiten: { wert: number; label: string }[] = [
+    { wert: 0, label: 'Sofort' },
+    { wert: 60, label: 'Nach 1 Minute' },
+    { wert: 300, label: 'Nach 5 Minuten' },
+    { wert: 900, label: 'Nach 15 Minuten' },
+  ];
+
+  function geraetBereinigen() {
+    Alert.alert(
+      'Alle Daten auf diesem Gerät löschen?',
+      `Datenbestand, Rapporte, Fotos, Anmeldung und der Geräteschlüssel werden unwiderruflich gelöscht.${offeneRapporte > 0 ? `\n\nAchtung: ${offeneRapporte} Rapport${offeneRapporte === 1 ? ' ist' : 'e sind'} noch nicht übertragen.` : ''}`,
+      [
+        { text: 'Abbrechen', style: 'cancel' },
+        { text: 'Alles löschen', style: 'destructive', onPress: () => void abmelden().then(() => router.replace('/login')) },
+      ]
+    );
+  }
   const { mitarbeiter } = useDaten();
   const { farben } = useTheme();
 
@@ -60,6 +81,57 @@ export default function Einstellungen() {
             leerText="Nicht gesetzt"
           />
         </View>
+      </Karte>
+
+      <Abschnitt>Sicherheit</Abschnitt>
+      <Karte>
+        <Zeile
+          icon="finger-print-outline"
+          titel="App-Sperre"
+          untertitel="Face ID, Fingerabdruck oder Gerätecode beim Öffnen"
+          rechts={
+            <Switch
+              value={einstellungen.appSperre}
+              onValueChange={(v) => void einstellungenAendern({ appSperre: v })}
+              trackColor={{ true: farben.akzent }}
+            />
+          }
+        />
+        {einstellungen.appSperre
+          ? sperrzeiten.map((z) => (
+              <React.Fragment key={z.wert}>
+                <Trenner />
+                <Zeile
+                  titel={z.label}
+                  untertitel={z.wert === 0 ? 'Bei jedem Wechsel in den Hintergrund sperren' : undefined}
+                  rechts={einstellungen.sperrNachSekunden === z.wert ? haken : undefined}
+                  onPress={() => void einstellungenAendern({ sperrNachSekunden: z.wert })}
+                  ohnePfeil
+                />
+              </React.Fragment>
+            ))
+          : null}
+        <Trenner />
+        <Zeile
+          icon="eye-off-outline"
+          titel="Screenshots blockieren"
+          untertitel="Verhindert Screenshots, Bildschirmaufnahmen und Vorschau im App-Switcher"
+          rechts={
+            <Switch
+              value={einstellungen.screenshotSchutz}
+              onValueChange={(v) => void einstellungenAendern({ screenshotSchutz: v })}
+              trackColor={{ true: farben.akzent }}
+            />
+          }
+        />
+        <Trenner />
+        <Zeile
+          icon="lock-closed-outline"
+          titel="Verschlüsselung"
+          untertitel="Alle Daten und Fotos liegen AES-256-verschlüsselt auf dem Gerät. Der Schlüssel ist im Schlüsselbund des Systems gesichert."
+        />
+        <Trenner />
+        <Zeile icon="nuclear-outline" titel="Alle Daten auf diesem Gerät löschen" onPress={geraetBereinigen} ohnePfeil />
       </Karte>
 
       <Abschnitt>Verbindung</Abschnitt>

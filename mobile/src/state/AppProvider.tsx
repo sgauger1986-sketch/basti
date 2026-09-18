@@ -15,9 +15,13 @@ import {
 } from '@/data/repository';
 import { STANDARD_EINSTELLUNGEN, storage, type Einstellungen } from '@/data/storage';
 import { rapportPruefen, wartendeUebertragen } from '@/data/rapportSync';
+import { tresorOeffnen } from '@/security/tresor';
+import { fotoAnhang, fotoLoeschen } from '@/security/fotoTresor';
 
 interface AppZustand {
   bereit: boolean;
+  /** Fehler beim Öffnen des verschlüsselten Speichers (z. B. Schlüsselbund nicht verfügbar) */
+  tresorFehler: string | null;
   einstellungen: Einstellungen;
   sitzung: Sitzung | null;
   daten: Datenbestand | null;
@@ -28,6 +32,7 @@ interface AppZustand {
 
   demoStarten(): Promise<void>;
   serverAnmelden(a: Anmeldung): Promise<void>;
+  /** Meldet ab und löscht alle Daten, Fotos und den Geräteschlüssel */
   abmelden(): Promise<void>;
   datenAktualisieren(): Promise<void>;
   einstellungenAendern(patch: Partial<Einstellungen>): Promise<void>;
@@ -42,6 +47,7 @@ const Ctx = createContext<AppZustand | null>(null);
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [bereit, setBereit] = useState(false);
+  const [tresorFehler, setTresorFehler] = useState<string | null>(null);
   const [einstellungen, setEinstellungen] = useState<Einstellungen>(STANDARD_EINSTELLUNGEN);
   const [sitzung, setSitzung] = useState<Sitzung | null>(null);
   const [daten, setDaten] = useState<Datenbestand | null>(null);
@@ -74,6 +80,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   // Start: gespeicherten Zustand wiederherstellen
   useEffect(() => {
     (async () => {
+      try {
+        await tresorOeffnen();
+      } catch (e) {
+        setTresorFehler(e instanceof Error ? e.message : String(e));
+      }
       const [e, s, d, r] = await Promise.all([
         storage.einstellungenLesen(),
         storage.sitzungLesen(),
@@ -119,12 +130,21 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   );
 
   const abmelden = useCallback(async () => {
-    await storage.sitzungSchreiben(null);
-    await storage.datenLoeschen();
+    // Vollständige Bereinigung: Daten, Rapporte, Fotos, Sitzung und Schlüssel
+    await storage.allesLoeschen();
     setSitzung(null);
     setDaten(null);
-    await einstellungenAendern({ modus: null });
-  }, [einstellungenAendern]);
+    setRapporte([]);
+    // Neuer Schlüssel für die nächste Nutzung; Darstellungs-/Sicherheitseinstellungen bleiben
+    try {
+      await tresorOeffnen();
+    } catch (e) {
+      setTresorFehler(e instanceof Error ? e.message : String(e));
+    }
+    const neu: Einstellungen = { ...einstellungen, modus: null, serverUrl: '', eigeneMitarbeiterId: null };
+    setEinstellungen(neu);
+    await storage.einstellungenSchreiben(neu);
+  }, [einstellungen]);
 
   const datenAktualisieren = useCallback(async () => {
     if (repository) await laden(repository);
@@ -147,6 +167,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const rapportLoeschen = useCallback(
     async (id: string) => {
+      const r = rapporteRef.current.find((x) => x.id === id);
+      r?.fotos.forEach(fotoLoeschen);
       await rapporteSetzen(rapporteRef.current.filter((x) => x.id !== id));
     },
     [rapporteSetzen]
@@ -154,7 +176,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const rapporteSynchronisieren = useCallback(async () => {
     if (!repository) return;
-    const neu = await wartendeUebertragen(rapporteRef.current, repository);
+    const neu = await wartendeUebertragen(rapporteRef.current, repository, { fotoLaden: fotoAnhang });
     await rapporteSetzen(neu);
   }, [repository, rapporteSetzen]);
 
@@ -174,6 +196,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const wert = useMemo<AppZustand>(
     () => ({
       bereit,
+      tresorFehler,
       einstellungen,
       sitzung,
       daten,
@@ -193,6 +216,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }),
     [
       bereit,
+      tresorFehler,
       einstellungen,
       sitzung,
       daten,

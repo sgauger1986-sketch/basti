@@ -5,11 +5,13 @@ import { ActivityIndicator, View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { AppProvider, useApp } from '@/state/AppProvider';
 import { useTheme } from '@/theme/useTheme';
+import { AppSperre } from '@/security/AppSperre';
+import { Hinweis } from '@/ui';
 
 void SplashScreen.preventAutoHideAsync().catch(() => {});
 
 function Navigation() {
-  const { bereit, einstellungen } = useApp();
+  const { bereit, einstellungen, tresorFehler } = useApp();
   const { farben, dunkel } = useTheme();
   const angemeldet = einstellungen.modus != null;
 
@@ -26,8 +28,17 @@ function Navigation() {
   }
 
   return (
-    <>
+    <AppSperre
+      aktiv={einstellungen.appSperre}
+      sperrNachSekunden={einstellungen.sperrNachSekunden}
+      screenshotSchutz={einstellungen.screenshotSchutz}
+    >
       <StatusBar style={dunkel ? 'light' : 'dark'} />
+      {tresorFehler ? (
+        <View style={{ paddingTop: 48 }}>
+          <Hinweis ton="fehler">Verschlüsselter Speicher nicht verfügbar: {tresorFehler}</Hinweis>
+        </View>
+      ) : null}
       <Stack
         screenOptions={{
           headerStyle: { backgroundColor: farben.flaeche },
@@ -55,7 +66,7 @@ function Navigation() {
           <Stack.Screen name="ueber" options={{ title: 'Über die App' }} />
         </Stack.Protected>
       </Stack>
-    </>
+    </AppSperre>
   );
 }
 

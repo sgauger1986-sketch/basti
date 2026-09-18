@@ -1,6 +1,7 @@
 import { leererRapport, rapportPruefen, wartendeUebertragen } from '@/data/rapportSync';
 import type { Repository } from '@/data/repository';
 import type { MobilerRapport } from '@/domain/types';
+import type { FotoAnhang } from '@/security/fotoTresor';
 
 function repoMock(senden: Repository['rapportSenden']): Repository {
   return { modus: 'server', datenLaden: jest.fn(), rapportSenden: senden };
@@ -49,7 +50,7 @@ describe('Übertragungswarteschlange', () => {
     const c = { ...leererRapport('P1', '2026-09-18'), id: 'c', sync: 'fehler' as const };
     const d = { ...leererRapport('P1', '2026-09-18'), id: 'd', sync: 'synchronisiert' as const, serverId: 'S-d' };
     const senden = jest.fn(async (r: MobilerRapport) => ({ serverId: `S-${r.id}` }));
-    const out = await wartendeUebertragen([a, b, c, d], repoMock(senden), () => 'T');
+    const out = await wartendeUebertragen([a, b, c, d], repoMock(senden), { jetzt: () => 'T' });
     expect(senden).toHaveBeenCalledTimes(2);
     expect(out.map((r) => [r.id, r.sync, r.serverId])).toEqual([
       ['a', 'synchronisiert', 'S-a'],
@@ -58,6 +59,18 @@ describe('Übertragungswarteschlange', () => {
       ['d', 'synchronisiert', 'S-d'],
     ]);
   });
+  test('Fotos werden entschlüsselt mitgeschickt', async () => {
+    const a = { ...leererRapport('P1', '2026-09-18'), id: 'a', sync: 'wartet' as const, fotos: ['f1', 'f2'] };
+    const senden = jest.fn(async (_r: MobilerRapport, _fotos: FotoAnhang[]) => ({ serverId: 'S' }));
+    const fotoLaden = jest.fn(async (id: string, i: number) => ({ name: `foto-${i + 1}.jpg`, mimeType: 'image/jpeg', base64: `b64-${id}` }));
+    await wartendeUebertragen([a], repoMock(senden), { fotoLaden });
+    expect(fotoLaden).toHaveBeenCalledTimes(2);
+    expect(senden.mock.calls[0][1]).toEqual([
+      { name: 'foto-1.jpg', mimeType: 'image/jpeg', base64: 'b64-f1' },
+      { name: 'foto-2.jpg', mimeType: 'image/jpeg', base64: 'b64-f2' },
+    ]);
+  });
+
   test('Fehler beim Senden bleiben lokal erhalten', async () => {
     const a = { ...leererRapport('P1', '2026-09-18'), id: 'a', sync: 'wartet' as const, name: 'Bleibt' };
     const senden = jest.fn(async () => {

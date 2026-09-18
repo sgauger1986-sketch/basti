@@ -6,6 +6,8 @@ kein Server existiert, läuft die App im Demo-Modus mit eingebetteten Daten.
 
 Alle Endpunkte liegen unter `{serverUrl}/api/v1`, Antworten sind JSON (UTF-8).
 Nach der Anmeldung wird jeder Aufruf mit `Authorization: Bearer <token>` gesendet.
+**Nur HTTPS** – die App verweigert unverschlüsselte Verbindungen. Der Server sollte
+HSTS setzen, Body-Größen bis ca. 20 MB (Fotos) erlauben und Login-Versuche begrenzen.
 
 ## POST /auth/login
 
@@ -53,12 +55,9 @@ ergänzt werden, ohne die App zu ändern.
 
 ## POST /rapporte
 
-Mobil erfasster Rapport als `multipart/form-data`:
-
-| Feld     | Inhalt |
-|----------|--------|
-| `rapport` | JSON-String (siehe unten) |
-| `fotos`   | 0…n JPEG-Dateien (`foto-1.jpg`, `foto-2.jpg`, …) |
+Mobil erfasster Rapport als JSON (`Content-Type: application/json`). Fotos werden
+Base64-kodiert im selben Body übertragen, damit auf dem Gerät nie eine
+unverschlüsselte Datei entsteht (siehe `SICHERHEIT.md`).
 
 ```json
 {
@@ -70,7 +69,8 @@ Mobil erfasster Rapport als `multipart/form-data`:
   "zeiten":   [{ "mitarbeiterId": "SV00000102", "stunden": 8, "lohnartId": "SV00000101" }],
   "material": [{ "bezeichnung": "Betonpflaster grau", "menge": 35, "einheit": "m²" }],
   "standort": { "lat": 49.4093, "lng": 8.6942 },
-  "notizen": "Kunde wünscht Nachbesserung an der Kante."
+  "notizen": "Kunde wünscht Nachbesserung an der Kante.",
+  "fotos": [{ "name": "foto-1.jpg", "mimeType": "image/jpeg", "base64": "/9j/4AAQ…" }]
 }
 ```
 

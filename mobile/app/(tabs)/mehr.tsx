@@ -8,13 +8,14 @@ import { Abschnitt, Karte, Trenner, Zeile } from '@/ui';
 
 export default function Mehr() {
   const router = useRouter();
-  const { abmelden, einstellungen, sitzung } = useApp();
+  const { abmelden, einstellungen, sitzung, rapporte } = useApp();
   const d = useDaten();
+  const offene = rapporte.filter((r) => r.sync !== 'synchronisiert').length;
 
   function abmeldenFragen() {
     Alert.alert(
       einstellungen.modus === 'demo' ? 'Demo beenden?' : 'Abmelden?',
-      'Lokal gespeicherte Rapporte bleiben auf dem Gerät erhalten.',
+      `Alle Daten, Rapporte und Fotos werden von diesem Gerät gelöscht.${offene > 0 ? `\n\nAchtung: ${offene} Rapport${offene === 1 ? ' ist' : 'e sind'} noch nicht übertragen.` : ''}`,
       [
         { text: 'Abbrechen', style: 'cancel' },
         {
@@ -61,9 +62,9 @@ export default function Mehr() {
           titel={einstellungen.modus === 'demo' ? 'Demo beenden' : 'Abmelden'}
           untertitel={
             einstellungen.modus === 'demo'
-              ? 'Zurück zur Anmeldung'
+              ? 'Löscht die lokalen Daten und kehrt zur Anmeldung zurück'
               : sitzung
-                ? `${sitzung.benutzer} · ${sitzung.serverUrl}`
+                ? `${sitzung.benutzer} · ${sitzung.serverUrl} · löscht alle lokalen Daten`
                 : undefined
           }
           onPress={abmeldenFragen}

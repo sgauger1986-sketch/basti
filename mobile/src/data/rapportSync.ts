@@ -3,7 +3,14 @@
  * Reine Logik ohne React, damit sie testbar bleibt.
  */
 import type { MobilerRapport } from '@/domain/types';
+import type { FotoAnhang } from '@/security/fotoTresor';
 import type { Repository } from './repository';
+
+export interface SyncOptionen {
+  /** Lädt ein Foto entschlüsselt als Anhang; Standard: keine Fotos */
+  fotoLaden?: (id: string, index: number) => Promise<FotoAnhang>;
+  jetzt?: () => string;
+}
 
 export function neueId(): string {
   const zeit = Date.now().toString(36);
@@ -58,8 +65,9 @@ export function rapportPruefen(r: MobilerRapport): string[] {
 export async function wartendeUebertragen(
   rapporte: MobilerRapport[],
   repo: Repository,
-  jetzt: () => string = () => new Date().toISOString()
+  optionen: SyncOptionen = {}
 ): Promise<MobilerRapport[]> {
+  const jetzt = optionen.jetzt ?? (() => new Date().toISOString());
   const out: MobilerRapport[] = [];
   for (const r of rapporte) {
     if (r.sync !== 'wartet' && r.sync !== 'fehler') {
@@ -67,7 +75,10 @@ export async function wartendeUebertragen(
       continue;
     }
     try {
-      const { serverId } = await repo.rapportSenden(r);
+      const fotos = optionen.fotoLaden
+        ? await Promise.all(r.fotos.map((id, i) => optionen.fotoLaden!(id, i)))
+        : [];
+      const { serverId } = await repo.rapportSenden(r, fotos);
       out.push({ ...r, serverId, sync: 'synchronisiert', syncFehler: null, geaendertAm: jetzt() });
     } catch (e) {
       const meldung = e instanceof Error ? e.message : String(e);

@@ -10,6 +10,7 @@ import { rapportStunden } from '@/domain/kpi';
 import { SYNC_STATUS_LABEL, syncStatusTon } from '@/domain/status';
 import { neueId, rapportPruefen } from '@/data/rapportSync';
 import { useApp, useDaten } from '@/state/AppProvider';
+import { fotoAblegen, fotoAnzeigen, fotoLoeschen } from '@/security/fotoTresor';
 import { useTheme } from '@/theme/useTheme';
 import { ABSTAND, RADIUS } from '@/theme/farben';
 import { Bildschirm } from '@/ui/Bildschirm';
@@ -31,6 +32,7 @@ export default function RapportEditor() {
   const [sendet, setSendet] = useState(false);
   const [ortLaedt, setOrtLaedt] = useState(false);
   const [datumFehler, setDatumFehler] = useState<string | null>(null);
+  const [fotoLaedt, setFotoLaedt] = useState(false);
   const speicherTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -118,15 +120,27 @@ export default function RapportEditor() {
       Alert.alert('Keine Berechtigung', 'Bitte den Zugriff in den Systemeinstellungen erlauben.');
       return;
     }
+    // exif: false → keine Kamera-/GPS-Metadaten im Bild
     const ergebnis =
       quelle === 'kamera'
-        ? await ImagePicker.launchCameraAsync({ quality: 0.6, allowsEditing: false })
-        : await ImagePicker.launchImageLibraryAsync({ quality: 0.6, allowsMultipleSelection: true, mediaTypes: ['images'] });
+        ? await ImagePicker.launchCameraAsync({ quality: 0.5, allowsEditing: false, exif: false })
+        : await ImagePicker.launchImageLibraryAsync({ quality: 0.5, allowsMultipleSelection: true, mediaTypes: ['images'], exif: false });
     if (ergebnis.canceled) return;
-    aendern({ fotos: [...r!.fotos, ...ergebnis.assets.map((a) => a.uri)] });
+    setFotoLaedt(true);
+    try {
+      const ids: string[] = [];
+      for (const a of ergebnis.assets) ids.push(await fotoAblegen(a.uri));
+      aendern({ fotos: [...r!.fotos, ...ids] });
+    } catch (e) {
+      Alert.alert('Foto konnte nicht gespeichert werden', e instanceof Error ? e.message : String(e));
+    } finally {
+      setFotoLaedt(false);
+    }
   }
   function fotoEntfernen(i: number) {
+    const id = r!.fotos[i];
     aendern({ fotos: r!.fotos.filter((_, j) => j !== i) });
+    fotoLoeschen(id);
   }
 
   /* ---- Standort ---- */
@@ -322,9 +336,9 @@ export default function RapportEditor() {
       <Karte>
         {r.fotos.length > 0 ? (
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.fotos}>
-            {r.fotos.map((uri, i) => (
-              <View key={uri + i} style={s.foto}>
-                <Image source={{ uri }} style={[s.fotoBild, { backgroundColor: farben.flaeche2 }]} />
+            {r.fotos.map((id, i) => (
+              <View key={id} style={s.foto}>
+                <TresorBild id={id} style={[s.fotoBild, { backgroundColor: farben.flaeche2 }]} />
                 {!gesperrt ? (
                   <Pressable onPress={() => fotoEntfernen(i)} style={[s.fotoX, { backgroundColor: farben.flaeche }]} hitSlop={6}>
                     <Ionicons name="close" size={14} color={farben.text} />
@@ -337,9 +351,9 @@ export default function RapportEditor() {
         {!gesperrt ? (
           <>
             {r.fotos.length > 0 ? <Trenner /> : null}
-            <Zeile icon="camera-outline" titel="Foto aufnehmen" onPress={() => void fotoAufnehmen('kamera')} ohnePfeil />
+            <Zeile icon="camera-outline" titel={fotoLaedt ? 'Foto wird verschlüsselt …' : 'Foto aufnehmen'} onPress={fotoLaedt ? undefined : () => void fotoAufnehmen('kamera')} ohnePfeil />
             <Trenner />
-            <Zeile icon="images-outline" titel="Aus Galerie wählen" onPress={() => void fotoAufnehmen('galerie')} ohnePfeil />
+            <Zeile icon="images-outline" titel="Aus Galerie wählen" onPress={fotoLaedt ? undefined : () => void fotoAufnehmen('galerie')} ohnePfeil />
           </>
         ) : null}
       </Karte>
@@ -381,6 +395,21 @@ export default function RapportEditor() {
       </View>
     </Bildschirm>
   );
+}
+
+/** Zeigt ein verschlüsselt abgelegtes Foto; die Entschlüsselung bleibt im Arbeitsspeicher */
+function TresorBild({ id, style }: { id: string; style: React.ComponentProps<typeof Image>['style'] }) {
+  const [uri, setUri] = useState<string | null>(null);
+  useEffect(() => {
+    let aktiv = true;
+    fotoAnzeigen(id)
+      .then((u) => aktiv && setUri(u))
+      .catch(() => aktiv && setUri(null));
+    return () => {
+      aktiv = false;
+    };
+  }, [id]);
+  return <Image source={uri ? { uri } : undefined} style={style} />;
 }
 
 function Entfernen({ onPress }: { onPress: () => void }) {
