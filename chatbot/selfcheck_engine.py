@@ -1,37 +1,32 @@
 #!/usr/bin/env python3
-"""Selbstpruefender X2-Chatbot -- Kern (Prototyp).
+"""Selbstpruefender X2-Assistent -- Pruefgremium mit Egress-Sperre (Prototyp).
 
-Idee: Jede Antwort wird von einem ZWEITEN, unabhaengigen Modell gegengeprueft,
-bevor der Nutzer sie sieht. Kein "die KI hat halt was gesagt", sondern:
+Zwei harte Vorgaben von mexXsoft sind hier eingebaut:
 
-    Frage --> [Modell A: Autor] --> SQL + Antwort
-                                       |
-                                       v  (SQL wird NUR LESEND ausgefuehrt)
-                                    echte Zeilen aus der DB
-                                       |
-                                       v
-              [Modell B: Pruefer] --> Urteil: OK / WARNUNG / FALSCH  (+ Begruendung)
-                                       |
-                                       v
-                          Nutzer sieht Antwort + Vertrauens-Ampel
+1) KEIN DATENABFLUSS ("nichts darf raus").
+   Eine Frage darf von aussen HEREIN (der Kunde will etwas ueber SEIN Angebot
+   wissen). Aber es darf NICHTS aus dem Programm HINAUS. Deshalb:
+     * Standard ist Betrieb OHNE Netz mit LOKALEM Modell. Ein Backend, das Daten
+       nach draussen schickt (Cloud-API), wird per Default VERWEIGERT
+       (assert_no_egress). Freischaltbar nur bewusst mit X2_ALLOW_EGRESS=1.
+     * Der Bot liest die DB nur (kein Schreiben), und bei Kundenfragen sieht er
+       nur die Daten des fragenden Kunden (Mandantentrennung).
 
-Warum das fuer ein ERP der Kern des Produkts ist: Ein Chatbot, der bei
-Geschaeftszahlen frei halluziniert, ist unbrauchbar. Die zweite Instanz macht aus
-"plausibel klingend" ein "gegen die echten Daten geprueft".
+2) MEHRERE CHATBOTS PRUEFEN SICH GEGENSEITIG.
+   Die Antwort des Autors wird von drei unabhaengigen Pruefern kontrolliert,
+   bevor sie freigegeben wird:
+     * FAKTEN     -- folgt die Antwort exakt aus den echten Datenzeilen?
+     * FEHLER     -- passt die Abfrage zur Frage, gibt es Belegzeilen?
+     * SICHERHEIT -- nur lesend? auf den Kunden eingegrenzt? kein Datenleck?
+   Erst wenn keiner FALSCH sagt, wird die Antwort freigegeben (Gate).
 
-Zwei Austauschpunkte, sonst nichts:
-  * Datenquelle: hier SQLite (Demo). Produktiv -> lesender Zugriff auf die
-    Advantage-DB von X2. Die Engine bleibt gleich.
-  * LLM-Backend: hier per Default ein deterministischer MOCK (laeuft ohne
-    Netz/Key). Fuer den echten Betrieb: AnthropicBackend (Claude) ODER ein
-    lokales Modell (Ollama/llama.cpp) -- Letzteres, wenn keine Daten das Haus
-    verlassen duerfen.
+Ablauf:
+    Frage --> [Autor] --> SQL + Antwort --(nur lesend, mandantengefiltert)-->
+    echte Zeilen --> [Fakten][Fehler][Sicherheit] --> Freigabe-Gate --> Nutzer
 
 Aufruf:
-    python build_db.py            # einmalig: Demo-DB erzeugen
-    python selfcheck_engine.py    # Demo-Fragen mit Selbstpruefung
-    python selfcheck_engine.py "Wie viele Projekte gibt es?"
-    X2_LLM=anthropic python selfcheck_engine.py "..."   # echtes Claude-Backend
+    python build_db.py            # einmalig: Demo-DB
+    python selfcheck_engine.py    # Demo: interne + Kundenfragen, mit Gremium
 """
 from __future__ import annotations
 
@@ -46,16 +41,28 @@ from pathlib import Path
 HERE = Path(__file__).parent
 DB_PATH = HERE / "x2demo.sqlite"
 
-# Generator = starkes Modell (Autor der Antwort), Pruefer = zweites Modell.
-# Der Pruefer darf bewusst ein guenstigeres Modell sein -- Pruefen ist leichter
-# als Formulieren. Beide Rollen MUESSEN getrennte Aufrufe sein, sonst prueft
-# sich das Modell selbst und der Effekt verpufft.
-GENERATOR_MODEL = os.environ.get("X2_GEN_MODEL", "claude-opus-5")
-VERIFIER_MODEL = os.environ.get("X2_VER_MODEL", "claude-sonnet-5")
+AUTHOR_MODEL = os.environ.get("X2_GEN_MODEL", "local-llm")
+REVIEW_MODEL = os.environ.get("X2_VER_MODEL", "local-llm")
+
+# Egress-Sperre: standardmaessig darf NICHTS raus. Nur bewusst aufhebbar.
+ALLOW_EGRESS = os.environ.get("X2_ALLOW_EGRESS") == "1"
 
 
 # --------------------------------------------------------------------------- #
-# Schreibschutz: die Engine darf die DB niemals veraendern.
+# Prinzipal: wer fragt? Ein Kunde sieht nur seine eigenen Daten.
+# --------------------------------------------------------------------------- #
+@dataclass
+class Principal:
+    name: str
+    customer_id: str | None = None   # None = interner X2-Nutzer (voller Lesezugriff)
+
+    @property
+    def is_customer(self) -> bool:
+        return self.customer_id is not None
+
+
+# --------------------------------------------------------------------------- #
+# Schreibschutz + Mandantentrennung
 # --------------------------------------------------------------------------- #
 _FORBIDDEN = re.compile(
     r"\b(insert|update|delete|drop|alter|create|replace|attach|detach|"
@@ -65,15 +72,17 @@ _FORBIDDEN = re.compile(
 
 
 def is_read_only(sql: str) -> bool:
-    """True nur fuer eine einzelne lesende SELECT/WITH-Anweisung."""
     s = sql.strip().rstrip(";").strip()
-    if not s:
-        return False
-    if ";" in s:  # keine Mehrfach-Anweisungen
-        return False
-    if _FORBIDDEN.search(s):
+    if not s or ";" in s or _FORBIDDEN.search(s):
         return False
     return s.lower().startswith(("select", "with"))
+
+
+def is_tenant_scoped(sql: str, principal: Principal) -> bool:
+    """Kundenabfrage MUSS die Kunden-ID enthalten (harte Eingrenzung)."""
+    if not principal.is_customer:
+        return True
+    return principal.customer_id in sql
 
 
 def open_readonly(db_path: Path) -> sqlite3.Connection:
@@ -92,7 +101,6 @@ def run_sql(con: sqlite3.Connection, sql: str, max_rows: int = 200):
 
 
 def schema_text(con: sqlite3.Connection) -> str:
-    """Kompakte Schema-Beschreibung fuer den Prompt (Tabellen + Spalten)."""
     out = []
     for (name,) in con.execute(
         "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"
@@ -103,204 +111,183 @@ def schema_text(con: sqlite3.Connection) -> str:
 
 
 # --------------------------------------------------------------------------- #
-# Ergebnis-Objekt
-# --------------------------------------------------------------------------- #
-@dataclass
-class Result:
-    question: str
-    sql: str = ""
-    answer: str = ""
-    rows: list = field(default_factory=list)
-    verdict: str = "UNGEPRUEFT"       # OK | WARNUNG | FALSCH | FEHLER
-    verifier_reason: str = ""
-    corrected_answer: str = ""
-    error: str = ""
-
-    @property
-    def trust_badge(self) -> str:
-        return {
-            "OK": "🟢 geprueft",
-            "WARNUNG": "🟡 mit Vorbehalt",
-            "FALSCH": "🔴 nicht bestanden",
-            "FEHLER": "⚫ Fehler",
-        }.get(self.verdict, "⚪ ungeprueft")
-
-    def render(self) -> str:
-        lines = [
-            f"Frage:    {self.question}",
-            f"Antwort:  {self.answer or '(keine)'}",
-            f"Vertrauen: {self.trust_badge}",
-        ]
-        if self.verifier_reason:
-            lines.append(f"Pruefer:  {self.verifier_reason}")
-        if self.corrected_answer:
-            lines.append(f"Korrektur: {self.corrected_answer}")
-        if self.sql:
-            lines.append(f"SQL:      {self.sql}")
-        if self.error:
-            lines.append(f"Fehler:   {self.error}")
-        return "\n".join(lines)
-
-
-# --------------------------------------------------------------------------- #
-# LLM-Backends
+# LLM-Backends -- mit Egress-Markierung
 # --------------------------------------------------------------------------- #
 class Backend:
-    """Schnittstelle: eine Roh-Textantwort auf (system, user) liefern."""
+    is_local: bool = False
 
     def complete(self, system: str, user: str, model: str) -> str:
         raise NotImplementedError
 
 
-class AnthropicBackend(Backend):
-    """Echtes Claude-Backend. Nutzt das offizielle Anthropic-SDK.
-
-    Aktiviert mit  X2_LLM=anthropic  und gesetztem ANTHROPIC_API_KEY (oder
-    `ant auth login`). Fuer strengen Datenschutz stattdessen LocalBackend.
-    """
-
-    def __init__(self):
-        import anthropic  # nur importieren, wenn tatsaechlich verwendet
-
-        self.client = anthropic.Anthropic()
-
-    def complete(self, system: str, user: str, model: str) -> str:
-        resp = self.client.messages.create(
-            model=model,
-            max_tokens=1500,
-            thinking={"type": "adaptive"},
-            # Standard-Refusal-Fallback fuer Opus/Fable aktiviert.
-            betas=["server-side-fallback-2026-07-01"],
-            fallbacks="default",
-            system=system,
-            messages=[{"role": "user", "content": user}],
-        )
-        if getattr(resp, "stop_reason", None) == "refusal":
-            return json.dumps({"answer": "", "sql": "", "verdict": "FEHLER",
-                               "reason": "Anfrage wurde abgelehnt."})
-        return "".join(
-            b.text for b in resp.content if getattr(b, "type", None) == "text"
-        )
-
-
-class LocalBackend(Backend):
-    """Lokales Modell ueber eine OpenAI-kompatible Ollama-/llama.cpp-Schnittstelle.
-
-    Platzhalter fuer den datensparsamen Betrieb (keine Daten verlassen das Haus).
-    Absichtlich nicht ausimplementiert -- Endpunkt/Client projektabhaengig.
-    """
-
-    def complete(self, system: str, user: str, model: str) -> str:
-        raise NotImplementedError(
-            "LocalBackend: hier den lokalen LLM-Endpunkt (Ollama/llama.cpp) anbinden."
-        )
-
-
 class MockBackend(Backend):
-    """Deterministischer Ersatz -- damit der Prototyp OHNE Netz/Key laeuft.
+    """Deterministisch, offline -- fuer die Demo. Kein Netz, kein Abfluss."""
 
-    Er bildet den Zwei-Rollen-Ablauf echt ab: Der Generator liefert SQL + Antwort
-    per einfacher Stichwort-Zuordnung, der Pruefer rechnet die Antwort GEGEN die
-    echten SQL-Ergebnisse nach. So zeigt die Demo eine bestandene UND eine
-    absichtlich falsche Antwort, die der Pruefer faengt.
-    """
+    is_local = True
 
     def complete(self, system: str, user: str, model: str) -> str:
-        if "PRUEFER" in system:
-            return self._verify(user)
-        return self._generate(user)
+        if "ROLLE:FAKTEN" in system:
+            return self._r_fakten(user)
+        if "ROLLE:FEHLER" in system:
+            return self._r_fehler(user)
+        if "ROLLE:SICHERHEIT" in system:
+            return self._r_sicherheit(user)
+        return self._autor(user)
 
-    # -- Generator-Rolle ---------------------------------------------------- #
-    def _generate(self, user: str) -> str:
-        q = user.lower()
-        if "projekt" in q and "wie viele" in q:
+    # -- Autor -------------------------------------------------------------- #
+    def _autor(self, user: str) -> str:
+        p = json.loads(user)
+        q, cid = p["question"].lower(), p.get("customer_id")
+        if cid:  # Kundenkontext
+            if "alle projekte" in q or "andere" in q:
+                # ABSICHTLICH ohne Mandantenfilter -> Sicherheitspruefer faengt es
+                return json.dumps({
+                    "sql": "SELECT COUNT(*) AS n FROM projekte",
+                    "answer_template": "Es gibt {n} Projekte.",
+                })
+            # korrekt: auf den fragenden Kunden eingegrenzt
             return json.dumps({
-                "sql": "SELECT COUNT(*) AS n FROM projekte",
-                "answer_template": "Es gibt {n} Projekte.",
+                "sql": f"SELECT COUNT(*) AS n FROM projekte "
+                       f"WHERE ID_AUFTRAGGEBER='{cid}'",
+                "answer_template": "Zu Ihnen sind {n} Projekte hinterlegt.",
             })
-        if "firm" in q:  # Firmenadressen
-            return json.dumps({
-                "sql": "SELECT COUNT(*) AS n FROM adressen WHERE FLAG_FIRMA=1",
-                "answer_template": "Es sind {n} Firmen als Adresse hinterlegt.",
-            })
+        if "projekt" in q:
+            return json.dumps({"sql": "SELECT COUNT(*) AS n FROM projekte",
+                               "answer_template": "Es gibt {n} Projekte."})
         if "position" in q:
-            return json.dumps({
-                "sql": "SELECT COUNT(*) AS n FROM lvpositionen",
-                "answer_template": "Die Leistungsverzeichnisse enthalten {n} Positionen.",
-            })
+            return json.dumps({"sql": "SELECT COUNT(*) AS n FROM lvpositionen",
+                               "answer_template": "Die LVs enthalten {n} Positionen."})
         if "stundenlohn" in q or "mitarbeiter" in q:
-            # ABSICHTLICH falsche Antwort (99,00), um den Pruefer zu zeigen:
+            # ABSICHTLICH falsche Zahl -> Faktenpruefer faengt es
             return json.dumps({
                 "sql": "SELECT ROUND(AVG(STUNDENLOHN),2) AS n FROM mitarbeiter "
                        "WHERE STUNDENLOHN IS NOT NULL",
-                "answer_template": "Der durchschnittliche Stundenlohn betraegt 99,00 EUR.",
+                "answer_template": "Der durchschnittliche Stundenlohn ist 99,00 EUR.",
             })
-        return json.dumps({
-            "sql": "SELECT name FROM sqlite_master WHERE type='table'",
-            "answer_template": "Dazu liegen mir die Tabellen der X2-Datenbank vor.",
-        })
+        if "material" in q:  # gueltige Abfrage, aber ohne Treffer -> Fehlerpruefer
+            return json.dumps({
+                "sql": "SELECT COUNT(*) AS n FROM material WHERE BEZEICHNUNG='__nix__'",
+                "answer_template": "Es gibt {n} passende Materialien."})
+        return json.dumps({"sql": "SELECT name FROM sqlite_master WHERE type='table'",
+                           "answer_template": "Mir liegen die X2-Tabellen vor."})
 
-    # -- Pruefer-Rolle ------------------------------------------------------ #
-    def _verify(self, user: str) -> str:
-        payload = json.loads(user)
-        answer = payload["answer"]
-        rows = payload["rows"]
-        # Der Pruefer zieht die belegte Zahl aus den echten Zeilen ...
+    # -- Pruefer: Fakten ---------------------------------------------------- #
+    def _r_fakten(self, user: str) -> str:
+        p = json.loads(user)
+        rows, answer = p["rows"], p["answer"]
         fact = None
         if rows and isinstance(rows[0], dict) and rows[0]:
             v = list(rows[0].values())[0]
             if isinstance(v, (int, float)):
-                fact = v
-        # ... und vergleicht sie mit der Zahl in der Antwort.
-        claimed_nums = [float(x) for x in re.findall(r"\d+\.?\d*", answer.replace(",", "."))]
+                fact = float(v)
         if fact is None:
+            return json.dumps({"verdict": "OK", "reason": "keine Zahl zu pruefen"})
+        claimed = [float(x) for x in re.findall(r"\d+\.?\d*", answer.replace(",", "."))]
+        if any(abs(c - fact) < 0.01 for c in claimed):
+            return json.dumps({"verdict": "OK", "reason": f"Zahl {fact:g} belegt"})
+        fs = f"{fact:.2f}".replace(".", ",") if fact % 1 else f"{int(fact)}"
+        return json.dumps({"verdict": "FALSCH",
+                           "reason": f"Antwort nennt {claimed or '?'}, Daten ergeben {fact:g}",
+                           "corrected_answer": f"Aus den Daten belegt: {fs}."})
+
+    # -- Pruefer: Fehler ---------------------------------------------------- #
+    def _r_fehler(self, user: str) -> str:
+        p = json.loads(user)
+        if not p["rows"]:
             return json.dumps({"verdict": "WARNUNG",
-                               "reason": "Kein eindeutiger Zahlenbeleg in den Daten."})
-        if any(abs(c - float(fact)) < 0.01 for c in claimed_nums):
-            return json.dumps({"verdict": "OK",
-                               "reason": f"Zahl {fact} durch Abfrage belegt."})
-        fact_str = (f"{fact:.2f}".replace(".", ",")
-                    if isinstance(fact, float) else str(fact))
-        return json.dumps({
-            "verdict": "FALSCH",
-            "reason": f"Antwort nennt {claimed_nums or '?'}, Daten ergeben {fact}.",
-            "corrected_answer": f"Aus den Daten belegt: {fact_str}.",
-        })
+                               "reason": "Abfrage liefert keine Belegzeile"})
+        if not p["sql"].lower().startswith(("select", "with")):
+            return json.dumps({"verdict": "FALSCH", "reason": "keine Abfrage"})
+        return json.dumps({"verdict": "OK", "reason": "Abfrage passt, Zeilen vorhanden"})
+
+    # -- Pruefer: Sicherheit ------------------------------------------------ #
+    def _r_sicherheit(self, user: str) -> str:
+        p = json.loads(user)
+        sql, cid = p["sql"], p.get("customer_id")
+        if not is_read_only(sql):
+            return json.dumps({"verdict": "FALSCH", "reason": "nicht nur lesend"})
+        if cid and cid not in sql:
+            return json.dumps({
+                "verdict": "FALSCH",
+                "reason": "Kundenabfrage nicht auf den Kunden eingegrenzt "
+                          "(Mandantentrennung verletzt -> Datenleck)"})
+        return json.dumps({"verdict": "OK",
+                           "reason": "lesend" + (", mandantengefiltert" if cid else "")})
 
 
-def _fill(template: str, n) -> str:
-    if not template:
-        return ""
-    val = f"{n:.2f}".replace(".", ",") if isinstance(n, float) else str(n)
-    return template.replace("{n}", val)
+class LocalBackend(Backend):
+    """Lokales Modell (Ollama/llama.cpp). Kein Abfluss. Hier anzubinden."""
+
+    is_local = True
+
+    def complete(self, system: str, user: str, model: str) -> str:
+        raise NotImplementedError(
+            "LocalBackend: lokalen LLM-Endpunkt (Ollama/llama.cpp) anbinden.")
+
+
+class AnthropicBackend(Backend):
+    """Cloud-Claude. ACHTUNG: sendet Daten nach draussen -> verletzt 'nichts raus'.
+
+    Nur fuer Test/Entwicklung, nie im mandantengetrennten Produktivbetrieb, und
+    nur mit X2_ALLOW_EGRESS=1 ueberhaupt aktivierbar.
+    """
+
+    is_local = False
+
+    def __init__(self):
+        import anthropic
+        self.client = anthropic.Anthropic()
+
+    def complete(self, system: str, user: str, model: str) -> str:
+        resp = self.client.messages.create(
+            model=model, max_tokens=1500, thinking={"type": "adaptive"},
+            betas=["server-side-fallback-2026-07-01"], fallbacks="default",
+            system=system, messages=[{"role": "user", "content": user}],
+        )
+        if getattr(resp, "stop_reason", None) == "refusal":
+            return json.dumps({"verdict": "FEHLER", "reason": "abgelehnt"})
+        return "".join(b.text for b in resp.content
+                       if getattr(b, "type", None) == "text")
 
 
 def make_backend() -> Backend:
     kind = os.environ.get("X2_LLM", "mock").lower()
-    return {"anthropic": AnthropicBackend, "local": LocalBackend, "mock": MockBackend}.get(
-        kind, MockBackend
-    )()
+    cls = {"anthropic": AnthropicBackend, "local": LocalBackend,
+           "mock": MockBackend}.get(kind, MockBackend)
+    # Egress-Sperre VOR dem Konstruieren pruefen (Kernregel 'nichts darf raus').
+    if not cls.is_local and not ALLOW_EGRESS:
+        raise SystemExit(
+            f"ABGEBROCHEN: {cls.__name__} wuerde Daten nach aussen senden. "
+            "Das ist verboten ('nichts darf raus'). Nutze ein lokales Backend, "
+            "oder setze bewusst X2_ALLOW_EGRESS=1 (nur fuer Tests).")
+    return cls()
 
 
 # --------------------------------------------------------------------------- #
-# Prompts
+# Prompts (Rollen-Marker steuern auch das Mock-Routing)
 # --------------------------------------------------------------------------- #
-GEN_SYSTEM = """Du bist der ANTWORT-AUTOR eines Assistenten fuer die ERP-Software X2.
-Beantworte die Frage AUSSCHLIESSLICH aus der Datenbank. Erfinde keine Zahlen.
-Gib NUR JSON zurueck: {{"sql": "<eine lesende SELECT-Abfrage>",
-"answer_template": "<Antwortsatz mit {{n}} als Platzhalter fuer das Ergebnis>"}}.
+AUTHOR_SYS = """Du bist der ANTWORT-AUTOR fuer die ERP-Software X2. Antworte NUR
+aus der Datenbank, erfinde nichts. Bei einer Kundenanfrage (customer_id gesetzt)
+MUSS die Abfrage auf genau diesen Kunden eingegrenzt sein. Gib NUR JSON:
+{{"sql": "<eine lesende SELECT-Abfrage>", "answer_template": "<Satz mit {{n}}>"}}.
 Schema:
 {schema}"""
 
-VER_SYSTEM = """Du bist der PRUEFER. Ein zweiter, unabhaengiger Kontrolleur.
-Dir liegen Frage, ausgefuehrte SQL-Abfrage, die ECHTEN Ergebniszeilen und die
-vorgeschlagene Antwort vor. Pruefe, ob die Antwort exakt aus den Zeilen folgt.
-Gib NUR JSON zurueck: {"verdict": "OK|WARNUNG|FALSCH", "reason": "<kurz>",
-"corrected_answer": "<nur falls FALSCH, sonst leer>"}."""
+FAKTEN_SYS = """ROLLE:FAKTEN. Pruefe, ob die Antwort EXAKT aus den Ergebniszeilen
+folgt. NUR JSON: {"verdict":"OK|WARNUNG|FALSCH","reason":"...","corrected_answer":""}"""
+
+FEHLER_SYS = """ROLLE:FEHLER. Pruefe, ob die Abfrage zur Frage passt und Belegzeilen
+liefert. NUR JSON: {"verdict":"OK|WARNUNG|FALSCH","reason":"..."}"""
+
+SICHERHEIT_SYS = """ROLLE:SICHERHEIT. Pruefe: nur lesend? Bei Kundenanfrage auf
+den Kunden eingegrenzt (kein fremder Datensatz)? NUR JSON:
+{"verdict":"OK|WARNUNG|FALSCH","reason":"..."}"""
+
+REVIEWERS = [("Fakten", FAKTEN_SYS), ("Fehler", FEHLER_SYS), ("Sicherheit", SICHERHEIT_SYS)]
+_RANK = {"OK": 0, "WARNUNG": 1, "FALSCH": 2, "FEHLER": 3}
 
 
 def _parse_json(text: str) -> dict:
-    """Tolerantes JSON aus einer Modellantwort ziehen."""
     try:
         return json.loads(text)
     except Exception:
@@ -313,51 +300,107 @@ def _parse_json(text: str) -> dict:
     return {}
 
 
-# --------------------------------------------------------------------------- #
-# Orchestrierung: erst antworten, dann pruefen
-# --------------------------------------------------------------------------- #
-def answer(question: str, backend: Backend, con: sqlite3.Connection) -> Result:
-    res = Result(question=question)
+def _fill(template: str, n) -> str:
+    if not template or "{n}" not in template:
+        return template
+    val = f"{n:.2f}".replace(".", ",") if isinstance(n, float) and n % 1 else str(n)
+    return template.replace("{n}", val)
 
-    # 1) Generator: Frage -> SQL + Antwortvorlage
-    gen_raw = backend.complete(
-        GEN_SYSTEM.format(schema=schema_text(con)), question, GENERATOR_MODEL
-    )
-    gen = _parse_json(gen_raw)
+
+# --------------------------------------------------------------------------- #
+# Ergebnis + Orchestrierung
+# --------------------------------------------------------------------------- #
+@dataclass
+class Result:
+    question: str
+    principal: str
+    sql: str = ""
+    answer: str = ""
+    reviews: list = field(default_factory=list)   # (name, verdict, reason)
+    corrected_answer: str = ""
+    released: bool = False
+    error: str = ""
+
+    @property
+    def overall(self) -> str:
+        if self.error:
+            return "FEHLER"
+        return max((v for _, v, _ in self.reviews), key=lambda v: _RANK.get(v, 0),
+                   default="UNGEPRUEFT")
+
+    @property
+    def badge(self) -> str:
+        return {"OK": "🟢 freigegeben", "WARNUNG": "🟡 mit Vorbehalt",
+                "FALSCH": "🔴 gesperrt", "FEHLER": "⚫ Fehler"}.get(self.overall, "⚪")
+
+    def render(self) -> str:
+        out = [f"Frage:     {self.question}   [Fragender: {self.principal}]",
+               f"Antwort:   {self.answer or '(gesperrt)'}",
+               f"Freigabe:  {self.badge}"]
+        for name, verdict, reason in self.reviews:
+            mark = {"OK": "✓", "WARNUNG": "!", "FALSCH": "✗", "FEHLER": "⚫"}.get(verdict, "?")
+            out.append(f"   [{mark}] {name:11} {verdict:8} {reason}")
+        if self.corrected_answer:
+            out.append(f"Korrektur: {self.corrected_answer}")
+        if self.sql:
+            out.append(f"SQL:       {self.sql}")
+        if self.error:
+            out.append(f"Fehler:    {self.error}")
+        return "\n".join(out)
+
+
+def answer(question: str, principal: Principal, backend: Backend,
+           con: sqlite3.Connection) -> Result:
+    res = Result(question=question, principal=principal.name)
+
+    # 1) Autor
+    author_user = json.dumps({"question": question, "customer_id": principal.customer_id})
+    gen = _parse_json(backend.complete(
+        AUTHOR_SYS.format(schema=schema_text(con)), author_user, AUTHOR_MODEL))
     res.sql = (gen.get("sql") or "").strip()
     template = gen.get("answer_template", "")
 
-    # 2) SQL nur lesend ausfuehren
-    if not res.sql or not is_read_only(res.sql):
-        res.verdict, res.error = "FEHLER", "Keine gueltige lesende Abfrage erzeugt."
+    # 2) Harte Vorpruefung: lesend + mandantengetrennt (unabhaengig vom Modell)
+    if not is_read_only(res.sql):
+        res.error = "Keine gueltige lesende Abfrage erzeugt."
         return res
     try:
-        _cols, res.rows = run_sql(con, res.sql)
-    except Exception as e:  # defekte Abfrage ist selbst ein Pruefergebnis
-        res.verdict, res.error = "FEHLER", f"SQL nicht ausfuehrbar: {e}"
+        _c, rows = run_sql(con, res.sql)
+    except Exception as e:
+        res.error = f"SQL nicht ausfuehrbar: {e}"
         return res
 
-    # Antwort aus Vorlage + erstem Ergebniswert fuellen
-    first_val = list(res.rows[0].values())[0] if res.rows and res.rows[0] else None
-    res.answer = _fill(template, first_val) if "{n}" in template else template
+    first = list(rows[0].values())[0] if rows and rows[0] else None
+    draft = _fill(template, first)
 
-    # 3) Pruefer: unabhaengiges zweites Modell rechnet gegen die echten Zeilen
-    ver_user = json.dumps({
-        "question": question, "sql": res.sql, "rows": res.rows,
-        "answer": res.answer, "answer_template": template,
-    }, ensure_ascii=False)
-    ver = _parse_json(backend.complete(VER_SYSTEM, ver_user, VERIFIER_MODEL))
-    res.verdict = ver.get("verdict", "WARNUNG")
-    res.verifier_reason = ver.get("reason", "")
-    res.corrected_answer = ver.get("corrected_answer", "")
+    # 3) Prueferzugriff auf den Antwortentwurf. Bei verletzter Mandantentrennung
+    #    bekommt der Sicherheitspruefer die ZEILEN gar nicht erst zu sehen.
+    tenant_ok = is_tenant_scoped(res.sql, principal)
+    review_rows = rows if tenant_ok else []
+    ver_user = json.dumps({"question": question, "sql": res.sql,
+                           "rows": review_rows, "answer": draft,
+                           "customer_id": principal.customer_id}, ensure_ascii=False)
+    for name, sys_prompt in REVIEWERS:
+        r = _parse_json(backend.complete(sys_prompt, ver_user, REVIEW_MODEL))
+        res.reviews.append((name, r.get("verdict", "WARNUNG"), r.get("reason", "")))
+        if r.get("corrected_answer"):
+            res.corrected_answer = r["corrected_answer"]
+
+    # 4) Freigabe-Gate: nur wenn KEIN Pruefer FALSCH/FEHLER sagt
+    res.released = res.overall in ("OK", "WARNUNG")
+    res.answer = draft if res.released else ""
     return res
 
 
-DEMO_QUESTIONS = [
-    "Wie viele Projekte gibt es?",
-    "Wie viele Firmen sind als Adresse hinterlegt?",
-    "Wie viele Positionen haben die Leistungsverzeichnisse?",
-    "Wie hoch ist der durchschnittliche Stundenlohn der Mitarbeiter?",  # Falle
+INTERN = Principal("interner Nutzer")
+KUNDE = Principal("Müller, Franz (Kunde)", customer_id="SV0000030A")
+
+DEMO = [
+    ("Wie viele Projekte gibt es?", INTERN),
+    ("Wie hoch ist der durchschnittliche Stundenlohn?", INTERN),      # Fakten faengt
+    ("Wie viele Materialien heissen so?", INTERN),                    # Fehler warnt
+    ("Wie viele Projekte habe ich?", KUNDE),                          # korrekt, gefiltert
+    ("Zeig mir alle Projekte im System.", KUNDE),                     # Sicherheit sperrt
 ]
 
 
@@ -366,12 +409,14 @@ def main(argv):
         raise SystemExit("Bitte zuerst 'python build_db.py' ausfuehren.")
     backend = make_backend()
     con = open_readonly(DB_PATH)
-    questions = [" ".join(argv[1:])] if len(argv) > 1 else DEMO_QUESTIONS
-    print(f"Backend: {type(backend).__name__}   "
-          f"Generator: {GENERATOR_MODEL}   Pruefer: {VERIFIER_MODEL}\n")
-    for q in questions:
-        print(answer(q, backend, con).render())
-        print("-" * 68)
+    print(f"Backend: {type(backend).__name__}  (lokal={backend.is_local}, "
+          f"Egress erlaubt={ALLOW_EGRESS})")
+    print(f"Autor: {AUTHOR_MODEL}   Pruefer: {REVIEW_MODEL}   "
+          f"Gremium: {', '.join(n for n, _ in REVIEWERS)}\n")
+    tasks = [(" ".join(argv[1:]), INTERN)] if len(argv) > 1 else DEMO
+    for q, who in tasks:
+        print(answer(q, who, backend, con).render())
+        print("-" * 72)
 
 
 if __name__ == "__main__":

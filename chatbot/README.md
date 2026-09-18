@@ -1,56 +1,83 @@
-# chatbot/ — Selbstprüfender X2-Assistent (Prototyp)
+# chatbot/ — Selbstprüfender X2-Assistent mit Prüfgremium (Prototyp)
 
-Lauffähiger Kern der Produktidee: ein Chatbot für X2, dessen Antworten von einem
-**zweiten, unabhängigen Modell** gegen die echten Daten geprüft werden, bevor der
-Nutzer sie sieht. Die Gesamtstrategie (Einbettung als In-Process-DLL in X2,
-Datenschutz-Varianten) steht in `../CHATBOT-IN-EXE-PATCH.md`.
+Lauffähiger Kern der Produktidee für mexXsoft: ein Chatbot für X2, dessen
+Antworten ein **Gremium mehrerer unabhängiger Prüfer** freigeben muss, der
+**keine Daten nach außen gibt** und bei Kundenfragen **nur die Daten des
+fragenden Kunden** zeigt. Gesamtstrategie und Einbettung in X2 (In-Process-DLL):
+`../CHATBOT-IN-EXE-PATCH.md`.
 
 ## Schnellstart
 
 ```bash
 cd chatbot
 python3 build_db.py          # 1x: baut x2demo.sqlite aus den echten Demo-Daten
-python3 selfcheck_engine.py  # Demo-Fragen inkl. Selbstprüfung
+python3 selfcheck_engine.py  # Demo: interne + Kundenfragen, mit Prüfgremium
 python3 selfcheck_engine.py "Wie viele Projekte gibt es?"
 ```
 
 Läuft **ohne Netz und ohne API-Schlüssel** (deterministisches Mock-Backend).
 
+## Die zwei Kernregeln
+
+**1. Nichts darf raus (kein Datenabfluss).**
+Fragen dürfen herein, Daten nicht hinaus. Deshalb ist der Produktivbetrieb nur
+mit **lokalen** Modellen vorgesehen. Ein Backend, das Daten nach außen schickt
+(Cloud-API), wird per Default **verweigert**:
+
+```bash
+X2_LLM=anthropic python3 selfcheck_engine.py "test"
+# -> ABGEBROCHEN: AnthropicBackend wuerde Daten nach aussen senden ...
+```
+
+Nur bewusst für Tests aufhebbar mit `X2_ALLOW_EGRESS=1`. Im Echtbetrieb kommt
+zusätzlich eine Firewall ohne ausgehenden Internetzugang dazu (Defense in Depth).
+
+**2. Mehrere Chatbots prüfen sich gegenseitig.**
+Nach dem Autor prüfen drei unabhängige Rollen den Antwortentwurf gegen die echten
+Datenzeilen, jede auf eine andere Fehlerklasse:
+
+| Prüfer | prüft |
+|---|---|
+| **Fakten** | Stimmt jede genannte Zahl exakt mit den Datenzeilen? |
+| **Fehler** | Passt die Abfrage zur Frage, gibt es Belegzeilen? |
+| **Sicherheit** | Nur lesend? Auf den fragenden Kunden eingegrenzt? Kein Leck? |
+
+**Freigabe-Gate:** Die Antwort wird nur ausgegeben, wenn **kein** Prüfer „falsch"
+sagt; sonst 🔴 gesperrt (und wo möglich aus den Daten korrigiert). Das Gremium
+ist eine Liste (`REVIEWERS`) und leicht erweiterbar (z. B. PII-/Injection-Prüfer).
+
 ## Dateien
 
-- `build_db.py` — liest das eingebettete Datenpaket aus
-  `../prototyp/x2-cloud-prototyp.html` und schreibt eine **schreibgeschützte**
-  SQLite-DB `x2demo.sqlite`. In der Produktivversion tritt hier der lesende
-  Zugriff auf die Advantage-DB von X2 an dieselbe Stelle.
-- `selfcheck_engine.py` — der Autor-/Prüfer-Ablauf:
-  1. **Autor** (Modell A): Frage → lesende SQL-Abfrage + Antwortentwurf.
-  2. Abfrage **nur lesend** ausführen (Schreibschutz erzwungen).
-  3. **Prüfer** (Modell B): rechnet die Antwort gegen die echten Zeilen nach →
-     Urteil 🟢/🟡/🔴 (+ Korrektur).
+- `build_db.py` — baut die schreibgeschützte SQLite-DB aus den echten Demo-Daten
+  (`../prototyp/x2-cloud-prototyp.html`). Produktiv: lesender, mandantengetrennter
+  Zugriff auf die Advantage-DB von X2 an derselben Stelle.
+- `selfcheck_engine.py` — Autor, drei Prüfer, Freigabe-Gate, Egress-Sperre,
+  Mandantentrennung.
 
-## Backend umschalten
+## Backend & Modelle
 
 | Umgebungsvariable | Wirkung |
 |---|---|
 | _(nichts)_ | `MockBackend` — deterministisch, offline, für die Demo |
-| `X2_LLM=anthropic` | echtes Claude über das Anthropic-SDK (`pip install anthropic`, `ANTHROPIC_API_KEY` oder `ant auth login`) |
-| `X2_LLM=local` | Platzhalter für ein **lokales** Modell (Ollama/llama.cpp) — anbinden, wenn keine Daten das Haus verlassen dürfen |
+| `X2_LLM=local` | lokales Modell (Ollama/llama.cpp) — **die Produktivvariante**, hier anzubinden |
+| `X2_LLM=anthropic` | Cloud-Claude — **gesperrt**, nur mit `X2_ALLOW_EGRESS=1` für Tests |
 
-Modelle wählbar über `X2_GEN_MODEL` (Autor, Default `claude-opus-5`) und
-`X2_VER_MODEL` (Prüfer, Default `claude-sonnet-5`).
+Modelle: `X2_GEN_MODEL` (Autor), `X2_VER_MODEL` (Prüfer).
 
 ## Was die Demo zeigt
 
-Drei korrekte Antworten (🟢, jeweils durch die Abfrage belegt) und eine
-**absichtlich falsche** vierte Antwort zum Stundenlohn, die der Prüfer fängt
-(🔴) und aus den echten Daten korrigiert (18,42 statt 99,00). Genau dieser
-Gegencheck ist der Kern des Produkts.
+Fünf Fälle, u. a.:
+- interne Zählfragen → 🟢 freigegeben, Zahl belegt;
+- falscher Stundenlohn (99,00) → 🔴 **Fakten** sperrt, korrigiert auf 18,42;
+- Kunde „Müller, Franz" fragt nach *seinen* Projekten → 🟢, mandantengefiltert (4);
+- derselbe Kunde will **alle** Projekte → 🔴 **Sicherheit** sperrt (Datenleck).
 
-## Sicherheit
+## Sicherheit (erzwungen, nicht nur erbeten)
 
-- Nur einzelne, lesende `SELECT`/`WITH`-Abfragen; mehrfache Anweisungen und alle
-  schreibenden/DDL-Befehle (`INSERT`, `UPDATE`, `DROP`, `PRAGMA` …) werden
-  abgewiesen (`is_read_only()`).
-- Die DB-Verbindung ist schreibgeschützt geöffnet (`open_readonly()`,
-  `mode=ro` + `PRAGMA query_only`).
-- Der Bot kann X2-Daten also **lesen, aber nie verändern**.
+- Nur einzelne lesende `SELECT`/`WITH`-Abfragen; alle schreibenden/DDL-Befehle und
+  Mehrfach-Anweisungen werden abgewiesen (`is_read_only`), Verbindung
+  schreibgeschützt (`open_readonly`).
+- Kundenabfragen müssen die Kunden-ID enthalten, sonst sperrt der
+  Sicherheitsprüfer und die Zeilen werden gar nicht erst weitergereicht
+  (`is_tenant_scoped`).
+- Cloud-Backends sind ohne ausdrückliche Freigabe blockiert (`make_backend`).
