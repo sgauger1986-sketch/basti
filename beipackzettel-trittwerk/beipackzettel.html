@@ -10,10 +10,10 @@
   @font-face { font-family: "Source Sans 3"; src: url("fonts/SourceSans3-italic-latin.woff2") format("woff2"); font-weight: 200 900; font-style: italic; font-display: swap; }
 
   :root {
-    --green: #1F4D3A;
-    --green-deep: #163828;
-    --sage: #8FAF9A;
-    --sage-light: #DCE7DF;
+    --green: #2F605A;
+    --green-deep: #224843;
+    --sage: #8FB3AA;
+    --sage-light: #DDE8E4;
     --sand: #E9E1D3;
     --sand-light: #F3EEE5;
     --paper: #F7F4EE;
@@ -42,11 +42,10 @@
   .page:last-child { page-break-after: auto; break-after: auto; }
 
   /* Kopf & Fuß */
-  .head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 4mm; border-bottom: 1.5px solid var(--green); margin-bottom: 5mm; }
+  .head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 3mm; border-bottom: 1.5px solid var(--green); margin-bottom: 4.5mm; }
   .brand { display: flex; align-items: center; gap: 3mm; text-decoration: none; color: var(--green); }
-  .brand svg { width: 11mm; height: 11mm; display: block; }
-  .brand .name { font-family: "Manrope", "Source Sans 3", sans-serif; font-weight: 800; font-size: 17pt; letter-spacing: .12em; line-height: 1; }
-  .brand .sub { font-size: 8pt; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); margin-top: 1.4mm; }
+  .brand .logo { height: 15mm; width: auto; display: block; }
+  .brand .sub { font-family: "Manrope", sans-serif; font-weight: 600; font-size: 7.6pt; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); line-height: 1.35; padding-left: 3.5mm; border-left: 1px solid var(--rule); }
   .head .doc { text-align: right; font-size: 8.3pt; color: var(--ink-soft); line-height: 1.35; }
   .head .doc b { display: block; color: var(--green); font-family: "Manrope", sans-serif; font-weight: 700; font-size: 9pt; letter-spacing: .04em; }
 
@@ -144,7 +143,7 @@
   .closing { margin-top: 5mm; display: flex; align-items: center; justify-content: space-between; gap: 6mm; padding: 4mm 5mm; border-radius: 3mm; background: var(--green); color: #fff; }
   .closing .t { font-family: "Manrope", sans-serif; font-weight: 700; font-size: 11.5pt; line-height: 1.25; }
   .closing .s { font-size: 9.4pt; opacity: .85; margin-top: 1mm; }
-  .closing svg { width: 14mm; height: 14mm; flex: none; }
+  .closing .logo-w { height: 17mm; width: auto; flex: none; filter: brightness(0) invert(1); opacity: .95; }
 </style>
 </head>
 <body>
@@ -153,19 +152,8 @@
 <section class="page">
   <header class="head">
     <a class="brand" href="#">
-      <svg viewBox="0 0 48 48" aria-hidden="true">
-        <rect x="1.5" y="1.5" width="45" height="45" rx="12" fill="#1F4D3A"/>
-        <ellipse cx="24" cy="30" rx="8.2" ry="7" fill="#F7F4EE"/>
-        <ellipse cx="13.5" cy="21.5" rx="3.6" ry="4.6" transform="rotate(-18 13.5 21.5)" fill="#F7F4EE"/>
-        <ellipse cx="20.5" cy="14.5" rx="3.6" ry="4.7" transform="rotate(-6 20.5 14.5)" fill="#F7F4EE"/>
-        <ellipse cx="27.5" cy="14.5" rx="3.6" ry="4.7" transform="rotate(6 27.5 14.5)" fill="#F7F4EE"/>
-        <ellipse cx="34.5" cy="21.5" rx="3.6" ry="4.6" transform="rotate(18 34.5 21.5)" fill="#F7F4EE"/>
-        <path d="M17 31.5c3-2.2 11-2.2 14 0" stroke="#8FAF9A" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-      </svg>
-      <span>
-        <span class="name">TRITTWERK</span>
-        <span class="sub" style="display:block">Sanitätsbedarf für Tiere</span>
-      </span>
+      <img class="logo" src="logo/trittwerk-logo.png" alt="Trittwerk">
+      <span class="sub">Sanitätsbedarf<br>für Tiere</span>
     </a>
     <div class="doc"><b>Gebrauchs- &amp; Passformhinweise</b>Beipackzettel Tierorthesen</div>
   </header>
@@ -220,19 +208,8 @@
 <section class="page">
   <header class="head">
     <a class="brand" href="#">
-      <svg viewBox="0 0 48 48" aria-hidden="true">
-        <rect x="1.5" y="1.5" width="45" height="45" rx="12" fill="#1F4D3A"/>
-        <ellipse cx="24" cy="30" rx="8.2" ry="7" fill="#F7F4EE"/>
-        <ellipse cx="13.5" cy="21.5" rx="3.6" ry="4.6" transform="rotate(-18 13.5 21.5)" fill="#F7F4EE"/>
-        <ellipse cx="20.5" cy="14.5" rx="3.6" ry="4.7" transform="rotate(-6 20.5 14.5)" fill="#F7F4EE"/>
-        <ellipse cx="27.5" cy="14.5" rx="3.6" ry="4.7" transform="rotate(6 27.5 14.5)" fill="#F7F4EE"/>
-        <ellipse cx="34.5" cy="21.5" rx="3.6" ry="4.6" transform="rotate(18 34.5 21.5)" fill="#F7F4EE"/>
-        <path d="M17 31.5c3-2.2 11-2.2 14 0" stroke="#8FAF9A" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-      </svg>
-      <span>
-        <span class="name">TRITTWERK</span>
-        <span class="sub" style="display:block">Sanitätsbedarf für Tiere</span>
-      </span>
+      <img class="logo" src="logo/trittwerk-logo.png" alt="Trittwerk">
+      <span class="sub">Sanitätsbedarf<br>für Tiere</span>
     </a>
     <div class="doc"><b>Gebrauchs- &amp; Passformhinweise</b>Beipackzettel Tierorthesen</div>
   </header>
@@ -287,19 +264,8 @@
 <section class="page">
   <header class="head">
     <a class="brand" href="#">
-      <svg viewBox="0 0 48 48" aria-hidden="true">
-        <rect x="1.5" y="1.5" width="45" height="45" rx="12" fill="#1F4D3A"/>
-        <ellipse cx="24" cy="30" rx="8.2" ry="7" fill="#F7F4EE"/>
-        <ellipse cx="13.5" cy="21.5" rx="3.6" ry="4.6" transform="rotate(-18 13.5 21.5)" fill="#F7F4EE"/>
-        <ellipse cx="20.5" cy="14.5" rx="3.6" ry="4.7" transform="rotate(-6 20.5 14.5)" fill="#F7F4EE"/>
-        <ellipse cx="27.5" cy="14.5" rx="3.6" ry="4.7" transform="rotate(6 27.5 14.5)" fill="#F7F4EE"/>
-        <ellipse cx="34.5" cy="21.5" rx="3.6" ry="4.6" transform="rotate(18 34.5 21.5)" fill="#F7F4EE"/>
-        <path d="M17 31.5c3-2.2 11-2.2 14 0" stroke="#8FAF9A" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-      </svg>
-      <span>
-        <span class="name">TRITTWERK</span>
-        <span class="sub" style="display:block">Sanitätsbedarf für Tiere</span>
-      </span>
+      <img class="logo" src="logo/trittwerk-logo.png" alt="Trittwerk">
+      <span class="sub">Sanitätsbedarf<br>für Tiere</span>
     </a>
     <div class="doc"><b>Gebrauchs- &amp; Passformhinweise</b>Beipackzettel Tierorthesen</div>
   </header>
@@ -353,15 +319,7 @@
       <div class="t">Trittwerk – Sanitätsbedarf für Tiere</div>
       <div class="s">Qualität &amp; Tragekomfort. Bei Fragen zur Passform wenden Sie sich an Ihren Tierarzt oder Orthopädietechniker.</div>
     </div>
-    <svg viewBox="0 0 48 48" aria-hidden="true">
-      <rect x="1.5" y="1.5" width="45" height="45" rx="12" fill="#F7F4EE"/>
-      <ellipse cx="24" cy="30" rx="8.2" ry="7" fill="#1F4D3A"/>
-      <ellipse cx="13.5" cy="21.5" rx="3.6" ry="4.6" transform="rotate(-18 13.5 21.5)" fill="#1F4D3A"/>
-      <ellipse cx="20.5" cy="14.5" rx="3.6" ry="4.7" transform="rotate(-6 20.5 14.5)" fill="#1F4D3A"/>
-      <ellipse cx="27.5" cy="14.5" rx="3.6" ry="4.7" transform="rotate(6 27.5 14.5)" fill="#1F4D3A"/>
-      <ellipse cx="34.5" cy="21.5" rx="3.6" ry="4.6" transform="rotate(18 34.5 21.5)" fill="#1F4D3A"/>
-      <path d="M17 31.5c3-2.2 11-2.2 14 0" stroke="#8FAF9A" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-    </svg>
+    <img class="logo-w" src="logo/trittwerk-logo.png" alt="">
   </div>
 
   <footer class="foot"><span class="tag">Sanitätsbedarf für Tiere – Qualität &amp; Tragekomfort</span><span class="pg">Seite 3 von 3</span></footer>
