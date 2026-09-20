@@ -1,0 +1,128 @@
+# chatbot/ — Selbstprüfender X2-Assistent mit Prüfgremium (Prototyp)
+
+Lauffähiger Kern der Produktidee für mexXsoft: ein Chatbot für X2, dessen
+Antworten ein **Gremium mehrerer unabhängiger Prüfer** freigeben muss, der
+**keine Daten nach außen gibt** und bei Kundenfragen **nur die Daten des
+fragenden Kunden** zeigt. Gesamtstrategie und Einbettung in X2 (In-Process-DLL):
+`../CHATBOT-IN-EXE-PATCH.md`.
+
+## Schnellstart
+
+```bash
+cd chatbot
+python3 build_db.py               # 1x: baut x2demo.sqlite aus den echten Demo-Daten
+python3 selfcheck_engine.py       # Demo (Mock): interne + Kundenfragen, mit Gremium
+python3 selfcheck_engine.py --selftest   # Offline-Kette über echtes HTTP beweisen
+python3 selfcheck_engine.py "Wie viele Projekte gibt es?"
+```
+
+Läuft **ohne Netz und ohne API-Schlüssel** (deterministisches Mock-Backend).
+
+**Offline mit echtem lokalem Modell** (die Produktivvariante) — siehe
+`OFFLINE-SETUP.md`. Kurz:
+
+```bash
+ollama pull qwen2.5-coder:7b               # einmalig
+X2_LLM=local python3 selfcheck_engine.py "Wie viele Projekte gibt es?"
+```
+
+Der `--selftest` fährt die vollständige Kette (Autor + 3 Prüfer + Freigabe) über
+**echtes HTTP auf localhost** gegen einen lokalen Stub — dieselbe Schnittstelle,
+die im Betrieb `ollama serve` bedient. So ist die Offline-Kette nachweisbar, auch
+ohne installiertes Modell.
+
+## Die zwei Kernregeln
+
+**1. Nichts darf raus (kein Datenabfluss).**
+Fragen dürfen herein, Daten nicht hinaus. Deshalb ist der Produktivbetrieb nur
+mit **lokalen** Modellen vorgesehen. Ein Backend, das Daten nach außen schickt
+(Cloud-API), wird per Default **verweigert**:
+
+```bash
+X2_LLM=anthropic python3 selfcheck_engine.py "test"
+# -> ABGEBROCHEN: AnthropicBackend wuerde Daten nach aussen senden ...
+```
+
+Nur bewusst für Tests aufhebbar mit `X2_ALLOW_EGRESS=1`. Im Echtbetrieb kommt
+zusätzlich eine Firewall ohne ausgehenden Internetzugang dazu (Defense in Depth).
+
+**2. Mehrere Chatbots prüfen sich gegenseitig.**
+Jede Antwort durchläuft **sechs** unabhängige Prüf-Bots. Drei sind deterministische
+Guardrails (modellunabhängig, mit etablierten Bibliotheken), drei sind
+Modell-Prüfer, die den Entwurf gegen die echten Datenzeilen kontrollieren:
+
+| Prüf-Bot | Art | prüft | Baustein |
+|---|---|---|---|
+| **Injektion** | Guard, Eingang | Prompt-/SQL-Injection in der Frage | Muster (Idee: Rebuff/Prompt Guard) |
+| **SQL-Struktur** | Guard, vor Ausführung | echtes SELECT, kein Schreibbefehl, mandantengefiltert | **sqlglot** (Fallback: Regex) |
+| **Fakten** | Modell | stimmt jede Zahl exakt mit den Zeilen? | LLM-Prüfer |
+| **Fehler** | Modell | passt die Abfrage, gibt es Belegzeilen? | LLM-Prüfer |
+| **Sicherheit** | Modell | nur lesend, auf den Kunden begrenzt, kein Leck? | LLM-Prüfer |
+| **Datenschutz** | Guard, Ausgang | PII in der Antwort (E-Mail, IBAN, Steuernr. …) | **Presidio** (Fallback: Regex) |
+
+**Freigabe-Gate:** Die Antwort wird nur ausgegeben, wenn **kein** Prüf-Bot
+„falsch" sagt; sonst 🔴 gesperrt (und wo möglich aus den Daten korrigiert). Ein
+Injektions- oder SQL-Struktur-Treffer sperrt schon **vor** dem Datenbankzugriff.
+
+Die Guards nutzen echte Bibliotheken, wenn installiert
+(`requirements-optional.txt`), sonst einen sicheren Eigen-Fallback — der
+Assistent läuft also auch ohne Zusatzpakete.
+
+Angriffstest für jeden Guard einzeln:
+
+```bash
+python3 test_guards.py      # 25 Fälle: Injection, Schreib-SQL, Mandanten-Leck, PII …
+```
+
+## Einbau in X2 (Panel im X2-Fenster)
+
+Der Assistent wird als Chat-Panel **in X2** angezeigt, ohne die `X2.exe` zu
+verändern. Konkrete Schritt-für-Schritt-Anleitung: `../chatbot/EINBAU-IN-EXE.md`.
+
+```bash
+python3 serve.py            # lokaler Dienst http://127.0.0.1:8756/ (nur localhost)
+```
+
+- `serve.py` — lokale Dienst-Schnittstelle: liefert das Panel und beantwortet
+  `POST /ask` mit dem geprüften Ergebnis (alle sechs Bots).
+- `panel/index.html` — das Chat-Panel; im Betrieb zeigt es ein WebView2 im
+  X2-Fenster an.
+- `x2host/` — Delphi-Vorlagen: `X2Companion.dpr` (WebView2-Fenster),
+  `X2Dock.dpr` (dockt das Panel per SetParent an X2), `x2inject.dpr`
+  (In-Process-Variante per DLL-Injektion). Auf dem Windows-Rechner zu bauen.
+
+## Dateien
+
+- `build_db.py` — baut die schreibgeschützte SQLite-DB aus den echten Demo-Daten
+  (`../prototyp/x2-cloud-prototyp.html`). Produktiv: lesender, mandantengetrennter
+  Zugriff auf die Advantage-DB von X2 an derselben Stelle.
+- `selfcheck_engine.py` — Autor, drei Prüfer, Freigabe-Gate, Egress-Sperre,
+  Mandantentrennung.
+
+## Backend & Modelle
+
+| Umgebungsvariable | Wirkung |
+|---|---|
+| _(nichts)_ | `MockBackend` — deterministisch, offline, für die Demo |
+| `X2_LLM=local` | lokales Modell (Ollama/llama.cpp) — **die Produktivvariante**, fertig implementiert (siehe `OFFLINE-SETUP.md`) |
+| `X2_LLM=anthropic` | Cloud-Claude — **gesperrt**, nur mit `X2_ALLOW_EGRESS=1` für Tests |
+
+Modelle: `X2_GEN_MODEL` (Autor), `X2_VER_MODEL` (Prüfer).
+
+## Was die Demo zeigt
+
+Fünf Fälle, u. a.:
+- interne Zählfragen → 🟢 freigegeben, Zahl belegt;
+- falscher Stundenlohn (99,00) → 🔴 **Fakten** sperrt, korrigiert auf 18,42;
+- Kunde „Müller, Franz" fragt nach *seinen* Projekten → 🟢, mandantengefiltert (4);
+- derselbe Kunde will **alle** Projekte → 🔴 **Sicherheit** sperrt (Datenleck).
+
+## Sicherheit (erzwungen, nicht nur erbeten)
+
+- Nur einzelne lesende `SELECT`/`WITH`-Abfragen; alle schreibenden/DDL-Befehle und
+  Mehrfach-Anweisungen werden abgewiesen (`is_read_only`), Verbindung
+  schreibgeschützt (`open_readonly`).
+- Kundenabfragen müssen die Kunden-ID enthalten, sonst sperrt der
+  Sicherheitsprüfer und die Zeilen werden gar nicht erst weitergereicht
+  (`is_tenant_scoped`).
+- Cloud-Backends sind ohne ausdrückliche Freigabe blockiert (`make_backend`).
