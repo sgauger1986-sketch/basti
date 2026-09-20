@@ -38,9 +38,9 @@ Voraussetzung: Delphi 10.4+ und die Microsoft **WebView2-Runtime**.
    x2host\build-delphi.bat
    ```
    erzeugt `X2Companion.exe`, `X2Dock.exe`, `x2ai.dll`, `x2inject.exe`.
-2. In `x2host\X2Dock.dpr` (bzw. `x2ai.dpr`) vor dem Bauen eintragen:
-   - `X2_EXE` = Pfad zu eurer `X2.exe`
-   - `X2_MAINCLASS` = Fensterklasse des X2-Hauptfensters (mit „Spy++" auslesen)
+2. In `x2host\X2Dock.dpr` nur den Pfad `X2_EXE` zu eurer `X2.exe` eintragen.
+   Das X2-Fenster und das Panel werden automatisch über den Prozess gefunden —
+   kein Heraussuchen einer Fensterklasse mit Spy++ nötig.
 3. `WebView2Loader.dll` neben `X2Companion.exe` legen.
 4. **Weg A (empfohlen):** künftig `X2Dock.exe` statt `X2.exe` starten — es öffnet
    X2 und dockt das Panel rechts an. Verknüpfung im Startmenü darauf zeigen.

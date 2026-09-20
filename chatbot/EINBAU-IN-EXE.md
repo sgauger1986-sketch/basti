@@ -63,10 +63,9 @@ Im Betrieb läuft `serve.py` als Autostart oder Windows-Dienst (z. B. per NSSM),
 gebunden nur an 127.0.0.1.
 
 **3. X2s Fensterklasse ermitteln** (einmalig, für `X2Dock.dpr`)
-- Mit „Spy++" (bei Delphi/Visual Studio dabei) oder „Winspector" das
-  X2-Hauptfenster anklicken und die **Fensterklasse** ablesen (bei Delphi-VCL oft
-  `TApplication`/`TAppBuilder` oder der Klassenname der Hauptform).
-- Diesen Wert in `X2Dock.dpr` bei `X2_MAINCLASS` eintragen, und den `X2_EXE`-Pfad.
+- Entfällt: `X2Dock.dpr` und `x2ai.dpr` finden das X2-Hauptfenster automatisch
+  über den Prozess (größtes sichtbares Top-Level-Fenster von `X2.exe`).
+- Nur der Pfad `X2_EXE` in `X2Dock.dpr` ist einzutragen.
 
 **4. Bauen**
 ```

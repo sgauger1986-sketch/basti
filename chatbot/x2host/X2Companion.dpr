@@ -29,7 +29,6 @@ uses
 
 const
   PANEL_URL = 'http://127.0.0.1:8756/';
-  WND_CLASS = 'X2AssistentPanel';   // eindeutige Klasse -> X2Dock findet das Fenster
 
 var
   Form: TForm;
@@ -43,8 +42,8 @@ begin
   Form.Caption := 'X2 Assistent';
   Form.Width := 420;
   Form.Height := 640;
-  // Eindeutigen Klassennamen setzen, damit der Docker (X2Dock) uns findet:
-  // (in echtem Code ueber eine abgeleitete TForm mit CreateParams gesetzt)
+  // X2Dock/x2ai finden dieses Fenster automatisch ueber die Prozess-ID -- es ist
+  // kein besonderer Fensterklassenname noetig.
   Form.HandleNeeded;
 
   Edge := TEdgeBrowser.Create(Form);
