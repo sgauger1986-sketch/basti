@@ -1,0 +1,404 @@
+<title>Trittwerk Relaunch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Schibsted+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&family=Unbounded:wght@600;800&family=Figtree:wght@400;600;700&display=swap">
+<style>
+/* Layout: Arbeitsmappe. Oben drei umschaltbare Startseiten-Entwürfe in einem Browserrahmen, darunter das Relaunch-Konzept als ruhiges Dokument. */
+:root{
+  --bg:#f3f5f2; --surface:#ffffff; --fg:#1d2420; --muted:#5b665f; --line:#d6ddd7; --accent:#2f6b4f; --accent-soft:#e2eee7;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-ui:"Schibsted Grotesk", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141916;--surface:#1c231f;--fg:#e6ece8;--muted:#9aa89f;--line:#2f3a34;--accent:#7cc39e;--accent-soft:#22332a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141916;--surface:#1c231f;--fg:#e6ece8;--muted:#9aa89f;--line:#2f3a34;--accent:#7cc39e;--accent-soft:#22332a;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:40px 80px}
+h1,h2,h3{text-wrap:balance;margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.intro{display:grid;gap:14px;max-width:760px;margin-bottom:28px}
+.intro h1{font-family:var(--f-display);font-weight:800;font-size:clamp(34px,5vw,54px);line-height:1.02;letter-spacing:-.02em}
+.intro p{font-family:var(--f-body);font-size:18px;color:var(--muted);margin:0;max-width:65ch}
+
+/* Umschalter */
+.switch{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.switch button{font:600 14px var(--f-ui);border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:10px 16px;border-radius:999px;cursor:pointer;display:flex;gap:8px;align-items:center}
+.switch button small{font-family:var(--f-mono);font-weight:400;color:var(--muted);font-size:11px}
+.switch button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.switch button[aria-pressed="true"] small{color:var(--bg);opacity:.7}
+.switch button:focus-visible,.form button:focus-visible,.form input:focus-visible,.form select:focus-visible,.form textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.vnote{font-family:var(--f-body);color:var(--muted);margin:0 0 18px;max-width:75ch}
+
+/* Browserrahmen */
+.browser{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:0 20px 50px -30px rgba(0,0,0,.35)}
+.bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:var(--line);display:block}
+.url{flex:1;min-width:0;background:var(--bg);border-radius:6px;padding:4px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ================= MOCKUP (feste Markenfarben je Variante) ================= */
+.site{--s-bg:#fff;--s-fg:#111;--s-muted:#555;--s-acc:#333;--s-acc-fg:#fff;--s-card:#f5f5f5;--s-line:#ddd;--s-h:var(--f-display);--s-b:var(--f-ui);
+  background:var(--s-bg);color:var(--s-fg);font-family:var(--s-b);container-type:inline-size}
+.site a{color:inherit;text-decoration:none}
+.s-nav{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;padding:18px clamp(16px,4cqi,48px);border-bottom:1px solid var(--s-line)}
+.logo{font-family:var(--s-h);font-weight:800;font-size:22px;display:flex;align-items:center;gap:8px;margin-right:auto}
+.logo svg{width:26px;height:26px}
+.s-nav ul{display:flex;flex-wrap:wrap;gap:6px 20px;list-style:none;margin:0;padding:0;font-size:14px;color:var(--s-muted)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;padding:12px 20px;border-radius:var(--s-r,8px);background:var(--s-acc);color:var(--s-acc-fg);border:2px solid var(--s-acc)}
+.btn.ghost{background:transparent;color:var(--s-fg);border-color:currentColor}
+.s-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(20px,4cqi,56px);align-items:center;padding:clamp(28px,6cqi,72px) clamp(16px,4cqi,48px)}
+.s-hero>*{min-width:0}
+.s-hero h2{font-family:var(--s-h);font-size:clamp(32px,5.4cqi,64px);line-height:1.02;letter-spacing:-.02em;margin-bottom:18px}
+.s-hero p.lead{font-size:clamp(16px,1.7cqi,19px);color:var(--s-muted);max-width:52ch;margin:0 0 26px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:30px;padding-top:20px;border-top:1px solid var(--s-line)}
+.facts b{display:block;font-family:var(--s-h);font-size:22px;font-variant-numeric:tabular-nums}
+.facts span{font-size:13px;color:var(--s-muted)}
+.mass{background:var(--s-card);border-radius:var(--s-r,8px);padding:18px;border:1px solid var(--s-line)}
+.mass svg{width:100%;height:auto;display:block}
+.mass figcaption{font-family:var(--f-mono);font-size:11px;color:var(--s-muted);margin-top:8px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.s-sec{padding:clamp(28px,5cqi,64px) clamp(16px,4cqi,48px);border-top:1px solid var(--s-line)}
+.s-sec h3{font-family:var(--s-h);font-size:clamp(24px,3.2cqi,36px);margin-bottom:22px;letter-spacing:-.01em}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.card{background:var(--s-card);border-radius:var(--s-r,8px);padding:20px;display:grid;gap:8px;align-content:start;border:1px solid var(--s-line)}
+.card h4{margin:0;font-family:var(--s-h);font-size:19px}
+.card p{margin:0;font-size:14px;color:var(--s-muted)}
+.card .tag{font-family:var(--f-mono);font-size:11px;color:var(--s-acc2,var(--s-acc));text-transform:uppercase;letter-spacing:.06em}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;counter-reset:st}
+.step{padding:18px 18px 18px 0;border-top:3px solid var(--s-acc);display:grid;gap:6px;align-content:start}
+.step+.step{padding-left:18px}
+.step::before{counter-increment:st;content:"Schritt " counter(st);font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--s-muted)}
+.step h4{margin:0;font-family:var(--s-h);font-size:18px}
+.step p{margin:0;font-size:14px;color:var(--s-muted)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.vet{background:var(--s-acc);color:var(--s-acc-fg);border-radius:var(--s-r,8px);padding:24px;display:grid;gap:10px;align-content:start}
+.vet h4{margin:0;font-family:var(--s-h);font-size:22px}
+.vet p{margin:0;opacity:.9;font-size:15px}
+.contact{border:1px solid var(--s-line);border-radius:var(--s-r,8px);padding:24px;display:grid;gap:6px;font-size:15px}
+.contact dt{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--s-muted);margin-top:8px}
+.contact dd{margin:0;font-variant-numeric:tabular-nums}
+.animals{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.animals span{border:1px solid var(--s-line);border-radius:999px;padding:6px 14px;font-size:14px}
+.s-foot{padding:18px clamp(16px,4cqi,48px);font-size:12px;color:var(--s-muted);border-top:1px solid var(--s-line);display:flex;flex-wrap:wrap;gap:8px 20px}
+
+/* Variante A: Werkstatt — Gipsabdruck-Weiß, Tannengrün, Leder-Ocker */
+.site[data-v="a"]{--s-bg:#fbfaf7;--s-fg:#1f2a24;--s-muted:#5d6760;--s-acc:#24543d;--s-acc-fg:#f6f3ea;--s-acc2:#a8672a;--s-card:#f1efe8;--s-line:#e0ddd3;--s-h:"Bricolage Grotesque",system-ui,sans-serif;--s-b:"Source Serif 4",Georgia,serif;--s-r:4px}
+.site[data-v="a"] .s-nav ul,.site[data-v="a"] .btn,.site[data-v="a"] .facts span{font-family:"Schibsted Grotesk",system-ui,sans-serif}
+.site[data-v="a"] .s-hero h2 em{font-style:normal;color:var(--s-acc2)}
+
+/* Variante B: Praxis — klinisch-ruhig, Eisblau, Messwerte in Mono */
+.site[data-v="b"]{--s-bg:#f7fafc;--s-fg:#0f2233;--s-muted:#4d6274;--s-acc:#0f5c8c;--s-acc-fg:#fff;--s-acc2:#0f5c8c;--s-card:#fff;--s-line:#d9e4ec;--s-h:"Schibsted Grotesk",system-ui,sans-serif;--s-b:"Schibsted Grotesk",system-ui,sans-serif;--s-r:12px}
+.site[data-v="b"] .s-hero h2{font-weight:700;letter-spacing:-.03em}
+.site[data-v="b"] .s-hero h2 em{font-style:normal;color:var(--s-acc)}
+.site[data-v="b"] .facts b{font-family:"IBM Plex Mono",monospace;font-weight:500}
+.site[data-v="b"] .card{box-shadow:0 1px 2px rgba(15,34,51,.06)}
+
+/* Variante C: Bewegung — Nachtblau mit Signalgelb, große Schrift */
+.site[data-v="c"]{--s-bg:#14213d;--s-fg:#f4f1e8;--s-muted:#b5bdd0;--s-acc:#ffc93c;--s-acc-fg:#14213d;--s-acc2:#ffc93c;--s-card:#1c2c50;--s-line:#2c3d63;--s-h:"Unbounded",system-ui,sans-serif;--s-b:"Figtree",system-ui,sans-serif;--s-r:22px}
+.site[data-v="c"] .s-hero h2{font-size:clamp(30px,5cqi,58px);text-transform:uppercase;letter-spacing:-.01em}
+.site[data-v="c"] .s-hero h2 em{font-style:normal;color:var(--s-acc)}
+.site[data-v="c"] .step{border-top-color:var(--s-acc)}
+.site[data-v="c"] .btn{border-radius:999px}
+
+@container (max-width:820px){
+  .s-hero{grid-template-columns:1fr}
+  .grid4,.steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps{gap:0 18px}.step,.step+.step{padding-left:0}
+}
+@container (max-width:520px){
+  .grid4,.steps,.split{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr}
+  .s-nav ul{display:none}
+}
+
+/* ================= KONZEPT ================= */
+.doc{margin-top:64px;display:grid;gap:56px}
+.doc section{display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px}
+.doc section>header{display:grid;gap:6px;align-content:start}
+.doc h2{font-family:var(--f-display);font-size:28px;font-weight:700;letter-spacing:-.01em}
+.doc .body{display:grid;gap:16px;min-width:0}
+.doc p,.doc li{font-family:var(--f-body);font-size:17px;max-width:68ch}
+.doc p{margin:0}
+.doc ul{margin:0;padding-left:20px;display:grid;gap:6px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:620px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td b{font-weight:600}
+.pill{display:inline-block;font-family:var(--f-mono);font-size:11px;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.p-ok{background:var(--accent-soft);color:var(--accent)}
+.p-wait{background:color-mix(in oklab,#c98a1b 18%,transparent);color:#9a6510}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .p-wait{color:#f0b85a}}
+:root[data-theme="dark"] .p-wait{color:#f0b85a}
+.tree{font-family:var(--f-mono);font-size:13px;line-height:1.75;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px;overflow-x:auto;white-space:pre;margin:0}
+.tree b{color:var(--accent);font-weight:500}
+
+/* Beispiel-Formular */
+.form{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;display:grid;gap:14px}
+.form .row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.form label{display:grid;gap:6px;font-size:13px;font-weight:600}
+.form input,.form select,.form textarea{font:15px var(--f-ui);padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);width:100%}
+.form textarea{min-height:80px;resize:vertical}
+.form .seg{display:flex;flex-wrap:wrap;gap:8px}
+.form .seg label{display:flex;align-items:center;gap:6px;font-weight:400;border:1px solid var(--line);padding:8px 12px;border-radius:8px;cursor:pointer}
+.form button{justify-self:start;font:700 15px var(--f-ui);background:var(--accent);color:var(--bg);border:0;padding:12px 20px;border-radius:8px;cursor:pointer}
+.out{font-family:var(--f-mono);font-size:13px;background:var(--accent-soft);border-radius:8px;padding:14px 16px;white-space:pre-wrap;margin:0}
+@media (max-width:760px){.doc section{grid-template-columns:1fr}.form .row{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){.site{transition:background .25s}}
+</style>
+
+<div class="wrap">
+  <div class="intro">
+    <span class="eyebrow">Relaunch-Entwurf · trittwerk.com · Oktober 2026</span>
+    <h1>Trittwerk Relaunch</h1>
+    <p>Drei Designrichtungen für die neue Startseite der Tierorthopädie-Werkstatt in Hamburg-Reitbrook. Gleicher Inhalt, drei Haltungen. Darunter Sitemap, SEO-Plan, ein Beispiel für die neue Abdruckset-Anfrage und der Werkzeugplan für die Umsetzung.</p>
+  </div>
+
+  <div class="switch" role="group" aria-label="Designrichtung wählen">
+    <button type="button" id="v-a" data-v="a" aria-pressed="true">A · Werkstatt <small>handwerklich, warm</small></button>
+    <button type="button" id="v-b" data-v="b" aria-pressed="false">B · Praxis <small>medizinisch, vertrauensvoll</small></button>
+    <button type="button" id="v-c" data-v="c" aria-pressed="false">C · Bewegung <small>mutig, emotional</small></button>
+  </div>
+  <p class="vnote" id="vnote"></p>
+
+  <div class="browser">
+    <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">https://www.trittwerk.com/</span></div>
+
+    <div class="site" id="site" data-v="a">
+      <nav class="s-nav">
+        <a class="logo" href="#site"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="21" rx="7" ry="6" fill="currentColor"/><ellipse cx="7" cy="12" rx="3" ry="4" fill="currentColor"/><ellipse cx="13" cy="7" rx="3" ry="4" fill="currentColor"/><ellipse cx="20" cy="7" rx="3" ry="4" fill="currentColor"/><ellipse cx="26" cy="12" rx="3" ry="4" fill="currentColor"/></svg>Trittwerk</a>
+        <ul><li>Orthesen</li><li>Prothesen</li><li>Rollwagen</li><li>Abdruckset</li><li>Für Tierärzte</li><li>Über uns</li></ul>
+        <span class="btn">Kostenlos beraten</span>
+      </nav>
+
+      <header class="s-hero">
+        <div>
+          <h2 id="hero-h">Orthesen und Prothesen, <em>auf den Millimeter</em> für Ihr Tier gebaut.</h2>
+          <p class="lead">Meisterwerkstatt für Tierorthopädie in Hamburg-Reitbrook. Wir fertigen Hilfsmittel für Hunde, Katzen und Pferde nach Maß und stimmen uns dabei eng mit Ihrer Tierarztpraxis ab.</p>
+          <div class="ctas"><span class="btn">Erstberatung anfragen</span><span class="btn ghost">Abdruckset bestellen</span></div>
+          <div class="facts">
+            <div><b>7–14 Tage</b><span>Fertigung in eigener Werkstatt</span></div>
+            <div><b>0 €</b><span>Erstberatung per Telefon, WhatsApp oder vor Ort</span></div>
+            <div><b>weltweit</b><span>Abdruckset kommt per Post</span></div>
+          </div>
+        </div>
+        <figure class="mass" style="margin:0">
+          <svg viewBox="0 0 300 260" role="img" aria-label="Maßskizze einer Karpalorthese am Vorderbein">
+            <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M128 20 C126 70 124 100 126 130 C127 150 124 175 118 200 C114 218 116 232 132 236 L176 236 C186 236 188 226 180 218 C170 206 166 188 166 168 C166 140 170 100 170 20" opacity=".55"/>
+            </g>
+            <rect x="116" y="96" width="62" height="96" rx="10" fill="var(--s-acc)" opacity=".18"/>
+            <rect x="116" y="96" width="62" height="96" rx="10" fill="none" stroke="var(--s-acc)" stroke-width="2.5"/>
+            <g stroke="var(--s-acc)" stroke-width="2" opacity=".75"><line x1="120" y1="118" x2="174" y2="118"/><line x1="120" y1="150" x2="174" y2="150"/><line x1="120" y1="178" x2="174" y2="178"/></g>
+            <g stroke="currentColor" stroke-width="1" fill="currentColor" font-family="IBM Plex Mono, monospace" font-size="11">
+              <line x1="196" y1="96" x2="196" y2="192"/><line x1="190" y1="96" x2="202" y2="96"/><line x1="190" y1="192" x2="202" y2="192"/>
+              <text x="208" y="148" stroke="none">96 mm</text>
+              <line x1="60" y1="134" x2="114" y2="134" stroke-dasharray="3 3"/>
+              <text x="8" y="122" stroke="none">Ø Karpus</text><text x="8" y="138" stroke="none">142 mm</text>
+              <line x1="60" y1="210" x2="116" y2="210" stroke-dasharray="3 3"/>
+              <text x="8" y="206" stroke="none">Pfote</text><text x="8" y="222" stroke="none">58 mm</text>
+            </g>
+          </svg>
+          <figcaption><span>Maßblatt · Karpalorthese li. vorne</span><span>Labrador, 31 kg</span></figcaption>
+        </figure>
+      </header>
+
+      <section class="s-sec">
+        <h3>Was wir bauen</h3>
+        <div class="grid4">
+          <div class="card"><span class="tag">Gelenke stützen</span><h4>Orthesen</h4><p>Für Karpus, Tarsus und Knie. Nach Bänderriss, bei Arthrose oder zur OP-Vermeidung.</p></div>
+          <div class="card"><span class="tag">Nach Amputation</span><h4>Prothesen</h4><p>Teil- und Vollprothesen, angepasst an Stumpf, Gangbild und Alltag.</p></div>
+          <div class="card"><span class="tag">Bei Lähmung</span><h4>Rollwagen</h4><p>Mobilitätshilfen für Hinter- oder Vorderhand, leicht und alltagstauglich.</p></div>
+          <div class="card"><span class="tag">Sonderbau</span><h4>Bandagen &amp; Einzelstücke</h4><p>Maßbandagen und Lösungen für Tiere, für die es nichts von der Stange gibt.</p></div>
+        </div>
+        <div class="animals"><span>Hunde</span><span>Katzen</span><span>Pferde</span><span>Kaninchen &amp; weitere Tiere</span></div>
+      </section>
+
+      <section class="s-sec">
+        <h3>So kommt Ihr Tier zu seinem Hilfsmittel</h3>
+        <div class="steps">
+          <div class="step"><h4>Beratung</h4><p>Kostenlos am Telefon, per WhatsApp oder in der Werkstatt. Befunde gern mitschicken.</p></div>
+          <div class="step"><h4>Abdruck</h4><p>Vor Ort in Reitbrook oder mit dem Abdruckset zu Hause bzw. bei Ihrer Tierärztin.</p></div>
+          <div class="step"><h4>Fertigung</h4><p>7 bis 14 Tage in unserer Werkstatt, Stück für Stück nach Ihrem Abdruck.</p></div>
+          <div class="step"><h4>Anprobe &amp; Nachsorge</h4><p>Anpassung vor Ort oder per Video. Wir bleiben ansprechbar, solange Ihr Tier es trägt.</p></div>
+        </div>
+      </section>
+
+      <section class="s-sec">
+        <div class="split">
+          <div class="vet"><h4>Für Tierarztpraxen</h4><p>Überweisen Sie Patienten direkt an uns. Wir schicken Abdrucksets in die Praxis, besprechen den Befund und melden uns nach jeder Anpassung zurück.</p><span class="btn ghost" style="justify-self:start;color:inherit">Infomappe für Praxen</span></div>
+          <dl class="contact">
+            <dt>Werkstatt</dt><dd>Vorderdeich 75, 21037 Hamburg-Reitbrook</dd>
+            <dt>Telefon &amp; WhatsApp</dt><dd>+49 174 3082479</dd>
+            <dt>E-Mail</dt><dd>info@trittwerk.com</dd>
+            <dt>Sprechzeiten nach Termin</dt><dd>Mi 17:30–20:30 · Sa 10:00–14:00</dd>
+          </dl>
+        </div>
+      </section>
+      <footer class="s-foot"><span>© Trittwerk Tierorthopädie</span><span>Impressum</span><span>Datenschutz</span><span>Tierorthopädie in Ihrer Region</span></footer>
+    </div>
+  </div>
+
+  <div class="doc">
+    <section>
+      <header><span class="eyebrow">Ausgangslage</span><h2>Was heute bremst</h2></header>
+      <div class="body">
+        <p>Die aktuelle Seite hat gute Inhalte und viele Standortseiten, aber die Struktur ist über die Zeit gewachsen. Im Suchindex tauchen Shopify-Adressen wie <code>/pages/orthesen</code> und <code>/products/atemgluck</code> neben neuen Pfaden wie <code>/orthesen/</code> auf.</p>
+        <ul>
+          <li>Doppelte Seiten zum selben Thema (alte Shop-Seiten und neue Leistungsseiten) teilen sich das Ranking.</li>
+          <li>Produkte wie „Atemglück“ und „Stoffwechsel“ stehen neben Maßanfertigung. Besucher verstehen nicht sofort, was der Kern ist.</li>
+          <li>Die Standortseiten (Hamburg, Berlin, NRW, Hessen …) brauchen eigene, echte Inhalte, sonst wertet Google sie als dünne Brückenseiten.</li>
+          <li>Der wichtigste Schritt, die Anfrage mit Fotos und Befund, ist kein geführter Ablauf.</li>
+        </ul>
+        <p style="color:var(--muted);font-size:14px">Hinweis: trittwerk.com war aus dieser Umgebung nicht direkt abrufbar. Die Analyse beruht auf dem öffentlichen Suchindex und muss gegen die Live-Seite geprüft werden.</p>
+      </div>
+    </section>
+
+    <section>
+      <header><span class="eyebrow">Struktur</span><h2>Neue Sitemap</h2></header>
+      <div class="body">
+<pre class="tree"><b>/</b>                         Startseite (Entwürfe oben)
+├─ <b>/orthesen/</b>               Leistung · Unterseiten je Gelenk
+│   ├─ /orthesen/karpus/  /tarsus/  /knie/
+├─ <b>/prothesen/</b>
+├─ <b>/rollwagen/</b>
+├─ <b>/bandagen-sonderbau/</b>
+├─ <b>/hunde/</b>  <b>/katzen/</b>  <b>/pferde/</b>   Einstieg nach Tierart
+├─ <b>/abdruckset/</b>             geführte Anfrage + Versand
+├─ <b>/tieraerzte/</b>             Zuweisung, Infomappe, Kooperation
+├─ <b>/erfahrungen/</b>            echte Fälle mit Fotos (Freigabe der Halter)
+├─ <b>/ratgeber/</b>               Kreuzbandriss, Arthrose, Amputation …
+├─ <b>/tierorthopaedie/</b>        Regionen-Übersicht
+│   └─ /hamburg/ /berlin/ /nrw/ /hessen/ /niedersachsen/ /bw/ /mv/
+├─ <b>/shop/</b>                   Zubehör & Ergänzungsfutter, klar getrennt
+└─ /ueber-uns/  /kontakt/  /impressum/  /datenschutz/</pre>
+        <p>Alle alten Adressen bekommen eine 301-Weiterleitung auf die neue Seite. Die Liste dafür entsteht aus dem Crawl der alten Seite vor dem Umzug.</p>
+      </div>
+    </section>
+
+    <section>
+      <header><span class="eyebrow">Beispiel</span><h2>Geführte Abdruckset-Anfrage</h2></header>
+      <div class="body">
+        <p>Statt eines leeren Kontaktformulars fragt die neue Seite in einem Schritt alles ab, was die Werkstatt für die erste Einschätzung braucht. Probieren Sie es aus; die Daten bleiben hier im Browser.</p>
+        <form class="form" id="req" novalidate>
+          <div class="seg" role="radiogroup" aria-label="Tierart">
+            <label><input type="radio" name="tier" id="t-hund" value="Hund" checked> Hund</label>
+            <label><input type="radio" name="tier" id="t-katze" value="Katze"> Katze</label>
+            <label><input type="radio" name="tier" id="t-pferd" value="Pferd"> Pferd</label>
+            <label><input type="radio" name="tier" id="t-anderes" value="anderes Tier"> anderes Tier</label>
+          </div>
+          <div class="row">
+            <label for="f-name">Name des Tiers<input id="f-name" value="Bruno"></label>
+            <label for="f-gew">Gewicht (kg)<input id="f-gew" inputmode="decimal" value="31"></label>
+          </div>
+          <div class="row">
+            <label for="f-hilf">Gewünschtes Hilfsmittel<select id="f-hilf"><option>Orthese</option><option>Prothese</option><option>Rollwagen</option><option>Bandage</option><option>Weiß ich noch nicht</option></select></label>
+            <label for="f-bein">Betroffene Gliedmaße<select id="f-bein"><option>vorne links</option><option>vorne rechts</option><option>hinten links</option><option>hinten rechts</option><option>mehrere</option></select></label>
+          </div>
+          <label for="f-text">Was ist passiert?<textarea id="f-text">Karpalgelenk nach Hyperextension instabil, Tierärztin rät zu einer Orthese statt OP.</textarea></label>
+          <div class="seg" role="radiogroup" aria-label="Abdruck">
+            <label><input type="radio" name="abdruck" id="a-set" value="Abdruckset per Post" checked> Abdruckset per Post</label>
+            <label><input type="radio" name="abdruck" id="a-vor" value="Termin in Reitbrook"> Termin in Reitbrook</label>
+            <label><input type="radio" name="abdruck" id="a-ta" value="Set an meine Tierarztpraxis"> Set an meine Tierarztpraxis</label>
+          </div>
+          <button type="submit">Anfrage-Vorschau erzeugen</button>
+          <pre class="out" id="out" hidden></pre>
+        </form>
+      </div>
+    </section>
+
+    <section>
+      <header><span class="eyebrow">Sichtbarkeit</span><h2>SEO-Plan</h2></header>
+      <div class="body">
+        <ul>
+          <li>Eine Seite je Suchabsicht: „Orthese Hund Karpalgelenk“, „Hundeprothese“, „Rollwagen Hund“, „Tierorthopädie Hamburg“.</li>
+          <li>Strukturierte Daten: <code>LocalBusiness</code> mit Adresse und Sprechzeiten, <code>FAQPage</code> auf den Leistungsseiten, <code>Product</code> nur im Shop.</li>
+          <li>Regionenseiten mit echtem Nutzen: Versandweg des Abdrucksets, kooperierende Praxen in der Region, Fallbeispiele von dort.</li>
+          <li>Ratgeber-Artikel, von Tierärzten gegengelesen, die auf die Leistungsseiten verlinken.</li>
+          <li>Google-Unternehmensprofil pflegen: Fotos aus der Werkstatt, Sprechzeiten, Bewertungen beantworten.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <header><span class="eyebrow">Umsetzung</span><h2>Skills &amp; Konnektoren</h2></header>
+      <div class="body">
+        <p>Welche der in dieser Sitzung verfügbaren Werkzeuge welchen Teil übernehmen. Generierende Dienste kosten Credits und werden erst nach Ihrer Freigabe eingesetzt.</p>
+        <div class="tbl"><table>
+          <thead><tr><th>Werkzeug</th><th>Aufgabe im Relaunch</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b>Artifact &amp; Design-Skill</b></td><td>Diese drei Startseiten-Entwürfe, Sitemap, Formular-Prototyp</td><td><span class="pill p-ok">erledigt</span></td></tr>
+            <tr><td><b>Figma</b></td><td>Gewählte Richtung als editierbare Frames mit Komponenten und Farb-Variablen</td><td><span class="pill p-wait">nach Wahl A/B/C</span></td></tr>
+            <tr><td><b>WordPress.com</b> oder <b>Shopify</b></td><td>Neue Seite als CMS aufsetzen. Shopify passt, wenn der Shop bleibt; WordPress, wenn Inhalte und Ratgeber im Vordergrund stehen</td><td><span class="pill p-wait">Entscheidung nötig</span></td></tr>
+            <tr><td><b>Adobe Express</b></td><td>Infomappe für Tierarztpraxen, Flyer für das Abdruckset, Social-Grafiken im neuen Look</td><td><span class="pill p-wait">bereit</span></td></tr>
+            <tr><td><b>Higgsfield</b></td><td>Stimmungsbilder und kurze Clips. Echte Werkstatt- und Tierfotos bleiben vorrangig, KI-Bilder nur gekennzeichnet</td><td><span class="pill p-wait">Credits, Freigabe</span></td></tr>
+            <tr><td><b>Descript</b> / <b>HyperFrames</b></td><td>Erklärvideo „So nehmen Sie den Abdruck“ aus Werkstatt-Aufnahmen schneiden und untertiteln</td><td><span class="pill p-wait">Rohmaterial nötig</span></td></tr>
+            <tr><td><b>Supermetrics</b></td><td>Vorher-Nachher-Messung: Anfragen, Rankings, Anzeigen</td><td><span class="pill p-wait">Datenquellen verbinden</span></td></tr>
+            <tr><td><b>Claude Docs</b> / <b>PDF</b></td><td>Relaunch-Briefing als teilbares Dokument, Angebot oder Pflichtenheft als PDF</td><td><span class="pill p-wait">bereit</span></td></tr>
+            <tr><td><b>Canva</b></td><td>Alternative zu Adobe Express für Vorlagen</td><td><span class="pill p-wait">Anmeldung fehlt</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <section>
+      <header><span class="eyebrow">Ablauf</span><h2>Zeitplan</h2></header>
+      <div class="body">
+        <div class="tbl"><table>
+          <thead><tr><th>Woche</th><th>Phase</th><th>Ergebnis</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Richtung wählen, Crawl der alten Seite</td><td>Gewählter Entwurf, Liste aller alten URLs</td></tr>
+            <tr><td>2–3</td><td>Design in Figma, Fotoshooting Werkstatt</td><td>Alle Seitentypen gestaltet, echtes Bildmaterial</td></tr>
+            <tr><td>4–6</td><td>Umsetzung im CMS, Texte, Abdruckset-Anfrage</td><td>Testseite mit allen Inhalten</td></tr>
+            <tr><td>7</td><td>Weiterleitungen, strukturierte Daten, Tests</td><td>Go-live-Freigabe</td></tr>
+            <tr><td>8+</td><td>Go-live, Messung, Ratgeber monatlich</td><td>Bericht nach 30 und 90 Tagen</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+(function(){
+  var notes={
+    a:"Werkstatt: Die Seite fühlt sich an wie der Besuch in Reitbrook. Serifenschrift für Ruhe, Tannengrün und Leder-Ocker aus dem Material. Passt, wenn Persönlichkeit und Handwerk verkaufen sollen.",
+    b:"Praxis: Klar und klinisch, Messwerte in Monospace. Spricht Tierärzte und sachliche Halter an. Passt, wenn Zuweisungen aus Praxen wachsen sollen.",
+    c:"Bewegung: Große Schrift, dunkles Blau mit Signalgelb. Emotional, gut für Social Media und Anzeigen. Passt, wenn die Marke jünger und auffälliger werden soll."
+  };
+  var heads={
+    a:'Orthesen und Prothesen, <em>auf den Millimeter</em> für Ihr Tier gebaut.',
+    b:'Tierorthopädie nach Maß. <em>Abgestimmt mit Ihrer Tierarztpraxis.</em>',
+    c:'Damit Ihr Tier <em>wieder läuft.</em>'
+  };
+  var site=document.getElementById('site'),note=document.getElementById('vnote'),h=document.getElementById('hero-h');
+  var btns=[].slice.call(document.querySelectorAll('.switch button'));
+  function set(v){
+    site.setAttribute('data-v',v);note.textContent=notes[v];h.innerHTML=heads[v];
+    btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.v===v?'true':'false')});
+    try{localStorage.setItem('tw-variant',v)}catch(e){}
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){set(b.dataset.v)})});
+  var start=(location.hash||'').replace('#','');
+  if(!notes[start]){try{start=localStorage.getItem('tw-variant')}catch(e){start=null}}
+  set(notes[start]?start:'a');
+
+  document.getElementById('req').addEventListener('submit',function(e){
+    e.preventDefault();
+    var q=function(s){var el=document.querySelector(s);return el?el.value:''};
+    var out=document.getElementById('out');
+    out.textContent=
+      'Neue Anfrage über trittwerk.com/abdruckset\n'+
+      '-----------------------------------------\n'+
+      'Tier:        '+q('input[name="tier"]:checked')+' „'+q('#f-name')+'“, '+q('#f-gew')+' kg\n'+
+      'Hilfsmittel: '+q('#f-hilf')+', '+q('#f-bein')+'\n'+
+      'Abdruck:     '+q('input[name="abdruck"]:checked')+'\n'+
+      'Befund:      '+q('#f-text')+'\n\n'+
+      'Nächster Schritt: Rückruf innerhalb von 2 Werktagen.\n(Beispiel-Vorschau, es wurde nichts versendet.)';
+    out.hidden=false;
+  });
+})();
+</script>
