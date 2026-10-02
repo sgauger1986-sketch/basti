@@ -37,7 +37,7 @@ Im HTML mit `<!-- PRÜFEN: ... -->` markiert.
    tatsächliche Freikarten-Angebot anpassen oder streichen.
 4. **Ansprache**: Falls der Newsletter bisher siezt, „Ihr/Euch“ global durch „Sie/Ihnen“ ersetzen.
 5. **Links** „Im Browser öffnen“ und „Abmelden“ sind `#`-Platzhalter für das Versandsystem.
-6. **Bilder**: Logo liegt im Repo (`bilder/qomet-logo.jpg`, 408×123 px). Die vier Motivbilder liegen
+6. **Bilder**: Das Logo ist als Base64 direkt im HTML eingebettet (Original: `bilder/qomet-logo.jpg`, 408×123 px). Gmail und einige andere Clients zeigen eingebettete Base64-Bilder nicht an; vor dem Versand das Logo wie die übrigen Bilder im Newsletter-Tool hochladen und die `src` ersetzen. Die vier Motivbilder liegen
    auf dem Higgsfield-CDN (CloudFront); vor dem Versand herunterladen, auf ca. 1200 px Breite als JPEG
    verkleinern, auf eigenem Server oder im Newsletter-Tool hosten und die `src`-URLs tauschen.
    Der Download aus dieser Cloud-Umgebung war durch die Netzwerkrichtlinie gesperrt.
