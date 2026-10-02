@@ -30,7 +30,7 @@ Im HTML mit `<!-- PRÜFEN: ... -->` markiert.
 
 1. **Schulungspakete**: Die drei Pakete (Büro: Angebot & Kalkulation / Werkstatt & Montage / Büro:
    Rechnungswesen) orientieren sich an der Werkstatt-Büro-Trennung von qomet.de. Namen, Inhalte,
-   „1 Tag · bis 6 Personen“ und Preise an das tatsächliche neue Angebot anpassen.
+   Dauer, Teilnehmerzahl und Preise ergänzen, sobald sie feststehen (im Entwurf bewusst nicht genannt).
 2. **Webinar-Aufzeichnung** „E-Rechnungen & Kalkulation Plus“ (25.09.2026): nur stehen lassen, wenn sie
    auf Anfrage herausgegeben wird.
 3. **Metallkongress**: Satz zu Karten („wer noch keine Karte hat, meldet sich kurz bei uns“) an das
