@@ -1,15 +1,15 @@
 # Projektregeln für Claude
 
-## Pflicht-Skills (in jeder Session dieses Repos verwenden)
+## Skills (nur laden, wenn die Aufgabe passt)
 
-Die Skills liegen unter `.claude/skills/` und werden automatisch geladen.
+Die Skills liegen unter `.claude/skills/`. Jeder Skill-Aufruf kostet Tokens, deshalb gilt: nur laden, wenn die Aufgabe es wirklich braucht, nie vorsorglich.
 
-- **task-observer** ("One Skill to Rule Them All"): vor dem ersten Tool-Call jeder Session laden. Beobachtungs-Workspace: `skill-observations/` im Repo-Root (wird mit committet, damit die Beobachtungen Container-Neustarts überleben).
-- **stop-slop**: bei jedem Prosatext anwenden (Antworten, Dokumente, Commit-Messages, PR-Texte).
-- **ui-ux-pro-max** (plus `design`, `design-system`, `ui-styling`, `brand`, `banner-design`, `slides`): bei jeder UI-, Design- oder Präsentationsarbeit.
+- **stop-slop**: bei längeren Texten für andere Leser (Dokumente, README, PR-Beschreibungen). Nicht für kurze Chat-Antworten.
+- **ui-ux-pro-max** (plus `design`, `design-system`, `ui-styling`, `brand`, `banner-design`, `slides`): bei UI-, Design- oder Präsentationsarbeit. Nur den einen passenden Skill laden, nicht alle.
 - **find-skills**: wenn eine Fähigkeit fehlt oder der Nutzer fragt, ob es einen Skill für etwas gibt.
 - **free-llm-apis**: wenn es um kostenlose LLM-APIs, Modelle oder API-Keys geht.
-- **unlazy**: bei jeder längeren oder mehrteiligen Aufgabe: Gates in `GATES.md` schreiben, bevor die Arbeit beginnt, und erst "fertig" melden, wenn `node .claude/skills/unlazy/scripts/gate-check.mjs GATES.md` grün ist.
+- **unlazy**: nur wenn der Nutzer es verlangt (`/unlazy`, "gates", "hör nicht auf, bis es fertig ist") oder bei großen Aufgaben mit vielen Teilschritten. Dann Gates in `GATES.md` schreiben und erst "fertig" melden, wenn `node .claude/skills/unlazy/scripts/gate-check.mjs GATES.md` grün ist.
+- **task-observer** ("One Skill to Rule Them All"): nur auf ausdrücklichen Wunsch des Nutzers, nicht automatisch zu Sessionbeginn. Beobachtungs-Workspace: `skill-observations/` im Repo-Root.
 
 ## Herkunft der Skills
 
