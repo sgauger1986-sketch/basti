@@ -21,5 +21,8 @@ Die Skills liegen unter `.claude/skills/`. Jeder Skill-Aufruf kostet Tokens, des
 | find-skills | github.com/vercel-labs/skills | 3694740 |
 | free-llm-apis | github.com/open-free-llm-api/awesome-freellm-apis | 058cc76 |
 | unlazy | github.com/Leonxlnx/unlazy | 1667149 |
+| ECC (293 Skills, 68 Agenten unter `.claude/agents/`, 94 Befehle unter `.claude/commands/`) | github.com/affaan-m/ecc | ef648e0 |
+
+ECC-Hinweise: Der ECC-Skill `design-system` heißt hier `ecc-design-system`, weil `design-system` schon von ui-ux-pro-max belegt ist. Hooks, Regeln und MCP-Konfiguration von ECC sind nicht installiert (dafür müsste `.claude/settings.json` geändert werden). Auch ECC-Skills nur laden, wenn die Aufgabe sie braucht.
 
 claude-mem (github.com/thedotmack/claude-mem) ist ein Plugin mit Hooks und Hintergrunddienst, kein reiner Skill, und ist hier noch nicht aktiviert.
