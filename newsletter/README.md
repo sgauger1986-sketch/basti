@@ -47,12 +47,12 @@ Im HTML mit `<!-- PRÜFEN: ... -->` markiert.
 | Einsatz | Job-ID | URL |
 |---------|--------|-----|
 | Hero (Metallbau-Werkstatt, Tablet) | `d99902a1-356a-4400-8a77-275c93b8429f` | https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20261002_064441_d99902a1-356a-4400-8a77-275c93b8429f.png |
-| E-Rechnung (Illustration) | `abc9562d-c026-4e21-a81e-b2f1a4c2bbc1` | https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20261002_064441_abc9562d-c026-4e21-a81e-b2f1a4c2bbc1.png |
+| E-Rechnung (Illustration, Logo-Rot) | `1eed4b5b-734b-4bae-8938-f2601c8bd7a6` | https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20261002_092222_1eed4b5b-734b-4bae-8938-f2601c8bd7a6.png |
+| E-Rechnung (erste Fassung, Blau/Orange, nicht verwendet) | `abc9562d-c026-4e21-a81e-b2f1a4c2bbc1` | https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20261002_064441_abc9562d-c026-4e21-a81e-b2f1a4c2bbc1.png |
 | Schulung vor Ort | `a1988c32-7538-45c6-a6d3-f6ccd80ff2d1` | https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20261002_064441_a1988c32-7538-45c6-a6d3-f6ccd80ff2d1.png |
 | Flurfunk (Kaffeeküche) | `9b924c2d-5c98-4471-b964-b419587b2d62` | https://d8j0ntlcm91z4.cloudfront.net/user_3GRTegXbub5I6mftvsB2QipWAN7/hf_20261002_064441_9b924c2d-5c98-4471-b964-b419587b2d62.png |
 
-Kosten: 4 × 0,25 Credits = 1 Credit. Die Illustration ist noch in Blau/Orange; für ein Motiv in
-Logo-Rot (#B3342F) den Prompt unten mit „palette: brick red #B3342F, black, light grey“ neu generieren.
+Kosten: 5 × 0,25 Credits = 1,25 Credits.
 
 ### Prompts (für Varianten oder Nachgenerierung)
 
@@ -60,7 +60,7 @@ Logo-Rot (#B3342F) den Prompt unten mit „palette: brick red #B3342F, black, li
 > Editorial photograph for a B2B newsletter hero image: interior of a modern German steel and metal construction workshop (Metallbau). Foreground: a weathered workbench with a rugged tablet showing a clean ERP software dashboard with quotation and order lists (abstract UI, no readable text). Background: welder with flying sparks, steel beams, CNC plasma cutter, soft morning light through high windows. Colors: steel grey, deep blue, warm orange sparks. Cinematic, shallow depth of field, photorealistic, no text, no logos.
 
 **E-Rechnung**
-> Clean modern flat-vector illustration for a newsletter section about XRechnung (German e-invoicing). Center: a stylized invoice document transforming into structured XML data blocks with angle brackets, a green checkmark badge, and a calendar page showing the year 2027. Subtle metal workshop elements (steel beam, bolt) in the background corners. Palette: dark navy blue, light grey, accent orange. Minimal, professional, lots of clean negative space, no other text.
+> Clean modern flat-vector illustration for a B2B newsletter section about XRechnung (German e-invoicing). Center: a stylized paper invoice document transforming into structured XML data blocks with angle brackets, a checkmark badge, and a small calendar page showing the year 2027. Subtle metal workshop elements (a steel I-beam, a bolt) in the background corners. Strict palette: brick red #B3342F as the single accent color, near-black #1A1A1A, light grey #F2F2F2 and white. No blue, no orange, no green. Minimal, professional, lots of clean negative space, no other text.
 
 **Schulung vor Ort**
 > Photorealistic photograph: an on-site software training in the office of a German metal construction company. A friendly trainer in a dark polo shirt stands beside a large monitor showing a calculation spreadsheet (abstract, no readable text), explaining to three employees in work clothes seated at the desk with their own laptop. Through the office window a steel workshop with beams is visible. Natural daylight, warm and collaborative mood, candid, no text, no logos.
